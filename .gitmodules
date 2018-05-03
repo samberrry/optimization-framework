@@ -1,0 +1,3 @@
+[submodule "optimization-framework"]
+	path = optimization-framework
+	url = https://gitlab.com/cloudproject/optimizationframework.git
