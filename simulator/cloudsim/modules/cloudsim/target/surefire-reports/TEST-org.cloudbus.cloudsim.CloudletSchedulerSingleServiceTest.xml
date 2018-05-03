@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.028" errors="0" skipped="0" tests="15" name="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/usr/local/jdk1.6.0_21/jre/lib/amd64"/>
+    <property name="java.vm.version" value="17.0-b16"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="AU"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim"/>
+    <property name="java.runtime.version" value="1.6.0_21-b06"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="basedir" value="/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim"/>
+    <property name="java.endorsed.dirs" value="/usr/local/jdk1.6.0_21/jre/lib/endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="surefire.real.class.path" value="/tmp/surefirebooter2355543299077988679.jar"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="os.name" value="Linux"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/local/jdk1.6.0_21/jre/lib/amd64/server:/usr/local/jdk1.6.0_21/jre/lib/amd64:/usr/local/jdk1.6.0_21/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="surefire.test.class.path" value="/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim/target/test-classes:/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim/target/classes:/home/williamv/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/williamv/.m2/repository/org/easymock/easymock/3.0/easymock-3.0.jar:/home/williamv/.m2/repository/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar:/home/williamv/.m2/repository/org/objenesis/objenesis/1.2/objenesis-1.2.jar:/home/williamv/.m2/repository/org/easymock/easymockclassextension/3.0/easymockclassextension-3.0.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Server Compiler"/>
+    <property name="os.version" value="2.6.35-28-generic"/>
+    <property name="user.home" value="/home/williamv"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="user.name" value="williamv"/>
+    <property name="java.class.path" value="/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim/target/test-classes:/home/williamv/Dropbox/workspace/cloudsim/modules/cloudsim/target/classes:/home/williamv/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/williamv/.m2/repository/org/easymock/easymock/3.0/easymock-3.0.jar:/home/williamv/.m2/repository/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar:/home/williamv/.m2/repository/org/objenesis/objenesis/1.2/objenesis-1.2.jar:/home/williamv/.m2/repository/org/easymock/easymockclassextension/3.0/easymockclassextension-3.0.jar:"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/usr/local/jdk1.6.0_21/jre"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_21"/>
+    <property name="java.ext.dirs" value="/usr/local/jdk1.6.0_21/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="sun.boot.class.path" value="/usr/local/jdk1.6.0_21/jre/lib/resources.jar:/usr/local/jdk1.6.0_21/jre/lib/rt.jar:/usr/local/jdk1.6.0_21/jre/lib/sunrsasign.jar:/usr/local/jdk1.6.0_21/jre/lib/jsse.jar:/usr/local/jdk1.6.0_21/jre/lib/jce.jar:/usr/local/jdk1.6.0_21/jre/lib/charsets.jar:/usr/local/jdk1.6.0_21/jre/classes"/>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="/home/williamv/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetMips"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetPesNumber"/>
+  <testcase time="0.003" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetUnderAllocatedMips"/>
+  <testcase time="0.001" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetCurrentRequestedMips"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetTotalUtilization"/>
+  <testcase time="0.001" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testCloudletFinish"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetTotalCurrentMips"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetTotalCurrentMipsForCloudlet"/>
+  <testcase time="0.003" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetEstimatedFinishTimeLowUtilization"/>
+  <testcase time="0.001" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testGetEstimatedFinishTimeHighUtilization"/>
+  <testcase time="0.001" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testCloudletSubmitLowUtilization"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testCloudletSubmitHighUtilization"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testUpdateVmProcessingLowUtilization"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testUpdateVmProcessingHighUtilization"/>
+  <testcase time="0" classname="org.cloudbus.cloudsim.CloudletSchedulerSingleServiceTest" name="testUpdateVmProcessingLowAndHighUtilization"/>
+</testsuite>

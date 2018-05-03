@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-04-18T17:55:48</date>
+  <millis>1524074148486</millis>
+  <sequence>0</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Loading properties: {}</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:48</date>
+  <millis>1524074148558</millis>
+  <sequence>1</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Logger new level is: INFO</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:49</date>
+  <millis>1524074149538</millis>
+  <sequence>2</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.simrecords.SimulationData</class>
+  <method>&lt;init&gt;</method>
+  <thread>1</thread>
+  <message>[0] Initialized Simulation Data in: /Users/Hessam/Desktop/buyyacode/intellij-buyya/git/TaskDuplication/WorkflowSim/simulationResults/a0ec466731dd1caf4dd1097efe26e8a</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:49</date>
+  <millis>1524074149546</millis>
+  <sequence>3</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>initialize</method>
+  <thread>1</thread>
+  <message>[0.0] Initialising...</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:49</date>
+  <millis>1524074149557</millis>
+  <sequence>4</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Loading properties: {}</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:49</date>
+  <millis>1524074149558</millis>
+  <sequence>5</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Logger new level is: INFO</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151941</millis>
+  <sequence>6</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm1.smallLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151943</millis>
+  <sequence>7</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm1.mediumLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151953</millis>
+  <sequence>8</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm1.largeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151955</millis>
+  <sequence>9</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm1.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151957</millis>
+  <sequence>10</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm2.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151958</millis>
+  <sequence>11</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm2.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151960</millis>
+  <sequence>12</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm2.4xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151961</millis>
+  <sequence>13</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm3.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:51</date>
+  <millis>1524074151963</millis>
+  <sequence>14</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEAm3.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152053</millis>
+  <sequence>15</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm1.smallLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152055</millis>
+  <sequence>16</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm1.mediumLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152056</millis>
+  <sequence>17</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm1.largeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152057</millis>
+  <sequence>18</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm1.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152058</millis>
+  <sequence>19</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm2.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152060</millis>
+  <sequence>20</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm2.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152061</millis>
+  <sequence>21</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm2.4xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152062</millis>
+  <sequence>22</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm3.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152063</millis>
+  <sequence>23</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPEBm3.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152100</millis>
+  <sequence>24</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm1.smallLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152101</millis>
+  <sequence>25</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm1.mediumLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152101</millis>
+  <sequence>26</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm1.largeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152103</millis>
+  <sequence>27</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm1.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152104</millis>
+  <sequence>28</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm2.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152104</millis>
+  <sequence>29</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm2.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152105</millis>
+  <sequence>30</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm2.4xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152106</millis>
+  <sequence>31</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm3.xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152107</millis>
+  <sequence>32</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.spotsim.pricing.SpotPriceHistory</class>
+  <method>loadEC2Traces</method>
+  <thread>1</thread>
+  <message>Loaded prices for EUROPECm3.2xlargeLINUX</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152261</millis>
+  <sequence>33</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.workflow.TaskDuplicationWorkflowMain</class>
+  <method>runReplicaSim</method>
+  <thread>1</thread>
+  <message>[0] Loading policy org.cloudbus.cloudsim.workflow.Newpolicies.TaskDuplicationSchedulingPol</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152511</millis>
+  <sequence>34</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>startSimulation</method>
+  <thread>1</thread>
+  <message>[0.0] Starting CloudSim version 2.0</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152512</millis>
+  <sequence>35</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 0 CloudSimShutdown is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152512</millis>
+  <sequence>36</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 1 CloudInformationService is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152514</millis>
+  <sequence>37</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.small: PriceRecord [time=0, price=0.0047]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152576</millis>
+  <sequence>38</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.medium: PriceRecord [time=0, price=0.0095]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152577</millis>
+  <sequence>39</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.large: PriceRecord [time=0, price=0.019]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152578</millis>
+  <sequence>40</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.xlarge: PriceRecord [time=0, price=0.0379]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152579</millis>
+  <sequence>41</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.xlarge: PriceRecord [time=0, price=0.0275]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152580</millis>
+  <sequence>42</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.2xlarge: PriceRecord [time=0, price=0.055]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152581</millis>
+  <sequence>43</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.4xlarge: PriceRecord [time=0, price=0.11]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152581</millis>
+  <sequence>44</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.xlarge: PriceRecord [time=0, price=0.0612]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152582</millis>
+  <sequence>45</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.2xlarge: PriceRecord [time=0, price=0.1223]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152583</millis>
+  <sequence>46</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.small: PriceRecord [time=0, price=0.0047]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152584</millis>
+  <sequence>47</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.medium: PriceRecord [time=0, price=0.0095]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152584</millis>
+  <sequence>48</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.large: PriceRecord [time=0, price=0.019]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152585</millis>
+  <sequence>49</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.xlarge: PriceRecord [time=0, price=0.0379]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152586</millis>
+  <sequence>50</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.xlarge: PriceRecord [time=0, price=0.0275]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152586</millis>
+  <sequence>51</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.2xlarge: PriceRecord [time=0, price=0.055]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152587</millis>
+  <sequence>52</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.4xlarge: PriceRecord [time=0, price=0.11]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152587</millis>
+  <sequence>53</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.xlarge: PriceRecord [time=0, price=0.0612]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152588</millis>
+  <sequence>54</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.2xlarge: PriceRecord [time=0, price=0.1223]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152589</millis>
+  <sequence>55</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.small: PriceRecord [time=0, price=0.0047]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152589</millis>
+  <sequence>56</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.medium: PriceRecord [time=0, price=0.0095]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152590</millis>
+  <sequence>57</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.large: PriceRecord [time=0, price=0.019]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152591</millis>
+  <sequence>58</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m1.xlarge: PriceRecord [time=0, price=0.0379]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152591</millis>
+  <sequence>59</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.xlarge: PriceRecord [time=0, price=0.0275]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152592</millis>
+  <sequence>60</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.2xlarge: PriceRecord [time=0, price=0.055]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152593</millis>
+  <sequence>61</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m2.4xlarge: PriceRecord [time=0, price=0.11]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152593</millis>
+  <sequence>62</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.xlarge: PriceRecord [time=0, price=0.0612]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152594</millis>
+  <sequence>63</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.cloudprovider.ComputeCloudImpl</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>[0] Scheduling price change for type m3.2xlarge: PriceRecord [time=0, price=0.1223]</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152594</millis>
+  <sequence>64</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 2 Cloud is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152612</millis>
+  <sequence>65</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 3 dc-eu-west-1A is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152612</millis>
+  <sequence>66</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 4 dc-eu-west-1B is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152612</millis>
+  <sequence>67</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 5 dc-eu-west-1C is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:55:52</date>
+  <millis>1524074152613</millis>
+  <sequence>68</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.workflow.broker.WorkflowBroker</class>
+  <method>startEntity</method>
+  <thread>1</thread>
+  <message>Starting simulation at date: 2013-01-15_00:01:09</message>
+</record>
+<record>
+  <date>2018-04-18T17:57:09</date>
+  <millis>1524074229144</millis>
+  <sequence>69</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 6 client1 is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:57:09</date>
+  <millis>1524074229201</millis>
+  <sequence>70</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0.0] Entity 7 FailureBroker is starting</message>
+</record>
+<record>
+  <date>2018-04-18T17:57:09</date>
+  <millis>1524074229202</millis>
+  <sequence>71</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>runStart</method>
+  <thread>1</thread>
+  <message>[0] 8 Entities started.</message>
+</record>
+<record>
+  <date>2018-04-18T17:57:09</date>
+  <millis>1524074229281</millis>
+  <sequence>72</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.cloudsim.workflow.broker.WorkflowBroker</class>
+  <method>schedule</method>
+  <thread>1</thread>
+  <message>[0] SCHED 166 jobs, to do: 1000, non urgent: 0, Instances: 0, time passed: 76, Jobs processed per second: 2.0</message>
+</record>
+<record>
+  <date>2018-04-18T18:03:43</date>
+  <millis>1524074623384</millis>
+  <sequence>73</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.workflow.Newpolicies.PolicyUtils</class>
+  <method>printScheDec</method>
+  <thread>1</thread>
+  <message>[0]  SCHEDULING JOB: 29-0, length: 900, LTO: 9403, Critical Path: 25497, Task CP wght: 900, Type: m1.small, LST 0, Remaining Budget 1000, Bid: 0.044, Failure Probability: 0, Price Model: SPOT, New Instance: true, Resource Id: null</message>
+</record>
+<record>
+  <date>2018-04-18T18:03:54</date>
+  <millis>1524074634825</millis>
+  <sequence>74</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.workflow.broker.WorkflowBroker</class>
+  <method>requestNewInstance</method>
+  <thread>1</thread>
+  <message>[0] Requesting new instance of type m1.small requested for task 29-0 of job 29 bid 0.044 current price 0.0047 maxwaittime = 0</message>
+</record>
+<record>
+  <date>2018-04-18T18:03:58</date>
+  <millis>1524074638256</millis>
+  <sequence>75</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.workflow.broker.WorkflowFailureBroker</class>
+  <method>allocateTask</method>
+  <thread>1</thread>
+  <message>[0]  Scheduling Decision: SchedulingDecision [task=29-0=SCHEDULED, bidPrice=0.044, chosenInstanceType=m1.small, cost=0.044, estimatedRunTime=900, startNewInstance=true, startTime=0, instance status=null], total cost: 0.044, total runtime: 900.0, Resource: 0</message>
+</record>
+<record>
+  <date>2018-04-18T18:04:40</date>
+  <millis>1524074680718</millis>
+  <sequence>76</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>WARNING</level>
+  <class>org.cloudbus.cloudsim.workflow.TaskDuplicationWorkflowMain</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>java.lang.NullPointerException</message>
+</record>
+<record>
+  <date>2018-04-18T18:04:46</date>
+  <millis>1524074686849</millis>
+  <sequence>77</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.cloudsim.core.CloudSim</class>
+  <method>initialize</method>
+  <thread>1</thread>
+  <message>[0.0] Initialising...</message>
+</record>
+<record>
+  <date>2018-04-18T18:04:46</date>
+  <millis>1524074686852</millis>
+  <sequence>78</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Loading properties: {}</message>
+</record>
+<record>
+  <date>2018-04-18T18:04:46</date>
+  <millis>1524074686852</millis>
+  <sequence>79</sequence>
+  <logger>org.cloudbus.cloudsim</logger>
+  <level>INFO</level>
+  <class>org.cloudbus.spotsim.main.config.Config</class>
+  <method>load</method>
+  <thread>1</thread>
+  <message>Logger new level is: INFO</message>
+</record>
+</log>
