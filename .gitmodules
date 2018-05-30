@@ -1,6 +1,0 @@
-[submodule "optimization-framework"]
-	path = optimization-framework
-	url = https://gitlab.com/cloudproject/optimizationframework.git
-[submodule "downey"]
-	path = downey
-	url = git@gitlab.com:cloudproject/downey.git

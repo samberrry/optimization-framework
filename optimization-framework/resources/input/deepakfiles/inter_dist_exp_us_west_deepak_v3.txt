@@ -1,0 +1,8 @@
+m1.small 0.0385
+c1.medium 0.982
+m1.large 0.895
+m2.xlarge 0.877
+m1.xlarge 0.836
+c1.xlarge 0.868
+m2.2xlarge 0.876
+m2.4xlarge 0.833

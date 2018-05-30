@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../simulator/cloudsim/Cloudsim.iml" filepath="$PROJECT_DIR$/../simulator/cloudsim/Cloudsim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OptimizationFramework.iml" filepath="$PROJECT_DIR$/OptimizationFramework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../simulator/spotsim/Spotsim.iml" filepath="$PROJECT_DIR$/../simulator/spotsim/Spotsim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../simulator/workflowsim/WorkflowSim.iml" filepath="$PROJECT_DIR$/../simulator/workflowsim/WorkflowSim.iml" />
+    </modules>
+  </component>
+</project>
