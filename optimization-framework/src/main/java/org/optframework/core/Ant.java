@@ -1,14 +1,16 @@
 package org.optframework.core;
 
-import org.optframework.core.parameters.Solution;
+import org.cloudbus.cloudsim.util.workload.Workflow;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
-public class Ant extends RecursiveTask<List<Solution>>{
+public class Ant extends RecursiveTask<List<Solution>> {
 
     int level;
+
+    Workflow workflow;
 
     public Ant(int level) {
         this.level = level;
@@ -22,7 +24,8 @@ public class Ant extends RecursiveTask<List<Solution>>{
         if (level == 1){
             Log.logger.info("An ant is started");
             //Simulated Annealing portion
-            SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(2);
+            SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm();
+            saAlgorithm.workflow = workflow;
             solutionList.add(saAlgorithm.runSA());
             return solutionList;
         }else{

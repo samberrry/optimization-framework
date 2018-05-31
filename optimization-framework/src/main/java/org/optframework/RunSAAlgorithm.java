@@ -6,24 +6,23 @@ import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.Log;
-import org.optframework.core.PACSAOptimization;
+import org.optframework.core.SimulatedAnnealingAlgorithm;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
  * @version 1.0.0
  */
 
-public class RunPACSAAlgorithm implements StaticProperties {
+public class RunSAAlgorithm implements StaticProperties {
 
     public static void main( String[] args )
     {
         Log.init();
 
-        PACSAOptimization pacsaOptimization = new PACSAOptimization(populateSimpleWorkflow(1000, 0));
+        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateSimpleWorkflow(1000, 0));
 
-//        PACSAOptimization saAlgorithm = new PACSAOptimization(populateWorkflowFromDax(1000, 0));
-
-        pacsaOptimization.runAlgorithm();
+//      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateWorkflowFromDax(1000, 0));
+        saAlgorithm.runSA();
     }
 
     private static Workflow populateSimpleWorkflow(double budget, long deadline){

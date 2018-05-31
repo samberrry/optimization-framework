@@ -1,17 +1,13 @@
 package org.optframework.core;
 
-import org.optframework.config.PACSAStaticParameters;
-import org.optframework.core.parameters.HBMOParameters;
-import org.optframework.core.parameters.Solution;
+import org.optframework.config.StaticProperties;
 
 /**
  * @author Hessam hessam.modaberi@gmail.com
  *
  * */
 
-public class HoneyBeeMatingOptimization implements OptimizationAlgorithm, PACSAStaticParameters {
-
-    private HBMOParameters params;
+public class HoneyBeeMatingOptimization implements OptimizationAlgorithm, StaticProperties {
 
     private Solution solution;
 

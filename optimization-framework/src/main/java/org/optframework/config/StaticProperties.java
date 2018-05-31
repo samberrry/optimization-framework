@@ -1,11 +1,11 @@
 package org.optframework.config;
 
 /**
- * Static parameters of the problem are those that will not change during the simulation process
+ * Static properties of the problem those that will not change during the simulation process
  * and must be set
  * */
 
-public interface StaticParameters {
+public interface StaticProperties {
     /** The maximum number of instances is limited to M = mNumber, normally M = 50 */
     int M_NUMBER = 100;
 
@@ -14,4 +14,24 @@ public interface StaticParameters {
 
     /** The number of different types of spot-instances, is equal to the number of different types of on-demand instances */
     int N_TYPES = 9;
+
+    double START_TEMP = 850;
+
+    double FINAL_TEMP = 0.1;
+
+    double COOLING_FACTOR = 0.8;
+
+    double INCREASE_RATE_OF_CF = 1.004;
+
+    double EQUILIBRIUM_POINT = 0.99;
+
+    double SA_EQUILIBRIUM_COUNT = 10;
+
+    double INTENSIFICATION_RATE = 0.95;
+
+    double EVAPORATION_FACTOR = 0.9;
+
+    int NUMBER_OF_ANTS = 16;
+
+    double PENALTY_COEFFICIENT = 10;
 }
