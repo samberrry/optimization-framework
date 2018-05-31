@@ -18,6 +18,7 @@ public class RunSAAlgorithm implements StaticProperties {
     public static void main( String[] args )
     {
         Log.init();
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES);
 
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateSimpleWorkflow(1000, 0));
 

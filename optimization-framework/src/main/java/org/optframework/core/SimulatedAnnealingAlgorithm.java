@@ -1,10 +1,12 @@
 package org.optframework.core;
 
 import org.cloudbus.cloudsim.util.workload.Workflow;
+import org.optframework.config.StaticProperties;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class SimulatedAnnealingAlgorithm {
+public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
     double temp;
 
@@ -25,6 +27,8 @@ public class SimulatedAnnealingAlgorithm {
 
     public Solution runSA(){
         Log.logger.info("Starts SA Algorithm");
+        Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
+
 //        INPUTS: OK
 
 //        GENERATION of the initial solution = X Y arrays
