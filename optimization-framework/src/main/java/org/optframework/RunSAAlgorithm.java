@@ -18,9 +18,10 @@ public class RunSAAlgorithm implements StaticProperties {
     public static void main( String[] args )
     {
         Log.init();
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES);
+        Workflow workflow = populateSimpleWorkflow(1000, 0);
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
-        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateSimpleWorkflow(1000, 0));
+        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow);
 
 //      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateWorkflowFromDax(1000, 0));
         saAlgorithm.runSA();

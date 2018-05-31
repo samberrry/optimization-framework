@@ -2,3 +2,4 @@ optimization-framework/out/*
 optimization-framework/cloudsim.log
 optimization-framework/resources/output/*
 optimization-framework/target/*
+optimization-framework/resources/log/*

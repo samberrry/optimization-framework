@@ -29,9 +29,10 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
         Log.logger.info("Starts SA Algorithm");
         Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
 
-//        INPUTS: OK
+        Solution initialSolution = new Solution(workflow.getJobList().size(), M_NUMBER);
 
-//        GENERATION of the initial solution = X Y arrays
+        //Initializes the initial solution with random values
+        initialSolution.generateRandomSolution(workflow);
 
 //        LOOP
 
