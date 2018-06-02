@@ -4,6 +4,7 @@ import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.config.StaticProperties;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -37,6 +38,8 @@ public class Solution implements StaticProperties {
     public int makespan;
 
     public int numberOfUsedInstances;
+
+    public int visited;
 
     /**
      * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
@@ -97,11 +100,17 @@ public class Solution implements StaticProperties {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Solution solution = (Solution) o;
-        return id == solution.id;
+        return id == solution.id &&
+                Arrays.equals(xArray, solution.xArray) &&
+                Arrays.equals(yArray, solution.yArray);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+
+        int result = Objects.hash(id);
+        result = 31 * result + Arrays.hashCode(xArray);
+        result = 31 * result + Arrays.hashCode(yArray);
+        return result;
     }
 }
