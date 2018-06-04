@@ -5,6 +5,7 @@ import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.RunSAAlgorithm;
 import org.optframework.config.StaticProperties;
 
 import java.util.*;
@@ -16,6 +17,8 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
     Set<Solution> visited_solutions = new HashSet<>();
 
     Solution bestCurrent;
+
+    Solution globalBest;
 
     Workflow workflow;
 
@@ -42,6 +45,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
         temp = START_TEMP;
         bestCurrent = initialSolution;
+        globalBest = bestCurrent;
         fitness(bestCurrent);
 
         //LOOP at a fixed temperature:
@@ -49,6 +53,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
             for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
                 //GENERATES random neighbor
                 Solution randomNeighbor = new Solution(workflow.getJobList().size(), M_NUMBER);
+                randomNeighbor.generateRandomSolution(workflow);
                 if (!visited_solutions.contains(randomNeighbor)){
                     visited_solutions.add(randomNeighbor);
 
@@ -57,6 +62,9 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                     double delta = randomNeighbor.cost - bestCurrent.cost;
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
+                        if(randomNeighbor.cost - globalBest.cost <= 0){
+                            globalBest = randomNeighbor;
+                        }
                     }else {
                         //Generate a uniform random value x in the range (0,1)
                         Random r = new Random();
@@ -72,7 +80,10 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
             }
             temp -= COOLING_FACTOR;
         }
-        return bestCurrent;
+        if(bestCurrent.cost - globalBest.cost <= 0){
+            globalBest = bestCurrent;
+        }
+        return globalBest;
     }
 
     void updateVisitedField(Solution solution){
@@ -131,6 +142,9 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 job.setFinishTime(instancesTimes[instance]);
             }
         }
+
+        //Go to the second level
+        level = dag.getNextLevel(level);
 
         //Do this for the levels after the initial level
         while (dag.getNextLevel(level).size() != 0){

@@ -113,4 +113,12 @@ public class Solution implements StaticProperties {
         result = 31 * result + Arrays.hashCode(yArray);
         return result;
     }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 }

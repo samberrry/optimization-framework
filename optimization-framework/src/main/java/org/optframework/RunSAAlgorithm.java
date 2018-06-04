@@ -16,6 +16,7 @@ import org.optframework.config.StaticProperties;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.SimulatedAnnealingAlgorithm;
+import org.optframework.core.Solution;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
@@ -48,10 +49,12 @@ public class RunSAAlgorithm implements StaticProperties {
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX));
 
 //      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateWorkflowFromDax(1000, 0));
-        saAlgorithm.runSA();
+        Solution solution = saAlgorithm.runSA();
+        Log.logger.info("Total Cost: " + solution.getCost());
+        System.out.println("Total Cost: " + solution.getCost());
     }
 
-    private static Workflow populateSimpleWorkflow(double budget, long deadline){
+    public static Workflow populateSimpleWorkflow(double budget, long deadline){
         Log.logger.info("Populates the workflow from the simple workflow");
 
         Workflow simpleWorkflow = new Workflow(6, 1000, 1000);
@@ -96,11 +99,11 @@ public class RunSAAlgorithm implements StaticProperties {
 
         simpleWorkflow.addEdge(wfA, wfB, 0);
         simpleWorkflow.addEdge(wfA, wfC, 0);
-        simpleWorkflow.addEdge(wfB, wfD, 2);
-        simpleWorkflow.addEdge(wfB, wfE, 2);
-        simpleWorkflow.addEdge(wfD, wfF, 1);
+        simpleWorkflow.addEdge(wfB, wfD, 0);
+        simpleWorkflow.addEdge(wfB, wfE, 0);
+        simpleWorkflow.addEdge(wfD, wfF, 0);
         simpleWorkflow.addEdge(wfE, wfF, 0);
-        simpleWorkflow.addEdge(wfC, wfF, 2);
+        simpleWorkflow.addEdge(wfC, wfF, 0);
 
         return simpleWorkflow;
     }
