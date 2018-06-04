@@ -13,6 +13,7 @@ import org.cloudbus.spotsim.pricing.PriceRecord;
 import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
+import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.SimulatedAnnealingAlgorithm;
 
@@ -118,15 +119,19 @@ public class RunSAAlgorithm implements StaticProperties {
         return workflow;
     }
 
-    private static double[] populateInstancePrices(Region region , AZ az, OS os){
+    private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
         Log.logger.info("Loads spot prices history");
         SpotPriceHistory priceTraces = PriceDB.getPriceTrace(region , az);
-        double prices[] = new double[InstanceType.values().length];
+        InstanceInfo info[] = new InstanceInfo[InstanceType.values().length];
 
         for (InstanceType type: InstanceType.values()){
             PriceRecord priceRecord = priceTraces.getNextPriceChange(type,os);
-            prices[type.getId()] = priceRecord.getPrice();
+            InstanceInfo instanceInfo = new InstanceInfo();
+            instanceInfo.setSpotPrice(priceRecord.getPrice());
+            instanceInfo.setType(type);
+
+            info[type.getId()] = instanceInfo;
         }
-        return prices;
+        return info;
     }
 }

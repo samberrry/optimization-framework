@@ -92,7 +92,15 @@ public class Job implements Serializable {
     private boolean flagLST = false;
     
     private long parentEdgeWeight;
-    
+
+//    HESSAM ADDED THIS FIELD
+    private double weight;
+
+//    HESSAM ADDED THIS FIELD
+    private double finishTime;
+
+//    HESSAM ADDED THIS FIELD
+	private double exeTime;
 
     /**
      * Creates a new object.
@@ -278,11 +286,11 @@ public class Job implements Serializable {
 	return this.tasks;
     }
 
-    public long getTimeTaken() {
-	return this.timeTaken;
-    }
+	public long getTimeTaken() {
+		return timeTaken;
+	}
 
-    public int getUserID() {
+	public int getUserID() {
 	return this.userID;
     }
 
@@ -365,11 +373,11 @@ public class Job implements Serializable {
     	}
     }
 
-    public void setTimeTaken(final long timeTaken) {
-	this.timeTaken = timeTaken;
-    }
-    
-    public long getEdge(int taskID){
+	public void setTimeTaken(long timeTaken) {
+		this.timeTaken = timeTaken;
+	}
+
+	public long getEdge(int taskID){
 		for(WFEdge edge : edgeInfo){
 			if(taskID == edge.getToTaskID()){
 				return edge.getTransferTime();
@@ -464,4 +472,27 @@ public class Job implements Serializable {
 		this.parentEdgeWeight = parentEdgeWeight;
 	}
 
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public double getFinishTime() {
+		return finishTime;
+	}
+
+	public void setFinishTime(double finishTime) {
+		this.finishTime = finishTime;
+	}
+
+	public double getExeTime() {
+		return exeTime;
+	}
+
+	public void setExeTime(double exeTime) {
+		this.exeTime = exeTime;
+	}
 }

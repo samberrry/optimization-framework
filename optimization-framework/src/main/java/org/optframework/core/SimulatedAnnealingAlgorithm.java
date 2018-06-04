@@ -1,11 +1,13 @@
 package org.optframework.core;
 
+import com.rits.cloning.Cloner;
+import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
@@ -15,18 +17,18 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
     Solution bestCurrent;
 
-    int globalCounter = 0;
-
     Workflow workflow;
 
-    double prices[];
+    InstanceInfo instanceInfo[];
+
+    Cloner cloner = new Cloner();
 
     public SimulatedAnnealingAlgorithm() {
     }
 
-    public SimulatedAnnealingAlgorithm(Workflow workflow, double[] prices) {
+    public SimulatedAnnealingAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
-        this.prices = prices;
+        this.instanceInfo = instanceInfo;
     }
 
     public Solution runSA(){
@@ -40,6 +42,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
         temp = START_TEMP;
         bestCurrent = initialSolution;
+        fitness(bestCurrent);
 
         //LOOP at a fixed temperature:
         while (temp >= FINAL_TEMP){
@@ -49,7 +52,9 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 if (!visited_solutions.contains(randomNeighbor)){
                     visited_solutions.add(randomNeighbor);
 
-                    double delta = fitness(randomNeighbor) - fitness(bestCurrent);
+                    fitness(randomNeighbor);
+
+                    double delta = randomNeighbor.cost - bestCurrent.cost;
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
                     }else {
@@ -82,9 +87,110 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
         return Math.exp(-(Math.abs(delta))/temp);
     }
 
-    double fitness(Solution solution){
+    /**
+     * The fitness function for this problem computes the required cost to the workflow on the specified instances
+     * */
+    void fitness(Solution solution){
+        long elapsedTime;
+        double cost;
+
+        Workflow clonedWorkflow = cloner.deepClone(workflow);
+
+        WorkflowDAG dag = clonedWorkflow.getWfDAG();
+        ArrayList<Integer> level = dag.getFirstLevel();
+
+        ArrayList<Job> jobList = (ArrayList<Job>) clonedWorkflow.getJobList();
+
+        int instancesTimes[] = new int[solution.numberOfUsedInstances];
+
+        Map<Integer, ArrayList<ReadyTask>> instanceList = new HashMap();
+
+//      Do this for the first level - First level may contain several tasks
+        for (int jobId: level){
+            int instanceId = solution.xArray[jobId];
+            int type = solution.yArray[instanceId];
+            long exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceInfo[type].getType());
+
+            if (!instanceList.containsKey(instanceId)){
+                instanceList.put(instanceId, new ArrayList<ReadyTask>());
+            }
+            ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
+            readyTaskList.add(new ReadyTask(jobId, exeTime));
+        }
+
+//      Computes maximum task's length and updates the instance times
+        for (Integer instance : instanceList.keySet()){
+            ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
+            Collections.sort(readyTaskList);
+
+            for (ReadyTask readyTask : readyTaskList){
+                instancesTimes[instance] += readyTask.exeTime;
+                Job job = jobList.get(readyTask.jobId);
+
+                job.setExeTime(readyTask.exeTime);
+                job.setWeight(readyTask.exeTime);
+                job.setLatestFinishTime(instancesTimes[instance]);
+            }
+        }
+
+        //Do this for the levels after the initial level
+        while (dag.getNextLevel(level).size() != 0){
+            instanceList = new HashMap<>();
+
+            /**
+             * This for do the following:
+             * - finds max parent finish time for every task in a level
+             * - assigns all of them to an instance
+             * - computes weights for all of the tasks in a level and make them ready to run on instance
+             * */
+            for (int jobId: level){
+                int instanceId = solution.xArray[jobId];
+                int typeId = solution.yArray[instanceId];
+
+                InstanceType instanceType = instanceInfo[typeId].getType();
+                long exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceType);
 
 
-        return 0;
+               ArrayList<Integer> parentList = dag.getParents(jobId);
+
+               ArrayList<ParentTask> parentTaskList = new ArrayList<>();
+               for (Integer parentId : parentList){
+                   parentTaskList.add(new ParentTask(parentId , jobList.get(parentId).getLatestFinishTime() , jobList.get(parentId).getEdge(jobId)/ instanceType.getBandwidth()));
+               }
+               ParentTask maxParent = findMaxParentFinishTimeWithCR(parentTaskList);
+
+                if (!instanceList.containsKey(instanceId)){
+                    instanceList.put(instanceId, new ArrayList<ReadyTask>());
+                }
+                ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
+
+                readyTaskList.add(new ReadyTask(jobId,exeTime, maxParent.parentFinishTime, maxParent.cr));
+            }
+
+//            It is time to compute the time for every instance
+            for (Integer instance : instanceList.keySet()){
+                ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
+
+
+                for (ReadyTask readyTask : readyTaskList){
+////////////////////// For all tasks on an instance
+
+                }
+            }
+
+            level = dag.getNextLevel(level);
+        }
+    }
+
+    ParentTask findMaxParentFinishTimeWithCR(ArrayList<ParentTask> parentTaskList){
+        ParentTask max = parentTaskList.get(0);
+        double maxTemp = max.parentFinishTime + max.cr;
+
+        for (ParentTask task : parentTaskList){
+            double temp = task.parentFinishTime + task.cr;
+            if (temp > maxTemp)
+                max = task;
+        }
+        return  max;
     }
 }

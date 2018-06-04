@@ -14,7 +14,7 @@ public class Solution implements StaticProperties {
     /**
      * Cost of the solution
      * */
-    int cost;
+    double cost = -1D;
     /**
      *  Integer array X is used to represent the assignment of tasks to instances.
      * The value of the ith element of this array specifies the index of instance to which this task is assigned.`
