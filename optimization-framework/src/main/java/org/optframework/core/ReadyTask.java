@@ -19,6 +19,7 @@ public class ReadyTask implements Comparable<ReadyTask>{
         this.exeTime = exeTime;
         this.maxParentFinishTime = maxParentFinishTime;
         this.cr = cr;
+        this.weight = maxParentFinishTime + cr;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ReadyTask implements Comparable<ReadyTask>{
     public static Comparator<ReadyTask> weightComparator = new Comparator<ReadyTask>() {
         @Override
         public int compare(ReadyTask o1, ReadyTask o2) {
-            return (int)o1.weight - (int)o2.weight;
+            return (int)o2.weight - (int)o1.weight;
         }
     };
 }

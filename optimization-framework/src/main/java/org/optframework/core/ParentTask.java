@@ -5,7 +5,7 @@ public class ParentTask {
     double parentFinishTime;
     double cr;
 
-    public ParentTask(int parentId, long parentFinishTime, long cr) {
+    public ParentTask(int parentId, double parentFinishTime, double cr) {
         this.parentId = parentId;
         this.parentFinishTime = parentFinishTime;
         this.cr = cr;

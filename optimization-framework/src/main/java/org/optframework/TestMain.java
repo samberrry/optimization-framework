@@ -128,17 +128,14 @@ public class TestMain {
 //        ==============
 
         ArrayList<ReadyTask> readyTasks = new ArrayList<>();
-        readyTasks.add(new ReadyTask(123312,343));
-        readyTasks.add(new ReadyTask(1212,3434));
-        readyTasks.add(new ReadyTask(2,134));
-        readyTasks.add(new ReadyTask(2,1));
-        readyTasks.add(new ReadyTask(1,234));
-        readyTasks.add(new ReadyTask(1,876567));
+        readyTasks.add(new ReadyTask(123312,343,123,13.12));
+        readyTasks.add(new ReadyTask(1212,3434,33,55.12));
+        readyTasks.add(new ReadyTask(2,134,45666,2.1));
+        readyTasks.add(new ReadyTask(2,1,2,4));
+        readyTasks.add(new ReadyTask(1,234,22222,4444.2));
+        readyTasks.add(new ReadyTask(1,876567,242412,12));
 
-        Collections.sort(readyTasks);
-        int array[] = {12,2,3,4,5,6,32,45,6,6,78,89,89};
-        List intArray = Arrays.asList(array);
-        Collections.sort(intArray);
+        Collections.sort(readyTasks, ReadyTask.weightComparator);
 
         int a2=3;
 

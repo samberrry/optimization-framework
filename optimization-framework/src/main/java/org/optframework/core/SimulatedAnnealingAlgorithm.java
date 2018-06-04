@@ -91,8 +91,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
      * The fitness function for this problem computes the required cost to the workflow on the specified instances
      * */
     void fitness(Solution solution){
-        long elapsedTime;
-        double cost;
+        double totalCost = 0;
 
         Workflow clonedWorkflow = cloner.deepClone(workflow);
 
@@ -101,7 +100,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
         ArrayList<Job> jobList = (ArrayList<Job>) clonedWorkflow.getJobList();
 
-        int instancesTimes[] = new int[solution.numberOfUsedInstances];
+        double instancesTimes[] = new double[solution.numberOfUsedInstances];
 
         Map<Integer, ArrayList<ReadyTask>> instanceList = new HashMap();
 
@@ -129,7 +128,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
                 job.setExeTime(readyTask.exeTime);
                 job.setWeight(readyTask.exeTime);
-                job.setLatestFinishTime(instancesTimes[instance]);
+                job.setFinishTime(instancesTimes[instance]);
             }
         }
 
@@ -155,7 +154,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
                ArrayList<ParentTask> parentTaskList = new ArrayList<>();
                for (Integer parentId : parentList){
-                   parentTaskList.add(new ParentTask(parentId , jobList.get(parentId).getLatestFinishTime() , jobList.get(parentId).getEdge(jobId)/ instanceType.getBandwidth()));
+                   parentTaskList.add(new ParentTask(parentId , jobList.get(parentId).getFinishTime() , jobList.get(parentId).getEdge(jobId)/ instanceType.getBandwidth()));
                }
                ParentTask maxParent = findMaxParentFinishTimeWithCR(parentTaskList);
 
@@ -170,16 +169,26 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 //            It is time to compute the time for every instance
             for (Integer instance : instanceList.keySet()){
                 ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
-
+                Collections.sort(readyTaskList, ReadyTask.weightComparator);
 
                 for (ReadyTask readyTask : readyTaskList){
-////////////////////// For all tasks on an instance
+                    instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
+                    Job job = jobList.get(readyTask.jobId);
 
+                    job.setExeTime(readyTask.exeTime);
+                    job.setFinishTime(instancesTimes[instance]);
+                    job.setWeight(readyTask.exeTime + readyTask.cr);
                 }
             }
 
             level = dag.getNextLevel(level);
         }
+
+//       Now we have exe time for each instance
+        for (int i = 0; i < instancesTimes.length; i++) {
+            totalCost += (instancesTimes[i]/3600D) * instanceInfo[i].spotPrice;
+        }
+        solution.cost = totalCost;
     }
 
     ParentTask findMaxParentFinishTimeWithCR(ArrayList<ParentTask> parentTaskList){
