@@ -37,7 +37,7 @@ public class RunSAAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = populateSimpleWorkflow(1000, 0);
+        Workflow workflow = populateSimpleWorkflow2(1000, 0);
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
@@ -48,12 +48,16 @@ public class RunSAAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX));
+      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
 
         Solution solution = saAlgorithm.runSA();
+
         Log.logger.info("Total Cost: " + solution.getCost());
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Requested time for instance " + instanceInfo[i].getType().getName() + " : " + solution.instanceTimes[i]);
+        }
     }
 
     public static Workflow populateSimpleWorkflow(double budget, long deadline){
@@ -109,6 +113,55 @@ public class RunSAAlgorithm implements StaticProperties {
 
         return simpleWorkflow;
     }
+
+    public static Workflow populateSimpleWorkflow2(double budget, long deadline){
+        Log.logger.info("Populates the workflow from the simple workflow");
+
+        Workflow simpleWorkflow = new Workflow(5, 1000, 1000);
+
+        simpleWorkflow.initBudget(budget);
+        simpleWorkflow.setDeadline(deadline);
+
+        /**
+         * Defining a simple workflow A->B B->D, B->E, D->F, E->F
+         * */
+
+        int taskID = 0;
+
+        int groupID = 1;
+        int userID = 1;
+        long submitTime = 0 ;
+        int numProc = 1;
+
+        Job wfA = new Job(taskID, submitTime, 360 , userID, groupID, 360, numProc);
+        simpleWorkflow.createTask(wfA);
+        taskID++;
+
+        Job wfB = new Job(taskID, submitTime, 10 , userID, groupID, 10, numProc);
+        simpleWorkflow.createTask(wfB);
+        taskID++;
+
+        Job wfD = new Job(taskID, submitTime, 50 , userID, groupID, 50, numProc);
+        simpleWorkflow.createTask(wfD);
+        taskID++;
+
+        Job wfE = new Job(taskID, submitTime, 100 , userID, groupID, 100, numProc);
+        simpleWorkflow.createTask(wfE);
+        taskID++;
+
+        Job wfF = new Job(taskID, submitTime, 40 , userID, groupID, 40, numProc);
+        simpleWorkflow.createTask(wfF);
+        taskID++;
+
+        simpleWorkflow.addEdge(wfA, wfB, 0);
+        simpleWorkflow.addEdge(wfB, wfD, 0);
+        simpleWorkflow.addEdge(wfB, wfE, 0);
+        simpleWorkflow.addEdge(wfD, wfF, 0);
+        simpleWorkflow.addEdge(wfE, wfF, 0);
+
+        return simpleWorkflow;
+    }
+
 
     private static Workflow populateWorkflowFromDax(double budget, long deadline) {
         Log.logger.info("Populates the workflow from Dax file");

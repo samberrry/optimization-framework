@@ -154,7 +154,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
         level = dag.getNextLevel(level);
 
         //Do this for the levels after the initial level
-        while (dag.getNextLevel(level).size() != 0){
+        while (level.size() != 0){
             instanceList = new HashMap<>();
 
             /**
@@ -196,6 +196,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                     Job job = jobList.get(readyTask.jobId);
 
                     if (!instanceUsed[instance]){
+                        instanceUsed[instance] = true;
                         instancesTimes[instance] = readyTask.exeTime + readyTask.cr;
                         instanceTimeLine[instance] = readyTask.maxParentFinishTime;
                         instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
@@ -223,7 +224,9 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
             totalCost += (instancesTimes[i]/1) * instanceInfo[solution.yArray[i]].spotPrice;
 //            totalCost += 100*((instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice);
         }
+        solution.instanceTimes = instancesTimes;
         solution.cost = totalCost;
+        solution.makespan = findMaxInstanceTime(instancesTimes);
     }
 
     ParentTask findMaxParentFinishTimeWithCR(ArrayList<ParentTask> parentTaskList){
@@ -236,5 +239,15 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 max = task;
         }
         return  max;
+    }
+
+    double findMaxInstanceTime(double instanceTimes[]){
+        double max = instanceTimes[0];
+
+        for (double temp : instanceTimes){
+            if (temp > max)
+                max = temp;
+        }
+        return max;
     }
 }

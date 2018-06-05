@@ -4,14 +4,7 @@ import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
-import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
-import org.cloudbus.spotsim.main.config.SimProperties;
-import org.optframework.core.ReadyTask;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class TestMain {
     public static void main(String[] args) {
@@ -126,18 +119,6 @@ public class TestMain {
 
 
 //        ==============
-
-        ArrayList<ReadyTask> readyTasks = new ArrayList<>();
-        readyTasks.add(new ReadyTask(123312,343,123,13.12));
-        readyTasks.add(new ReadyTask(1212,3434,33,55.12));
-        readyTasks.add(new ReadyTask(2,134,45666,2.1));
-        readyTasks.add(new ReadyTask(2,1,2,4));
-        readyTasks.add(new ReadyTask(1,234,22222,4444.2));
-        readyTasks.add(new ReadyTask(1,876567,242412,12));
-
-        Collections.sort(readyTasks, ReadyTask.weightComparator);
-
-        int a2=3;
 
     }
 }

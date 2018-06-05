@@ -35,11 +35,13 @@ public class Solution implements StaticProperties {
     /**
      * M, is the total elapsed time required to execute the entire workflow when only SIs are employed
      */
-    public int makespan;
+    public double makespan;
 
     public int numberOfUsedInstances;
 
     public int visited;
+
+    public double instanceTimes[];
 
     /**
      * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
