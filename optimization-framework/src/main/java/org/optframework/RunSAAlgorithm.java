@@ -79,23 +79,23 @@ public class RunSAAlgorithm implements StaticProperties {
         simpleWorkflow.createTask(wfA);
         taskID++;
 
-        Job wfB = new Job(taskID, submitTime, 1080 , userID, groupID, 1080, numProc);
+        Job wfB = new Job(taskID, submitTime, 12 , userID, groupID, 12, numProc);
         simpleWorkflow.createTask(wfB);
         taskID++;
 
-        Job wfC = new Job(taskID, submitTime, 15360 , userID, groupID, 15360, numProc);
+        Job wfC = new Job(taskID, submitTime, 220 , userID, groupID, 220, numProc);
         simpleWorkflow.createTask(wfC);
         taskID++;
 
-        Job wfD = new Job(taskID, submitTime, 1080 , userID, groupID, 1080, numProc);
+        Job wfD = new Job(taskID, submitTime, 86 , userID, groupID, 86, numProc);
         simpleWorkflow.createTask(wfD);
         taskID++;
 
-        Job wfE = new Job(taskID, submitTime, 25140 , userID, groupID, 25140, numProc);
+        Job wfE = new Job(taskID, submitTime, 22 , userID, groupID, 22, numProc);
         simpleWorkflow.createTask(wfE);
         taskID++;
 
-        Job wfF = new Job(taskID, submitTime, 15360 , userID, groupID, 15360, numProc);
+        Job wfF = new Job(taskID, submitTime, 110 , userID, groupID, 110, numProc);
         simpleWorkflow.createTask(wfF);
         taskID++;
 

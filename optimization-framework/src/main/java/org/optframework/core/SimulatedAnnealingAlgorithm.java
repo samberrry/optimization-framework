@@ -114,6 +114,10 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
         double instancesTimes[] = new double[solution.numberOfUsedInstances];
 
+        boolean instanceUsed[] = new boolean[solution.numberOfUsedInstances];
+
+        double instanceTimeLine[] = new double[solution.numberOfUsedInstances];
+
         Map<Integer, ArrayList<ReadyTask>> instanceList = new HashMap();
 
 //      Do this for the first level - First level may contain several tasks
@@ -136,11 +140,13 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
             for (ReadyTask readyTask : readyTaskList){
                 instancesTimes[instance] += readyTask.exeTime;
+                instanceTimeLine[instance] += readyTask.exeTime;
+                instanceUsed[instance] = true;
                 Job job = jobList.get(readyTask.jobId);
 
                 job.setExeTime(readyTask.exeTime);
                 job.setWeight(readyTask.exeTime);
-                job.setFinishTime(instancesTimes[instance]);
+                job.setFinishTime(instanceTimeLine[instance]);
             }
         }
 
@@ -178,7 +184,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 }
                 ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
 
-                readyTaskList.add(new ReadyTask(jobId,exeTime, maxParent.parentFinishTime, maxParent.cr));
+                readyTaskList.add(new ReadyTask(jobId,exeTime, maxParent.parentFinishTime, jobList.get(maxParent.parentId).getWeight() , maxParent.cr));
             }
 
 //            It is time to compute the time for every instance
@@ -189,16 +195,23 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 for (ReadyTask readyTask : readyTaskList){
                     Job job = jobList.get(readyTask.jobId);
 
-                    if (readyTask.maxParentFinishTime > instancesTimes[instance]){
-                        instancesTimes[instance] = readyTask.maxParentFinishTime;
+                    if (!instanceUsed[instance]){
+                        instancesTimes[instance] = readyTask.exeTime + readyTask.cr;
+                        instanceTimeLine[instance] = readyTask.maxParentFinishTime;
+                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
+                    }else if (readyTask.maxParentFinishTime > instanceTimeLine[instance]){
+                        double timeToWait = readyTask.maxParentFinishTime - instanceTimeLine[instance];
+                        instancesTimes[instance] += (timeToWait + readyTask.exeTime + readyTask.cr);
+
+                        instanceTimeLine[instance] = readyTask.maxParentFinishTime + readyTask.exeTime + readyTask.cr;
+                    }else{
                         instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
-                    }else {
-                        instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
+                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
                     }
 
                     job.setExeTime(readyTask.exeTime);
-                    job.setFinishTime(instancesTimes[instance]);
-                    job.setWeight(readyTask.exeTime + readyTask.cr);
+                    job.setFinishTime(instanceTimeLine[instance]);
+                    job.setWeight( readyTask.weight);
                 }
             }
 
@@ -207,7 +220,8 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
 //       Now we have exe time for each instance
         for (int i = 0; i < instancesTimes.length; i++) {
-            totalCost += (instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice;
+            totalCost += (instancesTimes[i]/1) * instanceInfo[solution.yArray[i]].spotPrice;
+//            totalCost += 100*((instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice);
         }
         solution.cost = totalCost;
     }

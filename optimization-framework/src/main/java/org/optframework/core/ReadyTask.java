@@ -6,6 +6,7 @@ public class ReadyTask implements Comparable<ReadyTask>{
     int jobId;
     double exeTime;
     double maxParentFinishTime;
+    double maxParentWeight;
     double weight;
     double cr;
 
@@ -14,12 +15,13 @@ public class ReadyTask implements Comparable<ReadyTask>{
         this.exeTime = exeTime;
     }
 
-    public ReadyTask(int jobId, double exeTime, double maxParentFinishTime, double cr) {
+    public ReadyTask(int jobId, double exeTime, double maxParentFinishTime, double maxParentWeight,  double cr) {
         this.jobId = jobId;
         this.exeTime = exeTime;
         this.maxParentFinishTime = maxParentFinishTime;
+        this.maxParentWeight = maxParentWeight;
         this.cr = cr;
-        this.weight = maxParentFinishTime + cr;
+        this.weight = maxParentWeight + exeTime + cr;
     }
 
     @Override
