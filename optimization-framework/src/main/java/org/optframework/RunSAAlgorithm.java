@@ -46,12 +46,14 @@ public class RunSAAlgorithm implements StaticProperties {
          * Availability Zone: A
          * OS type: Linux System
          * */
-        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX));
+        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-//      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(populateWorkflowFromDax(1000, 0));
+      SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX));
+
         Solution solution = saAlgorithm.runSA();
         Log.logger.info("Total Cost: " + solution.getCost());
-        System.out.println("Total Cost: " + solution.getCost());
+        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+
     }
 
     public static Workflow populateSimpleWorkflow(double budget, long deadline){

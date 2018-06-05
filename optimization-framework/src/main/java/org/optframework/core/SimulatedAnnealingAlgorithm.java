@@ -5,7 +5,6 @@ import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
-import org.optframework.RunSAAlgorithm;
 import org.optframework.config.StaticProperties;
 
 import java.util.*;
@@ -62,7 +61,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                     double delta = randomNeighbor.cost - bestCurrent.cost;
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
-                        if(randomNeighbor.cost - globalBest.cost <= 0){
+                        if((randomNeighbor.cost - globalBest.cost) <= 0){
                             globalBest = randomNeighbor;
                         }
                     }else {
@@ -82,8 +81,10 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
         }
         if(bestCurrent.cost - globalBest.cost <= 0){
             globalBest = bestCurrent;
+            return globalBest;
+        }else {
+            return bestCurrent;
         }
-        return globalBest;
     }
 
     void updateVisitedField(Solution solution){
@@ -186,8 +187,14 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                 Collections.sort(readyTaskList, ReadyTask.weightComparator);
 
                 for (ReadyTask readyTask : readyTaskList){
-                    instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
                     Job job = jobList.get(readyTask.jobId);
+
+                    if (readyTask.maxParentFinishTime > instancesTimes[instance]){
+                        instancesTimes[instance] = readyTask.maxParentFinishTime;
+                        instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
+                    }else {
+                        instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
+                    }
 
                     job.setExeTime(readyTask.exeTime);
                     job.setFinishTime(instancesTimes[instance]);
@@ -200,7 +207,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
 //       Now we have exe time for each instance
         for (int i = 0; i < instancesTimes.length; i++) {
-            totalCost += (instancesTimes[i]/3600D) * instanceInfo[i].spotPrice;
+            totalCost += (instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice;
         }
         solution.cost = totalCost;
     }
