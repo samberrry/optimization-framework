@@ -221,8 +221,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
 
 //       Now we have exe time for each instance
         for (int i = 0; i < instancesTimes.length; i++) {
-            totalCost += (instancesTimes[i]/1) * instanceInfo[solution.yArray[i]].spotPrice;
-//            totalCost += 100*((instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice);
+            totalCost += (instancesTimes[i]/3600D) * instanceInfo[solution.yArray[i]].spotPrice;
         }
         solution.instanceTimes = instancesTimes;
         solution.cost = totalCost;

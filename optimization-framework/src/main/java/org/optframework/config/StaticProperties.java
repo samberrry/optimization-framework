@@ -25,7 +25,7 @@ public interface StaticProperties {
 
     double EQUILIBRIUM_POINT = 0.99;
 
-    double SA_EQUILIBRIUM_COUNT = 10;
+    double SA_EQUILIBRIUM_COUNT = 50;
 
     double INTENSIFICATION_RATE = 0.95;
 

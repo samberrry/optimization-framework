@@ -5,6 +5,6 @@ import org.cloudbus.spotsim.enums.InstanceType;
 
 public class TaskUtility {
     public static long executionTimeOnType(Job job, InstanceType type){
-        return job.getLength() / 1;
+        return job.getLength() / type.getEc2units();
     }
 }
