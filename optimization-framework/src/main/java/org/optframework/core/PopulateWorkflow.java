@@ -170,4 +170,52 @@ public class PopulateWorkflow {
         return simpleWorkflow;
     }
 
+    public static Workflow populateSimpleWorkflow4(double budget, long deadline){
+        Log.logger.info("Populates the workflow from the simple workflow");
+
+        Workflow simpleWorkflow = new Workflow(5, 1000, 1000);
+
+        simpleWorkflow.initBudget(budget);
+        simpleWorkflow.setDeadline(deadline);
+
+        /**
+         * Defining a simple workflow A->D A->C, B->D, C->E, D->E
+         * */
+
+        int taskID = 0;
+
+        int groupID = 1;
+        int userID = 1;
+        long submitTime = 0 ;
+        int numProc = 1;
+
+        Job wfA = new Job(taskID, submitTime, 50 , userID, groupID, 50, numProc);
+        simpleWorkflow.createTask(wfA);
+        taskID++;
+
+        Job wfB = new Job(taskID, submitTime, 100 , userID, groupID, 100, numProc);
+        simpleWorkflow.createTask(wfB);
+        taskID++;
+
+        Job wfC = new Job(taskID, submitTime, 30 , userID, groupID, 30, numProc);
+        simpleWorkflow.createTask(wfC);
+        taskID++;
+
+        Job wfD = new Job(taskID, submitTime, 40 , userID, groupID, 40, numProc);
+        simpleWorkflow.createTask(wfD);
+        taskID++;
+
+        Job wfE = new Job(taskID, submitTime, 10 , userID, groupID, 10, numProc);
+        simpleWorkflow.createTask(wfE);
+        taskID++;
+
+        simpleWorkflow.addEdge(wfA, wfC, 0);
+        simpleWorkflow.addEdge(wfA, wfD, 0);
+        simpleWorkflow.addEdge(wfB, wfD, 0);
+        simpleWorkflow.addEdge(wfC, wfE, 0);
+        simpleWorkflow.addEdge(wfD, wfE, 0);
+
+        return simpleWorkflow;
+    }
+
 }

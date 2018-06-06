@@ -77,7 +77,7 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
                     updateVisitedField(randomNeighbor);
                 }
             }
-            temp -= COOLING_FACTOR;
+            temp = temp * COOLING_FACTOR;
         }
         if(bestCurrent.cost - globalBest.cost <= 0){
             globalBest = bestCurrent;
@@ -158,8 +158,8 @@ public class SimulatedAnnealingAlgorithm implements StaticProperties {
             instanceList = new HashMap<>();
 
             /**
-             * This for do the following:
-             * - finds max parent finish time for every task in a level
+             * This 'for' does the following:
+             * - finds max parent's finish time for every task in a level
              * - assigns all of them to an instance
              * - computes weights for all of the tasks in a level and make them ready to run on instance
              * */
