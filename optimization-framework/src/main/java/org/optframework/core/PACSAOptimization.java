@@ -28,7 +28,7 @@ public class PACSAOptimization implements OptimizationAlgorithm ,StaticPropertie
     }
 
     @Override
-    public void runAlgorithm() {
+    public Solution runAlgorithm() {
         Log.logger.info("PACSA Optimization Algorithm is started");
         ForkJoinPool pool = new ForkJoinPool();
 
@@ -50,6 +50,8 @@ public class PACSAOptimization implements OptimizationAlgorithm ,StaticPropertie
         }
 
         Log.logger.info("End of PACSA Algorithm");
+
+        return null;
     }
 
 }

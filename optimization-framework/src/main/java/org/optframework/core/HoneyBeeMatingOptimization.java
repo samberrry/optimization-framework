@@ -12,7 +12,7 @@ public class HoneyBeeMatingOptimization implements OptimizationAlgorithm, Static
     private Solution solution;
 
     @Override
-    public void runAlgorithm() {
-
+    public Solution runAlgorithm() {
+        return null;
     }
 }

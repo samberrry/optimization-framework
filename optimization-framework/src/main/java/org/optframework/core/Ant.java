@@ -26,7 +26,7 @@ public class Ant extends RecursiveTask<List<Solution>> {
             //Simulated Annealing portion
             SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm();
             saAlgorithm.workflow = workflow;
-            solutionList.add(saAlgorithm.runSA());
+            solutionList.add(saAlgorithm.runAlgorithm());
             return solutionList;
         }else{
             //Use of divide and conquer strategy
