@@ -44,7 +44,7 @@ public class RunSAAlgorithm implements StaticProperties {
 
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
 
-        Solution solution = saAlgorithm.runSA();
+        Solution solution = saAlgorithm.runAlgorithm();
 
         printSolution(solution, instanceInfo);
     }
