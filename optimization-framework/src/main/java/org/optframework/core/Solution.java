@@ -106,7 +106,7 @@ public class Solution implements StaticProperties {
             return;
         }
 
-        double totalCost = 0;
+        double totalCost = 0D;
 
         WorkflowDAG dag = workflow.getWfDAG();
         ArrayList<Integer> level = dag.getFirstLevel();
@@ -125,7 +125,7 @@ public class Solution implements StaticProperties {
         for (int jobId: level){
             int instanceId = this.xArray[jobId];
             int type = this.yArray[instanceId];
-            long exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceInfo[type].getType());
+            double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceInfo[type].getType());
 
             if (!instanceList.containsKey(instanceId)){
                 instanceList.put(instanceId, new ArrayList<ReadyTask>());
@@ -169,8 +169,7 @@ public class Solution implements StaticProperties {
                 int typeId = this.yArray[instanceId];
 
                 InstanceType instanceType = instanceInfo[typeId].getType();
-                long exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceType);
-
+                double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceType);
 
                 ArrayList<Integer> parentList = dag.getParents(jobId);
 
