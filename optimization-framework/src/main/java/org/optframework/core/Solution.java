@@ -8,6 +8,13 @@ import org.optframework.config.StaticProperties;
 
 import java.util.*;
 
+/**
+ * This class is the Solution representation of the problem
+ *
+ * @author Hessam - hessam.modaberi@gmail.com
+ * @since 2018
+ *
+ * */
 public class Solution implements StaticProperties {
     int id;
     /**
@@ -100,7 +107,7 @@ public class Solution implements StaticProperties {
     /**
      * The fitness function for this problem computes the required cost to the workflow on the specified instances
      * */
-    void fitness(){
+    public void fitness(){
         if (workflow == null || instanceInfo == null){
             Log.logger.warning("Problem with fitness function properties");
             return;

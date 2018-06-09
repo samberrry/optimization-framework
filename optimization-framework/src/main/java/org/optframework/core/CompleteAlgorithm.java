@@ -1,5 +1,6 @@
 package org.optframework.core;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 
@@ -14,6 +15,8 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
     Workflow workflow;
 
     Solution globalSolution;
+
+    Cloner cloner = new Cloner();
 
     public CompleteAlgorithm(InstanceInfo[] instanceInfo, Workflow workflow) {
         this.instanceInfo = instanceInfo;
@@ -60,14 +63,18 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
             int []yData = new int[instanceNumber];
 
-            recursiveCombinationForYArray(yData, -1, InstanceType.values().length, instanceNumber , solution);
+            recursiveCombinationForYArray(yData, -1, InstanceType.values().length, instanceNumber, solution);
 
+//            System.out.println(yCounter);
+//            yCounter =0;
+
+//            System.out.println("***********************************************");
 //            String str= "";
 //            for (int a: data){
 //                str += a;
 //            }
 //            if (visited){
-//                System.out.println(str);
+//                System.out.println("X Array: " + str);
 //            }
         }
     }
@@ -87,15 +94,25 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
             solution.fitness();
 
-            if (globalSolution.cost > solution.cost){
-                globalSolution = solution;
-            }
-
 //            String str= "";
+//            String str2= "";
 //            for (int a: data){
 //                str += a;
 //            }
-//            System.out.println(str);
+//            for (int b: solution.xArray){
+//                str2 +=b;
+//            }
+//            Log.logger.info("X Array: "+ str2+ "    Y Array: " + str + " current cost: " + solution.cost+ " global: " + globalSolution.cost);
+
+            if (globalSolution.cost > solution.cost){
+                globalSolution = cloner.deepClone(solution);
+            }
+
+//            if (globalCost > solution.cost){
+//                globalCost = solution.cost;
+//            }
+
+//            yCounter++;
         }
     }
 }
