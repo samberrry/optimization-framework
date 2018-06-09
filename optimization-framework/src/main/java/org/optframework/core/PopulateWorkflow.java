@@ -39,27 +39,27 @@ public class PopulateWorkflow {
         long submitTime = 0 ;
         int numProc = 1;
 
-        Job wfA = new Job(taskID, submitTime, 360 , userID, groupID, 360, numProc);
+        Job wfA = new Job(taskID, submitTime, 3600 , userID, groupID, 3600, numProc);
         simpleWorkflow.createTask(wfA);
         taskID++;
 
-        Job wfB = new Job(taskID, submitTime, 12 , userID, groupID, 12, numProc);
+        Job wfB = new Job(taskID, submitTime, 1200 , userID, groupID, 1200, numProc);
         simpleWorkflow.createTask(wfB);
         taskID++;
 
-        Job wfC = new Job(taskID, submitTime, 220 , userID, groupID, 220, numProc);
+        Job wfC = new Job(taskID, submitTime, 22000 , userID, groupID, 22000, numProc);
         simpleWorkflow.createTask(wfC);
         taskID++;
 
-        Job wfD = new Job(taskID, submitTime, 86 , userID, groupID, 86, numProc);
+        Job wfD = new Job(taskID, submitTime, 8600 , userID, groupID, 8600, numProc);
         simpleWorkflow.createTask(wfD);
         taskID++;
 
-        Job wfE = new Job(taskID, submitTime, 22 , userID, groupID, 22, numProc);
+        Job wfE = new Job(taskID, submitTime, 2200 , userID, groupID, 2200, numProc);
         simpleWorkflow.createTask(wfE);
         taskID++;
 
-        Job wfF = new Job(taskID, submitTime, 110 , userID, groupID, 110, numProc);
+        Job wfF = new Job(taskID, submitTime, 11000, userID, groupID, 11000, numProc);
         simpleWorkflow.createTask(wfF);
         taskID++;
 
@@ -255,4 +255,78 @@ public class PopulateWorkflow {
         return simpleWorkflow;
     }
 
+    public static Workflow populateSimpleWorkflow6(double budget, long deadline){
+        Log.logger.info("Populates the workflow from the simple workflow");
+
+        Workflow simpleWorkflow = new Workflow(10, 1000, 1000);
+
+        simpleWorkflow.initBudget(budget);
+        simpleWorkflow.setDeadline(deadline);
+
+        /**
+         * Defining a simple workflow A->B, A->C, B->D, B->E, D->F, E->F, C->F
+         * */
+
+        int taskID = 0;
+
+        int groupID = 1;
+        int userID = 1;
+        long submitTime = 0 ;
+        int numProc = 1;
+
+        Job wfA = new Job(taskID, submitTime, 3600 , userID, groupID, 3600, numProc);
+        simpleWorkflow.createTask(wfA);
+        taskID++;
+
+        Job wfB = new Job(taskID, submitTime, 1200 , userID, groupID, 1200, numProc);
+        simpleWorkflow.createTask(wfB);
+        taskID++;
+
+        Job wfC = new Job(taskID, submitTime, 22000 , userID, groupID, 22000, numProc);
+        simpleWorkflow.createTask(wfC);
+        taskID++;
+
+        Job wfD = new Job(taskID, submitTime, 8600 , userID, groupID, 8600, numProc);
+        simpleWorkflow.createTask(wfD);
+        taskID++;
+
+        Job wfE = new Job(taskID, submitTime, 2200 , userID, groupID, 2200, numProc);
+        simpleWorkflow.createTask(wfE);
+        taskID++;
+
+        Job wfF = new Job(taskID, submitTime, 11000, userID, groupID, 11000, numProc);
+        simpleWorkflow.createTask(wfF);
+        taskID++;
+
+        Job wfG = new Job(taskID, submitTime, 8000, userID, groupID, 8000, numProc);
+        simpleWorkflow.createTask(wfG);
+        taskID++;
+
+        Job wfH = new Job(taskID, submitTime, 5600, userID, groupID, 5600, numProc);
+        simpleWorkflow.createTask(wfH);
+        taskID++;
+
+        Job wfI = new Job(taskID, submitTime, 17000, userID, groupID, 17000, numProc);
+        simpleWorkflow.createTask(wfI);
+        taskID++;
+
+        Job wfJ = new Job(taskID, submitTime, 1200, userID, groupID, 1200, numProc);
+        simpleWorkflow.createTask(wfJ);
+        taskID++;
+
+        simpleWorkflow.addEdge(wfA, wfB, 0);
+        simpleWorkflow.addEdge(wfA, wfC, 0);
+        simpleWorkflow.addEdge(wfB, wfD, 0);
+        simpleWorkflow.addEdge(wfB, wfE, 0);
+        simpleWorkflow.addEdge(wfC, wfF, 0);
+        simpleWorkflow.addEdge(wfF, wfH, 0);
+        simpleWorkflow.addEdge(wfF, wfI, 0);
+        simpleWorkflow.addEdge(wfD, wfG, 0);
+        simpleWorkflow.addEdge(wfE, wfG, 0);
+        simpleWorkflow.addEdge(wfG, wfJ, 0);
+        simpleWorkflow.addEdge(wfH, wfJ, 0);
+        simpleWorkflow.addEdge(wfI, wfJ, 0);
+
+        return simpleWorkflow;
+    }
 }

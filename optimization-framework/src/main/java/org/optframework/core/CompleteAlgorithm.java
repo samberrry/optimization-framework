@@ -32,12 +32,13 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
         initialSolution.fitness();
 
-        globalSolution = initialSolution;
+        globalSolution = cloner.deepClone(initialSolution);
 
         for (int i = 0; i < workflow.getJobList().size()+1; i++) {
             int data[] = new int[workflow.getJobList().size()];
-            System.out.println("==========================" + i);
             recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
+            System.out.println("==========================" + i);
+            printSolution(globalSolution, instanceInfo);
         }
 
         return globalSolution;
@@ -114,5 +115,26 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
 //            yCounter++;
         }
+    }
+
+    private void printSolution(Solution solution, InstanceInfo instanceInfo[]){
+        Log.logger.info("Total Cost: " + solution.getCost());
+        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Requested time for instance " + instanceInfo[i].getType().getName() + " : " + solution.instanceTimes[i]);
+        }
+
+        String xArray = "";
+        for (int val : solution.xArray){
+            xArray += " " + String.valueOf(val);
+        }
+        Log.logger.info("Value of the X Array: "+ xArray);
+
+        String yArray = "";
+        for (int i = 0; i < solution.numberOfUsedInstances; i++) {
+            yArray += " " + String.valueOf(solution.yArray[i]);
+        }
+        Log.logger.info("Value of the Y Array: "+ yArray);
     }
 }

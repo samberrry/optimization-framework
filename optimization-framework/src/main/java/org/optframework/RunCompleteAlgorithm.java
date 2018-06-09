@@ -24,7 +24,7 @@ public class RunCompleteAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow5(1000, 0);
+        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow6(1000, 0);
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
@@ -59,6 +59,7 @@ public class RunCompleteAlgorithm implements StaticProperties {
     }
 
     private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
+        Log.logger.info("<<<<<<<---FINAL SOLUTION--->>>>>>>");
         Log.logger.info("Total Cost: " + solution.getCost());
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
