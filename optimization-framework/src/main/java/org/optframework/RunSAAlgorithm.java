@@ -31,7 +31,7 @@ public class RunSAAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow3(1000, 0);
+        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow5(1000, 0);
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**

@@ -33,14 +33,13 @@ public class RunCompleteAlgorithm implements StaticProperties {
          * Availability Zone: A
          * OS type: Linux System
          * */
-//        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
-        InstanceInfo instanceInfo[] = null;
+        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         CompleteAlgorithm completeAlgorithm = new CompleteAlgorithm(instanceInfo, workflow);
 
         Solution solution = completeAlgorithm.runAlgorithm();
 
-//        printSolution(solution, instanceInfo);
+        printSolution(solution, instanceInfo);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
