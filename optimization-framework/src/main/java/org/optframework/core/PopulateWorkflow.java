@@ -218,4 +218,41 @@ public class PopulateWorkflow {
         return simpleWorkflow;
     }
 
+    public static Workflow populateSimpleWorkflow5(double budget, long deadline){
+        Log.logger.info("Populates the workflow from the simple workflow");
+
+        Workflow simpleWorkflow = new Workflow(3, 1000, 1000);
+
+        simpleWorkflow.initBudget(budget);
+        simpleWorkflow.setDeadline(deadline);
+
+        /**
+         * Defining a simple workflow A->C B->C
+         * */
+
+        int taskID = 0;
+
+        int groupID = 1;
+        int userID = 1;
+        long submitTime = 0 ;
+        int numProc = 1;
+
+        Job wfA = new Job(taskID, submitTime, 3000 , userID, groupID, 50, numProc);
+        simpleWorkflow.createTask(wfA);
+        taskID++;
+
+        Job wfB = new Job(taskID, submitTime, 10000 , userID, groupID, 100, numProc);
+        simpleWorkflow.createTask(wfB);
+        taskID++;
+
+        Job wfC = new Job(taskID, submitTime, 50000 , userID, groupID, 30, numProc);
+        simpleWorkflow.createTask(wfC);
+        taskID++;
+
+        simpleWorkflow.addEdge(wfA, wfC, 0);
+        simpleWorkflow.addEdge(wfB, wfC, 0);
+
+        return simpleWorkflow;
+    }
+
 }

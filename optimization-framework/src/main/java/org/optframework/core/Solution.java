@@ -51,6 +51,9 @@ public class Solution implements StaticProperties {
      */
     public int makespanPrime;
 
+    public Solution() {
+    }
+
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
@@ -98,6 +101,11 @@ public class Solution implements StaticProperties {
      * The fitness function for this problem computes the required cost to the workflow on the specified instances
      * */
     void fitness(){
+        if (workflow == null || instanceInfo == null){
+            Log.logger.warning("Problem with fitness function properties");
+            return;
+        }
+
         double totalCost = 0;
 
         WorkflowDAG dag = workflow.getWfDAG();
