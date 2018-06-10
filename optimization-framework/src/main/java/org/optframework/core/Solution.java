@@ -126,6 +126,48 @@ public class Solution implements StaticProperties {
 
                 break;
         }
+
+        solutionMapping();
+    }
+
+    /**
+     * This function does mapping of new x Array with the help of two arrays, map and mapper
+     * */
+    void solutionMapping(){
+        boolean map[] = new boolean[numberOfUsedInstances];
+        int realNumberOfInstances = 0;
+
+        for (int i = 0; i < xArray.length; i++) {
+            if (map[xArray[i]] == false){
+                map[xArray[i]] = true;
+                realNumberOfInstances++;
+            }
+        }
+
+        if (realNumberOfInstances != numberOfUsedInstances){
+            int mapper[] = new int[numberOfUsedInstances];
+
+            int newYArray[] = new int[M_NUMBER];
+
+            int instanceCounter = 0;
+            for (int i = 0; i < numberOfUsedInstances; i++) {
+                if (map[i]){
+                    mapper[i] = instanceCounter;
+                    newYArray[instanceCounter] = yArray[i];
+
+                    instanceCounter++;
+                }
+            }
+
+            int newXArray[] = new int[xArray.length];
+            for (int i = 0; i < xArray.length; i++) {
+                newXArray[i] = mapper[xArray[i]];
+            }
+
+            this.numberOfUsedInstances = realNumberOfInstances;
+            this.xArray = newXArray;
+            this.yArray= newYArray;
+        }
     }
 
     void generateRandomSolution(Workflow workflow){
