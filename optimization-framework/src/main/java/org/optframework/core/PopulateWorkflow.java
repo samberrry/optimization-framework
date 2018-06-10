@@ -77,7 +77,7 @@ public class PopulateWorkflow {
     public static Workflow populateSimpleWorkflow2(double budget, long deadline){
         Log.logger.info("Populates the workflow from the simple workflow");
 
-        Workflow simpleWorkflow = new Workflow(5, 1000, 1000);
+        Workflow simpleWorkflow = new Workflow(5, 1000, 2);
 
         simpleWorkflow.initBudget(budget);
         simpleWorkflow.setDeadline(deadline);
@@ -125,7 +125,7 @@ public class PopulateWorkflow {
     public static Workflow populateSimpleWorkflow3(double budget, long deadline){
         Log.logger.info("Populates the workflow from the simple workflow");
 
-        Workflow simpleWorkflow = new Workflow(5, 1000, 1000);
+        Workflow simpleWorkflow = new Workflow(5, deadline, budget);
 
         simpleWorkflow.initBudget(budget);
         simpleWorkflow.setDeadline(deadline);

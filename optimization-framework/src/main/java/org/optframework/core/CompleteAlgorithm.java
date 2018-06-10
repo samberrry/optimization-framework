@@ -118,7 +118,6 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
     }
 
     private void printSolution(Solution solution, InstanceInfo instanceInfo[]){
-        Log.logger.info("Total Cost: " + solution.getCost());
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {
@@ -136,5 +135,6 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
             yArray += " " + String.valueOf(solution.yArray[i]);
         }
         Log.logger.info("Value of the Y Array: "+ yArray);
+        Log.logger.info("Total Cost: " + solution.cost);
     }
 }

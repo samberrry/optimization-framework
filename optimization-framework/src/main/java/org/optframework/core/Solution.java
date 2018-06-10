@@ -20,7 +20,7 @@ public class Solution implements StaticProperties {
     /**
      * Cost of the solution
      * */
-    double cost = -1D;
+    public double cost = -1D;
     /**
      *  Integer array X is used to represent the assignment of tasks to instances.
      * The value of the ith element of this array specifies the index of instance to which this task is assigned.`
@@ -43,11 +43,17 @@ public class Solution implements StaticProperties {
      */
     public double makespan;
 
+    public double fitnessValue;
+
+    public double beta;
+
     public int numberOfUsedInstances;
 
     public int visited;
 
     public double instanceTimes[];
+
+    public double instanceTimelines[];
 
     private Workflow workflow;
 
@@ -67,6 +73,7 @@ public class Solution implements StaticProperties {
         xArray = new int[workflow.getJobList().size()];
         yArray = new int[numberOfInstances];
         yPrimeArray = new int[numberOfInstances];
+        beta =1;
     }
 
     void generateRandomNeighborSolution(Workflow workflow){
@@ -285,9 +292,24 @@ public class Solution implements StaticProperties {
         for (int i = 0; i < instancesTimes.length; i++) {
             totalCost += (instancesTimes[i]/3600D) * instanceInfo[this.yArray[i]].spotPrice;
         }
+
+        this.instanceTimelines = instanceTimeLine;
         this.instanceTimes = instancesTimes;
         this.cost = totalCost;
-        this.makespan = findMaxInstanceTime(instancesTimes);
+        this.makespan = findMaxInstanceTime(instanceTimeLine);
+
+        computerFitnessValue();
+    }
+
+    void computerFitnessValue(){
+        double delta = cost - workflow.getBudget();
+        double penalty1 = 0;
+
+        if (delta > 0){
+            penalty1 = delta;
+        }
+
+        fitnessValue = makespan + beta * (penalty1);
     }
 
     ParentTask findMaxParentFinishTimeWithCR(ArrayList<ParentTask> parentTaskList){
@@ -337,13 +359,5 @@ public class Solution implements StaticProperties {
         result = 31 * result + Arrays.hashCode(xArray);
         result = 31 * result + Arrays.hashCode(yArray);
         return result;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
     }
 }

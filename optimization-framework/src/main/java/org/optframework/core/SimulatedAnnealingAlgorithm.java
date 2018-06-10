@@ -63,10 +63,10 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
                     randomNeighbor.fitness();
 
-                    double delta = randomNeighbor.cost - bestCurrent.cost;
+                    double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
-                        if((randomNeighbor.cost - globalBest.cost) <= 0){
+                        if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
                             globalBest = cloner.deepClone(randomNeighbor);
                         }
                     }else {
@@ -84,7 +84,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
             }
             temp = temp * COOLING_FACTOR;
         }
-        if(bestCurrent.cost - globalBest.cost <= 0){
+        if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
             globalBest = bestCurrent;
             return globalBest;
         }else {
@@ -117,10 +117,10 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
                     randomNeighbor.fitness();
 
-                    double delta = randomNeighbor.cost - bestCurrent.cost;
+                    double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
-                        if((randomNeighbor.cost - globalBest.cost) <= 0){
+                        if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
                             globalBest = randomNeighbor;
                         }
                     }else {
@@ -138,7 +138,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
             }
             temp = temp * COOLING_FACTOR;
         }
-        if(bestCurrent.cost - globalBest.cost <= 0){
+        if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
             globalBest = bestCurrent;
             return globalBest;
         }else {
