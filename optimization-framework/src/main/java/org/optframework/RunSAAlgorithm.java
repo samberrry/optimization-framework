@@ -42,6 +42,8 @@ public class RunSAAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
+        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
+
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
 
         Solution solution = saAlgorithm.runAlgorithm();

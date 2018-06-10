@@ -19,6 +19,8 @@ public class Workflow {
 	private long deadline;
 	private double budget;
 	private double remainingBudget;
+//	HESSAM ADDED THIS
+	private double beta;
 	final Map<InstanceType, ArrayList<Job>> criticalPathJobMap;
 	
 	public Workflow(Map<Integer, Integer> taskToCloudletID, long deadline, double budget){
@@ -128,5 +130,12 @@ public class Workflow {
 	public void setBudget(double budget) {
 		this.budget = budget;
 	}
-	
+
+	public double getBeta() {
+		return beta;
+	}
+
+	public void setBeta(double beta) {
+		this.beta = beta;
+	}
 }

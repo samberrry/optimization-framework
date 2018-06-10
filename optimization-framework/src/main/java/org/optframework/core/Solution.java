@@ -64,16 +64,13 @@ public class Solution implements StaticProperties {
      */
     public int makespanPrime;
 
-    public Solution() {
-    }
-
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         xArray = new int[workflow.getJobList().size()];
         yArray = new int[numberOfInstances];
         yPrimeArray = new int[numberOfInstances];
-        beta =1;
+        beta = workflow.getBeta();
     }
 
     void generateRandomNeighborSolution(Workflow workflow){
@@ -298,10 +295,10 @@ public class Solution implements StaticProperties {
         this.cost = totalCost;
         this.makespan = findMaxInstanceTime(instanceTimeLine);
 
-        computerFitnessValue();
+        computeFitnessValue();
     }
 
-    void computerFitnessValue(){
+    void computeFitnessValue(){
         double delta = cost - workflow.getBudget();
         double penalty1 = 0;
 
