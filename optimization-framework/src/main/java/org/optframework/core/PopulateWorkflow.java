@@ -93,7 +93,7 @@ public class PopulateWorkflow {
         long submitTime = 0 ;
         int numProc = 1;
 
-        Job wfA = new Job(taskID, submitTime, 360 , userID, groupID, 360, numProc);
+        Job wfA = new Job(taskID, submitTime, 300 , userID, groupID, 300, numProc);
         simpleWorkflow.createTask(wfA);
         taskID++;
 

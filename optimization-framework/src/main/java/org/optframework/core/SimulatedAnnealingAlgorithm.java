@@ -46,10 +46,67 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
         temp = START_TEMP;
         bestCurrent = initialSolution;
+        globalBest = cloner.deepClone(bestCurrent);
+        bestCurrent.fitness();
+
+        //LOOPs at a fixed temperature:
+        while (temp >= FINAL_TEMP){
+            for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
+                //GENERATES random neighbor
+                Solution randomNeighbor = cloner.deepClone(bestCurrent);
+
+                //Generates a random neighbor solution
+                randomNeighbor.generateRandomNeighborSolution(cloner.deepClone(workflow));
+
+                if (!visited_solutions.contains(randomNeighbor)){
+                    visited_solutions.add(randomNeighbor);
+
+                    randomNeighbor.fitness();
+
+                    double delta = randomNeighbor.cost - bestCurrent.cost;
+                    if (delta <= 0){
+                        bestCurrent = randomNeighbor;
+                        if((randomNeighbor.cost - globalBest.cost) <= 0){
+                            globalBest = cloner.deepClone(randomNeighbor);
+                        }
+                    }else {
+                        //Generate a uniform random value x in the range (0,1)
+                        Random r = new Random();
+                        double random = r.nextDouble();
+
+                        if (random < bolzmanDist(delta, temp)){
+                            bestCurrent = randomNeighbor;
+                        }
+                    }
+                }else{
+                    updateVisitedField(randomNeighbor);
+                }
+            }
+            temp = temp * COOLING_FACTOR;
+        }
+        if(bestCurrent.cost - globalBest.cost <= 0){
+            globalBest = bestCurrent;
+            return globalBest;
+        }else {
+            return bestCurrent;
+        }
+    }
+
+    public Solution runAlgorithWithRandomSolution(){
+        Log.logger.info("Starts SA Algorithm");
+        Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
+
+        Solution initialSolution = new Solution(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+
+        //Initializes the initial solution with random values
+        initialSolution.generateRandomSolution(workflow);
+
+        temp = START_TEMP;
+        bestCurrent = initialSolution;
         globalBest = bestCurrent;
         bestCurrent.fitness();
 
-        //LOOP at a fixed temperature:
+        //LOOPs at a fixed temperature:
         while (temp >= FINAL_TEMP){
             for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
                 //GENERATES random neighbor

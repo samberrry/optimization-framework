@@ -69,6 +69,61 @@ public class Solution implements StaticProperties {
         yPrimeArray = new int[numberOfInstances];
     }
 
+    void generateRandomNeighborSolution(Workflow workflow){
+        this.workflow = workflow;
+
+        Random r = new Random();
+        int xOry = r.nextInt(2);
+
+        switch (xOry){
+                //changes x array
+            case 0:
+                boolean newOk = true;
+
+                int randomTask = r.nextInt(xArray.length);
+                int currentInstanceId = xArray[randomTask];
+
+                boolean isEqual = true;
+                int randomInstanceId = -1;
+
+                while (isEqual){
+                    randomInstanceId = r.nextInt(numberOfUsedInstances+1);
+                    if (randomInstanceId != currentInstanceId && randomInstanceId < xArray.length){
+                        isEqual = false;
+                    }
+                }
+
+                xArray[randomTask] = randomInstanceId;
+
+                //if new instance is selected
+                if (randomInstanceId == numberOfUsedInstances && randomInstanceId < M_NUMBER){
+                    int randomType = r.nextInt(N_TYPES);
+                    yArray[randomInstanceId] = randomType;
+                    numberOfUsedInstances++;
+                }
+
+                break;
+                // changes y array
+            case 1:
+                int randomInstanceIdY = r.nextInt(yArray.length);
+                boolean isEqualY = true;
+
+                int randomType = -1;
+
+                while (isEqualY){
+                    int instanceType = yArray[randomInstanceIdY];
+                    randomType = r.nextInt(N_TYPES);
+
+                    if (randomType != instanceType){
+                        isEqualY = false;
+                    }
+                }
+                yArray[randomInstanceIdY] = randomType;
+
+                break;
+        }
+    }
+
     void generateRandomSolution(Workflow workflow){
         List<Job> jobList = workflow.getJobList();
 
