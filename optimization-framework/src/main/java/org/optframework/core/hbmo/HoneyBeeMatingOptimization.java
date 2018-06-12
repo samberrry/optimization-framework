@@ -1,6 +1,8 @@
-package org.optframework.core;
+package org.optframework.core.hbmo;
 
 import org.optframework.config.StaticProperties;
+import org.optframework.core.OptimizationAlgorithm;
+import org.optframework.core.Solution;
 
 /**
  * @author Hessam hessam.modaberi@gmail.com

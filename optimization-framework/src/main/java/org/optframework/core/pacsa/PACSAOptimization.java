@@ -1,8 +1,12 @@
-package org.optframework.core;
+package org.optframework.core.pacsa;
 
 
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.config.StaticProperties;
+import org.optframework.core.Log;
+import org.optframework.core.OptimizationAlgorithm;
+import org.optframework.core.Solution;
+
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
@@ -15,7 +19,7 @@ import java.util.concurrent.ForkJoinPool;
  * @since 2018
  * */
 
-public class PACSAOptimization implements OptimizationAlgorithm ,StaticProperties {
+public class PACSAOptimization implements OptimizationAlgorithm,StaticProperties {
 
     Solution solution;
 

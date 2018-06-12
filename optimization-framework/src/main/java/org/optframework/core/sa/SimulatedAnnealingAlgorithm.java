@@ -1,8 +1,12 @@
-package org.optframework.core;
+package org.optframework.core.sa;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.config.StaticProperties;
+import org.optframework.core.InstanceInfo;
+import org.optframework.core.Log;
+import org.optframework.core.OptimizationAlgorithm;
+import org.optframework.core.Solution;
 
 import java.util.*;
 
@@ -156,5 +160,13 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
     double bolzmanDist(double delta, double temp){
         return Math.exp(-(Math.abs(delta))/temp);
+    }
+
+    public Workflow getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(Workflow workflow) {
+        this.workflow = workflow;
     }
 }

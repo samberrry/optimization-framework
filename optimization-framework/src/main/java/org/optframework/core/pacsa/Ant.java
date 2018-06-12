@@ -1,6 +1,9 @@
-package org.optframework.core;
+package org.optframework.core.pacsa;
 
 import org.cloudbus.cloudsim.util.workload.Workflow;
+import org.optframework.core.Log;
+import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
+import org.optframework.core.Solution;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ public class Ant extends RecursiveTask<List<Solution>> {
             Log.logger.info("An ant is started");
             //Simulated Annealing portion
             SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm();
-            saAlgorithm.workflow = workflow;
+            saAlgorithm.setWorkflow(workflow);
             solutionList.add(saAlgorithm.runAlgorithm());
             return solutionList;
         }else{

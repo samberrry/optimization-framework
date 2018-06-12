@@ -6,7 +6,7 @@ import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.Log;
-import org.optframework.core.PACSAOptimization;
+import org.optframework.core.pacsa.PACSAOptimization;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com

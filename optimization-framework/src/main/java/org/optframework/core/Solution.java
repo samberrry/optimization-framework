@@ -73,7 +73,7 @@ public class Solution implements StaticProperties {
         beta = workflow.getBeta();
     }
 
-    void generateRandomNeighborSolution(Workflow workflow){
+    public void generateRandomNeighborSolution(Workflow workflow){
         this.workflow = workflow;
 
         Random r = new Random();
@@ -170,7 +170,7 @@ public class Solution implements StaticProperties {
         }
     }
 
-    void generateRandomSolution(Workflow workflow){
+    public void generateRandomSolution(Workflow workflow){
         List<Job> jobList = workflow.getJobList();
 
         /**
@@ -206,7 +206,7 @@ public class Solution implements StaticProperties {
     }
 
     /**
-     * The fitness function for this problem computes the required cost to the workflow on the specified instances
+     * The fitness function for this problem computes the makespan of the workflow with a fixed number of instances
      * */
     public void fitness(){
         if (workflow == null || instanceInfo == null){

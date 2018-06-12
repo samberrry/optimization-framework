@@ -11,6 +11,7 @@ import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
