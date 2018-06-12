@@ -37,8 +37,7 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
         for (int i = 0; i < workflow.getJobList().size()+1; i++) {
             int data[] = new int[workflow.getJobList().size()];
             recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
-            System.out.println("==========================" + i);
-            printSolution(globalSolution, instanceInfo);
+            printSolution(globalSolution, instanceInfo, i);
         }
 
         return globalSolution;
@@ -105,7 +104,7 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 //            }
 //            Log.logger.info("X Array: "+ str2+ "    Y Array: " + str + " current cost: " + solution.cost+ " global: " + globalSolution.cost);
 
-            if (globalSolution.cost > solution.cost){
+            if (globalSolution.fitnessValue > solution.fitnessValue){
                 globalSolution = cloner.deepClone(solution);
             }
 
@@ -117,11 +116,15 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
         }
     }
 
-    private void printSolution(Solution solution, InstanceInfo instanceInfo[]){
-        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+    public void printSolution(Solution solution, InstanceInfo instanceInfo[],int k){
+        Log.logger.info("============================[Level] Number of used instances: " + k);
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {
             Log.logger.info("Requested time for instance " + instanceInfo[i].getType().getName() + " : " + solution.instanceTimes[i]);
+        }
+
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Timeline for instance " + instanceInfo[i].getType().getName() + " : " + solution.instanceTimelines[i]);
         }
 
         String xArray = "";
@@ -135,6 +138,9 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
             yArray += " " + String.valueOf(solution.yArray[i]);
         }
         Log.logger.info("Value of the Y Array: "+ yArray);
+
         Log.logger.info("Total Cost: " + solution.cost);
+        Log.logger.info("Makespan: " + solution.makespan);
+        Log.logger.info("(Best Solution so far) Fitness Value: "+ solution.fitnessValue);
     }
 }
