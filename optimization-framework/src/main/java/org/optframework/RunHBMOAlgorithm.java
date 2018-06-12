@@ -11,16 +11,19 @@ import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.hbmo.HBMOAlgorithm;
 
 /**
  * @author Hessam Modabberi
  * @version 1.0.0
  */
 
-public class RunHoneyBeeMatingAlgorithm implements StaticProperties {
+public class RunHBMOAlgorithm implements StaticProperties {
 
     public static void main(String[] args) throws Exception{
         Log.init();
+
+        Log.logger.info("<<<<<<<<< Starts HBMO Algorithm >>>>>>>>>");
 
         /**
          * Initializes Cloudsim Logger
@@ -43,7 +46,11 @@ public class RunHoneyBeeMatingAlgorithm implements StaticProperties {
 
         workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
+        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, 45);
 
+        Solution solution = hbmoAlgorithm.runAlgorithm();
+
+        printSolution(solution, instanceInfo);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
