@@ -41,14 +41,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         // Queen generation
         queen = new Queen(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
 
-        queen.localSearch();
+        queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
 
         for (int i = 0; i < generationNumber; i++) {
 
             // mating flight
             matingFlight();
             generateBrood();
-            queen.localSearch();
+            queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
         }
 
         return null;
@@ -56,7 +56,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     void matingFlight(){
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        
+
 
     }
 

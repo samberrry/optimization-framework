@@ -55,9 +55,9 @@ public class Solution implements StaticProperties {
 
     public double instanceTimelines[];
 
-    protected Workflow workflow;
+    public Workflow workflow;
 
-    protected InstanceInfo instanceInfo[];
+    public InstanceInfo instanceInfo[];
 
     /**
      * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
