@@ -6,7 +6,7 @@ import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
 
 public class PopulateWorkflow {
-    private static Workflow populateWorkflowFromDax(double budget, long deadline) {
+    public static Workflow populateWorkflowFromDax(double budget, long deadline) {
         Log.logger.info("Populates the workflow from Dax file");
 
         Dax2Workflow dax = new Dax2Workflow();

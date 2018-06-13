@@ -11,10 +11,14 @@ import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.heft.HEFTAlgorithm;
 
-public class RunCompleteAlgorithm implements StaticProperties {
-    public static void main(String[] args) throws Exception {
+public class RunHEFTAlgorithm implements StaticProperties {
+
+    public static void main(String[] args) throws Exception{
         Log.init();
+
+        Log.logger.info("<<<<<<<<< HEFT Algorithm is started >>>>>>>>>");
 
         /**
          * Initializes Cloudsim Logger
@@ -24,7 +28,7 @@ public class RunCompleteAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow6(0.1, 0);
+        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow(0.1, 0);
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
@@ -35,9 +39,11 @@ public class RunCompleteAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        CompleteAlgorithm completeAlgorithm = new CompleteAlgorithm(instanceInfo, workflow);
+        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        Solution solution = completeAlgorithm.runAlgorithm();
+        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, M_NUMBER);
+
+        Solution solution = heftAlgorithm.runAlgorithm();
 
         printSolution(solution, instanceInfo);
     }
@@ -59,7 +65,6 @@ public class RunCompleteAlgorithm implements StaticProperties {
     }
 
     private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
-        Log.logger.info("<<<<<<<---FINAL SOLUTION--->>>>>>>");
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {

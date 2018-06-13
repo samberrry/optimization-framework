@@ -42,7 +42,7 @@ public class Beta {
         return 100 * (solution2.makespan - solution.makespan);
     }
 
-    static int findFastestInstanceId(){
+    public static int findFastestInstanceId(){
         InstanceType temp = InstanceType.M1SMALL;
 
         for (InstanceType type: InstanceType.values()){
