@@ -100,7 +100,7 @@ public class RunSAAlgorithm implements StaticProperties {
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("Fitness Value: "+ solution.fitnessValue);
         String timePrefix;
-        long sec = time/100;
+        long sec = time/1000;
         long min = sec/60;
         long hr = min/60;
 
