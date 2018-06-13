@@ -47,10 +47,13 @@ public class RunHBMOAlgorithm implements StaticProperties {
         workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
         HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, 45);
+        long start = System.currentTimeMillis();
 
         Solution solution = hbmoAlgorithm.runAlgorithm();
 
-        printSolution(solution, instanceInfo);
+        long stop = System.currentTimeMillis();
+
+        printSolution(solution, instanceInfo, stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
@@ -69,7 +72,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
         return info;
     }
 
-    private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
+    private static void printSolution(Solution solution, InstanceInfo instanceInfo[], long time){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {
@@ -95,6 +98,28 @@ public class RunHBMOAlgorithm implements StaticProperties {
         Log.logger.info("Total Cost: " + solution.cost);
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("Fitness Value: "+ solution.fitnessValue);
+        String timePrefix;
+        long sec = time/100;
+        long min = sec/60;
+        long hr = min/60;
+
+        long converted;
+
+        if (sec < 0){
+            timePrefix = "Milisec";
+            converted = time;
+        }else if (min < 1){
+            timePrefix = "Seconds";
+            converted = sec;
+        }else if (hr < 1){
+            timePrefix = "Minutes";
+            converted = min;
+        }else {
+            timePrefix = "Hours";
+            converted = hr;
+        }
+
+        Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
 
 }

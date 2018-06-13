@@ -48,9 +48,13 @@ public class RunSAAlgorithm implements StaticProperties {
 
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
 
+        long start = System.currentTimeMillis();
+
         Solution solution = saAlgorithm.runAlgorithm();
 
-        printSolution(solution, instanceInfo);
+        long stop = System.currentTimeMillis();
+
+        printSolution(solution, instanceInfo,stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
@@ -69,7 +73,7 @@ public class RunSAAlgorithm implements StaticProperties {
         return info;
     }
 
-    private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
+    private static void printSolution(Solution solution, InstanceInfo instanceInfo[], long time){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {
@@ -95,5 +99,27 @@ public class RunSAAlgorithm implements StaticProperties {
         Log.logger.info("Total Cost: " + solution.cost);
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("Fitness Value: "+ solution.fitnessValue);
+        String timePrefix;
+        long sec = time/100;
+        long min = sec/60;
+        long hr = min/60;
+
+        long converted;
+
+        if (sec < 0){
+            timePrefix = "Milisec";
+            converted = time;
+        }else if (min < 1){
+            timePrefix = "Seconds";
+            converted = sec;
+        }else if (hr < 1){
+            timePrefix = "Minutes";
+            converted = min;
+        }else {
+            timePrefix = "Hours";
+            converted = hr;
+        }
+
+        Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
 }
