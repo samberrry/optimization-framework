@@ -4,9 +4,7 @@ import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
-import org.optframework.core.InstanceInfo;
-import org.optframework.core.OptimizationAlgorithm;
-import org.optframework.core.Solution;
+import org.optframework.core.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +47,15 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         queen.chromosome = localSearch(queen.chromosome);
 
         for (int i = 0; i < generationNumber; i++) {
+            Log.logger.info("=========================Iteration :" + i);
+            long start = System.currentTimeMillis();
+
             matingFlight();
             generateBrood();
             queen.chromosome = localSearch(queen.chromosome);
+
+            long stop = System.currentTimeMillis();
+            Printer.printSolution(queen.chromosome,instanceInfo,stop-start);
         }
 
         return queen.chromosome;
