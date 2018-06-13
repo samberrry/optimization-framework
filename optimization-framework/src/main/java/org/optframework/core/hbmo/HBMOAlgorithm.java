@@ -49,8 +49,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
 
         for (int i = 0; i < generationNumber; i++) {
-
-            // mating flight
             matingFlight();
             generateBrood();
             queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
@@ -62,9 +60,9 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     void matingFlight(){
         List<Mating> matingList = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_HBMO_THREADS; i++) {
-            ProblemInfo problemInfo = new ProblemInfo(instanceInfo, workflow, M_NUMBER);
-            Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);
+            ProblemInfo problemInfo = new ProblemInfo(instanceInfo, cloner.deepClone(workflow), M_NUMBER);
             spermathecaList.add(i , new Spermatheca());
+            Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);
             matingList.add(i, mating);
         }
 
@@ -173,7 +171,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                 }
             }
         }
-        Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
+        Chromosome chromosome = new Chromosome(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;

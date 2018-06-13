@@ -1,5 +1,6 @@
 package org.optframework.core.hbmo;
 
+import com.rits.cloning.Cloner;
 import org.optframework.config.StaticProperties;
 
 import java.util.Random;
@@ -24,7 +25,10 @@ public class Mating implements Runnable, StaticProperties {
 
     @Override
     public void run() {
-        Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
+        Cloner cloner = new Cloner();
+
+        //This constructor also generates the random solution
+        Drone drone = new Drone(cloner.deepClone(problemInfo.workflow), problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
         Random r = new Random();
         final double beta = 0.6 + 0.3 * r.nextDouble();
@@ -41,10 +45,11 @@ public class Mating implements Runnable, StaticProperties {
 
         while (queenSpeed > Smin && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
-                HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(drone.chromosome);
+                HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(drone.chromosome));
             }
             queenSpeed = 0.999 * queenSpeed;
-            drone.chromosome.generateRandomSolution(problemInfo.workflow);
+
+            drone = new Drone(cloner.deepClone(problemInfo.workflow), problemInfo.instanceInfo, problemInfo.numberOfInstances);
         }
     }
 

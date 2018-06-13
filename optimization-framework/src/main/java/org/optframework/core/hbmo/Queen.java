@@ -8,6 +8,8 @@ import org.optframework.core.InstanceInfo;
 public class Queen{
     Chromosome chromosome;
 
+    Chromosome currentBestChr;
+
     public Queen(Workflow workflow, InstanceInfo []instanceInfo, int numberOfInstances) {
         chromosome = new Chromosome(workflow, instanceInfo, numberOfInstances);
         chromosome.generateRandomSolution(workflow);
@@ -17,28 +19,28 @@ public class Queen{
     void localSearch(Workflow workflow, int numberOfInstances){
         Cloner cloner = new Cloner();
 
+        currentBestChr = cloner.deepClone(chromosome);
+
         //all neighbors without new instance
         for (int i = 0; i < chromosome.workflow.getJobList().size(); i++) {
             int newXArray [] = new int[chromosome.workflow.getJobList().size()];
             System.arraycopy(chromosome.xArray , 0, newXArray, 0, chromosome.xArray.length);
-            for (int j = 0; j < chromosome.yArray.length; j++) {
+            for (int j = 0; j < chromosome.numberOfUsedInstances; j++) {
                 newXArray[i] =j;
-                for (int k = 0; k < chromosome.yArray.length; k++) {
+                for (int k = 0; k < chromosome.numberOfUsedInstances; k++) {
                     for (int l = 0; l < InstanceType.values().length; l++) {
-                        int []newYArray = new int[chromosome.numberOfUsedInstances];
+                        int []newYArray = new int[numberOfInstances];
                         System.arraycopy(chromosome.yArray, 0, newYArray,0, chromosome.yArray.length);
 
                         newYArray[k] = l;
                         Chromosome newChromosome = new Chromosome(workflow, chromosome.instanceInfo, numberOfInstances);
-                        newChromosome.fitness();
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = chromosome.numberOfUsedInstances;
-
                         newChromosome.fitness();
 
-                        if (newChromosome.fitnessValue < chromosome.fitnessValue){
-                            chromosome = cloner.deepClone(newChromosome);
+                        if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
+                            currentBestChr = cloner.deepClone(newChromosome);
                         }
                     }
                 }
@@ -46,30 +48,33 @@ public class Queen{
         }
 
         //all neighbors with new instance selected
-        for (int i = 0; i < chromosome.xArray.length; i++) {
-            int newXArray [] = new int[chromosome.workflow.getJobList().size()];
-            System.arraycopy(chromosome.xArray , 0, newXArray, 0, chromosome.xArray.length);
+        if (chromosome.numberOfUsedInstances != numberOfInstances){
+            for (int i = 0; i < chromosome.xArray.length; i++) {
+                int newXArray [] = new int[chromosome.workflow.getJobList().size()];
+                System.arraycopy(chromosome.xArray , 0, newXArray, 0, chromosome.xArray.length);
 
-            int newInstanceId = chromosome.numberOfUsedInstances;
-            newXArray[i] = newInstanceId;
+                int newInstanceId = chromosome.numberOfUsedInstances;
+                newXArray[i] = newInstanceId;
 
-            int []newYArray = new int[chromosome.numberOfUsedInstances+1];
-            System.arraycopy(chromosome.yArray, 0, newYArray,0, chromosome.yArray.length);
+                int []newYArray = new int[numberOfInstances];
+                System.arraycopy(chromosome.yArray, 0, newYArray,0, chromosome.yArray.length);
 
-            for (int j = 0; j < InstanceType.values().length; j++) {
-                newYArray[newInstanceId] = j;
-                Chromosome newChromosome = new Chromosome(workflow, chromosome.instanceInfo, numberOfInstances);
-                newChromosome.fitness();
-                newChromosome.xArray = newXArray;
-                newChromosome.yArray = newYArray;
-                newChromosome.numberOfUsedInstances = chromosome.numberOfUsedInstances+1;
+                for (int j = 0; j < InstanceType.values().length; j++) {
+                    newYArray[newInstanceId] = j;
+                    Chromosome newChromosome = new Chromosome(workflow, chromosome.instanceInfo, numberOfInstances);
+                    newChromosome.xArray = newXArray;
+                    newChromosome.yArray = newYArray;
+                    newChromosome.numberOfUsedInstances = chromosome.numberOfUsedInstances+1;
 
-                newChromosome.fitness();
+                    newChromosome.fitness();
 
-                if (newChromosome.fitnessValue < chromosome.fitnessValue){
-                    chromosome = cloner.deepClone(newChromosome);
+                    if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
+                        currentBestChr = cloner.deepClone(newChromosome);
+                    }
                 }
             }
         }
+
+        chromosome = cloner.deepClone(currentBestChr);
     }
 }
