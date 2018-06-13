@@ -46,12 +46,12 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         // Queen generation
         queen = new Queen(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
 
-        queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
+        queen.chromosome = localSearch(queen.chromosome);
 
         for (int i = 0; i < generationNumber; i++) {
             matingFlight();
             generateBrood();
-            queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
+            queen.chromosome = localSearch(queen.chromosome);
         }
 
         return queen.chromosome;
@@ -79,6 +79,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         for (Spermatheca spermatheca : spermathecaList){
             for (Chromosome childChr : spermatheca.chromosomeList){
                 Chromosome brood = crossOver(queen.chromosome, childChr);
+
+                brood = localSearch(brood);
 
                 if (brood.fitnessValue < queen.chromosome.fitnessValue){
                     queen.chromosome = cloner.deepClone(brood);
@@ -180,5 +182,66 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         chromosome.solutionMapping();
 
         return chromosome;
+    }
+
+    Chromosome localSearch(Chromosome mainChr){
+        Cloner cloner = new Cloner();
+        Chromosome currentBestChr = cloner.deepClone(mainChr);
+
+        //all neighbors without new instance
+        for (int i = 0; i < mainChr.workflow.getJobList().size(); i++) {
+            int newXArray [] = new int[mainChr.workflow.getJobList().size()];
+            System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
+            for (int j = 0; j < mainChr.numberOfUsedInstances; j++) {
+                newXArray[i] =j;
+                for (int k = 0; k < mainChr.numberOfUsedInstances; k++) {
+                    for (int l = 0; l < InstanceType.values().length; l++) {
+                        int []newYArray = new int[M_NUMBER];
+                        System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
+
+                        newYArray[k] = l;
+                        Chromosome newChromosome = new Chromosome(cloner.deepClone(workflow), mainChr.instanceInfo, M_NUMBER);
+                        newChromosome.xArray = newXArray;
+                        newChromosome.yArray = newYArray;
+                        newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
+                        newChromosome.fitness();
+
+                        if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
+                            currentBestChr = cloner.deepClone(newChromosome);
+                        }
+                    }
+                }
+            }
+        }
+
+        //all neighbors with new instance selected
+        if (mainChr.numberOfUsedInstances != M_NUMBER){
+            for (int i = 0; i < mainChr.xArray.length; i++) {
+                int newXArray [] = new int[mainChr.workflow.getJobList().size()];
+                System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
+
+                int newInstanceId = mainChr.numberOfUsedInstances;
+                newXArray[i] = newInstanceId;
+
+                int []newYArray = new int[M_NUMBER];
+                System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
+
+                for (int j = 0; j < InstanceType.values().length; j++) {
+                    newYArray[newInstanceId] = j;
+                    Chromosome newChromosome = new Chromosome(cloner.deepClone(workflow), mainChr.instanceInfo, M_NUMBER);
+                    newChromosome.xArray = newXArray;
+                    newChromosome.yArray = newYArray;
+                    newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
+
+                    newChromosome.fitness();
+
+                    if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
+                        currentBestChr = cloner.deepClone(newChromosome);
+                    }
+                }
+            }
+        }
+
+        return currentBestChr;
     }
 }
