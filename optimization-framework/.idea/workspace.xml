@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ProblemInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Hessam.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Hessam.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" afterDir="false" />
@@ -29,8 +23,8 @@
       <file leaf-file-name="HBMOAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+            <state relative-caret-position="216">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -38,23 +32,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mating.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
+      <file leaf-file-name="Chromosome.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Chromosome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+            <state relative-caret-position="182">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StaticProperties.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="39" column="31" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -62,7 +47,7 @@
       <file leaf-file-name="RunHBMOAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
+            <state relative-caret-position="1924">
               <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -173,11 +158,11 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/Ant.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ProblemInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
       </list>
     </option>
@@ -274,16 +259,6 @@
               <item name="optframework" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="hbmo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="optframework" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="pacsa" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
@@ -529,7 +504,7 @@
       <workItem from="1528438731179" duration="979000" />
       <workItem from="1528440048724" duration="1518000" />
       <workItem from="1528477187509" duration="115303000" />
-      <workItem from="1528842806653" duration="9604000" />
+      <workItem from="1528842806653" duration="14278000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -556,7 +531,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="481615000" />
+    <option name="totallyTimeSpent" value="486289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -574,7 +549,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.38636363" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.5735294" />
       <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -737,16 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Chromosome.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -839,16 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ProblemInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -879,19 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding>
-            <element signature="e#174#175#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#281#282#0" expanded="true" />
-            <element signature="e#333#334#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -904,17 +846,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="39" column="31" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+        <state relative-caret-position="1924">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#179#180#0" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#174#175#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
+            <element signature="e#281#282#0" expanded="true" />
+            <element signature="e#333#334#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+        <state relative-caret-position="182">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Chromosome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -923,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+        <state relative-caret-position="216">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

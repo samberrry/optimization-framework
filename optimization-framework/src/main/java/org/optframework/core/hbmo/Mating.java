@@ -24,7 +24,6 @@ public class Mating implements Runnable, StaticProperties {
 
     @Override
     public void run() {
-
         Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
         Random r = new Random();
@@ -43,7 +42,6 @@ public class Mating implements Runnable, StaticProperties {
         while (queenSpeed > Smin && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                 HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(drone.chromosome);
-
             }
             queenSpeed = 0.999 * queenSpeed;
             drone.chromosome.generateRandomSolution(problemInfo.workflow);

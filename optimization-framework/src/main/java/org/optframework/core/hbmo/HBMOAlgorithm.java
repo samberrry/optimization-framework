@@ -2,6 +2,7 @@ package org.optframework.core.hbmo;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Workflow;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.OptimizationAlgorithm;
@@ -9,6 +10,7 @@ import org.optframework.core.Solution;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -44,14 +46,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         // Queen generation
         queen = new Queen(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
 
-//        queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
+        queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
 
         for (int i = 0; i < generationNumber; i++) {
 
             // mating flight
             matingFlight();
             generateBrood();
-//            queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
+            queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
         }
 
         return null;
@@ -62,8 +64,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         for (int i = 0; i < NUMBER_OF_HBMO_THREADS; i++) {
             ProblemInfo problemInfo = new ProblemInfo(instanceInfo, workflow, M_NUMBER);
             Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);
-            Spermatheca spermatheca = new Spermatheca();
-            spermathecaList.add(i , spermatheca);
+            spermathecaList.add(i , new Spermatheca());
             matingList.add(i, mating);
         }
 
@@ -77,6 +78,107 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     }
 
     void generateBrood(){
+        for (Spermatheca spermatheca : spermathecaList){
+            for (Chromosome childChr : spermatheca.chromosomeList){
+                Chromosome brood = crossOver(queen.chromosome, childChr);
 
+                if (brood.fitnessValue < queen.chromosome.fitnessValue){
+                    queen.chromosome = cloner.deepClone(brood);
+                }
+            }
+        }
+
+    }
+
+    Chromosome crossOver(Chromosome queenChr, Chromosome childChr){
+        int mask[] = new int[workflow.getJobList().size()];
+        Random r = new Random();
+        int newXArray[] = new int[workflow.getJobList().size()];
+        int newYArray[];
+        int numberOfInstancesUsed;
+
+        for (int i = 0; i < mask.length; i++) {
+            mask[i] = r.nextInt(2);
+        }
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            switch (mask[i]){
+                case 0:
+                    newXArray[i] = queenChr.xArray[i];
+                    break;
+                case 1:
+                    newXArray[i] = childChr.xArray[i];
+                    break;
+            }
+        }
+
+        if (queenChr.numberOfUsedInstances == childChr.numberOfUsedInstances){
+            newYArray = new int[queenChr.yArray.length];
+            numberOfInstancesUsed = queenChr.numberOfUsedInstances;
+            for (int i = 0; i < queenChr.numberOfUsedInstances; i++) {
+                int toggle = r.nextInt(2);
+                switch (toggle){
+                    case 0:
+                        newYArray[i] = queenChr.yArray[i];
+                        break;
+                    case 1:
+                        newYArray[i] = childChr.yArray[i];
+                        break;
+                }
+            }
+        }else {
+            int maxNumber , minNumber;
+            boolean queenHasMaxLength = false;
+            if (queenChr.numberOfUsedInstances > childChr.numberOfUsedInstances){
+                queenHasMaxLength = true;
+                maxNumber = queenChr.numberOfUsedInstances;
+                numberOfInstancesUsed = queenChr.numberOfUsedInstances;
+                minNumber = childChr.numberOfUsedInstances;
+            }else {
+                maxNumber = childChr.numberOfUsedInstances;
+                numberOfInstancesUsed = childChr.numberOfUsedInstances;
+                minNumber = queenChr.numberOfUsedInstances;
+            }
+            newYArray = new int[maxNumber];
+
+            for (int i = 0; i < minNumber; i++) {
+                int toggle = r.nextInt(2);
+                switch (toggle){
+                    case 0:
+                        newYArray[i] = queenChr.yArray[i];
+                        break;
+                    case 1:
+                        newYArray[i] = childChr.yArray[i];
+                        break;
+                }
+            }
+
+            for (int i = minNumber; i < maxNumber; i++) {
+                int toggle = r.nextInt(2);
+                switch (toggle){
+                    case 0:
+                        if (queenHasMaxLength){
+                            newYArray[i] = queenChr.yArray[i];
+                        }else {
+                            newYArray[i] = r.nextInt(InstanceType.values().length);
+                        }
+                        break;
+                    case 1:
+                        if (queenHasMaxLength){
+                            newYArray[i] = r.nextInt(InstanceType.values().length);
+                        }else {
+                            newYArray[i] = childChr.yArray[i];
+                        }
+                        break;
+                }
+            }
+        }
+        Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
+        chromosome.numberOfUsedInstances = numberOfInstancesUsed;
+        chromosome.xArray = newXArray;
+        chromosome.yArray = newYArray;
+        chromosome.fitness();
+
+        return chromosome;
     }
 }
