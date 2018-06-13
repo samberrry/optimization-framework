@@ -131,9 +131,10 @@ public class Solution implements StaticProperties {
     }
 
     /**
-     * This function does mapping of new x Array with the help of two arrays, map and mapper
+     * This method does the mapping of new x Array with the help of two arrays, map and mapper
+     * This method also useful after recombination of the solutions (crossover)
      * */
-    void solutionMapping(){
+    public void solutionMapping(){
         boolean map[] = new boolean[numberOfUsedInstances];
         int realNumberOfInstances = 0;
 

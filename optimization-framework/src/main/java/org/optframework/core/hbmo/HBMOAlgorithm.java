@@ -54,7 +54,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
             queen.localSearch(cloner.deepClone(workflow), M_NUMBER);
         }
 
-        return null;
+        return queen.chromosome;
     }
 
     void matingFlight(){
@@ -176,6 +176,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;
         chromosome.fitness();
+
+        chromosome.solutionMapping();
 
         return chromosome;
     }
