@@ -1,10 +1,15 @@
 package org.optframework.core.hbmo;
 
-import org.optframework.core.Solution;
+import java.util.List;
 
 public class Spermatheca {
-    /**
-     * The solution class is equal to the chromosome in the GA algorithm
-     * */
-    Solution [] solutions;
+    List<Chromosome> chromosomeList;
+
+    public List<Chromosome> getChromosomeList() {
+        return chromosomeList;
+    }
+
+    public void setChromosomeList(List<Chromosome> chromosomeList) {
+        this.chromosomeList = chromosomeList;
+    }
 }

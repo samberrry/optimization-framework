@@ -1,49 +1,60 @@
 package org.optframework.core.hbmo;
 
-import org.optframework.core.Log;
+import org.optframework.config.StaticProperties;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.RecursiveTask;
+import java.util.Random;
 
-public class Mating extends RecursiveTask<List<Chromosome>> {
+public class Mating implements Runnable, StaticProperties {
 
-    int level;
+    int id;
 
-    public Mating(int level) {
-        this.level = level;
+    Thread thread;
+
+    ProblemInfo problemInfo;
+
+    Queen queen;
+
+    public Mating(int id, String name, ProblemInfo problemInfo, Queen queen) {
+        this.id = id;
+        this.queen = queen;
+        this.problemInfo = problemInfo;
+        thread = new Thread(this, name);
+        thread.start();
     }
 
     @Override
-    protected List<Chromosome> compute() {
-        int newLevel = level/2;
-        List<Chromosome> chromosomeList = new ArrayList<>();
+    public void run() {
 
-        if (level == 1){
-            Log.logger.info("A Mating is started");
+        Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
-            // SIMULATED ANNEALING
+        Random r = new Random();
+        final double beta = 0.6 + 0.3 * r.nextDouble();
+        int threadSpmSize = SPERMATHECA_SIZE / NUMBER_OF_HBMO_THREADS;
 
-            return chromosomeList;
-        }else {
-            Mating childMating1 = new Mating(newLevel);
-            Mating childMating2 = new Mating(newLevel);
+        double SMax = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(beta));
 
-            childMating1.fork();
-            childMating2.fork();
+        double Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
 
-            List<Chromosome> childChromosome1 = childMating1.join();
-            List<Chromosome> childChromosome2 = childMating2.join();
+        SMax /= 10;
+        Smin /= 10;
 
-            if (childChromosome1 != null && childChromosome2 != null){
-                chromosomeList.addAll(childChromosome1);
-                chromosomeList.addAll(childChromosome2);
-                return chromosomeList;
-            }else {
-                Log.logger.warning("Exception occurred because of empty solution");
-                throw  new RuntimeException("Empty Solution");
+        double queenSpeed = SMax;
+
+        while (queenSpeed > Smin && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
+            if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
+                HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(drone.chromosome);
+
             }
-
+            queenSpeed = 0.999 * queenSpeed;
+            drone.chromosome.generateRandomSolution(problemInfo.workflow);
         }
+    }
+
+    double probability(double queenFitness, double droneFitness, double queenSpeed){
+
+        if(droneFitness > queenFitness)
+            return 1;
+        else
+            return Math.exp((droneFitness - queenFitness) / queenSpeed);
     }
 }

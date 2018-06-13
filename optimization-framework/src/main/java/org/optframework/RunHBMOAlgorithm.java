@@ -23,7 +23,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
     public static void main(String[] args) throws Exception{
         Log.init();
 
-        Log.logger.info("<<<<<<<<< Starts HBMO Algorithm >>>>>>>>>");
+        Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
 
         /**
          * Initializes Cloudsim Logger
