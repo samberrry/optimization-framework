@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreProcessor {
+    static List<Job> jobList;
+    static double bw;
+
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw){
-        List<Job> jobList = new ArrayList<>();
+        jobList = new ArrayList<>();
+        PreProcessor.bw = bw;
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double exeTime[] = new double[InstanceType.values().length];
@@ -42,12 +46,10 @@ public class PreProcessor {
             for (int jobId : level){
                 ArrayList<Integer> children = dag.getChildren(jobId);
                 Job job = jobList.get(jobId);
+                int maxChildId = getMaxChildRank(jobId, children);
 
-                job.setRank(job.getAvgExeTime() + jobList.get(getMaxChildRank(jobId, children)).getRank() + job.getEdgeInfo());
-
-
+                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/bw);
             }
-
             level = dag.getParents(level);
         }
 
@@ -59,10 +61,17 @@ public class PreProcessor {
                 0.0);
     }
 
-    static int getMaxChildRank(int parent, ArrayList<Integer> childs){
+    static int getMaxChildRank(int parent, ArrayList<Integer> children){
+        int maxChild = -1;
+        double maxVal = -1;
 
-
-
-        return 0;
+        for (int child : children){
+            double newVal = jobList.get(child).getRank() + jobList.get(parent).getEdge(child)/bw;
+            if (newVal > maxVal){
+                maxVal = newVal;
+                maxChild = child;
+            }
+        }
+        return maxChild;
     }
 }

@@ -39,6 +39,15 @@ public class Job implements Serializable {
         return (int)this.id;
     }
 
+    public long getEdge(int taskID){
+        for(WFEdge edge : edgeInfo){
+            if(taskID == edge.getToTaskID()){
+                return edge.getTransferTime();
+            }
+        }
+        return 0;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -91,13 +100,5 @@ public class Job implements Serializable {
 
     public void setAvgExeTime(double avgExeTime) {
         this.avgExeTime = avgExeTime;
-    }
-
-    public List<WFEdge> getEdgeInfo() {
-        return edgeInfo;
-    }
-
-    public void setEdgeInfo(List<WFEdge> edgeInfo) {
-        this.edgeInfo = edgeInfo;
     }
 }
