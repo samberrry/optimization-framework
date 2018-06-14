@@ -1,6 +1,5 @@
 package org.optframework;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -12,6 +11,7 @@ import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
 
 public class RunCompleteAlgorithm implements StaticProperties {
     public static void main(String[] args) throws Exception {
@@ -25,7 +25,8 @@ public class RunCompleteAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow6(0.1, 0);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
+
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
@@ -35,6 +36,8 @@ public class RunCompleteAlgorithm implements StaticProperties {
          * OS type: Linux System
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+
+        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
         CompleteAlgorithm completeAlgorithm = new CompleteAlgorithm(instanceInfo, workflow);
 

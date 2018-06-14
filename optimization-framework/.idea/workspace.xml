@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,8 +34,8 @@
       <file leaf-file-name="RunSAAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="456">
+              <caret line="49" selection-start-line="49" selection-end-line="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,23 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mating.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
+      <file leaf-file-name="RunCompleteAlgorithm.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="51" column="46" selection-start-line="51" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompleteAlgorithm.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="7" column="5" lean-forward="true" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+            <state relative-caret-position="330">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,7 +152,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Printer.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/PopulateWorkflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Dax2Workflow.java" />
@@ -191,6 +178,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
       </list>
     </option>
   </component>
@@ -551,7 +539,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="549682000" />
+    <option name="totallyTimeSpent" value="549761000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -569,7 +557,7 @@
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4984375" weight="0.89973265" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.54946524" />
       <window_info id="Designer" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -946,13 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -1084,10 +1065,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="208">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1104,10 +1085,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="5" lean-forward="true" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        <state relative-caret-position="456">
+          <caret line="49" selection-start-line="49" selection-end-line="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
