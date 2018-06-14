@@ -1,6 +1,9 @@
 package org.optframework.core;
 
+import org.cloudbus.cloudsim.util.workload.WFEdge;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Hessam Modaberi
@@ -19,11 +22,14 @@ public class Job implements Serializable {
 
     private double exeTime[];
 
-    public Job(long id, double weight, double finishTime, double[] exeTime) {
+    private List<WFEdge> edgeInfo;
+
+    public Job(long id, double weight, double finishTime, double[] exeTime, List<WFEdge> edgeInfo) {
         this.id = id;
         this.weight = weight;
         this.finishTime = finishTime;
         this.exeTime = exeTime;
+        this.edgeInfo = edgeInfo;
     }
 
     public int getIntId() {

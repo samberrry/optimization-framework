@@ -20,25 +20,13 @@ public class Workflow {
     private double budget;
     private double beta;
 
-    public Workflow(long deadline, double budget){
+    public Workflow(WorkflowDAG wfDAG, List<Job> jobList, int numberTasks, long deadline, double budget, double beta) {
+        this.wfDAG = wfDAG;
+        this.jobList = jobList;
+        this.numberTasks = numberTasks;
         this.deadline = deadline;
         this.budget = budget;
-//        this.jobList = new ArrayList<>();
-        setWfDAG(new WorkflowDAG(numberTasks));
-    }
-
-    public Workflow(int numTasks, long deadline, double budget){
-        this.numberTasks = numTasks;
-        this.deadline = deadline;
-        this.budget = budget;
-//        this.jobList = new ArrayList<>();
-        setWfDAG(new WorkflowDAG(numberTasks));
-    }
-
-    public Workflow(int numJobs) {
-        this.numberTasks = numJobs;
-//        this.jobList = new ArrayList<>();
-        setWfDAG(new WorkflowDAG(numberTasks));
+        this.beta = beta;
     }
 
     public void initBudget(double budget){

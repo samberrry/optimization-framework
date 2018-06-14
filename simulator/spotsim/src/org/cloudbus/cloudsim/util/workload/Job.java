@@ -93,15 +93,6 @@ public class Job implements Serializable {
     
     private long parentEdgeWeight;
 
-//    HESSAM ADDED THIS FIELD
-    private double weight;
-
-//    HESSAM ADDED THIS FIELD
-    private double finishTime;
-
-//    HESSAM ADDED THIS FIELD
-	private double exeTime;
-
     /**
      * Creates a new object.
      * 
@@ -472,27 +463,8 @@ public class Job implements Serializable {
 		this.parentEdgeWeight = parentEdgeWeight;
 	}
 
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-	public double getFinishTime() {
-		return finishTime;
-	}
-
-	public void setFinishTime(double finishTime) {
-		this.finishTime = finishTime;
-	}
-
-	public double getExeTime() {
-		return exeTime;
-	}
-
-	public void setExeTime(double exeTime) {
-		this.exeTime = exeTime;
+//	HESSAM ADDED
+	public List<WFEdge> getEdgeInfo() {
+		return edgeInfo;
 	}
 }
