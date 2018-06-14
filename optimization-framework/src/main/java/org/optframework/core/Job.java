@@ -22,13 +22,16 @@ public class Job implements Serializable {
 
     private double exeTime[];
 
+    private double avgExeTime;
+
     private List<WFEdge> edgeInfo;
 
-    public Job(long id, double rank, double finishTime, double[] exeTime, List<WFEdge> edgeInfo) {
+    public Job(long id, double rank, double finishTime, double[] exeTime, double avgExeTime, List<WFEdge> edgeInfo) {
         this.id = id;
         this.rank = rank;
         this.finishTime = finishTime;
         this.exeTime = exeTime;
+        this.avgExeTime = avgExeTime;
         this.edgeInfo = edgeInfo;
     }
 
@@ -80,5 +83,13 @@ public class Job implements Serializable {
 
     public void setFinishTime(double finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public double getAvgExeTime() {
+        return avgExeTime;
+    }
+
+    public void setAvgExeTime(double avgExeTime) {
+        this.avgExeTime = avgExeTime;
     }
 }
