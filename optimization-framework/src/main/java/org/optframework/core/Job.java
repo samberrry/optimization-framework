@@ -92,4 +92,12 @@ public class Job implements Serializable {
     public void setAvgExeTime(double avgExeTime) {
         this.avgExeTime = avgExeTime;
     }
+
+    public List<WFEdge> getEdgeInfo() {
+        return edgeInfo;
+    }
+
+    public void setEdgeInfo(List<WFEdge> edgeInfo) {
+        this.edgeInfo = edgeInfo;
+    }
 }

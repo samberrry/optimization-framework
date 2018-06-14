@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreProcessor {
-    public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
+    public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw){
         List<Job> jobList = new ArrayList<>();
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
@@ -39,7 +39,14 @@ public class PreProcessor {
         level = dag.getParents(level);
 
         while (level.size() != 0){
+            for (int jobId : level){
+                ArrayList<Integer> children = dag.getChildren(jobId);
+                Job job = jobList.get(jobId);
 
+                job.setRank(job.getAvgExeTime() + jobList.get(getMaxChildRank(jobId, children)).getRank() + job.getEdgeInfo());
+
+
+            }
 
             level = dag.getParents(level);
         }
@@ -50,5 +57,12 @@ public class PreProcessor {
                 workflow.getDeadline(),
                 workflow.getBudget(),
                 0.0);
+    }
+
+    static int getMaxChildRank(int parent, ArrayList<Integer> childs){
+
+
+
+        return 0;
     }
 }
