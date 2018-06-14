@@ -5,6 +5,7 @@ import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
+import org.optframework.core.utils.TaskUtility;
 
 import java.util.*;
 

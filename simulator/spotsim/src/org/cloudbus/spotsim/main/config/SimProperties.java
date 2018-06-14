@@ -196,7 +196,7 @@ public enum SimProperties implements SimProp {
 //	HESSAM CHANGED
 	WORKFLOW_FILE_DAG(
 			"spotsim.workflow.dag1",
-			"resources/input/inputDAGfiles/Inspiral_30.xml"),
+			"resources/input/inputDAGfiles/Inspiral_1000.xml"),
 
 //	HESSAM CHANGED
 	WORKFLOW_OUTPUT_DIRECTORY(

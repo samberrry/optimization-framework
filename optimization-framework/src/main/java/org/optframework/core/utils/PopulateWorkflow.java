@@ -1,9 +1,10 @@
-package org.optframework.core;
+package org.optframework.core.utils;
 
 import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
+import org.optframework.core.Log;
 
 public class PopulateWorkflow {
     public static Workflow populateWorkflowFromDax(double budget, long deadline) {

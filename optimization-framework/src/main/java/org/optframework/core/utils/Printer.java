@@ -1,4 +1,8 @@
-package org.optframework.core;
+package org.optframework.core.utils;
+
+import org.optframework.core.InstanceInfo;
+import org.optframework.core.Log;
+import org.optframework.core.Solution;
 
 public class Printer {
     public static void printSolution(Solution solution, InstanceInfo instanceInfo[], long time){

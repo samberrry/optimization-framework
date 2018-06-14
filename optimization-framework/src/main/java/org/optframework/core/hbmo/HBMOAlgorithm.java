@@ -5,6 +5,7 @@ import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.utils.Printer;
 
 import java.util.ArrayList;
 import java.util.List;

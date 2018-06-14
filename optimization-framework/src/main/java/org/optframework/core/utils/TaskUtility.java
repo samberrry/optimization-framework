@@ -1,4 +1,4 @@
-package org.optframework.core;
+package org.optframework.core.utils;
 
 import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.spotsim.enums.InstanceType;

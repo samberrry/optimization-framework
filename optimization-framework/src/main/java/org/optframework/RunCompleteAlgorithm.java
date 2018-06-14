@@ -11,6 +11,7 @@ import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.utils.PopulateWorkflow;
 
 public class RunCompleteAlgorithm implements StaticProperties {
     public static void main(String[] args) throws Exception {
