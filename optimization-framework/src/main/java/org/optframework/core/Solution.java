@@ -1,7 +1,5 @@
 package org.optframework.core;
 
-import org.cloudbus.cloudsim.util.workload.Job;
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;

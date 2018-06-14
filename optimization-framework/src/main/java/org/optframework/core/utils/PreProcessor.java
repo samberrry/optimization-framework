@@ -4,14 +4,15 @@ import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.core.Job;
 import org.optframework.core.Workflow;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PreProcessing {
+public class PreProcessor {
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
-        double exeTime[] = new double[InstanceType.values().length];
-        List<Job> jobList = null;
+        List<Job> jobList = new ArrayList<>();
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
+            double exeTime[] = new double[InstanceType.values().length];
             for (InstanceType type: InstanceType.values()){
                 exeTime[type.getId()] = TaskUtility.executionTimeOnType(job,type);
             }

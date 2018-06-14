@@ -1,12 +1,8 @@
 package org.optframework.core.sa;
 
 import com.rits.cloning.Cloner;
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.config.StaticProperties;
-import org.optframework.core.InstanceInfo;
-import org.optframework.core.Log;
-import org.optframework.core.OptimizationAlgorithm;
-import org.optframework.core.Solution;
+import org.optframework.core.*;
 
 import java.util.*;
 

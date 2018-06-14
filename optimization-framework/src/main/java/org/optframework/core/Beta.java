@@ -1,6 +1,5 @@
 package org.optframework.core;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 
 public class Beta {

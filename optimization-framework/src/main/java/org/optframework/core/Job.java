@@ -16,7 +16,7 @@ public class Job implements Serializable {
 
     private long id;
 
-    private double weight;
+    private double rank;
 
     private double finishTime;
 
@@ -24,9 +24,9 @@ public class Job implements Serializable {
 
     private List<WFEdge> edgeInfo;
 
-    public Job(long id, double weight, double finishTime, double[] exeTime, List<WFEdge> edgeInfo) {
+    public Job(long id, double rank, double finishTime, double[] exeTime, List<WFEdge> edgeInfo) {
         this.id = id;
-        this.weight = weight;
+        this.rank = rank;
         this.finishTime = finishTime;
         this.exeTime = exeTime;
         this.edgeInfo = edgeInfo;
@@ -66,12 +66,12 @@ public class Job implements Serializable {
         this.id = id;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getRank() {
+        return rank;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setRank(double rank) {
+        this.rank = rank;
     }
 
     public double getFinishTime() {
