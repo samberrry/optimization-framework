@@ -28,7 +28,7 @@ public class Mating implements Runnable, StaticProperties {
         Cloner cloner = new Cloner();
 
         //This constructor also generates the random solution
-        Drone drone = new Drone(cloner.deepClone(problemInfo.workflow), problemInfo.instanceInfo, problemInfo.numberOfInstances);
+        Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
         Random r = new Random();
         final double beta = 0.6 + 0.3 * r.nextDouble();
@@ -49,7 +49,7 @@ public class Mating implements Runnable, StaticProperties {
             }
             queenSpeed = 0.999 * queenSpeed;
 
-            drone = new Drone(cloner.deepClone(problemInfo.workflow), problemInfo.instanceInfo, problemInfo.numberOfInstances);
+            drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
         }
     }
 

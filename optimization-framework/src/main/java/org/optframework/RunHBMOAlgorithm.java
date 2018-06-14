@@ -49,7 +49,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
 //        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, 30);
+        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, HBMO_GENERATION_NUMBER);
         long start = System.currentTimeMillis();
 
         Solution solution = hbmoAlgorithm.runAlgorithm();

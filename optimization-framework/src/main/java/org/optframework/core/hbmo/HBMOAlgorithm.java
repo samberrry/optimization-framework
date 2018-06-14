@@ -42,7 +42,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     public Solution runAlgorithm() {
 
         // Queen generation
-        queen = new Queen(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+        queen = new Queen(workflow, instanceInfo, M_NUMBER);
 
         queen.chromosome = localSearch(queen.chromosome);
 
@@ -64,7 +64,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     void matingFlight(){
         List<Mating> matingList = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_HBMO_THREADS; i++) {
-            ProblemInfo problemInfo = new ProblemInfo(instanceInfo, cloner.deepClone(workflow), M_NUMBER);
+            ProblemInfo problemInfo = new ProblemInfo(instanceInfo, workflow, M_NUMBER);
             spermathecaList.add(i , new Spermatheca());
             Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);
             matingList.add(i, mating);
@@ -177,7 +177,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                 }
             }
         }
-        Chromosome chromosome = new Chromosome(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+        Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;
@@ -204,7 +204,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                         System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
 
                         newYArray[k] = l;
-                        Chromosome newChromosome = new Chromosome(cloner.deepClone(workflow), mainChr.instanceInfo, M_NUMBER);
+                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
@@ -232,7 +232,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
                 for (int j = 0; j < InstanceType.values().length; j++) {
                     newYArray[newInstanceId] = j;
-                    Chromosome newChromosome = new Chromosome(cloner.deepClone(workflow), mainChr.instanceInfo, M_NUMBER);
+                    Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;

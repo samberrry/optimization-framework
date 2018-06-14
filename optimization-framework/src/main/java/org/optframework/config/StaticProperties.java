@@ -37,5 +37,7 @@ public interface StaticProperties {
 
     int NUMBER_OF_HBMO_THREADS = 8;
 
-    int SPERMATHECA_SIZE = 1000;
+    int SPERMATHECA_SIZE = 100;
+
+    int HBMO_GENERATION_NUMBER = 30;
 }
