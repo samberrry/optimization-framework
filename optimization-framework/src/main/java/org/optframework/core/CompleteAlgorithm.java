@@ -1,7 +1,6 @@
 package org.optframework.core;
 
 import com.rits.cloning.Cloner;
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 
 /**
