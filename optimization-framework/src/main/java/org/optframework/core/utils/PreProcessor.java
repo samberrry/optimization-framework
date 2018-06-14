@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PreProcessor {
     static List<Job> jobList;
-    static double bw;
+    public static double bw;
 
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw){
         jobList = new ArrayList<>();
@@ -25,8 +25,6 @@ public class PreProcessor {
                 total += exeTime[type.getId()];
             }
             jobList.add(job.getIntId(), new Job(job.getIntId(),
-                    0,
-                    0,
                     exeTime,
                     (total/InstanceType.values().length),
                     job.getEdgeInfo()));

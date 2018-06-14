@@ -1,9 +1,8 @@
 package org.optframework.core;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.StaticProperties;
-import org.optframework.core.utils.TaskUtility;
+import org.optframework.core.utils.PreProcessor;
 
 import java.util.*;
 
@@ -227,35 +226,31 @@ public class Solution implements StaticProperties {
 
         double instanceTimeLine[] = new double[this.numberOfUsedInstances];
 
-        Map<Integer, ArrayList<ReadyTask>> instanceList = new HashMap();
+        Map<Integer, ArrayList<Job>> instanceList = new HashMap();
 
 //      Do this for the first level - First level may contain several tasks
         for (int jobId: level){
             int instanceId = this.xArray[jobId];
-            int type = this.yArray[instanceId];
-            double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceInfo[type].getType());
 
             if (!instanceList.containsKey(instanceId)){
-                instanceList.put(instanceId, new ArrayList<ReadyTask>());
+                instanceList.put(instanceId, new ArrayList<Job>());
             }
-            ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
-            readyTaskList.add(new ReadyTask(jobId, exeTime));
+            ArrayList<Job> readyTaskList = instanceList.get(instanceId);
+            readyTaskList.add(jobList.get(jobId));
         }
 
 //      Computes maximum task's length and updates the instance times
         for (Integer instance : instanceList.keySet()){
-            ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
-            Collections.sort(readyTaskList);
+            ArrayList<Job> readyTaskList = instanceList.get(instance);
+            Collections.sort(readyTaskList, Job.rankComarator);
 
-            for (ReadyTask readyTask : readyTaskList){
-                instancesTimes[instance] += readyTask.exeTime;
-                instanceTimeLine[instance] += readyTask.exeTime;
+            for (Job readyTask : readyTaskList){
+                instancesTimes[instance] += readyTask.getExeTime()[yArray[xArray[readyTask.getIntId()]]];
+
+                instanceTimeLine[instance] += readyTask.getExeTime()[yArray[xArray[readyTask.getIntId()]]];
                 instanceUsed[instance] = true;
-                Job job = jobList.get(readyTask.jobId);
 
-                job.setExeTime(readyTask.exeTime);
-                job.setWeight(readyTask.exeTime);
-                job.setFinishTime(instanceTimeLine[instance]);
+                readyTask.setFinishTime(instanceTimeLine[instance]);
             }
         }
 
@@ -273,54 +268,45 @@ public class Solution implements StaticProperties {
              * - computes weights for all of the tasks in a level and make them ready to run on instance
              * */
             for (int jobId: level){
+                Job readyTask = jobList.get(jobId);
                 int instanceId = this.xArray[jobId];
-                int typeId = this.yArray[instanceId];
 
-                InstanceType instanceType = instanceInfo[typeId].getType();
-                double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceType);
-
-                ArrayList<Integer> parentList = dag.getParents(jobId);
-
-                ArrayList<ParentTask> parentTaskList = new ArrayList<>();
-                for (Integer parentId : parentList){
-                    parentTaskList.add(new ParentTask(parentId , jobList.get(parentId).getFinishTime() , jobList.get(parentId).getEdge(jobId)/ instanceType.getBandwidth()));
-                }
-                ParentTask maxParent = findMaxParentFinishTimeWithCR(parentTaskList);
+                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), PreProcessor.bw, jobList);
+                readyTask.setStartTime(jobStartTime);
 
                 if (!instanceList.containsKey(instanceId)){
-                    instanceList.put(instanceId, new ArrayList<ReadyTask>());
+                    instanceList.put(instanceId, new ArrayList<Job>());
                 }
-                ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
+                ArrayList<Job> readyTaskList = instanceList.get(instanceId);
 
-                readyTaskList.add(new ReadyTask(jobId,exeTime, maxParent.parentFinishTime, jobList.get(maxParent.parentId).getWeight() , maxParent.cr));
+                readyTaskList.add(readyTask);
             }
 
 //            It is time to compute the time for every instance
             for (Integer instance : instanceList.keySet()){
-                ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
-                Collections.sort(readyTaskList, ReadyTask.weightComparator);
+                ArrayList<Job> readyTaskList = instanceList.get(instance);
+                Collections.sort(readyTaskList, Job.rankComarator);
 
-                for (ReadyTask readyTask : readyTaskList){
-                    Job job = jobList.get(readyTask.jobId);
+                for (Job readyTask : readyTaskList){
+                    int instanceTypeId = yArray[xArray[readyTask.getIntId()]];
 
                     if (!instanceUsed[instance]){
                         instanceUsed[instance] = true;
-                        instancesTimes[instance] = readyTask.exeTime + readyTask.cr;
-                        instanceTimeLine[instance] = readyTask.maxParentFinishTime;
-                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
-                    }else if (readyTask.maxParentFinishTime > instanceTimeLine[instance]){
-                        double timeToWait = readyTask.maxParentFinishTime - instanceTimeLine[instance];
-                        instancesTimes[instance] += (timeToWait + readyTask.exeTime + readyTask.cr);
+                        // ASSUMPTION 2
+                        instancesTimes[instance] = readyTask.getExeTime()[instanceTypeId];
+                        instanceTimeLine[instance] = readyTask.getStartTime();
+                        instanceTimeLine[instance] += readyTask.getExeTime()[instanceTypeId];
+                    }else if (readyTask.getStartTime() > instanceTimeLine[instance]){
+                        double timeToWait = readyTask.getStartTime() - instanceTimeLine[instance];
+                        instancesTimes[instance] += (timeToWait + readyTask.getExeTime()[instanceTypeId]);
 
-                        instanceTimeLine[instance] = readyTask.maxParentFinishTime + readyTask.exeTime + readyTask.cr;
+                        instanceTimeLine[instance] = readyTask.getStartTime() + readyTask.getExeTime()[instanceTypeId];
                     }else{
-                        instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
-                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
+                        instancesTimes[instance] += readyTask.getExeTime()[instanceTypeId];
+                        instanceTimeLine[instance] += readyTask.getExeTime()[instanceTypeId];
                     }
 
-                    job.setExeTime(readyTask.exeTime);
-                    job.setFinishTime(instanceTimeLine[instance]);
-                    job.setWeight( readyTask.weight);
+                    readyTask.setFinishTime(instanceTimeLine[instance]);
                 }
             }
 
@@ -351,16 +337,16 @@ public class Solution implements StaticProperties {
         fitnessValue = makespan + beta * (penalty1);
     }
 
-    ParentTask findMaxParentFinishTimeWithCR(ArrayList<ParentTask> parentTaskList){
-        ParentTask max = parentTaskList.get(0);
-        double maxTemp = max.parentFinishTime + max.cr;
+    double getJobStartTime(int jobId, ArrayList<Integer> parentList, double bw, ArrayList<Job> jobList){
+        Job parentJob = jobList.get(parentList.get(0));
+        double maxTemp = parentJob.getFinishTime() + parentJob.getEdge(jobId)/bw;
 
-        for (ParentTask task : parentTaskList){
-            double temp = task.parentFinishTime + task.cr;
+        for (int i = 1; i < parentList.size(); i++) {
+            double temp = jobList.get(parentList.get(i)).getFinishTime() + jobList.get(parentList.get(i)).getEdge(jobId)/bw;
             if (temp > maxTemp)
-                max = task;
+                maxTemp = temp;
         }
-        return  max;
+        return  maxTemp;
     }
 
     double findMaxInstanceTime(double instanceTimes[]){

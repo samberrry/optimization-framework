@@ -1,6 +1,5 @@
 package org.optframework;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -13,6 +12,7 @@ import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
 /**
@@ -35,7 +35,8 @@ public class RunHBMOAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PopulateWorkflow.populateWorkflowFromDax(1000, 0);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
+
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
@@ -46,7 +47,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
+//        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
         HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, 30);
         long start = System.currentTimeMillis();

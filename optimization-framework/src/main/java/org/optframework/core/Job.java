@@ -3,6 +3,7 @@ package org.optframework.core;
 import org.cloudbus.cloudsim.util.workload.WFEdge;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -10,13 +11,15 @@ import java.util.List;
  * @since 2018
  * */
 
-public class Job implements Serializable {
+public class Job implements Serializable{
 
     private static final long serialVersionUID = 4123274113987701274L;
 
     private long id;
 
     private double rank;
+
+    private double startTime;
 
     private double finishTime;
 
@@ -26,10 +29,8 @@ public class Job implements Serializable {
 
     private List<WFEdge> edgeInfo;
 
-    public Job(long id, double rank, double finishTime, double[] exeTime, double avgExeTime, List<WFEdge> edgeInfo) {
+    public Job(long id, double[] exeTime, double avgExeTime, List<WFEdge> edgeInfo) {
         this.id = id;
-        this.rank = rank;
-        this.finishTime = finishTime;
         this.exeTime = exeTime;
         this.avgExeTime = avgExeTime;
         this.edgeInfo = edgeInfo;
@@ -101,4 +102,27 @@ public class Job implements Serializable {
     public void setAvgExeTime(double avgExeTime) {
         this.avgExeTime = avgExeTime;
     }
+
+    public double[] getExeTime() {
+        return exeTime;
+    }
+
+    public void setExeTime(double[] exeTime) {
+        this.exeTime = exeTime;
+    }
+
+    public double getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(double startTime) {
+        this.startTime = startTime;
+    }
+
+    public static Comparator<Job> rankComarator = new Comparator<Job>() {
+        @Override
+        public int compare(Job o1, Job o2) {
+            return (int)o2.rank - (int)o1.rank;
+        }
+    };
 }
