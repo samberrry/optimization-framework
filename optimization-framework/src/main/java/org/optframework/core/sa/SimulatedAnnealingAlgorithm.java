@@ -39,7 +39,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
         Log.logger.info("Starts SA Algorithm");
         Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
 
-        Solution initialSolution = new Solution(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+        Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
 
         //Initializes the initial solution with random values
         initialSolution.generateRandomSolution(workflow);
@@ -56,7 +56,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
                 Solution randomNeighbor = cloner.deepClone(bestCurrent);
 
                 //Generates a random neighbor solution
-                randomNeighbor.generateRandomNeighborSolution(cloner.deepClone(workflow));
+                randomNeighbor.generateRandomNeighborSolution(workflow);
 
                 if (!visited_solutions.contains(randomNeighbor)){
                     visited_solutions.add(randomNeighbor);
@@ -96,7 +96,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
         Log.logger.info("Starts SA Algorithm");
         Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
 
-        Solution initialSolution = new Solution(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+        Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
 
         //Initializes the initial solution with random values
         initialSolution.generateRandomSolution(workflow);
@@ -110,7 +110,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
         while (temp >= FINAL_TEMP){
             for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
                 //GENERATES random neighbor
-                Solution randomNeighbor = new Solution(cloner.deepClone(workflow), instanceInfo, M_NUMBER);
+                Solution randomNeighbor = new Solution(workflow, instanceInfo, M_NUMBER);
                 randomNeighbor.generateRandomSolution(workflow);
                 if (!visited_solutions.contains(randomNeighbor)){
                     visited_solutions.add(randomNeighbor);
