@@ -105,7 +105,7 @@ public class Solution implements StaticProperties {
                 break;
                 // changes y array
             case 1:
-                int randomInstanceIdY = r.nextInt(yArray.length);
+                int randomInstanceIdY = r.nextInt(numberOfUsedInstances);
                 boolean isEqualY = true;
 
                 int randomType = -1;

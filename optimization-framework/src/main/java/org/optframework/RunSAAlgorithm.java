@@ -37,7 +37,9 @@ public class RunSAAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow4(1000, 0), Config.global.bandwidth);
+
+        computeCoolingFactor(workflow.getJobList().size());
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
@@ -76,5 +78,15 @@ public class RunSAAlgorithm implements StaticProperties {
             info[type.getId()] = instanceInfo;
         }
         return info;
+    }
+
+    static void computeCoolingFactor(int numberOfTasks){
+        if (!Config.sa_algorithm.force_cooling){
+            if (numberOfTasks >= 10){
+                Config.sa_algorithm.cooling_factor = 1 - 1 / (double)numberOfTasks;
+            }else {
+                Config.sa_algorithm.cooling_factor = 0.9;
+            }
+        }
     }
 }
