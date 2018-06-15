@@ -80,7 +80,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     void matingFlight(){
         List<Mating> matingList = new ArrayList<>();
-        for (int i = 0; i < NUMBER_OF_HBMO_THREADS; i++) {
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
             ProblemInfo problemInfo = new ProblemInfo(instanceInfo, workflow, M_NUMBER);
             spermathecaList.add(i , new Spermatheca());
             Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);

@@ -37,7 +37,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow(1000, 0), 1000);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 

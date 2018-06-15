@@ -26,10 +26,6 @@ public interface StaticProperties {
     int NUMBER_OF_ANTS = 16;
 
     double PENALTY_COEFFICIENT = 10;
-
-    int NUMBER_OF_HBMO_THREADS = 8;
-
-    int SPERMATHECA_SIZE = 100;
-
+    
     int HBMO_GENERATION_NUMBER = 30;
 }

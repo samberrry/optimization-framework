@@ -32,7 +32,7 @@ public class Mating implements Runnable, StaticProperties {
         //This constructor also generates the random solution
         Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
-        int threadSpmSize = SPERMATHECA_SIZE / NUMBER_OF_HBMO_THREADS;
+        int threadSpmSize = Config.honeybee_algorithm.getSpermatheca_size() / Config.honeybee_algorithm.getNumber_of_threads();
 
         double queenSpeed = Config.honeybee_algorithm.getMax_speed();
 
