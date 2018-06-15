@@ -14,7 +14,6 @@
     <orderEntry type="module" module-name="Cloudsim" exported="" />
     <orderEntry type="module" module-name="Spotsim" exported="" />
     <orderEntry type="module" module-name="WorkflowSim" exported="" />
-    <orderEntry type="library" exported="" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" exported="" name="all-dependencies" level="project" />
   </component>
 </module>

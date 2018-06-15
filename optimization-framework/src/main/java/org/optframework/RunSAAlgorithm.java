@@ -4,10 +4,10 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.cloudbus.spotsim.main.config.Config;
 import org.cloudbus.spotsim.pricing.PriceRecord;
 import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
+import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
@@ -33,7 +33,9 @@ public class RunSAAlgorithm implements StaticProperties {
         org.cloudbus.cloudsim.Log.init("cloudsim.log");
 
         Log.logger.info("Loads configs");
-        Config.load(null);
+        org.cloudbus.spotsim.main.config.Config.load(null);
+
+        Config.initConfig();
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
 

@@ -1,6 +1,7 @@
 package org.optframework.core.sa;
 
 import com.rits.cloning.Cloner;
+import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 
@@ -38,22 +39,21 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
     @Override
     public Solution runAlgorithm(){
-        Log.logger.info("Starts SA Algorithm");
-        Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
+        Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature + " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
 
         Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
 
         //Initializes the initial solution with random values
         initialSolution.generateRandomSolution(workflow);
 
-        temp = START_TEMP;
+        temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;
         globalBest = cloner.deepClone(bestCurrent);
         bestCurrent.fitness();
 
         //LOOPs at a fixed temperature:
-        while (temp >= FINAL_TEMP){
-            for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
+        while (temp >= Config.sa_algorithm.final_temperature){
+            for (int i = 0; i < Config.sa_algorithm.equilibrium_point; i++) {
                 counter++;
                 //GENERATES random neighbor
                 Solution randomNeighbor = cloner.deepClone(bestCurrent);
@@ -85,7 +85,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
                     updateVisitedField(randomNeighbor);
                 }
             }
-            temp = temp * COOLING_FACTOR;
+            temp = temp * Config.sa_algorithm.cooling_factor;
         }
         Log.logger.info("loop counter: "+ counter);
         if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
@@ -98,21 +98,21 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
     public Solution runAlgorithWithRandomSolution(){
         Log.logger.info("Starts SA Algorithm");
-        Log.logger.info("Simulated Annealing parameters Initial temp: "+ START_TEMP+ " Final temp: " + FINAL_TEMP + " Cooling Factor: " + COOLING_FACTOR + " Equilibrium point: " + SA_EQUILIBRIUM_COUNT);
+        Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature+ " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
 
         Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
 
         //Initializes the initial solution with random values
         initialSolution.generateRandomSolution(workflow);
 
-        temp = START_TEMP;
+        temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;
         globalBest = bestCurrent;
         bestCurrent.fitness();
 
         //LOOPs at a fixed temperature:
-        while (temp >= FINAL_TEMP){
-            for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
+        while (temp >= Config.sa_algorithm.final_temperature){
+            for (int i = 0; i < Config.sa_algorithm.equilibrium_point; i++) {
                 //GENERATES random neighbor
                 Solution randomNeighbor = new Solution(workflow, instanceInfo, M_NUMBER);
                 randomNeighbor.generateRandomSolution(workflow);
@@ -140,7 +140,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
                     updateVisitedField(randomNeighbor);
                 }
             }
-            temp = temp * COOLING_FACTOR;
+            temp = temp * Config.sa_algorithm.cooling_factor;
         }
         if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
             globalBest = bestCurrent;

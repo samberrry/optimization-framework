@@ -1,0 +1,13 @@
+global:
+  bandwidth: 1000
+
+sa_algorithm:
+  start_temperature: 850
+  final_temperature: 0.001
+  cooling_factor: 0.995
+  force_cooling: false
+  equilibrium_point: 10
+
+#honeybee_algorithm:
+
+#antcolony_algorithm:
