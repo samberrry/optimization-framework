@@ -26,6 +26,8 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
     Cloner cloner = new Cloner();
 
+    long counter = 0 ;
+
     public SimulatedAnnealingAlgorithm() {
     }
 
@@ -52,6 +54,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
         //LOOPs at a fixed temperature:
         while (temp >= FINAL_TEMP){
             for (int i = 0; i < SA_EQUILIBRIUM_COUNT; i++) {
+                counter++;
                 //GENERATES random neighbor
                 Solution randomNeighbor = cloner.deepClone(bestCurrent);
 
@@ -84,6 +87,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
             }
             temp = temp * COOLING_FACTOR;
         }
+        Log.logger.info("loop counter: "+ counter);
         if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
             globalBest = bestCurrent;
             return globalBest;
