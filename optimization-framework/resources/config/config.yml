@@ -10,6 +10,12 @@ sa_algorithm:
   force_cooling: false
   equilibrium_point: 10
 
-#honeybee_algorithm:
+honeybee_algorithm:
+  max_speed: 700
+  min_speed: 0.1
+  cooling_factor: 0.9
+  number_of_threads: 8
+  spermatheca_size: 100
+  generation_number: 30
 
 #antcolony_algorithm:

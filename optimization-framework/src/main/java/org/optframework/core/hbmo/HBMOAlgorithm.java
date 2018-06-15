@@ -2,6 +2,7 @@ package org.optframework.core.hbmo;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.utils.Printer;
@@ -28,6 +29,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     int generationNumber;
 
+    public static int globalCounter = 0;
+
     public static List<Spermatheca> spermathecaList = new ArrayList<>();
 
     Cloner cloner = new Cloner();
@@ -40,11 +43,25 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     @Override
     public Solution runAlgorithm() {
-
         // Queen generation
         queen = new Queen(workflow, instanceInfo, M_NUMBER);
 
+//        Queen before = cloner.deepClone(queen);
+
         queen.chromosome = localSearch(queen.chromosome);
+
+//        Random r = new Random();
+//        final double beta = 0.6 + 0.3 * r.nextDouble();
+//
+//        double SMax = Math.abs((queen.chromosome.fitnessValue - before.chromosome.fitnessValue) / Math.log(beta));
+//
+//        double Smin = Math.abs((queen.chromosome.fitnessValue - before.chromosome.fitnessValue) / Math.log(0.05));
+//
+//        SMax /= 10;
+//        Smin /= 10;
+//
+//        Config.honeybee_algorithm.setMin_speed(Smin);
+//        Config.honeybee_algorithm.setMax_speed(SMax);
 
         for (int i = 0; i < generationNumber; i++) {
             Log.logger.info("=========================Iteration :" + i);

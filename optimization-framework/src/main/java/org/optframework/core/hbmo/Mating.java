@@ -1,6 +1,7 @@
 package org.optframework.core.hbmo;
 
 import com.rits.cloning.Cloner;
+import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 
 import java.util.Random;
@@ -26,30 +27,24 @@ public class Mating implements Runnable, StaticProperties {
     @Override
     public void run() {
         Cloner cloner = new Cloner();
+        Random r = new Random();
 
         //This constructor also generates the random solution
         Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
-        Random r = new Random();
-        final double beta = 0.6 + 0.3 * r.nextDouble();
         int threadSpmSize = SPERMATHECA_SIZE / NUMBER_OF_HBMO_THREADS;
 
-        double SMax = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(beta));
+        double queenSpeed = Config.honeybee_algorithm.getMax_speed();
 
-        double Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
-
-        SMax /= 10;
-        Smin /= 10;
-
-        double queenSpeed = SMax;
-
-        while (queenSpeed > Smin && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
+        while (queenSpeed > Config.honeybee_algorithm.getMin_speed() && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                 HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(drone.chromosome));
             }
             queenSpeed = 0.999 * queenSpeed;
 
             drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
+
+            HBMOAlgorithm.globalCounter++;
         }
     }
 
