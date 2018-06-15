@@ -80,8 +80,6 @@ public class Solution implements StaticProperties {
         switch (xOry){
                 //changes x array
             case 0:
-                boolean newOk = true;
-
                 int randomTask = r.nextInt(xArray.length);
                 int currentInstanceId = xArray[randomTask];
 
@@ -90,7 +88,7 @@ public class Solution implements StaticProperties {
 
                 while (isEqual){
                     randomInstanceId = r.nextInt(numberOfUsedInstances+1);
-                    if (randomInstanceId != currentInstanceId && randomInstanceId < xArray.length){
+                    if (randomInstanceId != currentInstanceId && randomInstanceId < M_NUMBER){
                         isEqual = false;
                     }
                 }

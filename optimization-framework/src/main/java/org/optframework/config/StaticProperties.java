@@ -17,15 +17,15 @@ public interface StaticProperties {
 
     double START_TEMP = 850;
 
-    double FINAL_TEMP = 0.1;
+    double FINAL_TEMP = 0.001;
 
-    double COOLING_FACTOR = 0.8;
+    double COOLING_FACTOR = 0.995;
 
     double INCREASE_RATE_OF_CF = 1.004;
 
     double EQUILIBRIUM_POINT = 0.99;
 
-    double SA_EQUILIBRIUM_COUNT = 50;
+    double SA_EQUILIBRIUM_COUNT = 10;
 
     double INTENSIFICATION_RATE = 0.95;
 
