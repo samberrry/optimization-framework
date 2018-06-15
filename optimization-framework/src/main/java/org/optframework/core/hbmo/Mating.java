@@ -40,7 +40,7 @@ public class Mating implements Runnable, StaticProperties {
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                 HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(drone.chromosome));
             }
-            queenSpeed = 0.999 * queenSpeed;
+            queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
             drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 

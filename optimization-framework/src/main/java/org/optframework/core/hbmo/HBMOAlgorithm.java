@@ -73,6 +73,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
             long stop = System.currentTimeMillis();
             Printer.printSolution(queen.chromosome,instanceInfo,stop-start);
+            spermathecaList.clear();
         }
 
         return queen.chromosome;
