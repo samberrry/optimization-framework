@@ -96,7 +96,7 @@ public class Solution implements StaticProperties {
                 xArray[randomTask] = randomInstanceId;
 
                 //if new instance is selected
-                if (randomInstanceId == numberOfUsedInstances && randomInstanceId < M_NUMBER){
+                if (randomInstanceId == numberOfUsedInstances){
                     int randomType = r.nextInt(N_TYPES);
                     yArray[randomInstanceId] = randomType;
                     numberOfUsedInstances++;
