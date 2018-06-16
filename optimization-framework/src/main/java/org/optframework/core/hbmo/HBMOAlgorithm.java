@@ -31,12 +31,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     public static int globalCounter = 0;
 
-    public int localSearchCounter =0 ;
-    public int counter =0 ;
-    long start;
-    long start2;
-    long stop2;
-
     public static List<Spermatheca> spermathecaList = new ArrayList<>();
 
     Cloner cloner = new Cloner();
@@ -122,7 +116,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         int mask[] = new int[workflow.getJobList().size()];
         Random r = new Random();
         int newXArray[] = new int[workflow.getJobList().size()];
-        int newYArray[];
+        int newYArray[] = new int[M_NUMBER];
         int numberOfInstancesUsed;
 
         for (int i = 0; i < mask.length; i++) {
@@ -141,7 +135,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         }
 
         if (queenChr.numberOfUsedInstances == childChr.numberOfUsedInstances){
-            newYArray = new int[queenChr.yArray.length];
             numberOfInstancesUsed = queenChr.numberOfUsedInstances;
             for (int i = 0; i < queenChr.numberOfUsedInstances; i++) {
                 int toggle = r.nextInt(2);
@@ -167,7 +160,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                 numberOfInstancesUsed = childChr.numberOfUsedInstances;
                 minNumber = queenChr.numberOfUsedInstances;
             }
-            newYArray = new int[maxNumber];
 
             for (int i = 0; i < minNumber; i++) {
                 int toggle = r.nextInt(2);
@@ -260,11 +252,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
                 int newInstanceId = mainChr.numberOfUsedInstances;
                 newXArray[i] = newInstanceId;
+
                 Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
                 newChromosome.xArray = newXArray;
                 newChromosome.yArray = mainChr.yArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-
                 newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
@@ -282,7 +274,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-
                 newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){

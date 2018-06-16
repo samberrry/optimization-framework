@@ -37,7 +37,7 @@ public class RunSAAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow4(1000, 0), Config.global.bandwidth);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), Config.global.bandwidth);
 
         computeCoolingFactor(workflow.getJobList().size());
 
