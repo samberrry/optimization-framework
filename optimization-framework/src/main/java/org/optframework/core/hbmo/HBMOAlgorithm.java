@@ -181,9 +181,9 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;
-        chromosome.fitness();
-
         chromosome.solutionMapping();
+
+        chromosome.fitness();
 
         return chromosome;
     }
@@ -332,7 +332,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                     }
                 }
 
-                //all neighbors with new instance selected with only Y array change
+                //all neighbors with new instance
                 for (int i = 0; i < InstanceType.values().length; i++) {
                     int []newYArray = new int[M_NUMBER];
                     System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
@@ -344,7 +344,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                     newYArray[mainChr.numberOfUsedInstances] = i;
 
                     Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
-                    newChromosome.xArray = mainChr.xArray;
+                    newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
                     newChromosome.fitness();
