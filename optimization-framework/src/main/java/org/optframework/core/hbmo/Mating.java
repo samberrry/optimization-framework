@@ -32,13 +32,33 @@ public class Mating implements Runnable, StaticProperties {
         //This constructor also generates the random solution
         Drone drone = new Drone(problemInfo.workflow, problemInfo.instanceInfo, problemInfo.numberOfInstances);
 
+        double SMax;
+        double Smin;
+
+        if (Config.honeybee_algorithm.getForce_speed()){
+            SMax = Config.honeybee_algorithm.getMax_speed();
+            Smin = Config.honeybee_algorithm.getMin_speed();
+        }else {
+            final double beta = 0.6 + 0.3 * r.nextDouble();
+            SMax = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(beta));
+
+            Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
+
+            SMax /= 10;
+            Smin /= 10;
+        }
+
         int threadSpmSize = Config.honeybee_algorithm.getSpermatheca_size() / Config.honeybee_algorithm.getNumber_of_threads();
 
-        double queenSpeed = Config.honeybee_algorithm.getMax_speed();
+        double queenSpeed = SMax;
 
-        while (queenSpeed > Config.honeybee_algorithm.getMin_speed() && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
+        while (queenSpeed > Smin && HBMOAlgorithm.spermathecaList.get(id).chromosomeList.size() < threadSpmSize){
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
-                HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(drone.chromosome));
+                Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
+
+                brood = HBMOAlgorithm.localSearch(brood);
+
+                HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(brood));
             }
             queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 

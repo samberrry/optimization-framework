@@ -13,7 +13,8 @@ sa_algorithm:
 honeybee_algorithm:
   max_speed: 300
   min_speed: 10
-  cooling_factor: 0.5
+  force_speed: true
+  cooling_factor: 0.9
   number_of_threads: 8
   spermatheca_size: 30
   generation_number: 20

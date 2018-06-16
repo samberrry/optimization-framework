@@ -23,9 +23,9 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     Queen queen;
 
-    Workflow workflow;
+    static Workflow workflow;
 
-    InstanceInfo instanceInfo[];
+    static InstanceInfo instanceInfo[];
 
     int generationNumber;
 
@@ -46,22 +46,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         // Queen generation
         queen = new Queen(workflow, instanceInfo, M_NUMBER);
 
-//        Queen before = cloner.deepClone(queen);
-
         queen.chromosome = localSearch(queen.chromosome);
-
-//        Random r = new Random();
-//        final double beta = 0.6 + 0.3 * r.nextDouble();
-//
-//        double SMax = Math.abs((queen.chromosome.fitnessValue - before.chromosome.fitnessValue) / Math.log(beta));
-//
-//        double Smin = Math.abs((queen.chromosome.fitnessValue - before.chromosome.fitnessValue) / Math.log(0.05));
-//
-//        SMax /= 10;
-//        Smin /= 10;
-//
-//        Config.honeybee_algorithm.setMin_speed(Smin);
-//        Config.honeybee_algorithm.setMax_speed(SMax);
 
         for (int i = 0; i < generationNumber; i++) {
             Log.logger.info("=========================Iteration :" + i);
@@ -99,20 +84,16 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     void generateBrood(){
         for (Spermatheca spermatheca : spermathecaList){
-            for (Chromosome childChr : spermatheca.chromosomeList){
-                Chromosome brood = crossOver(queen.chromosome, childChr);
-
-                brood = localSearch(brood);
+            for (Chromosome brood : spermatheca.chromosomeList){
 
                 if (brood.fitnessValue < queen.chromosome.fitnessValue){
                     queen.chromosome = cloner.deepClone(brood);
                 }
             }
         }
-
     }
 
-    Chromosome crossOver(Chromosome queenChr, Chromosome childChr){
+    static Chromosome crossOver(Chromosome queenChr, Chromosome childChr){
         int mask[] = new int[workflow.getJobList().size()];
         Random r = new Random();
         int newXArray[] = new int[workflow.getJobList().size()];
@@ -204,7 +185,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         return chromosome;
     }
 
-    Chromosome localSearch(Chromosome mainChr){
+    static Chromosome localSearch(Chromosome mainChr){
         Cloner cloner = new Cloner();
         Chromosome currentBestChr = cloner.deepClone(mainChr);
 

@@ -3,6 +3,7 @@ package org.optframework.config;
 public class HoneyBeeConfig {
     Double max_speed;
     Double min_speed;
+    Boolean force_speed;
     Double cooling_factor;
     Integer number_of_threads;
     Integer spermatheca_size;
@@ -54,5 +55,13 @@ public class HoneyBeeConfig {
 
     public void setGeneration_number(Integer generation_number) {
         this.generation_number = generation_number;
+    }
+
+    public Boolean getForce_speed() {
+        return force_speed;
+    }
+
+    public void setForce_speed(Boolean force_speed) {
+        this.force_speed = force_speed;
     }
 }
