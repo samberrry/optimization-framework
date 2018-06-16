@@ -41,11 +41,15 @@ public class Solution implements StaticProperties {
      */
     public double makespan;
 
+    public short instanceUsages[];
+
     public double fitnessValue;
 
     public double beta;
 
     public int numberOfUsedInstances;
+
+    public int maxNumberOfInstances;
 
     public int visited;
 
@@ -68,6 +72,8 @@ public class Solution implements StaticProperties {
         xArray = new int[workflow.getJobList().size()];
         yArray = new int[numberOfInstances];
         yPrimeArray = new int[numberOfInstances];
+        instanceUsages = new short[numberOfInstances];
+        maxNumberOfInstances = numberOfInstances;
         beta = workflow.getBeta();
     }
 
@@ -139,6 +145,7 @@ public class Solution implements StaticProperties {
                 map[xArray[i]] = true;
                 realNumberOfInstances++;
             }
+            instanceUsages[xArray[i]]++;
         }
 
         if (realNumberOfInstances != numberOfUsedInstances){
@@ -164,6 +171,13 @@ public class Solution implements StaticProperties {
             this.numberOfUsedInstances = realNumberOfInstances;
             this.xArray = newXArray;
             this.yArray= newYArray;
+            settingInstanceUsageArray();
+        }
+    }
+
+    void settingInstanceUsageArray(){
+        for (int i = 0; i < xArray.length; i++) {
+            instanceUsages[xArray[i]]++;
         }
     }
 

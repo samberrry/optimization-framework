@@ -3,6 +3,7 @@ package org.optframework.core.hbmo;
 import com.rits.cloning.Cloner;
 import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
+import org.optframework.core.Log;
 
 import java.util.Random;
 
@@ -56,7 +57,10 @@ public class Mating implements Runnable, StaticProperties {
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                 Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
-                brood = HBMOAlgorithm.localSearch(brood);
+                long start = System.currentTimeMillis();
+                brood = HBMOAlgorithm.lightLocalSearch(brood,100);
+                long stop = System.currentTimeMillis();
+                Log.logger.info("brood local search: "+ (stop - start));
 
                 HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(brood));
             }

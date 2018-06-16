@@ -15,7 +15,7 @@ honeybee_algorithm:
   min_speed: 10
   force_speed: true
   cooling_factor: 0.9
-  number_of_threads: 8
+  number_of_threads: 4
   spermatheca_size: 30
   generation_number: 20
 
