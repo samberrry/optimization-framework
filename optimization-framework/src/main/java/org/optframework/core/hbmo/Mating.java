@@ -58,7 +58,7 @@ public class Mating implements Runnable, StaticProperties {
                 Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
                 long start = System.currentTimeMillis();
-                brood = HBMOAlgorithm.lightLocalSearch(brood,100);
+                brood = HBMOAlgorithm.lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
                 long stop = System.currentTimeMillis();
                 Log.logger.info("brood local search: "+ (stop - start));
 

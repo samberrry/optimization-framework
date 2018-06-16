@@ -39,7 +39,11 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
 
+        honeyBeePreProcessing(workflow);
+
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
+
+        Log.logger.info("Force Speed: "+ Config.honeybee_algorithm.getForce_speed());
 
         /**
          * Assumptions:
@@ -76,5 +80,13 @@ public class RunHBMOAlgorithm implements StaticProperties {
             info[type.getId()] = instanceInfo;
         }
         return info;
+    }
+
+    static void honeyBeePreProcessing(Workflow workflow){
+        if (workflow.getJobList().size() > 100){
+            Config.honeybee_algorithm.kRandom = workflow.getJobList().size()/10;
+        }else {
+            Config.honeybee_algorithm.kRandom = workflow.getJobList().size()/3;
+        }
     }
 }

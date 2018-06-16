@@ -8,6 +8,7 @@ public class HoneyBeeConfig {
     Integer number_of_threads;
     Integer spermatheca_size;
     Integer generation_number;
+    public static int kRandom;
 
     public Double getMax_speed() {
         return max_speed;
