@@ -39,7 +39,7 @@ public class Solution implements StaticProperties {
     /**
      * M, is the total elapsed time required to execute the entire workflow when only SIs are employed
      */
-    public double makespan;
+    public int makespan;
 
     public short instanceUsages[];
 
@@ -333,7 +333,7 @@ public class Solution implements StaticProperties {
         this.instanceTimelines = instanceTimeLine;
         this.instanceTimes = instancesTimes;
         this.cost = totalCost;
-        this.makespan = findMaxInstanceTime(instanceTimeLine);
+        this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
 
         computeFitnessValue();
     }
@@ -346,7 +346,16 @@ public class Solution implements StaticProperties {
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + beta * (penalty1);
+        fitnessValue = makespan + beta * (penalty1) - saving();
+    }
+
+    double saving(){
+        double e = 1 / workflow.getBudget();
+        if (cost < workflow.getBudget()){
+            return e * (workflow.getBudget() - cost);
+        }else {
+            return 0.0;
+        }
     }
 
     double getJobStartTime(int jobId, ArrayList<Integer> parentList, double bw, ArrayList<Job> jobList){
