@@ -47,7 +47,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         queen = new Queen(workflow, instanceInfo, M_NUMBER);
 
         long start2 = System.currentTimeMillis();
-//        queen.chromosome = localSearch(queen.chromosome);
+        queen.chromosome = localSearch(queen.chromosome);
         long stop2 = System.currentTimeMillis();
         Log.logger.info("Queen local search: "+ (stop2 - start2));
 
@@ -61,6 +61,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
             long stop = System.currentTimeMillis();
             Printer.printSolution(queen.chromosome,instanceInfo,stop-start);
+            Log.logger.info("local searches :"+ globalCounter);
             spermathecaList.clear();
         }
 
@@ -112,12 +113,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                 Log.logger.info("brood local search: "+ (stop - start));
 
                         threadSpermatheca.get(iter).chromosomeList.add(cloner.deepClone(brood));
+                        globalCounter++;
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
                     drone = new Drone(workflow, instanceInfo, M_NUMBER);
-
-                    HBMOAlgorithm.globalCounter++;
                 }
             });
         }
