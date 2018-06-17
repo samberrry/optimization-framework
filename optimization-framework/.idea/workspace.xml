@@ -3,9 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/cloudsim/modules/cloudsim/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/cloudsim/modules/cloudsim/src/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,17 +31,29 @@
       <file leaf-file-name="RunHBMOAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+            <state relative-caret-position="193">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimulatedAnnealingAlgorithm.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="572">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HBMOAlgorithm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3869">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,8 +64,8 @@
       <file leaf-file-name="RunSAAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="74">
+              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,23 +73,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+      <file leaf-file-name="Mating.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+            <state relative-caret-position="1461">
+              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
             </state>
           </provider>
         </entry>
@@ -143,7 +153,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HoneyBeeMatingOptimization.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHoneyBeeMatingAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Flight.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Spermatheca.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Printer.java" />
@@ -171,21 +180,22 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/ReadConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/SAConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PreProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" />
         <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
-        <option value="$PROJECT_DIR$/resources/config/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/Config.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Workflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java" />
+        <option value="$PROJECT_DIR$/resources/config/config.yml" />
       </list>
     </option>
   </component>
@@ -215,8 +225,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -266,6 +276,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="optframework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="optframework" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
@@ -326,7 +345,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15039062" />
     <property name="project.structure.side.proportion" value="0.3891675" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -362,7 +381,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RunSAAlgorithm">
+  <component name="RunManager" selected="Application.RunHBMOAlgorithm">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
@@ -494,8 +513,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RunSAAlgorithm" />
         <item itemvalue="Application.RunHBMOAlgorithm" />
+        <item itemvalue="Application.RunSAAlgorithm" />
         <item itemvalue="Application.TestMain" />
         <item itemvalue="Application.RunPACSAAlgorithm" />
         <item itemvalue="Application.RunCompleteAlgorithm" />
@@ -551,7 +570,8 @@
       <workItem from="1528477187509" duration="115303000" />
       <workItem from="1528842806653" duration="34742000" />
       <workItem from="1528913982385" duration="21490000" />
-      <workItem from="1529045827557" duration="88217000" />
+      <workItem from="1529045827557" duration="99800000" />
+      <workItem from="1529231939031" duration="2267000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -578,7 +598,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="640323000" />
+    <option name="totallyTimeSpent" value="654173000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -593,17 +613,16 @@
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49765626" visible="true" weight="0.47058824" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49765626" weight="0.7486631" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.54946524" />
       <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Favorites" order="4" sideWeight="0.5053333" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.55748665" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4318182" />
       <window_info anchor="bottom" id="JRebel Console" order="11" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -613,6 +632,7 @@
       <window_info anchor="right" x="0" y="0" width="270" height="600" id="Documentation" order="7" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,20 +652,30 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="233" />
+      <option name="time" value="241" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="Config.sa_algorithm" language="JAVA" custom="org.optframework.config.Config" />
+        <watch expression="Config.honeybee_algorithm.kRandom" language="JAVA" />
         <watch expression="Config.honeybee_algorithm" language="JAVA" />
         <watch expression="Config.global" language="JAVA" />
-        <watch expression="PreProcessor.bw" language="JAVA" />
-        <watch expression="spermathecaList" language="JAVA" />
+        <watch expression="queen" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>Config.honeybee_algorithm.kRandom</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>queen</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>spermathecaList</expression-string>
         <language-id>JAVA</language-id>
@@ -685,24 +715,40 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/log/sa-2018-06-14-19:45:29.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="360">
-          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6682">
+          <caret line="257" lean-forward="true" selection-start-line="257" selection-end-line="257" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/log/sa-2018-06-14-19:46:45.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="281">
-          <caret line="65" column="38" lean-forward="true" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1248">
+          <caret line="48" column="31" lean-forward="true" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-15-03:53:16.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="437">
-          <caret line="71" column="33" lean-forward="true" selection-start-line="71" selection-start-column="33" selection-end-line="71" selection-end-column="33" />
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -713,28 +759,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-15-03:58:03.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2080">
           <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1814#1815#0" expanded="true" />
-            <element signature="e#1847#1848#0" expanded="true" />
-            <element signature="e#1899#1900#0" expanded="true" />
-            <element signature="e#1943#1944#0" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-15-12:40:05.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-15-12:42:01.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-15-04:19:43.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider">
@@ -813,19 +843,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/ReadConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/ReadConfig.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/TestMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
@@ -881,19 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#484#485#0" expanded="true" />
-            <element signature="e#515#516#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
-            <element signature="e#604#605#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -905,12 +910,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#1093#1094#0" expanded="true" />
-            <element signature="e#1129#1130#0" expanded="true" />
-            <element signature="e#1188#1189#0" expanded="true" />
-            <element signature="e#1238#1239#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -942,20 +941,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="199" lean-forward="true" selection-start-line="199" selection-end-line="199" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ParallelMating.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ParallelMating.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/Ant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
@@ -991,34 +977,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Workflow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        <state relative-caret-position="286">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="312">
+          <caret line="12" column="3" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="199" lean-forward="true" selection-start-line="199" selection-end-line="199" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-17-04:09:19.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="437">
+          <caret line="6473" column="21" lean-forward="true" selection-start-line="6473" selection-start-column="21" selection-end-line="6473" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-17-03:40:15.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="281">
+          <caret line="417" column="46" selection-start-line="417" selection-start-column="46" selection-end-line="417" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5169">
-          <caret line="342" lean-forward="true" selection-start-line="342" selection-end-line="342" />
+        <state relative-caret-position="51">
+          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="e#1665#1666#0" expanded="true" />
+            <element signature="e#1706#1707#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1834#1835#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+          <folding>
+            <element signature="e#665#666#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#739#740#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Mating.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1461">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1027,15 +1067,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" column="38" lean-forward="true" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="193">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1044,28 +1077,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="74">
+          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Workflow.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+        <state relative-caret-position="-3869">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>

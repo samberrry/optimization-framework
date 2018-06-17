@@ -9,6 +9,7 @@ public class HoneyBeeConfig {
     Integer spermatheca_size;
     Integer generation_number;
     public static int kRandom;
+    Double neighborhood_ratio;
 
     public Double getMax_speed() {
         return max_speed;
@@ -64,5 +65,13 @@ public class HoneyBeeConfig {
 
     public void setForce_speed(Boolean force_speed) {
         this.force_speed = force_speed;
+    }
+
+    public Double getNeighborhood_ratio() {
+        return neighborhood_ratio;
+    }
+
+    public void setNeighborhood_ratio(Double neighborhood_ratio) {
+        this.neighborhood_ratio = neighborhood_ratio;
     }
 }

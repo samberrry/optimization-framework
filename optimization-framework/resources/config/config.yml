@@ -1,5 +1,6 @@
 global:
-  bandwidth: 1
+  budget: 1000
+  bandwidth: 1000
   t_extera: -1
   m_number: 100
 
@@ -15,8 +16,9 @@ honeybee_algorithm:
   min_speed: 10
   force_speed: false
   cooling_factor: 0.9
-  number_of_threads: 4
-  spermatheca_size: 30
-  generation_number: 20
+  number_of_threads: 8
+  spermatheca_size: 15
+  generation_number: 60
+  neighborhood_ratio: 0.01
 
 #antcolony_algorithm:

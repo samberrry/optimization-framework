@@ -45,8 +45,8 @@ public class Mating implements Runnable, StaticProperties {
 
             Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
 
-            SMax /= 10;
-            Smin /= 10;
+            SMax /= 100;
+            Smin /= 100;
         }
 
         int threadSpmSize = Config.honeybee_algorithm.getSpermatheca_size() / Config.honeybee_algorithm.getNumber_of_threads();
@@ -57,10 +57,10 @@ public class Mating implements Runnable, StaticProperties {
             if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                 Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
-                long start = System.currentTimeMillis();
+//                long start = System.currentTimeMillis();
                 brood = HBMOAlgorithm.lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
-                long stop = System.currentTimeMillis();
-                Log.logger.info("brood local search: "+ (stop - start));
+//                long stop = System.currentTimeMillis();
+//                Log.logger.info("brood local search: "+ (stop - start));
 
                 HBMOAlgorithm.spermathecaList.get(id).chromosomeList.add(cloner.deepClone(brood));
             }

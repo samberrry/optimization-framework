@@ -188,7 +188,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         return chromosome;
     }
 
-    Chromosome localSearch(Chromosome mainChr){
+     Chromosome localSearch(Chromosome mainChr){
         Cloner cloner = new Cloner();
         Chromosome currentBestChr = cloner.deepClone(mainChr);
 
