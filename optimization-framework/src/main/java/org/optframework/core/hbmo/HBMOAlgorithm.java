@@ -61,7 +61,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
             long stop = System.currentTimeMillis();
             Printer.printSolution(queen.chromosome,instanceInfo,stop-start);
-            Log.logger.info("local searches :"+ globalCounter);
             spermathecaList.clear();
         }
 
@@ -107,13 +106,12 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                     if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                         Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
-                long start = System.currentTimeMillis();
+//                long start = System.currentTimeMillis();
                         brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
-                long stop = System.currentTimeMillis();
-                Log.logger.info("brood local search: "+ (stop - start));
+//                long stop = System.currentTimeMillis();
+//                Log.logger.info("brood local search: "+ (stop - start));
 
                         threadSpermatheca.get(iter).chromosomeList.add(cloner.deepClone(brood));
-                        globalCounter++;
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 

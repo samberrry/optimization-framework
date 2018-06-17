@@ -15,17 +15,12 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-/**
- * @author Hessam Modabberi
- * @version 1.0.0
- */
-
-public class RunHBMOAlgorithm implements StaticProperties {
+public class RunHEFTAlgorithm implements StaticProperties {
 
     public static void main(String[] args) throws Exception{
         Log.init();
 
-        Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
+        Log.logger.info("<<<<<<<<< HEFT Algorithm is started >>>>>>>>>");
 
         /**
          * Initializes Cloudsim Logger
@@ -37,9 +32,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(Config.global.budget, 0), Config.global.bandwidth);
-
-        honeyBeePreProcessing(workflow);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow7(Config.global.budget, 0), Config.global.bandwidth);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
@@ -52,8 +45,6 @@ public class RunHBMOAlgorithm implements StaticProperties {
          * OS type: Linux System
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
-
-        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
         HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
         long start = System.currentTimeMillis();
@@ -82,12 +73,4 @@ public class RunHBMOAlgorithm implements StaticProperties {
         return info;
     }
 
-    static void honeyBeePreProcessing(Workflow workflow){
-        if (workflow.getJobList().size() > 100){
-            double kRandom = workflow.getJobList().size() * Config.honeybee_algorithm.getNeighborhood_ratio();
-            Config.honeybee_algorithm.kRandom =  (int) kRandom;
-        }else {
-            Config.honeybee_algorithm.kRandom = workflow.getJobList().size()/3;
-        }
-    }
 }

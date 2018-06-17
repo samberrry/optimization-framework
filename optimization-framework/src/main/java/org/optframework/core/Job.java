@@ -119,7 +119,7 @@ public class Job implements Serializable{
         this.startTime = startTime;
     }
 
-    public static Comparator<Job> rankComarator = new Comparator<Job>() {
+    public static Comparator<Job> rankComparator = new Comparator<Job>() {
         @Override
         public int compare(Job o1, Job o2) {
             return (int)o2.rank - (int)o1.rank;

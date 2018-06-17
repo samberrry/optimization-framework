@@ -254,7 +254,7 @@ public class Solution implements StaticProperties {
 //      Computes maximum task's length and updates the instance times
         for (Integer instance : instanceList.keySet()){
             ArrayList<Job> readyTaskList = instanceList.get(instance);
-            Collections.sort(readyTaskList, Job.rankComarator);
+            Collections.sort(readyTaskList, Job.rankComparator);
 
             for (Job readyTask : readyTaskList){
                 instancesTimes[instance] += readyTask.getExeTime()[yArray[xArray[readyTask.getIntId()]]];
@@ -297,7 +297,7 @@ public class Solution implements StaticProperties {
 //            It is time to compute the time for every instance
             for (Integer instance : instanceList.keySet()){
                 ArrayList<Job> readyTaskList = instanceList.get(instance);
-                Collections.sort(readyTaskList, Job.rankComarator);
+                Collections.sort(readyTaskList, Job.rankComparator);
 
                 for (Job readyTask : readyTaskList){
                     int instanceTypeId = yArray[xArray[readyTask.getIntId()]];
@@ -393,17 +393,12 @@ public class Solution implements StaticProperties {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Solution solution = (Solution) o;
-        return id == solution.id &&
-                Arrays.equals(xArray, solution.xArray) &&
-                Arrays.equals(yArray, solution.yArray);
+        return Double.compare(solution.fitnessValue, fitnessValue) == 0;
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(id);
-        result = 31 * result + Arrays.hashCode(xArray);
-        result = 31 * result + Arrays.hashCode(yArray);
-        return result;
+        return Objects.hash(fitnessValue);
     }
 }
