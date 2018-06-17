@@ -57,7 +57,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
             matingFlight();
             generateBrood();
-            queen.chromosome = localSearch(queen.chromosome);
 
             long stop = System.currentTimeMillis();
             Printer.printSolution(queen.chromosome,instanceInfo,stop-start);

@@ -6,7 +6,6 @@
       <element id="module-output" name="Cloudsim" />
       <element id="module-output" name="WorkflowSim" />
       <element id="module-output" name="OptimizationFramework" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-core-1.10.37.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/colt-1.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-cli-1.4.jar" path-in-jar="/" />
@@ -27,6 +26,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/objenesis-2.6.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/snakeyaml-1.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

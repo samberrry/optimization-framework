@@ -12,6 +12,7 @@ import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
+import org.optframework.core.utils.Printer;
 
 public class RunCompleteAlgorithm implements StaticProperties {
     public static void main(String[] args) throws Exception {
@@ -25,7 +26,7 @@ public class RunCompleteAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow(1000, 0), 1000);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
@@ -39,11 +40,15 @@ public class RunCompleteAlgorithm implements StaticProperties {
 
         workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
+        long start = System.currentTimeMillis();
+
         CompleteAlgorithm completeAlgorithm = new CompleteAlgorithm(instanceInfo, workflow);
+
+        long stop = System.currentTimeMillis();
 
         Solution solution = completeAlgorithm.runAlgorithm();
 
-        printSolution(solution, instanceInfo);
+        Printer.printSolution(solution, instanceInfo, stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
@@ -60,34 +65,5 @@ public class RunCompleteAlgorithm implements StaticProperties {
             info[type.getId()] = instanceInfo;
         }
         return info;
-    }
-
-    private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
-        Log.logger.info("<<<<<<<---FINAL SOLUTION--->>>>>>>");
-        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
-
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
-            Log.logger.info("Requested time for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimes[i]);
-        }
-
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
-            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
-        }
-
-        String xArray = "";
-        for (int val : solution.xArray){
-            xArray += " " + String.valueOf(val);
-        }
-        Log.logger.info("Value of the X Array: "+ xArray);
-
-        String yArray = "";
-        for (int i = 0; i < solution.numberOfUsedInstances; i++) {
-            yArray += " " + String.valueOf(solution.yArray[i]);
-        }
-        Log.logger.info("Value of the Y Array: "+ yArray);
-
-        Log.logger.info("Total Cost: " + solution.cost);
-        Log.logger.info("Makespan: " + solution.makespan);
-        Log.logger.info("Fitness Value: "+ solution.fitnessValue);
     }
 }

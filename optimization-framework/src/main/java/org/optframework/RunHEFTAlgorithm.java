@@ -11,6 +11,7 @@ import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
+import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
@@ -46,10 +47,11 @@ public class RunHEFTAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo);
+
         long start = System.currentTimeMillis();
 
-        Solution solution = hbmoAlgorithm.runAlgorithm();
+        Solution solution = heftAlgorithm.runAlgorithm();
 
         long stop = System.currentTimeMillis();
 
