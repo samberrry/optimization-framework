@@ -31,7 +31,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
     public static int globalCounter = 0;
 
-    public static List<Spermatheca> spermathecaList = new ArrayList<>();
+    public List<Spermatheca> spermathecaList = new ArrayList<>();
 
     Cloner cloner = new Cloner();
 
@@ -47,7 +47,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         queen = new Queen(workflow, instanceInfo, M_NUMBER);
 
         long start2 = System.currentTimeMillis();
-        queen.chromosome = localSearch(queen.chromosome);
+//        queen.chromosome = localSearch(queen.chromosome);
         long stop2 = System.currentTimeMillis();
         Log.logger.info("Queen local search: "+ (stop2 - start2));
 
@@ -68,21 +68,83 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     }
 
     void matingFlight(){
-        List<Mating> matingList = new ArrayList<>();
+        Thread threadList[] = new Thread[Config.honeybee_algorithm.getNumber_of_threads()];
+        List<Spermatheca> threadSpermatheca = new ArrayList<>();
+        int threadSpmSize = Config.honeybee_algorithm.getSpermatheca_size() / Config.honeybee_algorithm.getNumber_of_threads();
+
+
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
-            ProblemInfo problemInfo = new ProblemInfo(instanceInfo, workflow, M_NUMBER);
-            spermathecaList.add(i , new Spermatheca());
-            Mating mating = new Mating(i, String.valueOf(i), problemInfo, queen);
-            matingList.add(i, mating);
+            int iter = i;
+            threadSpermatheca.add(iter, new Spermatheca());
+
+            threadList[i] = new Thread(() -> {
+                Cloner cloner = new Cloner();
+                Random r = new Random();
+
+                //This constructor also generates the random solution
+                Drone drone = new Drone(workflow, instanceInfo, M_NUMBER);
+
+                double SMax;
+                double Smin;
+
+                if (Config.honeybee_algorithm.getForce_speed()){
+                    SMax = Config.honeybee_algorithm.getMax_speed();
+                    Smin = Config.honeybee_algorithm.getMin_speed();
+                }else {
+                    final double beta = 0.6 + 0.3 * r.nextDouble();
+                    SMax = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(beta));
+
+                    Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
+
+                    SMax /= 100;
+                    Smin /= 100;
+                }
+
+                double queenSpeed = SMax;
+
+                while (queenSpeed > Smin && threadSpermatheca.get(iter).chromosomeList.size() < threadSpmSize){
+                    if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
+                        Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
+
+                long start = System.currentTimeMillis();
+                        brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
+                long stop = System.currentTimeMillis();
+                Log.logger.info("brood local search: "+ (stop - start));
+
+                        threadSpermatheca.get(iter).chromosomeList.add(cloner.deepClone(brood));
+                    }
+                    queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
+
+                    drone = new Drone(workflow, instanceInfo, M_NUMBER);
+
+                    HBMOAlgorithm.globalCounter++;
+                }
+            });
         }
 
-        for (Mating mating : matingList){
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
+            threadList[i].start();
+        }
+
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
             try {
-                mating.thread.join();
+                threadList[i].join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
+        spermathecaList.clear();
+
+        spermathecaList = threadSpermatheca;
+    }
+
+    double probability(double queenFitness, double droneFitness, double queenSpeed){
+
+        if(droneFitness > queenFitness)
+            return 1;
+        else
+            return Math.exp((droneFitness - queenFitness) / queenSpeed);
     }
 
     void generateBrood(){
@@ -259,7 +321,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         return currentBestChr;
     }
 
-    static Chromosome lightLocalSearch(Chromosome mainChr, int kRandomTasks){
+    Chromosome lightLocalSearch(Chromosome mainChr, int kRandomTasks){
         Cloner cloner = new Cloner();
         Chromosome currentBestChr = cloner.deepClone(mainChr);
 
