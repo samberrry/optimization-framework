@@ -42,8 +42,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
         honeyBeePreProcessing(workflow);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
-
-        Log.logger.info("Config File ---------- "+" itr: "+ Config.honeybee_algorithm.getGeneration_number()+ " sp size: "+ Config.honeybee_algorithm.getSpermatheca_size()+ " nbh ratio: "+ Config.honeybee_algorithm.getNeighborhood_ratio()+ " force speed: "+ Config.honeybee_algorithm.getForce_speed());
+        Printer.printHoneBeeInfo();
 
         /**
          * Assumptions:
@@ -85,9 +84,11 @@ public class RunHBMOAlgorithm implements StaticProperties {
                 min = value;
             }
         }
-
+        Printer.printSplitter();
         Log.logger.info("Average fitness value: " + sum / Config.honeybee_algorithm.getNumber_of_runs());
+
         Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+        Printer.printHoneBeeInfo();
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

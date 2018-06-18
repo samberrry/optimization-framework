@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,20 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2048">
-              <caret line="61" column="35" lean-forward="true" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+            <state relative-caret-position="422">
+              <caret line="152" column="5" lean-forward="true" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,11 +36,20 @@
       <file leaf-file-name="RunHBMOAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+            <state relative-caret-position="209">
+              <caret line="86" column="32" lean-forward="true" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Printer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -162,8 +163,8 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" />
-        <option value="$PROJECT_DIR$/resources/config/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
+        <option value="$PROJECT_DIR$/resources/config/config.yml" />
       </list>
     </option>
   </component>
@@ -532,7 +533,7 @@
       <workItem from="1528913982385" duration="21490000" />
       <workItem from="1529045827557" duration="99800000" />
       <workItem from="1529231939031" duration="32160000" />
-      <workItem from="1529308944557" duration="20380000" />
+      <workItem from="1529308944557" duration="20832000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -559,7 +560,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="704446000" />
+    <option name="totallyTimeSpent" value="704898000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -574,7 +575,7 @@
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49765626" weight="0.62700534" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49765626" weight="0.3395722" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.54946524" />
       <window_info id="Designer" order="5" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
@@ -982,13 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="671">
@@ -998,25 +992,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="416">
+          <caret line="16" column="16" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2048">
-          <caret line="61" column="35" lean-forward="true" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+        <state relative-caret-position="422">
+          <caret line="152" column="5" lean-forward="true" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
+        <state relative-caret-position="209">
+          <caret line="86" column="32" lean-forward="true" selection-start-line="86" selection-start-column="32" selection-end-line="86" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

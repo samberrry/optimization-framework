@@ -1,5 +1,6 @@
 package org.optframework.core.utils;
 
+import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -53,5 +54,15 @@ public class Printer {
         }
 
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
+    }
+
+    public static void printSplitter(){
+        Log.logger.info("===================================================\n" +
+                "===================================================\n" +
+                "===================================================\n");
+    }
+
+    public static void printHoneBeeInfo(){
+        Log.logger.info("Config File ---------- "+" itr: "+ Config.honeybee_algorithm.getGeneration_number()+ " sp size: "+ Config.honeybee_algorithm.getSpermatheca_size()+ " nbh ratio: "+ Config.honeybee_algorithm.getNeighborhood_ratio()+ " force speed: "+ Config.honeybee_algorithm.getForce_speed()+ " runs#: " + Config.honeybee_algorithm.getNumber_of_runs());
     }
 }

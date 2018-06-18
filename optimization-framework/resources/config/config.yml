@@ -18,9 +18,9 @@ honeybee_algorithm:
   force_speed: false
   cooling_factor: 0.9
   number_of_threads: 8
-  spermatheca_size: 100
-  generation_number: 30
-  neighborhood_ratio: 0.1
-  number_of_runs: 10
+  spermatheca_size: 30
+  generation_number: 10
+  neighborhood_ratio: 0.01
+  number_of_runs: 1
 
 #antcolony_algorithm:
