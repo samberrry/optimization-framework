@@ -37,7 +37,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(Config.global.budget, 0), Config.global.bandwidth);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth);
 
         honeyBeePreProcessing(workflow);
 
@@ -56,14 +56,38 @@ public class RunHBMOAlgorithm implements StaticProperties {
         workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
 
         HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
-        long start = System.currentTimeMillis();
 
-        Solution solution = hbmoAlgorithm.runAlgorithm();
+        double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
 
-        long stop = System.currentTimeMillis();
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
 
-        Log.logger.info("Global Counter: " + HBMOAlgorithm.globalCounter);
-        Printer.printSolution(solution, instanceInfo, stop-start);
+            long start = System.currentTimeMillis();
+
+            Solution solution = hbmoAlgorithm.runAlgorithm();
+
+            fitnessValueList[i] = solution.fitnessValue;
+
+            long stop = System.currentTimeMillis();
+
+            Log.logger.info("Global Counter: " + HBMOAlgorithm.globalCounter);
+            Printer.printSolution(solution, instanceInfo, stop-start);
+        }
+
+        double sum = 0;
+        double max = 999999999999.9;
+        double min = 0;
+        for (double value : fitnessValueList){
+            sum += value;
+            if (value > max){
+                max = value;
+            }
+            if (value < min){
+                min = value;
+            }
+        }
+
+        Log.logger.info("Average fitness value: " + sum / Config.honeybee_algorithm.getNumber_of_runs());
+        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

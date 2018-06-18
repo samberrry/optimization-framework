@@ -21,6 +21,38 @@ public class PopulateWorkflow {
         return workflow;
     }
 
+    public static Workflow populateWorkflowFromDaxWithId(double budget, long deadline, int workflow_id) {
+        Log.logger.info("Populates the workflow from Dax file");
+
+        String workflowPath = "";
+
+        switch (workflow_id){
+            case 1:
+                workflowPath = "resources/input/inputDAGfiles/Inspiral_1000.xml";
+                break;
+            case 2:
+                workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
+                break;
+            case 3:
+                workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
+                break;
+        }
+
+        if (workflowPath == ""){
+            throw new RuntimeException("Invalid workflow Id. Possible values: 1 for 1000 nodes, 2 for 100 nodes , 3 for 30 nodes");
+        }
+
+        Dax2Workflow dax = new Dax2Workflow();
+        dax.processDagFile(workflowPath
+                , 1, 100,0);
+
+        Workflow workflow = dax.workflow;
+        workflow.initBudget(budget);
+        workflow.setDeadline(deadline);
+
+        return workflow;
+    }
+
     public static Workflow populateSimpleWorkflow(double budget, long deadline){
         Log.logger.info("Populates the workflow from the simple workflow");
 

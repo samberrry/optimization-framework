@@ -1,4 +1,5 @@
 global:
+  workflow_id: 2
   budget: 1000
   bandwidth: 1000
   t_extra: -1
@@ -20,5 +21,6 @@ honeybee_algorithm:
   spermatheca_size: 100
   generation_number: 30
   neighborhood_ratio: 0.1
+  number_of_runs: 10
 
 #antcolony_algorithm:
