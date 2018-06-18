@@ -10,7 +10,6 @@ import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
-import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
@@ -55,7 +54,7 @@ public class RunHEFTAlgorithm implements StaticProperties {
 
         long stop = System.currentTimeMillis();
 
-//        Printer.printSolution(solution, instanceInfo, stop-start);
+        Printer.printSolution(solution, instanceInfo, stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

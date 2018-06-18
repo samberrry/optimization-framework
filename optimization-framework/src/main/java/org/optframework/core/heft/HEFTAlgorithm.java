@@ -4,6 +4,7 @@ import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
+import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 
 import java.util.ArrayList;
@@ -142,7 +143,14 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Value of the Y Array: "+ yArrayStr);
 
 
-        return null;
+        Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+        solution.numberOfUsedInstances = numberOfUsedInstances;
+        solution.xArray = xArray;
+        solution.yArray = yArray;
+
+        solution.fitness();
+
+        return solution;
     }
 
     int getJobWithMaxParentFinishTime(ArrayList<Integer> parentJobs){
@@ -150,7 +158,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         int tempId = originalJobList.get(parentJobs.get(0)).getIntId();
 
         for (int parentId : parentJobs){
-            //ERROR
             if (tempValue > originalJobList.get(parentId).getFinishTime()){
                 tempId = originalJobList.get(parentId).getIntId();
             }

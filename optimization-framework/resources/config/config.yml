@@ -1,7 +1,7 @@
 global:
   budget: 1000
   bandwidth: 1000
-  t_extera: -1
+  t_extra: -1
   m_number: 100
 
 sa_algorithm:
