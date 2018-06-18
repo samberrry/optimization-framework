@@ -4,7 +4,6 @@ import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 
 import java.util.ArrayList;

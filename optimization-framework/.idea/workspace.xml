@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,7 +18,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="130">
@@ -34,25 +30,10 @@
       <file leaf-file-name="RunHEFTAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="26">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GlobalConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="e#363#364#0" expanded="true" />
-                <element signature="e#394#395#0" expanded="true" />
-                <element signature="e#443#444#0" expanded="true" />
-                <element signature="e#483#484#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,20 +42,17 @@
       <file leaf-file-name="PopulateWorkflow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="343" column="13" lean-forward="true" selection-start-line="343" selection-start-column="13" selection-end-line="343" selection-end-column="13" />
+            <state relative-caret-position="625">
+              <caret line="329" lean-forward="true" selection-start-line="329" selection-end-line="329" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="156">
+              <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -187,9 +165,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/resources/config/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
       </list>
     </option>
   </component>
@@ -566,7 +544,7 @@
       <workItem from="1528913982385" duration="21490000" />
       <workItem from="1529045827557" duration="99800000" />
       <workItem from="1529231939031" duration="32160000" />
-      <workItem from="1529308944557" duration="14079000" />
+      <workItem from="1529308944557" duration="14396000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -593,7 +571,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="698145000" />
+    <option name="totallyTimeSpent" value="698462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -732,9 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1274">
           <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -973,23 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="343" column="13" lean-forward="true" selection-start-line="343" selection-start-column="13" selection-end-line="343" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -997,20 +955,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="182">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="e#363#364#0" expanded="true" />
             <element signature="e#394#395#0" expanded="true" />
@@ -1020,10 +975,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="26">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="329" lean-forward="true" selection-start-line="329" selection-end-line="329" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
         </state>
       </provider>
     </entry>
