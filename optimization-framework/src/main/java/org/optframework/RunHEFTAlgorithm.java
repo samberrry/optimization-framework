@@ -32,7 +32,7 @@ public class RunHEFTAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow7(Config.global.budget, 0), Config.global.bandwidth);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow8(Config.global.budget, 0), Config.global.bandwidth);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
