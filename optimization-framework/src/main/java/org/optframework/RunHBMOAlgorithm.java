@@ -73,9 +73,9 @@ public class RunHBMOAlgorithm implements StaticProperties {
             Printer.printSolution(solution, instanceInfo, stop-start);
         }
 
-        double sum = 0;
-        double max = 999999999999.9;
-        double min = 0;
+        double sum = 0.0;
+        double max = 0.0;
+        double min = 999999999999.9;
         for (double value : fitnessValueList){
             sum += value;
             if (value > max){
