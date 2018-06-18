@@ -55,8 +55,7 @@ public class RunHEFTAlgorithm implements StaticProperties {
 
         long stop = System.currentTimeMillis();
 
-        Log.logger.info("Global Counter: " + HBMOAlgorithm.globalCounter);
-        Printer.printSolution(solution, instanceInfo, stop-start);
+//        Printer.printSolution(solution, instanceInfo, stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
