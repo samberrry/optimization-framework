@@ -22,6 +22,14 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
     Cloner cloner = new Cloner();
 
+    int totalInstances[];
+
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int totalInstances[]) {
+        this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
+        this.totalInstances = totalInstances;
+    }
+
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;

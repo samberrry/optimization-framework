@@ -10,22 +10,17 @@ import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
-import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
+import org.optframework.core.hbmo.HBMOAlgorithm;
+import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-/**
- * @author Hessam Modabberi hessam.modaberi@gmail.com
- * @version 1.0.0
- */
-
-public class RunSAAlgorithm implements StaticProperties {
-
-    public static void main( String[] args ) throws Exception
-    {
+public class RunHEFTWithHBMO implements StaticProperties {
+    public static void main(String[] args) throws Exception{
         Log.init();
-        Log.logger.info("<<<<<<<<< SA Algorithm is started >>>>>>>>>");
+
+        Log.logger.info("<<<<<<<<< HEFT Algorithm with HBMO is started >>>>>>>>>");
 
         /**
          * Initializes Cloudsim Logger
@@ -37,12 +32,6 @@ public class RunSAAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(Config.global.budget, 0), Config.global.bandwidth);
-
-        computeCoolingFactor(workflow.getJobList().size());
-
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
-
         /**
          * Assumptions:
          * Region: europe
@@ -51,17 +40,34 @@ public class RunSAAlgorithm implements StaticProperties {
          * */
         InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
+        Log.logger.info("<<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>");
 
-        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
+        Workflow hbmoWorkflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth);
+
+        hbmoWorkflow.setBeta(Beta.computeBetaValue(hbmoWorkflow, instanceInfo, M_NUMBER));
+
+        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(hbmoWorkflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
 
         long start = System.currentTimeMillis();
-
-        Solution solution = saAlgorithm.runAlgorithm();
-
+        Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
         long stop = System.currentTimeMillis();
 
-        Printer.printSolution(solution, instanceInfo,stop-start);
+        Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
+
+        int totalInstances[] = new int[hbmoSolution.numberOfUsedInstances];
+        for (int i = 0; i < hbmoSolution.numberOfUsedInstances; i++) {
+            totalInstances[i] = hbmoSolution.yArray[i];
+        }
+
+        Log.logger.info("----------  HBMO Algorithm is finished  ----------");
+
+        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
+
+        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
+
+        Solution solution = heftAlgorithm.runAlgorithm();
+
+        Printer.printSolutionWithoutTime(solution, instanceInfo);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
@@ -80,13 +86,4 @@ public class RunSAAlgorithm implements StaticProperties {
         return info;
     }
 
-    static void computeCoolingFactor(int numberOfTasks){
-        if (!Config.sa_algorithm.force_cooling){
-            if (numberOfTasks >= 10){
-                Config.sa_algorithm.cooling_factor = 1 - 1 / (double)numberOfTasks;
-            }else {
-                Config.sa_algorithm.cooling_factor = 0.9;
-            }
-        }
-    }
 }

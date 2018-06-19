@@ -458,4 +458,79 @@ public class PopulateWorkflow {
 
         return simpleWorkflow;
     }
+
+    public static Workflow populateHEFTExample(double budget, long deadline){
+        Log.logger.info("Populates the workflow from the simple workflow");
+
+        Workflow simpleWorkflow = new Workflow(10, 1000, 1000);
+
+        simpleWorkflow.initBudget(budget);
+        simpleWorkflow.setDeadline(deadline);
+
+        int taskID = 0;
+
+        int groupID = 1;
+        int userID = 1;
+        long submitTime = 0 ;
+        int numProc = 1;
+
+        Job wfA = new Job(taskID, submitTime, 0 , userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfA);
+        taskID++;
+
+        Job wfB = new Job(taskID, submitTime, 0 , userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfB);
+        taskID++;
+
+        Job wfC = new Job(taskID, submitTime, 0 , userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfC);
+        taskID++;
+
+        Job wfD = new Job(taskID, submitTime, 0 , userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfD);
+        taskID++;
+
+        Job wfE = new Job(taskID, submitTime, 0 , userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfE);
+        taskID++;
+
+        Job wfF = new Job(taskID, submitTime, 0, userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfF);
+        taskID++;
+
+        Job wfG = new Job(taskID, submitTime, 0, userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfG);
+        taskID++;
+
+        Job wfH = new Job(taskID, submitTime, 0, userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfH);
+        taskID++;
+
+        Job wfI = new Job(taskID, submitTime, 0, userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfI);
+        taskID++;
+
+        Job wfJ = new Job(taskID, submitTime, 0, userID, groupID, 0, numProc);
+        simpleWorkflow.createTask(wfJ);
+        taskID++;
+
+        simpleWorkflow.addEdge(wfA, wfB, 18);
+        simpleWorkflow.addEdge(wfA, wfC, 12);
+        simpleWorkflow.addEdge(wfA, wfD, 9);
+        simpleWorkflow.addEdge(wfA, wfE, 11);
+        simpleWorkflow.addEdge(wfA, wfF, 14);
+        simpleWorkflow.addEdge(wfB, wfH, 19);
+        simpleWorkflow.addEdge(wfB, wfI, 16);
+        simpleWorkflow.addEdge(wfC, wfG, 23);
+        simpleWorkflow.addEdge(wfD, wfH, 27);
+        simpleWorkflow.addEdge(wfD, wfI, 23);
+        simpleWorkflow.addEdge(wfE, wfI, 13);
+        simpleWorkflow.addEdge(wfF, wfH, 15);
+        simpleWorkflow.addEdge(wfG, wfJ, 17);
+        simpleWorkflow.addEdge(wfH, wfJ, 11);
+        simpleWorkflow.addEdge(wfI, wfJ, 13);
+
+        return simpleWorkflow;
+    }
+
 }
