@@ -1,7 +1,7 @@
 global:
-  workflow_id: 1
+  workflow_id: 2
   budget: 1000
-  bandwidth: 1
+  bandwidth: 1000
   t_extra: -1
   m_number: 100
 
@@ -17,9 +17,9 @@ honeybee_algorithm:
   min_speed: 0.1
   force_speed: false
   cooling_factor: 0.9
-  number_of_threads: 8
+  number_of_threads: 4
   spermatheca_size: 30
-  generation_number: 10
+  generation_number: 5
   neighborhood_ratio: 0.01
   number_of_runs: 1
 

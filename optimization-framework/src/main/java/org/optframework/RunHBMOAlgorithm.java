@@ -108,7 +108,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
     }
 
     static void honeyBeePreProcessing(Workflow workflow){
-        if (workflow.getJobList().size() > 100){
+        if (workflow.getJobList().size() >= 100){
             double kRandom = workflow.getJobList().size() * Config.honeybee_algorithm.getNeighborhood_ratio();
             Config.honeybee_algorithm.kRandom =  (int) kRandom;
         }else {
