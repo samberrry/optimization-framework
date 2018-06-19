@@ -117,10 +117,14 @@ public class PreProcessor {
                 double taskExeTime = job.getLength() / instanceInfo[typeId].getType().getEc2units();
                 total += taskExeTime;
             }
-            jobList.add(job.getIntId(), new Job(job.getIntId(),
+            Job newJob = new Job(job.getIntId(),
                     null,
                     (total/totalInstances.length),
-                    job.getEdgeInfo()));
+                    job.getEdgeInfo());
+
+            newJob.setLength(job.getLength());
+
+            jobList.add(job.getIntId(), newJob);
         }
 
         WorkflowDAG dag = workflow.getWfDAG();

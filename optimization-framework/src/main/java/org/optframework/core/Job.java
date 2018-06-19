@@ -23,6 +23,8 @@ public class Job implements Serializable{
 
     private double finishTime;
 
+    private double length;
+
     private double exeTime[];
 
     private double avgExeTime;
@@ -125,4 +127,12 @@ public class Job implements Serializable{
             return (int)o2.rank - (int)o1.rank;
         }
     };
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
 }
