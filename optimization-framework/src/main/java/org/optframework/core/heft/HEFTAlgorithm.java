@@ -103,7 +103,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                     if (waitingTime > 0 ){
                         double currentTime = instanceTimeLine[j] + waitingTime;
-                        double edge = originalJobList.get(maxParentId).getEdge(i);
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
                         double currentFinishTime = currentTime + cij + job.getExeTime()[yArray[j]];
@@ -113,7 +113,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             tempInstanceId = j;
                         }
                     }else {
-                        double edge = originalJobList.get(maxParentId).getEdge(i);
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
                         double currentFinishTime = instanceTimeLine[j] + cij + job.getExeTime()[yArray[j]];
@@ -127,7 +127,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                 for (InstanceType type: InstanceType.values()){
                     int maxParentId = getJobWithMaxParentFinishTime(parentJobs);
-                    double edge = originalJobList.get(maxParentId).getEdge(i);
+                    double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                     double cij = edge / (double)Config.global.bandwidth;
 
                     double currentFinishTimeForNew = originalJobList.get(maxParentId).getFinishTime() + cij + job.getExeTime()[type.getId()];
@@ -149,6 +149,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 yArray[tempInstanceId] = newType;
                 numberOfUsedInstances++;
             }
+        }
+
+        for (int i = 0; i < instanceTimeLine.length; i++) {
+            Log.logger.info("Timeline for instance " + instanceInfo[yArray[i]].getType().getName() + " : " + instanceTimeLine[i]);
         }
 
         String xArrayStr = "";
@@ -186,7 +190,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         int tempId = originalJobList.get(parentJobs.get(0)).getIntId();
 
         for (int parentId : parentJobs){
-            if (tempValue > originalJobList.get(parentId).getFinishTime()){
+            if (tempValue < originalJobList.get(parentId).getFinishTime()){
                 tempId = originalJobList.get(parentId).getIntId();
             }
         }
