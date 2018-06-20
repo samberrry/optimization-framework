@@ -55,13 +55,36 @@ public class RunSAAlgorithm implements StaticProperties {
 
         SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(workflow, instanceInfo);
 
-        long start = System.currentTimeMillis();
+        double fitnessValueList[] = new double[Config.sa_algorithm.getNumber_of_runs()];
 
-        Solution solution = saAlgorithm.runAlgorithm();
+        for (int i = 0; i < Config.sa_algorithm.getNumber_of_runs(); i++) {
+            long start = System.currentTimeMillis();
 
-        long stop = System.currentTimeMillis();
+            Solution solution = saAlgorithm.runAlgorithm();
+            fitnessValueList[i] = solution.fitnessValue;
 
-        Printer.printSolution(solution, instanceInfo,stop-start);
+            long stop = System.currentTimeMillis();
+
+            Printer.printSolution(solution, instanceInfo,stop-start);
+        }
+
+        double sum = 0.0;
+        double max = 0.0;
+        double min = 999999999999.9;
+        for (double value : fitnessValueList){
+            sum += value;
+            if (value > max){
+                max = value;
+            }
+            if (value < min){
+                min = value;
+            }
+        }
+        Printer.printSplitter();
+        Log.logger.info("Average fitness value: " + sum / Config.honeybee_algorithm.getNumber_of_runs());
+
+        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+        Printer.printHoneBeeInfo();
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

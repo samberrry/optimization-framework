@@ -6,6 +6,7 @@ public class SAConfig {
     public Double cooling_factor;
     public Integer equilibrium_point;
     public Boolean force_cooling;
+    public Integer number_of_runs;
 
     public Double getStart_temperature() {
         return start_temperature;
@@ -45,5 +46,13 @@ public class SAConfig {
 
     public void setForce_cooling(Boolean force_cooling) {
         this.force_cooling = force_cooling;
+    }
+
+    public Integer getNumber_of_runs() {
+        return number_of_runs;
+    }
+
+    public void setNumber_of_runs(Integer number_of_runs) {
+        this.number_of_runs = number_of_runs;
     }
 }

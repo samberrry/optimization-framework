@@ -1,5 +1,5 @@
 global:
-  workflow_id: 3
+  workflow_id: 2
   budget: 1000
   bandwidth: 1000
   t_extra: -1
@@ -11,6 +11,7 @@ sa_algorithm:
   cooling_factor: 0.8
   force_cooling: false
   equilibrium_point: 10
+  number_of_runs: 200
 
 honeybee_algorithm:
   max_speed: 800
