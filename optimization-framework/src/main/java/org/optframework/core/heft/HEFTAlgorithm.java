@@ -81,7 +81,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             //it is possible to have multiple start tasks without dependencies
             if (parentJobs.size() == 0){
                 for (int j = 0; j < usedInstances.length; j++) {
-                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[j]].getType());
+                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
                     if (currentFinishTime < tempTaskFinishTime){
                         tempTaskFinishTime = currentFinishTime;
@@ -100,7 +100,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
-                        double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[j]].getType());
+                        double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
                         if (currentFinishTime < tempTaskFinishTime){
                             tempTaskFinishTime = currentFinishTime;
@@ -110,7 +110,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
-                        double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[j]].getType());
+                        double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
                         if (currentFinishTime < tempTaskFinishTime){
                             tempTaskFinishTime = currentFinishTime;
