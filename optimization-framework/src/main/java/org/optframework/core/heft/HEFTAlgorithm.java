@@ -69,7 +69,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
 
         xArray[firstJob.getIntId()] = tempInstance;
-        //error
         yArray[tempInstance] = usedInstances[tempInstance];
         instanceTimeLine[tempInstance] = temp;
 
@@ -220,7 +219,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     }
 
     int getJobWithMaxParentFinishTime(ArrayList<Integer> parentJobs){
-        //HAS ERROR
         double tempValue = originalJobList.get(parentJobs.get(0)).getFinishTime();
         int tempId = originalJobList.get(parentJobs.get(0)).getIntId();
 
