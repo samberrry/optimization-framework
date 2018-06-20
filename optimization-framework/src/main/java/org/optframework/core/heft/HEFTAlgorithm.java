@@ -2,7 +2,6 @@ package org.optframework.core.heft;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.utils.TaskUtility;
@@ -45,28 +44,28 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Collections.sort(orderedJobList, Job.rankComparator);
         WorkflowDAG dag = workflow.getWfDAG();
 
-        double instanceTimeLine[] = new double[orderedJobList.size()];
+        double instanceTimeLine[] = new double[usedInstances.length];
 
         int xArray[] = new int[orderedJobList.size()];
-        int yArray[] = new int[orderedJobList.size()];
+        int yArray[] = new int[usedInstances.length];
 
         Job firstJob = orderedJobList.get(0);
         Job originalVersion = originalJobList.get(firstJob.getIntId());
         double temp = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[0]].getType());
-        int tempInstance = -1;
-        InstanceType tempType = InstanceType.values()[0];
+        int tempInstance = 0;
 
         //for the first task
-        for(int instance: usedInstances){
-            double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[instance]].getType());
+        for (int i = 1; i < usedInstances.length; i++) {
+            double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[i]].getType());
             if (exeTime < temp){
                 temp = exeTime;
-                tempInstance = instance;
+                tempInstance = i;
             }
         }
 
         xArray[firstJob.getIntId()] = tempInstance;
-        yArray[tempInstance] = tempType.getId();
+        //error
+        yArray[tempInstance] = usedInstances[tempInstance];
         instanceTimeLine[tempInstance] = temp;
 
         originalVersion.setFinishTime(instanceTimeLine[tempInstance]);
@@ -124,7 +123,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
             originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
             xArray[job.getIntId()] = tempInstanceId;
-
+            yArray[tempInstanceId] = usedInstances[tempInstanceId];
         }
 
         for (int i = 0; i < instanceTimeLine.length; i++) {
@@ -152,11 +151,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
 
         Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
-        solution.numberOfUsedInstances = usedInstances.length;
-        solution.xArray = xArray;
-        solution.yArray = yArray;
-
-        solution.fitness();
+//        solution.numberOfUsedInstances = usedInstances.length;
+//        solution.xArray = xArray;
+//        solution.yArray = yArray;
+//
+//        solution.fitness();
 
         return solution;
     }
