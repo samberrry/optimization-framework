@@ -42,7 +42,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Log.logger.info("<<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>");
 
-        Workflow hbmoWorkflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow8(Config.global.budget, 0), Config.global.bandwidth);
+        Workflow hbmoWorkflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth);
 
         hbmoWorkflow.setBeta(Beta.computeBetaValue(hbmoWorkflow, instanceInfo, M_NUMBER));
 
@@ -61,7 +61,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Log.logger.info("----------  HBMO Algorithm is finished  ----------");
 
-        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateSimpleWorkflow8(Config.global.budget, 0), Config.global.bandwidth, totalInstances, instanceInfo);
+        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 

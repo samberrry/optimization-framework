@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloudsim.log.lck" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -31,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="67" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="334">
+              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="156">
+              <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -164,8 +161,8 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
         <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
         <option value="$PROJECT_DIR$/resources/config/config.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
       </list>
     </option>
   </component>
@@ -515,7 +512,7 @@
       <workItem from="1529045827557" duration="99800000" />
       <workItem from="1529231939031" duration="32160000" />
       <workItem from="1529308944557" duration="64955000" />
-      <workItem from="1529440095901" duration="10673000" />
+      <workItem from="1529440095901" duration="10929000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -542,7 +539,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="759694000" />
+    <option name="totallyTimeSpent" value="759950000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -977,13 +974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -991,20 +981,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        <state relative-caret-position="156">
+          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="364">
+          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
