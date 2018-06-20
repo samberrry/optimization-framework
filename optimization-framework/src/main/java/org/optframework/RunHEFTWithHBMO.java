@@ -54,10 +54,6 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
 
-        int a[] = {6,6,8,6,6,7};
-        hbmoSolution.numberOfUsedInstances = 6;
-        hbmoSolution.yArray = a;
-
         int totalInstances[] = new int[hbmoSolution.numberOfUsedInstances];
         for (int i = 0; i < hbmoSolution.numberOfUsedInstances; i++) {
             totalInstances[i] = hbmoSolution.yArray[i];
