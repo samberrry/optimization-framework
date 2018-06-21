@@ -37,7 +37,7 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
         globalSolution = cloner.deepClone(initialSolution);
 
         //until workflow size is not true
-        for (int i = 1; i < workflow.getJobList().size()+1; i++) {
+        for (int i = 1; i < workflow.getJobList().size(); i++) {
             int data[] = new int[workflow.getJobList().size()];
             recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
             System.out.println("*****************");
@@ -67,18 +67,32 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
 
             int []yData = new int[instanceNumber];
 
-            recursiveCombinationForYArray(yData, -1, InstanceType.values().length, instanceNumber, solution);
 
 //            System.out.println(yCounter);
-            yCounter++;
 
 //            System.out.println("***********************************************");
+
             String str= "";
             for (int a: data){
                 str += a;
             }
+
             if (visited){
-                System.out.println("X Array: " + str);
+                boolean used[] = new boolean[instanceNumber];
+                boolean doNotComputeY = false;
+                for (int i = 0; i < data.length; i++) {
+                    used[data[i]] = true;
+                }
+                for (int i = 0; i < used.length; i++) {
+                    if (used[i] == false){
+                        doNotComputeY = true;
+                        break;
+                    }
+                }
+                if (!doNotComputeY){
+                    recursiveCombinationForYArray(yData, -1, InstanceType.values().length, instanceNumber, solution);
+                    System.out.println("X Array: " + str);
+                }
             }
         }
     }
@@ -98,25 +112,20 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
 
 //            solution.fitness();
 
-//            String str= "";
-//            String str2= "";
-//            for (int a: data){
-//                str += a;
-//            }
-//            for (int b: solution.xArray){
-//                str2 +=b;
-//            }
-//            Log.logger.info("X Array: "+ str2+ "    Y Array: " + str + " current cost: " + solution.cost+ " global: " + globalSolution.cost);
+            String str= "";
+            String str2= "";
+            for (int a: data){
+                str += a;
+            }
+            for (int b: solution.xArray){
+                str2 +=b;
+            }
+            System.out.println("X Array: " + str2 + " Y Array: "+ str);
+
 
             if (globalSolution.fitnessValue > solution.fitnessValue){
                 globalSolution = cloner.deepClone(solution);
             }
-
-//            if (globalCost > solution.cost){
-//                globalCost = solution.cost;
-//            }
-
-//            yCounter++;
         }
     }
 
@@ -146,30 +155,5 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Total Cost: " + solution.cost);
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("(Best Solution so far) Fitness Value: "+ solution.fitnessValue);
-    }
-
-    void backTrack(int xArray[], int yArray[], int i, int k){
-        int numberOfUsedInstances = 0;
-        for (int j = 0; j < i; j++) {
-            if (xArray[i] > numberOfUsedInstances){
-                numberOfUsedInstances = xArray[i];
-            }
-        }
-
-        if (i != xArray.length){
-            for (int j = 0; j < xArray.length; j++) {
-
-
-
-                backTrack(xArray,yArray, i+1, k);
-            }
-        }else {
-            if (k != numberOfUsedInstances){
-                for (int j = 0; j < numberOfUsedInstances; j++) {
-
-                }
-            }
-            // computer fitness
-        }
     }
 }
