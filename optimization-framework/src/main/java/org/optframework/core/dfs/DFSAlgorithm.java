@@ -1,13 +1,14 @@
-package org.optframework.core;
+package org.optframework.core.dfs;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.core.*;
 
 /**
  * This algorithm search the entire search space of the problem. This method is suitable only
  * */
 
-public class CompleteAlgorithm implements OptimizationAlgorithm{
+public class DFSAlgorithm implements OptimizationAlgorithm {
 
     InstanceInfo instanceInfo[];
 
@@ -17,7 +18,9 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
     Cloner cloner = new Cloner();
 
-    public CompleteAlgorithm(InstanceInfo[] instanceInfo, Workflow workflow) {
+    int yCounter=0;
+
+    public DFSAlgorithm(InstanceInfo[] instanceInfo, Workflow workflow) {
         this.instanceInfo = instanceInfo;
         this.workflow = workflow;
     }
@@ -33,10 +36,12 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
 
         globalSolution = cloner.deepClone(initialSolution);
 
-        for (int i = 0; i < workflow.getJobList().size()+1; i++) {
+        //until workflow size is not true
+        for (int i = 1; i < workflow.getJobList().size()+1; i++) {
             int data[] = new int[workflow.getJobList().size()];
             recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
-            printSolution(globalSolution, instanceInfo, i);
+            System.out.println("*****************");
+//            printSolution(globalSolution, instanceInfo, i);
         }
 
         return globalSolution;
@@ -65,16 +70,16 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
             recursiveCombinationForYArray(yData, -1, InstanceType.values().length, instanceNumber, solution);
 
 //            System.out.println(yCounter);
-//            yCounter =0;
+            yCounter++;
 
 //            System.out.println("***********************************************");
-//            String str= "";
-//            for (int a: data){
-//                str += a;
-//            }
-//            if (visited){
-//                System.out.println("X Array: " + str);
-//            }
+            String str= "";
+            for (int a: data){
+                str += a;
+            }
+            if (visited){
+                System.out.println("X Array: " + str);
+            }
         }
     }
 
@@ -91,7 +96,7 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
         }else {
             solution.yArray = data;
 
-            solution.fitness();
+//            solution.fitness();
 
 //            String str= "";
 //            String str2= "";
@@ -141,5 +146,30 @@ public class CompleteAlgorithm implements OptimizationAlgorithm{
         Log.logger.info("Total Cost: " + solution.cost);
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("(Best Solution so far) Fitness Value: "+ solution.fitnessValue);
+    }
+
+    void backTrack(int xArray[], int yArray[], int i, int k){
+        int numberOfUsedInstances = 0;
+        for (int j = 0; j < i; j++) {
+            if (xArray[i] > numberOfUsedInstances){
+                numberOfUsedInstances = xArray[i];
+            }
+        }
+
+        if (i != xArray.length){
+            for (int j = 0; j < xArray.length; j++) {
+
+
+
+                backTrack(xArray,yArray, i+1, k);
+            }
+        }else {
+            if (k != numberOfUsedInstances){
+                for (int j = 0; j < numberOfUsedInstances; j++) {
+
+                }
+            }
+            // computer fitness
+        }
     }
 }

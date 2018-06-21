@@ -10,6 +10,7 @@ import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
+import org.optframework.core.dfs.DFSAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
@@ -26,7 +27,7 @@ public class RunCompleteAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDax(1000, 0), 1000);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow5(1000, 0), 1000);
 
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
 
@@ -42,11 +43,11 @@ public class RunCompleteAlgorithm implements StaticProperties {
 
         long start = System.currentTimeMillis();
 
-        CompleteAlgorithm completeAlgorithm = new CompleteAlgorithm(instanceInfo, workflow);
+        DFSAlgorithm dfsAlgorithm = new DFSAlgorithm(instanceInfo, workflow);
 
         long stop = System.currentTimeMillis();
 
-        Solution solution = completeAlgorithm.runAlgorithm();
+        Solution solution = dfsAlgorithm.runAlgorithm();
 
         Printer.printSolution(solution, instanceInfo, stop-start);
     }

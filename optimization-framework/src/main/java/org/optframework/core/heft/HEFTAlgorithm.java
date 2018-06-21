@@ -100,28 +100,30 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     Collections.sort(instanceList[j].gapList , Gap.gapComparator);
                 }
 
-                if (instanceList[j].gapList.size() >= 1 && parentJobs.size() != 0 && latestParentFinishTime < instanceList[j].gapList.get(0).endTime){
-
-                    double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                    double tempCIJ = tempEdge / (double)Config.global.bandwidth;
-
-                    double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
-
+                if (instanceList[j].gapList.size() >= 1 && parentJobs.size() != 0){
                     int k =0;
-                    for (Gap gap :instanceList[j].gapList){
-                        if (gap.duration >= taskExeTime){
-                            tempTaskFinishTime = gap.startTime + taskExeTime;
-                            tempInstanceId = j;
+                    for (Gap gap: instanceList[j].gapList){
+                        if (latestParentFinishTime < gap.endTime){
+                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
 
-                            gap.startTime = tempTaskFinishTime;
-                            if (gap.startTime >= gap.endTime){
-                                instanceList[i].gapList.remove(k);
-                            }else {
-                                gap.duration = gap.endTime - gap.startTime;
+                            double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
+
+                            if (gap.duration >= taskExeTime){
+                                tempTaskFinishTime = gap.startTime + taskExeTime;
+                                tempInstanceId = j;
+
+                                gap.startTime = tempTaskFinishTime;
+                                if (gap.startTime >= gap.endTime){
+                                    instanceList[i].gapList.remove(k);
+                                    Collections.sort(instanceList[j].gapList , Gap.gapComparator);
+                                }else {
+                                    gap.duration = gap.endTime - gap.startTime;
+                                }
+                                break;
                             }
-                            break;
+                            k++;
                         }
-                        k++;
                     }
                 }else {
                     if (parentJobs.size() == 0){
