@@ -18,8 +18,6 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
 
     Cloner cloner = new Cloner();
 
-    int yCounter=0;
-
     public DFSAlgorithm(InstanceInfo[] instanceInfo, Workflow workflow) {
         this.instanceInfo = instanceInfo;
         this.workflow = workflow;
@@ -37,12 +35,17 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
         globalSolution = cloner.deepClone(initialSolution);
 
         //until workflow size is not true
-        for (int i = 1; i < workflow.getJobList().size(); i++) {
-            int data[] = new int[workflow.getJobList().size()];
-            recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
-            System.out.println("*****************");
-//            printSolution(globalSolution, instanceInfo, i);
-        }
+//        for (int i = 1; i < workflow.getJobList().size(); i++) {
+//            int data[] = new int[workflow.getJobList().size()];
+//            recursiveCombinationForXArray(data , -1 , i, workflow.getJobList().size(), false);
+//            System.out.println("*****************");
+////            printSolution(globalSolution, instanceInfo, i);
+//        }
+
+        int xArray[] = new int[workflow.getJobList().size()];
+        int yArray[] = new int[workflow.getJobList().size()];
+
+        backTrack(xArray, yArray, -1, -1);
 
         return globalSolution;
     }
@@ -155,5 +158,55 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Total Cost: " + solution.cost);
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("(Best Solution so far) Fitness Value: "+ solution.fitnessValue);
+    }
+
+    public void backTrack(int xArray[], int yArray[], int i, int k){
+        int numberOfUsedInstances = 0;
+        boolean used[] = new boolean[workflow.getJobList().size()];
+
+        for (int j = 0; j < xArray.length; j++) {
+            used[xArray[j]] = true;
+        }
+
+        for (int j = 0; j < used.length; j++) {
+            if (used[j]){
+                numberOfUsedInstances++;
+            }
+        }
+
+//        numberOfUsedInstances++;
+
+        if (i == workflow.getJobList().size()-1){
+            //compute Y
+//            String xstr = "";
+//            for (int a : xArray){
+//                xstr += a;
+//            }
+//            System.out.println(xstr + " " + numberOfUsedInstances);
+            if (k == numberOfUsedInstances-1){
+                //end
+                String str1 = "";
+                String str2 = "";
+                //print x and y
+                for (int j = 0; j < xArray.length; j++) {
+                    str1 += xArray[j];
+                }
+                for (int j = 0; j < yArray.length; j++) {
+                    str2 +=yArray[j];
+                }
+                System.out.println("X Array: "+ str1 + " Y Array: "+ str2);
+
+            }else {
+                for (int j = 0; j <= numberOfUsedInstances; j++) {
+                    yArray[k+1] = j;
+                    backTrack(xArray, yArray,i , k+1);
+                }
+            }
+        }else{
+            for (int j = 0; j < numberOfUsedInstances; j++) {
+                xArray[i+1] = j;
+                backTrack(xArray, yArray, i+1, k);
+            }
+        }
     }
 }

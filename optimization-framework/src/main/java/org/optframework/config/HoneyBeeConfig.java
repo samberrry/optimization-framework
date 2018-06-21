@@ -11,6 +11,8 @@ public class HoneyBeeConfig {
     public static int kRandom;
     Double neighborhood_ratio;
     Integer number_of_runs;
+    Double sMin_division;
+    Double sMax_division;
 
     public Double getMax_speed() {
         return max_speed;
@@ -82,5 +84,21 @@ public class HoneyBeeConfig {
 
     public void setNumber_of_runs(Integer number_of_runs) {
         this.number_of_runs = number_of_runs;
+    }
+
+    public Double getsMin_division() {
+        return sMin_division;
+    }
+
+    public void setsMin_division(Double sMin_division) {
+        this.sMin_division = sMin_division;
+    }
+
+    public Double getsMax_division() {
+        return sMax_division;
+    }
+
+    public void setsMax_division(Double sMax_division) {
+        this.sMax_division = sMax_division;
     }
 }

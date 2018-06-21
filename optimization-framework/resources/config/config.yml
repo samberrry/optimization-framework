@@ -17,6 +17,8 @@ honeybee_algorithm:
   max_speed: 800
   min_speed: 0.1
   force_speed: false
+  sMin_division: 10
+  sMax_division: 10
   cooling_factor: 0.9
   number_of_threads: 4
   spermatheca_size: 30

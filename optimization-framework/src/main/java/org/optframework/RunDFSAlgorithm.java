@@ -15,7 +15,7 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunCompleteAlgorithm implements StaticProperties {
+public class RunDFSAlgorithm implements StaticProperties {
     public static void main(String[] args) throws Exception {
         Log.init();
 

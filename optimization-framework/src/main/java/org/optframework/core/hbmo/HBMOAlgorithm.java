@@ -95,8 +95,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
                     Smin = Math.abs((queen.chromosome.fitnessValue - drone.chromosome.fitnessValue) / Math.log(0.05));
 
-                    SMax /= 100;
-                    Smin /= 100;
+                    SMax /= Config.honeybee_algorithm.getsMax_division();
+                    Smin /= Config.honeybee_algorithm.getsMin_division();
                 }
 
                 double queenSpeed = SMax;

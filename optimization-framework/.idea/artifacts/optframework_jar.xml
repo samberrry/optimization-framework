@@ -2,8 +2,8 @@
   <artifact type="jar" build-on-make="true" name="optframework:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/optframework_jar</output-path>
     <root id="archive" name="optframework.jar">
-      <element id="module-output" name="Cloudsim" />
       <element id="module-output" name="OptimizationFramework" />
+      <element id="module-output" name="Cloudsim" />
       <element id="module-output" name="Spotsim" />
       <element id="module-output" name="WorkflowSim" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar" path-in-jar="/" />
