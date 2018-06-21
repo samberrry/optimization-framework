@@ -65,9 +65,11 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
+        start = System.currentTimeMillis();
         Solution solution = heftAlgorithm.runAlgorithm();
+        stop = System.currentTimeMillis();
 
-//        Printer.printSolutionWithoutTime(solution, instanceInfo);
+        Printer.printTime(stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

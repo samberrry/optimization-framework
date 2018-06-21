@@ -93,4 +93,29 @@ public class Printer {
     public static void printHoneBeeInfo(){
         Log.logger.info("Config File ---------- "+" itr: "+ Config.honeybee_algorithm.getGeneration_number()+ " sp size: "+ Config.honeybee_algorithm.getSpermatheca_size()+ " nbh ratio: "+ Config.honeybee_algorithm.getNeighborhood_ratio()+ " force speed: "+ Config.honeybee_algorithm.getForce_speed()+ " runs#: " + Config.honeybee_algorithm.getNumber_of_runs());
     }
+
+    public static void printTime(long time){
+        String timePrefix;
+        long sec = time/1000;
+        long min = sec/60;
+        long hr = min/60;
+
+        long converted;
+
+        if (sec < 0){
+            timePrefix = "Milisec";
+            converted = time;
+        }else if (min < 1){
+            timePrefix = "Seconds";
+            converted = sec;
+        }else if (hr < 1){
+            timePrefix = "Minutes";
+            converted = min;
+        }else {
+            timePrefix = "Hours";
+            converted = hr;
+        }
+
+        Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
+    }
 }

@@ -211,12 +211,15 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Value of the Real Y Array: "+ yArrayStr);
 
         String used = "";
+        int usedCounter=0;
         for (int i = 0; i < usedInstances.length; i++) {
             if (yArray[i] != 0){
                 used += "VM" + i + " ";
+                usedCounter++;
             }
         }
         Log.logger.info("Instance IDs used in HEFT: "+ used);
+        Log.logger.info("Available Instances:" + usedInstances.length +" Number of used instances in HEFT: "+ usedCounter);
 
         double maxTime = instanceTimeLine[0];
         for (double time : instanceTimeLine){

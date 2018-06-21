@@ -1,5 +1,5 @@
 global:
-  workflow_id: 3
+  workflow_id: 1
   budget: 1000
   bandwidth: 1000
   t_extra: -1
