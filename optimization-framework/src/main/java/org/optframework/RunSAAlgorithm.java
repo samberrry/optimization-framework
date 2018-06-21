@@ -84,7 +84,6 @@ public class RunSAAlgorithm implements StaticProperties {
         Log.logger.info("Average fitness value: " + sum / Config.sa_algorithm.getNumber_of_runs());
 
         Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
-        Printer.printHoneBeeInfo();
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
