@@ -132,43 +132,42 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             break;
                         }
                     }
+                }
+                if (parentJobs.size() == 0){
+                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
+
+                    if (currentFinishTime < tempTaskFinishTime){
+                        tempTaskFinishTime = currentFinishTime;
+                        tempInstanceId = j;
+                    }
                 }else {
-                    if (parentJobs.size() == 0){
-                        double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
+                    //check minimum task finish time for all of the current instances
+                    maxParentId = getJobWithMaxParentFinishTime(parentJobs);
+
+                    double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[j];
+
+                    if (waitingTime > 0 ){
+                        double currentTime = instanceTimeLine[j] + waitingTime;
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double cij = edge / (double)Config.global.bandwidth;
+
+                        double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
                         if (currentFinishTime < tempTaskFinishTime){
+                            gapOccurred = true;
+                            endOfInstanceWaitTime = currentTime;
                             tempTaskFinishTime = currentFinishTime;
                             tempInstanceId = j;
                         }
                     }else {
-                        //check minimum task finish time for all of the current instances
-                        maxParentId = getJobWithMaxParentFinishTime(parentJobs);
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double cij = edge / (double)Config.global.bandwidth;
 
-                        double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[j];
+                        double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
-                        if (waitingTime > 0 ){
-                            double currentTime = instanceTimeLine[j] + waitingTime;
-                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                            double cij = edge / (double)Config.global.bandwidth;
-
-                            double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
-
-                            if (currentFinishTime < tempTaskFinishTime){
-                                gapOccurred = true;
-                                endOfInstanceWaitTime = currentTime;
-                                tempTaskFinishTime = currentFinishTime;
-                                tempInstanceId = j;
-                            }
-                        }else {
-                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                            double cij = edge / (double)Config.global.bandwidth;
-
-                            double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
-
-                            if (currentFinishTime < tempTaskFinishTime){
-                                tempTaskFinishTime = currentFinishTime;
-                                tempInstanceId = j;
-                            }
+                        if (currentFinishTime < tempTaskFinishTime){
+                            tempTaskFinishTime = currentFinishTime;
+                            tempInstanceId = j;
                         }
                     }
                 }

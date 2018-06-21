@@ -174,39 +174,38 @@ public class DFSAlgorithm implements OptimizationAlgorithm {
             }
         }
 
-//        numberOfUsedInstances++;
-
         if (i == workflow.getJobList().size()-1){
             //compute Y
-//            String xstr = "";
-//            for (int a : xArray){
-//                xstr += a;
-//            }
-//            System.out.println(xstr + " " + numberOfUsedInstances);
-            if (k == numberOfUsedInstances-1){
-                //end
-                String str1 = "";
-                String str2 = "";
-                //print x and y
-                for (int j = 0; j < xArray.length; j++) {
-                    str1 += xArray[j];
-                }
-                for (int j = 0; j < yArray.length; j++) {
-                    str2 +=yArray[j];
-                }
-                System.out.println("X Array: "+ str1 + " Y Array: "+ str2);
-
-            }else {
-                for (int j = 0; j <= numberOfUsedInstances; j++) {
-                    yArray[k+1] = j;
-                    backTrack(xArray, yArray,i , k+1);
-                }
+            String xstr = "";
+            for (int a : xArray){
+                xstr += a;
             }
+            System.out.println( "X Array" + xstr + " " + numberOfUsedInstances);
         }else{
-            for (int j = 0; j < numberOfUsedInstances; j++) {
+            for (int j = 0; j <= numberOfUsedInstances; j++) {
                 xArray[i+1] = j;
                 backTrack(xArray, yArray, i+1, k);
             }
         }
     }
 }
+
+//            if (k == numberOfUsedInstances-1){
+//                //end
+//                String str1 = "";
+//                String str2 = "";
+//                //print x and y
+//                for (int j = 0; j < xArray.length; j++) {
+//                    str1 += xArray[j];
+//                }
+//                for (int j = 0; j < yArray.length; j++) {
+//                    str2 +=yArray[j];
+//                }
+//                System.out.println("X Array: "+ str1 + " Y Array: "+ str2);
+//
+//            }else {
+//                for (int j = 0; j <= numberOfUsedInstances; j++) {
+//                    yArray[k+1] = j;
+//                    backTrack(xArray, yArray,i , k+1);
+//                }
+//            }
