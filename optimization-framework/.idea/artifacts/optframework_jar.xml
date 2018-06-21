@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="optframework:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/optframework_jar</output-path>
+    <root id="archive" name="optframework.jar">
+      <element id="module-output" name="Cloudsim" />
+      <element id="module-output" name="OptimizationFramework" />
+      <element id="module-output" name="Spotsim" />
+      <element id="module-output" name="WorkflowSim" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-core-1.10.37.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/colt-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-cli-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-math-2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/easymock-3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/hamcrest-core-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/jackson-annotations-2.4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/jackson-core-2.4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/jackson-databind-2.4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/junit-4.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/ssj-2.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/xmlpull-1.1.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/xstream-1.4.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/gson-2.8.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/xpp3-1.1.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/objenesis-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/snakeyaml-1.17.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

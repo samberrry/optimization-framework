@@ -86,7 +86,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             boolean gapIsUsed = false;
             int instanceGapId = -1;
             int gapId = -1;
-            double tempGapStartTime = 999999999999999999.9;
             //
 
             ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
@@ -117,11 +116,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
 
                             if (gap.duration >= taskExeTime){
-                                if (gap.startTime < tempGapStartTime){
+                                double gapTaskFinishTime = gap.startTime + taskExeTime;
+
+                                if (gapTaskFinishTime < tempTaskFinishTime){
                                     tempTaskFinishTime = gap.startTime + taskExeTime;
                                     tempInstanceId = j;
                                     gapIsUsed = true;
-                                    tempGapStartTime = gap.startTime;
                                     instanceGapId = j;
                                     gapId = k;
                                 }
@@ -132,7 +132,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             break;
                         }
                     }
-                }else if (!gapIsUsed){
+                }else {
                     if (parentJobs.size() == 0){
                         double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 

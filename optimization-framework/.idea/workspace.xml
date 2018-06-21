@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../simulator/cloudsim/modules/cloudsim/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/dfs/DFSAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/dfs/DFSAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../simulator/cloudsim/modules/cloudsim/src/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -26,17 +25,17 @@
       <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+            <state relative-caret-position="260">
+              <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HBMOAlgorithm.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+      <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="345" column="16" selection-start-line="345" selection-start-column="16" selection-end-line="345" selection-end-column="16" />
+            <state relative-caret-position="259">
+              <caret line="120" column="65" lean-forward="true" selection-start-line="120" selection-start-column="65" selection-end-line="120" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,7 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>counter:</find>
       <find>count:</find>
       <find>counter</find>
       <find>double</find>
@@ -86,6 +84,7 @@
       <find>usedInstances</find>
       <find>tempInstance</find>
       <find>System</find>
+      <find>tempGapStartTime</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -152,9 +151,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/dfs/DFSAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
       </list>
     </option>
   </component>
@@ -245,7 +244,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="optframework" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="hbmo" type="462c0819:PsiDirectoryNode" />
+              <item name="heft" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -428,10 +427,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RunHBMOAlgorithm" />
         <item itemvalue="Application.RunCompleteAlgorithm" />
         <item itemvalue="Application.RunSAAlgorithm" />
         <item itemvalue="Application.RunHEFTWithHBMO" />
-        <item itemvalue="Application.RunHBMOAlgorithm" />
         <item itemvalue="Application.RunHEFTAlgorithm" />
       </list>
     </recent_temporary>
@@ -488,7 +487,7 @@
       <workItem from="1529045827557" duration="99800000" />
       <workItem from="1529231939031" duration="32160000" />
       <workItem from="1529308944557" duration="64955000" />
-      <workItem from="1529440095901" duration="49427000" />
+      <workItem from="1529440095901" duration="50558000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -515,7 +514,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="798448000" />
+    <option name="totallyTimeSpent" value="799579000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -530,7 +529,7 @@
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496875" weight="0.89171124" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496875" weight="0.657754" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.54946524" />
       <window_info id="Designer" order="5" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
@@ -932,16 +931,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="109" column="83" lean-forward="true" selection-start-line="109" selection-start-column="83" selection-end-line="109" selection-end-column="83" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -970,17 +959,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        <state relative-caret-position="321">
+          <caret line="354" lean-forward="true" selection-start-line="354" selection-end-line="354" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="345" column="16" selection-start-line="345" selection-start-column="16" selection-end-line="345" selection-end-column="16" />
+        <state relative-caret-position="260">
+          <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="120" column="65" lean-forward="true" selection-start-line="120" selection-start-column="65" selection-end-line="120" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -998,6 +997,7 @@
             <option name="proportions">
               <list>
                 <option value="0.3891675" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
