@@ -80,7 +80,14 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             double tempTaskFinishTime = 999999999999999999.0;
             int tempInstanceId = -1;
             boolean gapOccurred = false;
-            double endOfInstanceWaitTime = -9999999;
+            double endOfInstanceWaitTime = -99999999999999999.9;
+
+            //Info about the gap and the instance
+            boolean gapIsUsed = false;
+            int instanceGapId = -1;
+            int gapId = -1;
+            double tempGapStartTime = 999999999999999999.9;
+            //
 
             ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
 
@@ -110,22 +117,22 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
 
                             if (gap.duration >= taskExeTime){
-                                tempTaskFinishTime = gap.startTime + taskExeTime;
-                                tempInstanceId = j;
-
-                                gap.startTime = tempTaskFinishTime;
-                                if (gap.startTime >= gap.endTime){
-                                    instanceList[i].gapList.remove(k);
-                                    Collections.sort(instanceList[j].gapList , Gap.gapComparator);
-                                }else {
-                                    gap.duration = gap.endTime - gap.startTime;
+                                if (gap.startTime < tempGapStartTime){
+                                    tempTaskFinishTime = gap.startTime + taskExeTime;
+                                    tempInstanceId = j;
+                                    gapIsUsed = true;
+                                    tempGapStartTime = gap.startTime;
+                                    instanceGapId = j;
+                                    gapId = k;
                                 }
                                 break;
                             }
                             k++;
+                        }else {
+                            break;
                         }
                     }
-                }else {
+                }else if (!gapIsUsed){
                     if (parentJobs.size() == 0){
                         double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
@@ -172,6 +179,16 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 instanceList[tempInstanceId].gapList.add(gap);
             }
 
+            if (gapIsUsed){
+                Gap gap = instanceList[instanceGapId].getGapList().get(gapId);
+                gap.startTime = tempTaskFinishTime;
+                if (gap.startTime >= gap.endTime){
+                    instanceList[instanceGapId].gapList.remove(gapId);
+                    Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
+                }else {
+                    gap.duration = gap.endTime - gap.startTime;
+                }
+            }
             instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
             originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
             xArray[job.getIntId()] = tempInstanceId;
