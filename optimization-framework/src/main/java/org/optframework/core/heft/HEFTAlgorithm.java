@@ -230,11 +230,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
 
         Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
-//        solution.numberOfUsedInstances = usedInstances.length;
-//        solution.xArray = xArray;
-//        solution.yArray = yArray;
-//
-//        solution.fitness();
+        solution.numberOfUsedInstances = usedInstances.length;
+        solution.xArray = xArray;
+        solution.yArray = yArray;
+
+        solution.fitness();
 
         return solution;
     }

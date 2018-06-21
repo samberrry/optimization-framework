@@ -16,7 +16,7 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunHEFTWithHBMO implements StaticProperties {
+public class RunHoneyBeeHEFTHoneyBee implements StaticProperties {
     public static void main(String[] args) throws Exception{
         Log.init();
 
@@ -69,7 +69,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
         Solution solution = heftAlgorithm.runAlgorithm();
         stop = System.currentTimeMillis();
 
-        Printer.printSolution(solution, instanceInfo, stop-start);
+        Printer.printTime(stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
@@ -87,5 +87,4 @@ public class RunHEFTWithHBMO implements StaticProperties {
         }
         return info;
     }
-
 }

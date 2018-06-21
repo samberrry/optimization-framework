@@ -113,12 +113,19 @@ public class PreProcessor {
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double total = 0.0;
+            double exeTime[] = new double[InstanceType.values().length];
+
             for (int typeId: totalInstances){
                 double taskExeTime = job.getLength() / instanceInfo[typeId].getType().getEc2units();
                 total += taskExeTime;
             }
+
+            for (InstanceType type: InstanceType.values()){
+                exeTime[type.getId()] = TaskUtility.executionTimeOnType(job,type);
+            }
+
             Job newJob = new Job(job.getIntId(),
-                    null,
+                    exeTime,
                     (total/totalInstances.length),
                     job.getEdgeInfo());
 
