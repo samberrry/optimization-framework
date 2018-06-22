@@ -1,8 +1,8 @@
 package org.optframework.core;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
-import org.optframework.core.utils.PreProcessor;
 
 import java.util.*;
 
@@ -283,7 +283,7 @@ public class Solution implements StaticProperties {
                 Job readyTask = jobList.get(jobId);
                 int instanceId = this.xArray[jobId];
 
-                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), PreProcessor.bw, jobList);
+                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), Config.global.bandwidth, jobList);
                 readyTask.setStartTime(jobStartTime);
 
                 if (!instanceList.containsKey(instanceId)){

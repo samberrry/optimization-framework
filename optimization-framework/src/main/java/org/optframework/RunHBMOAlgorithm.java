@@ -37,7 +37,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Config.initConfig();
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth);
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         honeyBeePreProcessing(workflow);
 

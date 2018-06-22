@@ -2,6 +2,7 @@ package org.optframework.core.utils;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Job;
 import org.optframework.core.Workflow;
@@ -11,11 +12,9 @@ import java.util.List;
 
 public class PreProcessor {
     static List<Job> jobList;
-    public static double bw;
 
-    public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw){
+    public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
         jobList = new ArrayList<>();
-        PreProcessor.bw = bw;
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double exeTime[] = new double[InstanceType.values().length];
@@ -47,7 +46,7 @@ public class PreProcessor {
                 Job job = jobList.get(jobId);
                 int maxChildId = getMaxChildRank(jobId, children);
 
-                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/bw);
+                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/Config.global.bandwidth);
             }
             level = dag.getParents(level);
         }
@@ -99,7 +98,7 @@ public class PreProcessor {
         double maxVal = -1;
 
         for (int child : children){
-            double newVal = jobList.get(child).getRank() + jobList.get(parent).getEdge(child)/bw;
+            double newVal = jobList.get(child).getRank() + jobList.get(parent).getEdge(child)/Config.global.bandwidth;
             if (newVal > maxVal){
                 maxVal = newVal;
                 maxChild = child;
