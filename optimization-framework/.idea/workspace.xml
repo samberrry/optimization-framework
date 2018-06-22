@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="7" selection-start-column="7" selection-end-column="7" />
+            <state relative-caret-position="156">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -32,8 +31,23 @@
       <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="234" column="17" selection-start-line="234" selection-start-column="17" selection-end-line="234" selection-end-column="17" />
+            <state relative-caret-position="189">
+              <caret line="320" column="24" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="24" />
+              <folding>
+                <element signature="e#13154#13155#0" expanded="true" />
+                <element signature="e#13179#13180#0" expanded="true" />
+                <element signature="e#13212#13213#0" expanded="true" />
+                <element signature="e#13240#13241#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,20 +58,8 @@
       <file leaf-file-name="HEFTAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5852">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+            <state relative-caret-position="2661">
+              <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -156,7 +158,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Beta.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Instance.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/Gap.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/Instance.java" />
@@ -175,6 +176,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
       </list>
     </option>
@@ -557,7 +559,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="824721000" />
+    <option name="totallyTimeSpent" value="827827000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -614,21 +616,21 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="JRebel Console" order="11" side_tool="true" />
       <window_info id="JRebel" order="3" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Application Servers" order="10" weight="0.328877" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.496875" weight="0.80748665" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="4" sideWeight="0.5053333" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.3342246" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Designer" order="5" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
       <window_info anchor="right" x="0" y="0" width="270" height="600" id="Documentation" order="7" side_tool="true" weight="0.3296875" />
       <window_info anchor="right" id="Database" order="4" />
@@ -636,12 +638,12 @@
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.54946524" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49921876" weight="0.44251338" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.503125" side_tool="true" weight="0.4906417" />
-      <window_info anchor="bottom" id="Application Servers" order="10" weight="0.328877" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.3342246" />
       <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info id="Favorites" order="4" sideWeight="0.5053333" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="JRebel Console" order="11" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -732,13 +734,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft.java" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-17-23:16:30.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/sa-2018-06-14-19:44:44.log">
@@ -1018,10 +1013,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+        <state relative-caret-position="313">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2661">
+          <caret line="246" lean-forward="true" selection-start-line="246" selection-end-line="246" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1030,42 +1049,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="111" column="37" selection-start-line="111" selection-start-column="37" selection-end-line="111" selection-end-column="37" />
+        <state relative-caret-position="393">
+          <caret line="149" lean-forward="true" selection-start-line="149" selection-end-line="149" />
           <folding>
-            <element signature="e#2173#2174#0" expanded="true" />
-            <element signature="e#2203#2204#0" expanded="true" />
-            <element signature="e#2686#2687#0" expanded="true" />
-            <element signature="e#2715#2716#0" expanded="true" />
-            <element signature="e#2759#2760#0" expanded="true" />
-            <element signature="e#2795#2796#0" expanded="true" />
+            <element signature="e#2894#2895#0" expanded="true" />
+            <element signature="e#2928#2929#0" expanded="true" />
+            <element signature="e#3070#3071#0" expanded="true" />
+            <element signature="e#3108#3109#0" expanded="true" />
+            <element signature="e#3170#3171#0" expanded="true" />
+            <element signature="e#3224#3225#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5852">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="7" selection-start-column="7" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="234" column="17" selection-start-line="234" selection-start-column="17" selection-end-line="234" selection-end-column="17" />
+        <state relative-caret-position="189">
+          <caret line="320" column="24" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#13154#13155#0" expanded="true" />
+            <element signature="e#13179#13180#0" expanded="true" />
+            <element signature="e#13212#13213#0" expanded="true" />
+            <element signature="e#13240#13241#0" expanded="true" />
           </folding>
         </state>
       </provider>

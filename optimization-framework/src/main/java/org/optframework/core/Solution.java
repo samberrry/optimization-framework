@@ -279,19 +279,17 @@ public class Solution implements StaticProperties {
              * This 'for' does the following:
              * - finds max parent's finish time for every task in a level
              * - assigns all of them to an instance
-             * - computes weights for all of the tasks in a level and make them ready to run on instance
              * */
             for (int jobId: level){
                 Job readyTask = jobList.get(jobId);
                 int instanceId = this.xArray[jobId];
 
-//                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), Config.global.bandwidth, jobList);
+                int maxParentId = getJobIdWithMaxParentFinishTime(dag.getParents(jobId));
+                double cij = jobList.get(maxParentId).getEdge(jobId)/Config.global.bandwidth;
+                double jobStartTime = jobList.get(maxParentId).getFinishTime() + cij;
 
-//                double temp = jobList.get(parentList.get(i)).getFinishTime() + jobList.get(parentList.get(i)).getEdge(jobId)/bw;
-
-
-                double jobStartTime = getJobStartTime(dag.getParents(jobId));
-
+                readyTask.setMaxParentId(maxParentId);
+                readyTask.setCijForMaxParent(cij);
                 readyTask.setStartTime(jobStartTime);
 
                 if (!instanceList.containsKey(instanceId)){
@@ -302,6 +300,10 @@ public class Solution implements StaticProperties {
                 readyTaskList.add(readyTask);
             }
 
+            /**
+             * This for does the following:
+             * - loops over the instances for a level and sets the instance available time and task finish time
+             * */
 //            It is time to compute the time for every instance
             for (Integer instance : instanceList.keySet()){
                 ArrayList<Job> readyTaskList = instanceList.get(instance);
@@ -316,14 +318,16 @@ public class Solution implements StaticProperties {
                         instancesTimes[instance] = readyTask.getExeTime()[instanceTypeId];
                         instanceTimeLine[instance] = readyTask.getStartTime();
                         instanceTimeLine[instance] += readyTask.getExeTime()[instanceTypeId];
-                    }else if (readyTask.getStartTime() > instanceTimeLine[instance]){
-                        double timeToWait = readyTask.getStartTime() - instanceTimeLine[instance];
-                        instancesTimes[instance] += (timeToWait + readyTask.getExeTime()[instanceTypeId]);
+
+                    }else if (jobList.get(readyTask.getMaxParentId()).getFinishTime() > instanceTimeLine[instance]){
+                        double timeToWait = jobList.get(readyTask.getMaxParentId()).getFinishTime() - instanceTimeLine[instance];
+
+                        instancesTimes[instance] += (timeToWait + readyTask.getCijForMaxParent() + readyTask.getExeTime()[instanceTypeId]);
 
                         instanceTimeLine[instance] = readyTask.getStartTime() + readyTask.getExeTime()[instanceTypeId];
                     }else{
-                        instancesTimes[instance] += readyTask.getExeTime()[instanceTypeId];
-                        instanceTimeLine[instance] += readyTask.getExeTime()[instanceTypeId];
+                        instancesTimes[instance] += (readyTask.getCijForMaxParent() + readyTask.getExeTime()[instanceTypeId]);
+                        instanceTimeLine[instance] += (readyTask.getCijForMaxParent()+readyTask.getExeTime()[instanceTypeId]);
                     }
 
                     readyTask.setFinishTime(instanceTimeLine[instance]);
@@ -366,16 +370,16 @@ public class Solution implements StaticProperties {
         }
     }
 
-    double getJobStartTime(ArrayList<Integer> parentList){
-        Job parentJob = jobList.get(parentList.get(0));
-        double maxTemp = parentJob.getFinishTime() + parentJob.getEdge(jobId)/bw;
+    int getJobIdWithMaxParentFinishTime(ArrayList<Integer> parentJobs){
+        double tempValue = jobList.get(parentJobs.get(0)).getFinishTime();
+        int tempId = jobList.get(parentJobs.get(0)).getIntId();
 
-        for (int i = 1; i < parentList.size(); i++) {
-            double temp = jobList.get(parentList.get(i)).getFinishTime() + jobList.get(parentList.get(i)).getEdge(jobId)/bw;
-            if (temp > maxTemp)
-                maxTemp = temp;
+        for (int parentId : parentJobs){
+            if (tempValue < jobList.get(parentId).getFinishTime()){
+                tempId = jobList.get(parentId).getIntId();
+            }
         }
-        return  maxTemp;
+        return tempId;
     }
 
     double findMaxInstanceTime(double instanceTimes[]){

@@ -23,6 +23,10 @@ public class Job implements Serializable{
 
     private double finishTime;
 
+    private int maxParentId;
+
+    private double cijForMaxParent;
+
     private double length;
 
     private double exeTime[];
@@ -134,5 +138,21 @@ public class Job implements Serializable{
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public int getMaxParentId() {
+        return maxParentId;
+    }
+
+    public void setMaxParentId(int maxParentId) {
+        this.maxParentId = maxParentId;
+    }
+
+    public double getCijForMaxParent() {
+        return cijForMaxParent;
+    }
+
+    public void setCijForMaxParent(double cijForMaxParent) {
+        this.cijForMaxParent = cijForMaxParent;
     }
 }
