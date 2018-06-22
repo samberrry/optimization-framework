@@ -48,17 +48,15 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(hbmoWorkflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
 
-//        long start = System.currentTimeMillis();
-//        Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
-//        long stop = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
+        Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
+        long stop = System.currentTimeMillis();
 
-//        Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
+        Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
 
-        int a[] = {6,6,5,6,6,3,8,5,8,8,4,7,8};
-
-        int totalInstances[] = new int[13];
-        for (int i = 0; i < 13; i++) {
-            totalInstances[i] = a[i];
+        int totalInstances[] = new int[hbmoSolution.numberOfUsedInstances];
+        for (int i = 0; i < hbmoSolution.numberOfUsedInstances; i++) {
+            totalInstances[i] = hbmoSolution.yArray[i];
         }
 
         Log.logger.info("----------  HBMO Algorithm is finished  ----------");
@@ -67,11 +65,11 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
-//        start = System.currentTimeMillis();
+        start = System.currentTimeMillis();
         Solution solution = heftAlgorithm.runAlgorithm();
-//        stop = System.currentTimeMillis();
+        stop = System.currentTimeMillis();
 
-//        Printer.printTime(stop-start);
+        Printer.printTime(stop-start);
     }
 
     private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){

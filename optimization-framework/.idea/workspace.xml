@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="320" column="24" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="24" />
+            <state relative-caret-position="1551">
+              <caret line="401" lean-forward="true" selection-start-line="401" selection-end-line="401" />
               <folding>
                 <element signature="e#13154#13155#0" expanded="true" />
                 <element signature="e#13179#13180#0" expanded="true" />
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RunHEFTWithHBMO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="333">
+              <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -175,9 +175,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHoneyBeeHEFTHoneyBee.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
       </list>
     </option>
   </component>
@@ -559,7 +559,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="827827000" />
+    <option name="totallyTimeSpent" value="828573000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1020,16 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Log.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -1064,13 +1054,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="320" column="24" selection-start-line="320" selection-start-column="24" selection-end-line="320" selection-end-column="24" />
+        <state relative-caret-position="1551">
+          <caret line="401" lean-forward="true" selection-start-line="401" selection-end-line="401" />
           <folding>
             <element signature="e#13154#13155#0" expanded="true" />
             <element signature="e#13179#13180#0" expanded="true" />
             <element signature="e#13212#13213#0" expanded="true" />
             <element signature="e#13240#13241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
