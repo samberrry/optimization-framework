@@ -236,6 +236,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         solution.fitness();
 
+        Log.logger.info("Fitness makespan: "+ solution.makespan);
+
         return solution;
     }
 
