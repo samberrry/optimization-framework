@@ -93,46 +93,46 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             //it is possible to have multiple start tasks without dependencies
             for (int j = 0; j < usedInstances.length; j++) {
                 int maxParentId = -1;
-//                Job maxParentJob;
-//                double latestParentFinishTime = 0.0;
-//
-//                if (parentJobs.size() != 0){
-//                    maxParentId = getJobWithMaxParentFinishTime(parentJobs);
-//                    maxParentJob = originalJobList.get(maxParentId);
-//                    latestParentFinishTime = maxParentJob.getFinishTime();
-//                }
-//
-//                if (instanceList[j].gapList.size() > 0){
-//                    Collections.sort(instanceList[j].gapList , Gap.gapComparator);
-//                }
+                Job maxParentJob;
+                double latestParentFinishTime = 0.0;
 
-//                if (instanceList[j].gapList.size() >= 1 && parentJobs.size() != 0){
-//                    int k =0;
-//                    for (Gap gap: instanceList[j].gapList){
-//                        if (latestParentFinishTime < gap.endTime){
-//                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-//                            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
-//
-//                            double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
-//
-//                            if (gap.duration >= taskExeTime){
-//                                double gapTaskFinishTime = gap.startTime + taskExeTime;
-//
-//                                if (gapTaskFinishTime < tempTaskFinishTime){
-//                                    tempTaskFinishTime = gap.startTime + taskExeTime;
-//                                    tempInstanceId = j;
-//                                    gapIsUsed = true;
-//                                    instanceGapId = j;
-//                                    gapId = k;
-//                                }
-//                                break;
-//                            }
-//                            k++;
-//                        }else {
-//                            break;
-//                        }
-//                    }
-//                }
+                if (parentJobs.size() != 0){
+                    maxParentId = getJobWithMaxParentFinishTime(parentJobs);
+                    maxParentJob = originalJobList.get(maxParentId);
+                    latestParentFinishTime = maxParentJob.getFinishTime();
+                }
+
+                if (instanceList[j].gapList.size() > 0){
+                    Collections.sort(instanceList[j].gapList , Gap.gapComparator);
+                }
+
+                if (instanceList[j].gapList.size() >= 1 && parentJobs.size() != 0){
+                    int k =0;
+                    for (Gap gap: instanceList[j].gapList){
+                        if (latestParentFinishTime < gap.endTime){
+                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
+
+                            double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
+
+                            if (gap.duration >= taskExeTime){
+                                double gapTaskFinishTime = gap.startTime + taskExeTime;
+
+                                if (gapTaskFinishTime < tempTaskFinishTime){
+                                    tempTaskFinishTime = gap.startTime + taskExeTime;
+                                    tempInstanceId = j;
+                                    gapIsUsed = true;
+                                    instanceGapId = j;
+                                    gapId = k;
+                                }
+                                break;
+                            }
+                            k++;
+                        }else {
+                            break;
+                        }
+                    }
+                }
                 if (parentJobs.size() == 0){
                     double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
