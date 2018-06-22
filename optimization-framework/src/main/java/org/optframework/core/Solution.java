@@ -59,6 +59,8 @@ public class Solution implements StaticProperties {
 
     public Workflow workflow;
 
+    List<Job> jobList;
+
     public InstanceInfo instanceInfo[];
 
     /**
@@ -230,7 +232,7 @@ public class Solution implements StaticProperties {
         WorkflowDAG dag = workflow.getWfDAG();
         ArrayList<Integer> level = dag.getFirstLevel();
 
-        ArrayList<Job> jobList = (ArrayList<Job>) workflow.getJobList();
+        jobList = workflow.getJobList();
 
         double instancesTimes[] = new double[this.numberOfUsedInstances];
 
@@ -283,7 +285,13 @@ public class Solution implements StaticProperties {
                 Job readyTask = jobList.get(jobId);
                 int instanceId = this.xArray[jobId];
 
-                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), Config.global.bandwidth, jobList);
+//                double jobStartTime = getJobStartTime(jobId, dag.getParents(jobId), Config.global.bandwidth, jobList);
+
+//                double temp = jobList.get(parentList.get(i)).getFinishTime() + jobList.get(parentList.get(i)).getEdge(jobId)/bw;
+
+
+                double jobStartTime = getJobStartTime(dag.getParents(jobId));
+
                 readyTask.setStartTime(jobStartTime);
 
                 if (!instanceList.containsKey(instanceId)){
@@ -358,7 +366,7 @@ public class Solution implements StaticProperties {
         }
     }
 
-    double getJobStartTime(int jobId, ArrayList<Integer> parentList, double bw, ArrayList<Job> jobList){
+    double getJobStartTime(ArrayList<Integer> parentList){
         Job parentJob = jobList.get(parentList.get(0));
         double maxTemp = parentJob.getFinishTime() + parentJob.getEdge(jobId)/bw;
 
