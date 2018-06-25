@@ -1,12 +1,8 @@
 package org.optframework;
 
 import org.cloudbus.spotsim.enums.AZ;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.cloudbus.spotsim.pricing.PriceRecord;
-import org.cloudbus.spotsim.pricing.SpotPriceHistory;
-import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
@@ -25,7 +21,7 @@ public class RunSAAlgorithm implements StaticProperties {
     public static void runSA(){
         Log.logger.info("<<<<<<<<< SA Algorithm is started >>>>>>>>>");
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id));
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         computeCoolingFactor(workflow.getJobList().size());
 

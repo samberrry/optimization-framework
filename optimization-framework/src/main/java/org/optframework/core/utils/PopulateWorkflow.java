@@ -21,34 +21,58 @@ public class PopulateWorkflow {
         return workflow;
     }
 
-    public static Workflow populateWorkflowFromDaxWithId(double budget, long deadline, int workflow_id) {
+    public static Workflow populateWorkflowWithId(double budget, long deadline, int workflow_id) {
         Log.logger.info("Populates the workflow from Dax file");
 
         String workflowPath = "";
+        Workflow workflow = null;
 
-        switch (workflow_id){
-            case 1:
-                workflowPath = "resources/input/inputDAGfiles/Inspiral_1000.xml";
-                break;
-            case 2:
-                workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
-                break;
-            case 3:
-                workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
-                break;
+        if (workflow_id < 100){
+            switch (workflow_id){
+                case 1:
+                    workflowPath = "resources/input/inputDAGfiles/Inspiral_1000.xml";
+                    break;
+                case 2:
+                    workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
+                    break;
+                case 3:
+                    workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
+                    break;
+            }
+
+            if (workflowPath == ""){
+                throw new RuntimeException("Invalid workflow Id. Possible values: 1 for 1000 nodes, 2 for 100 nodes , 3 for 30 nodes");
+            }
+
+            Dax2Workflow dax = new Dax2Workflow();
+            dax.processDagFile(workflowPath
+                    , 1, 100,0);
+
+            workflow = dax.workflow;
+            workflow.initBudget(budget);
+            workflow.setDeadline(deadline);
+        }else {
+            switch (workflow_id){
+                case 101:
+                    return populateSimpleWorkflow(budget, deadline);
+                case 102:
+                    return populateSimpleWorkflow2(budget, deadline);
+                case 103:
+                    return populateSimpleWorkflow3(budget, deadline);
+                case 104:
+                    return populateSimpleWorkflow4(budget, deadline);
+                case 105:
+                    return populateSimpleWorkflow5(budget, deadline);
+                case 106:
+                    return populateSimpleWorkflow6(budget, deadline);
+                case 107:
+                    return populateSimpleWorkflow7(budget, deadline);
+                case 108:
+                    return populateSimpleWorkflow8(budget, deadline);
+                case 200:
+                    return populateHEFTExample(budget, deadline);
+            }
         }
-
-        if (workflowPath == ""){
-            throw new RuntimeException("Invalid workflow Id. Possible values: 1 for 1000 nodes, 2 for 100 nodes , 3 for 30 nodes");
-        }
-
-        Dax2Workflow dax = new Dax2Workflow();
-        dax.processDagFile(workflowPath
-                , 1, 100,0);
-
-        Workflow workflow = dax.workflow;
-        workflow.initBudget(budget);
-        workflow.setDeadline(deadline);
 
         return workflow;
     }

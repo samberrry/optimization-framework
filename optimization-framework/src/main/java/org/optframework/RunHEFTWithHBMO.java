@@ -1,12 +1,8 @@
 package org.optframework;
 
 import org.cloudbus.spotsim.enums.AZ;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.cloudbus.spotsim.pricing.PriceRecord;
-import org.cloudbus.spotsim.pricing.SpotPriceHistory;
-import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
 import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
@@ -29,7 +25,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Log.logger.info("<<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>");
 
-        Workflow hbmoWorkflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id));
+        Workflow hbmoWorkflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         hbmoWorkflow.setBeta(Beta.computeBetaValue(hbmoWorkflow, instanceInfo, M_NUMBER));
 
@@ -48,7 +44,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Log.logger.info("----------  HBMO Algorithm is finished  ----------");
 
-        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
+        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 

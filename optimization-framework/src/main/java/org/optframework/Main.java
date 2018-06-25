@@ -2,6 +2,7 @@ package org.optframework;
 
 import org.optframework.config.Config;
 import org.optframework.core.Log;
+import org.optframework.core.utils.Printer;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -19,6 +20,8 @@ public class Main {
          * Loads configs from YAML file
          * */
         Config.initConfig();
+
+        Printer.printSplitter();
 
         switch (Config.global.algorithm){
             case "sa":
