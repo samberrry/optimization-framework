@@ -175,7 +175,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
                 while (bl){
                     newInstanceId = r.nextInt(forMutation.numberOfUsedInstances+1);
-                    if (forMutation.xArray[taskIdToDoMutation] != newInstanceId){
+                    if (forMutation.xArray[taskIdToDoMutation] != newInstanceId && newInstanceId < Config.global.m_number){
                         bl = false;
                     }
                 }
