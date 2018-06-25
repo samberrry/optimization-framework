@@ -8,7 +8,7 @@
 # heft2hbmo
 
 global:
-  algorithm: "sa"
+  algorithm: "hbmo"
   workflow_id: 2
   budget: 1000
   bandwidth: 1000

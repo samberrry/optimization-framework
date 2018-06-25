@@ -145,6 +145,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     }
 
     void generateBrood(){
+        Random r = new Random();
+        int randomSprId = r.nextInt(spermathecaList.size());
+        Spermatheca tempSpr = spermathecaList.get(randomSprId);
+        int randomChrId = r.nextInt(tempSpr.chromosomeList.size());
+
+        Chromosome forMutation = tempSpr.chromosomeList.get(randomChrId);
+        mutation(forMutation);
+
         for (Spermatheca spermatheca : spermathecaList){
             for (Chromosome brood : spermatheca.chromosomeList){
 
@@ -152,6 +160,36 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
                     queen.chromosome = cloner.deepClone(brood);
                 }
             }
+        }
+    }
+
+    void mutation(Chromosome forMutation){
+        Random r = new Random();
+        int xOrY = r.nextInt(2);
+
+        switch (xOrY){
+            case 0:
+                int taskIdToDoMutation = r.nextInt(forMutation.workflow.getJobList().size());
+                int newInstanceId = r.nextInt(forMutation.numberOfUsedInstances+1);
+
+                if (newInstanceId == forMutation.numberOfUsedInstances){
+                    forMutation.numberOfUsedInstances++;
+                    int newYValue = r.nextInt(InstanceType.values().length);
+                    forMutation.xArray[taskIdToDoMutation] = newInstanceId;
+                    forMutation.yArray[newInstanceId] = newYValue;
+                }else {
+                    forMutation.xArray[taskIdToDoMutation] = newInstanceId;
+                }
+                break;
+            case 1:
+                int randomInstance1 = r.nextInt(forMutation.numberOfUsedInstances);
+                int randomInstance2 = r.nextInt(forMutation.numberOfUsedInstances);
+
+                int yVal1 = forMutation.yArray[randomInstance2];
+
+                forMutation.yArray[randomInstance2] = forMutation.yArray[randomInstance1];
+                forMutation.yArray[randomInstance1] = yVal1;
+                break;
         }
     }
 
