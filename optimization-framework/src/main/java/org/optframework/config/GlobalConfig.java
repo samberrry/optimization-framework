@@ -1,11 +1,20 @@
 package org.optframework.config;
 
 public class GlobalConfig {
+    public String algorithm;
     public Integer workflow_id;
     public Integer budget;
     public Long bandwidth;
     public Integer m_number;
     public Integer t_extra;
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
 
     public Long getBandwidth() {
         return bandwidth;

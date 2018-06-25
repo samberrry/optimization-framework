@@ -15,10 +15,8 @@ import org.optframework.core.pacsa.PACSAOptimization;
 
 public class RunPACSAAlgorithm implements StaticProperties {
 
-    public static void main( String[] args )
+    public static void runPACSA()
     {
-        Log.init();
-
         PACSAOptimization pacsaOptimization = new PACSAOptimization(populateSimpleWorkflow(1000, 0));
 
 //        PACSAOptimization saAlgorithm = new PACSAOptimization(populateWorkflowFromDax(1000, 0));

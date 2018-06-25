@@ -22,20 +22,8 @@ import org.optframework.core.utils.Printer;
 
 public class RunHBMOAlgorithm implements StaticProperties {
 
-    public static void main(String[] args) throws Exception{
-        Log.init();
-
+    public static void runHBMO(){
         Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        Log.logger.info("Loads configs");
-        org.cloudbus.spotsim.main.config.Config.load(null);
-
-        Config.initConfig();
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id));
 
@@ -50,7 +38,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
          * Availability Zone: A
          * OS type: Linux System
          * */
-        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
@@ -89,22 +77,6 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
         Printer.printHoneBeeInfo();
-    }
-
-    private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
-        Log.logger.info("Loads spot prices history");
-        SpotPriceHistory priceTraces = PriceDB.getPriceTrace(region , az);
-        InstanceInfo info[] = new InstanceInfo[InstanceType.values().length];
-
-        for (InstanceType type: InstanceType.values()){
-            PriceRecord priceRecord = priceTraces.getNextPriceChange(type,os);
-            InstanceInfo instanceInfo = new InstanceInfo();
-            instanceInfo.setSpotPrice(priceRecord.getPrice());
-            instanceInfo.setType(type);
-
-            info[type.getId()] = instanceInfo;
-        }
-        return info;
     }
 
     static void honeyBeePreProcessing(Workflow workflow){

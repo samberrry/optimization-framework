@@ -17,20 +17,7 @@ import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
 public class RunHEFTWithHBMO implements StaticProperties {
-    public static void main(String[] args) throws Exception{
-        Log.init();
-
-        Log.logger.info("<<<<<<<<< HEFT Algorithm with HBMO is started >>>>>>>>>");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        Log.logger.info("Loads configs");
-        org.cloudbus.spotsim.main.config.Config.load(null);
-
-        Config.initConfig();
+    public static void runHEFTWithHBMO() throws Exception{
 
         /**
          * Assumptions:
@@ -38,7 +25,7 @@ public class RunHEFTWithHBMO implements StaticProperties {
          * Availability Zone: A
          * OS type: Linux System
          * */
-        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         Log.logger.info("<<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>");
 
@@ -71,21 +58,4 @@ public class RunHEFTWithHBMO implements StaticProperties {
 
         Printer.printTime(stop-start);
     }
-
-    private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
-        Log.logger.info("Loads spot prices history");
-        SpotPriceHistory priceTraces = PriceDB.getPriceTrace(region , az);
-        InstanceInfo info[] = new InstanceInfo[InstanceType.values().length];
-
-        for (InstanceType type: InstanceType.values()){
-            PriceRecord priceRecord = priceTraces.getNextPriceChange(type,os);
-            InstanceInfo instanceInfo = new InstanceInfo();
-            instanceInfo.setSpotPrice(priceRecord.getPrice());
-            instanceInfo.setType(type);
-
-            info[type.getId()] = instanceInfo;
-        }
-        return info;
-    }
-
 }

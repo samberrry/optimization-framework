@@ -17,20 +17,7 @@ import org.optframework.core.utils.Printer;
 
 public class RunHEFTAlgorithm implements StaticProperties {
 
-    public static void main(String[] args) throws Exception{
-        Log.init();
-
-        Log.logger.info("<<<<<<<<< HEFT Algorithm is started >>>>>>>>>");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        Log.logger.info("Loads configs");
-        org.cloudbus.spotsim.main.config.Config.load(null);
-
-        Config.initConfig();
+    public static void runSingleHEFT() throws Exception{
 
         //this is false
         Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowFromDaxWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth,null, null);

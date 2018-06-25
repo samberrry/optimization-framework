@@ -1,4 +1,14 @@
+# to run different optimization algorithms change the 'algorithm' field in global setting
+#
+# Value        Description
+#----------------------------------------------------------------------------------------
+# sa           Simulated annealing algorithm
+# hbmo         HoneyBee mating optimization algorithm
+# hbmo-heft    Gets the number of available instances from HBMO algorithm and then do the Heterogeneous Earliest Finish Time workflow scheduling algorithm
+# heft2hbmo
+
 global:
+  algorithm: "sa"
   workflow_id: 2
   budget: 1000
   bandwidth: 1000
