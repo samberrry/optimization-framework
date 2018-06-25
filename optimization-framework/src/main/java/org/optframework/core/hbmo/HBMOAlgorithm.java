@@ -170,13 +170,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
         switch (xOrY){
             case 0:
                 int taskIdToDoMutation = r.nextInt(forMutation.workflow.getJobList().size());
-                boolean notVisited = true;
+                boolean bl = true;
                 int newInstanceId = -1;
 
-                while (notVisited){
+                while (bl){
                     newInstanceId = r.nextInt(forMutation.numberOfUsedInstances+1);
                     if (forMutation.xArray[taskIdToDoMutation] != newInstanceId){
-                        notVisited = false;
+                        bl = false;
                     }
                 }
 
