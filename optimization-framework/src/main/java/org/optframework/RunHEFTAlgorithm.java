@@ -8,21 +8,22 @@ import org.cloudbus.spotsim.pricing.PriceRecord;
 import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunHEFTAlgorithm implements StaticProperties {
+public class RunHEFTAlgorithm {
+
+    public static final int M_NUMBER = Config.global.m_number;
 
     public static void runSingleHEFT() throws Exception{
 
         //this is false
         Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth,null, null);
 
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
          * Assumptions:

@@ -4,7 +4,6 @@ import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.Log;
 import org.optframework.core.pacsa.PACSAOptimization;
 
@@ -13,7 +12,7 @@ import org.optframework.core.pacsa.PACSAOptimization;
  * @version 1.0.0
  */
 
-public class RunPACSAAlgorithm implements StaticProperties {
+public class RunPACSAAlgorithm {
 
     public static void runPACSA()
     {

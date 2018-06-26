@@ -1,8 +1,8 @@
 package org.optframework.core;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ import java.util.*;
  * @since 2018
  *
  * */
-public class Solution implements StaticProperties {
+public class Solution {
     int id;
     /**
      * Cost of the solution
@@ -68,6 +68,8 @@ public class Solution implements StaticProperties {
      */
     public int makespanPrime;
 
+    public static final int M_NUMBER = Config.global.m_number;
+
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
@@ -105,7 +107,7 @@ public class Solution implements StaticProperties {
 
                 //if new instance is selected
                 if (randomInstanceId == numberOfUsedInstances){
-                    int randomType = r.nextInt(N_TYPES);
+                    int randomType = r.nextInt(InstanceType.values().length);
                     yArray[randomInstanceId] = randomType;
                     numberOfUsedInstances++;
                 }
@@ -120,7 +122,7 @@ public class Solution implements StaticProperties {
 
                 while (isEqualY){
                     int instanceType = yArray[randomInstanceIdY];
-                    randomType = r.nextInt(N_TYPES);
+                    randomType = r.nextInt(InstanceType.values().length);
 
                     if (randomType != instanceType){
                         isEqualY = false;
@@ -213,7 +215,7 @@ public class Solution implements StaticProperties {
         numberOfUsedInstances = bound;
 
         for (int i = 0; i < numberOfUsedInstances; i++) {
-            int random = r.nextInt(N_TYPES);
+            int random = r.nextInt(InstanceType.values().length);
             yArray[i] = random;
         }
     }

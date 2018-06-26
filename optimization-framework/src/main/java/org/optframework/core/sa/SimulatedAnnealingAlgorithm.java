@@ -11,7 +11,7 @@ import java.util.*;
  * @author Hessam Modabberi hessam.modaberi@gmail.com
  * @version 1.0.0
  */
-public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, StaticProperties {
+public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     double temp;
 
@@ -27,7 +27,9 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm, Stati
 
     Cloner cloner = new Cloner();
 
-    long counter = 0 ;
+    long counter = 0;
+
+    public static final int M_NUMBER = Config.global.m_number;
 
     public SimulatedAnnealingAlgorithm() {
     }

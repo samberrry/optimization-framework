@@ -4,7 +4,6 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.heft.HEFTAlgorithm;
@@ -12,8 +11,10 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunHEFTWithHBMO implements StaticProperties {
-    public static void runHEFTWithHBMO() throws Exception{
+public class RunHEFTWithHBMO {
+    public static final int M_NUMBER = Config.global.m_number;
+
+    public static void runHEFTWithHBMO(){
 
         /**
          * Assumptions:

@@ -8,14 +8,15 @@ import org.cloudbus.spotsim.main.config.Config;
 import org.cloudbus.spotsim.pricing.PriceRecord;
 import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.dfs.DFSAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunDFSAlgorithm implements StaticProperties {
+public class RunDFSAlgorithm {
+    public static final int M_NUMBER = org.optframework.config.Config.global.m_number;
+
     public static void main(String[] args) throws Exception {
         Log.init();
 
@@ -27,9 +28,11 @@ public class RunDFSAlgorithm implements StaticProperties {
         Log.logger.info("Loads configs");
         Config.load(null);
 
+        org.optframework.config.Config.initConfig();
+
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateSimpleWorkflow5(1000, 0));
 
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
          * Assumptions:

@@ -8,7 +8,6 @@ import org.cloudbus.spotsim.pricing.PriceRecord;
 import org.cloudbus.spotsim.pricing.SpotPriceHistory;
 import org.cloudbus.spotsim.pricing.db.PriceDB;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.heft.HEFTAlgorithm;
@@ -16,7 +15,9 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
-public class RunHoneyBeeHEFTHoneyBee implements StaticProperties {
+public class RunHoneyBeeHEFTHoneyBee {
+    public static final int M_NUMBER = Config.global.m_number;
+
     public static void main(String[] args) throws Exception{
         Log.init();
 

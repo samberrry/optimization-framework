@@ -1,10 +1,10 @@
 package org.optframework;
 
 import org.cloudbus.spotsim.enums.AZ;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
@@ -16,7 +16,9 @@ import org.optframework.core.utils.Printer;
  * @version 1.0.0
  */
 
-public class RunHBMOAlgorithm implements StaticProperties {
+public class RunHBMOAlgorithm {
+
+    public static final int M_NUMBER = Config.global.m_number;
 
     public static void runHBMO(){
         Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
@@ -25,7 +27,7 @@ public class RunHBMOAlgorithm implements StaticProperties {
 
         honeyBeePreProcessing(workflow);
 
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
         Printer.printHoneBeeInfo();
 
         /**

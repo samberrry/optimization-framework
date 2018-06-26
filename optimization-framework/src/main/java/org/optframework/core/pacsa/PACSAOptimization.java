@@ -2,7 +2,7 @@ package org.optframework.core.pacsa;
 
 
 import org.cloudbus.cloudsim.util.workload.Workflow;
-import org.optframework.config.StaticProperties;
+import org.optframework.config.Config;
 import org.optframework.core.Log;
 import org.optframework.core.OptimizationAlgorithm;
 import org.optframework.core.Solution;
@@ -19,13 +19,15 @@ import java.util.concurrent.ForkJoinPool;
  * @since 2018
  * */
 
-public class PACSAOptimization implements OptimizationAlgorithm,StaticProperties {
+public class PACSAOptimization implements OptimizationAlgorithm {
 
     Solution solution;
 
     double pheromoneTrail[][];
 
     static Workflow workflow;
+
+    public static final int M_NUMBER = Config.global.m_number;
 
     public PACSAOptimization(Workflow workflow) {
         this.workflow = workflow;
@@ -42,8 +44,8 @@ public class PACSAOptimization implements OptimizationAlgorithm,StaticProperties
         pheromoneTrail = new double[workflow.getJobList().size()][M_NUMBER];
 
         for (int i = 0; i < 10; i++) {
-            Log.logger.info("Iteration " + i + 1 + " is started with "+ NUMBER_OF_ANTS + " ants");
-            Ant ant = new Ant(NUMBER_OF_ANTS);
+            Log.logger.info("Iteration " + i + 1 + " is started with "+ 16 + " ants");
+            Ant ant = new Ant(16);
             ant.workflow = workflow;
             List<Solution> solutionList  =  pool.invoke(ant);
 

@@ -3,7 +3,6 @@ package org.optframework.core.hbmo;
 import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 import org.optframework.core.utils.Printer;
 
@@ -19,7 +18,7 @@ import java.util.Random;
  * @since 2018
  * */
 
-public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
+public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     Queen queen;
 
@@ -32,6 +31,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
     public static int globalCounter = 0;
 
     public List<Spermatheca> spermathecaList = new ArrayList<>();
+
+    public static final int M_NUMBER = Config.global.m_number;
 
     Cloner cloner = new Cloner();
 
@@ -73,8 +74,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
-            int iter = i;
-            threadSpermatheca.add(iter, new Spermatheca());
+            int itr = i;
+            threadSpermatheca.add(itr, new Spermatheca());
 
             threadList[i] = new Thread(() -> {
                 Cloner cloner = new Cloner();
@@ -101,7 +102,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 
                 double queenSpeed = SMax;
 
-                while (queenSpeed > Smin && threadSpermatheca.get(iter).chromosomeList.size() < threadSpmSize){
+                while (queenSpeed > Smin && threadSpermatheca.get(itr).chromosomeList.size() < threadSpmSize){
                     if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
                         Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
@@ -110,7 +111,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm, StaticProperties {
 //                long stop = System.currentTimeMillis();
 //                Log.logger.info("brood local search: "+ (stop - start));
 
-                        threadSpermatheca.get(iter).chromosomeList.add(cloner.deepClone(brood));
+                        threadSpermatheca.get(itr).chromosomeList.add(cloner.deepClone(brood));
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
