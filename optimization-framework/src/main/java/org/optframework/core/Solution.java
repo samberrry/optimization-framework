@@ -249,6 +249,8 @@ public class Solution {
         double instanceStartTime[] = new double[numberOfUsedInstances];
         boolean instanceIsUsed[] = new boolean[numberOfUsedInstances];
 
+        instanceTimes = new double[numberOfUsedInstances];
+
         Instance instanceList[] = new Instance[numberOfUsedInstances];
         for (int i = 0; i < numberOfUsedInstances; i++) {
             instanceList[i] = new Instance();
