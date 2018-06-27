@@ -2,7 +2,6 @@ package org.optframework.core.sa;
 
 import com.rits.cloning.Cloner;
 import org.optframework.config.Config;
-import org.optframework.config.StaticProperties;
 import org.optframework.core.*;
 
 import java.util.*;
