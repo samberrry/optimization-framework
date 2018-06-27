@@ -3,7 +3,14 @@ package org.optframework;
 import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.cloudbus.spotsim.enums.AZ;
+import org.cloudbus.spotsim.enums.OS;
+import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
+import org.optframework.core.InstanceInfo;
+import org.optframework.core.Solution;
+import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -12,7 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class TestMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         Workflow simpleWorkflow = new Workflow(6, 1000, 1000);
 
@@ -64,21 +71,23 @@ public class TestMain {
 
         WorkflowDAG dag = simpleWorkflow.getWfDAG();
 
-        Yaml yaml = new Yaml();
+        int a[] = {3,3,1,0,2,2,1,3,0,1};
+        int b[] = {4,8,6,7};
 
-        InputStream in = null;
-        try {
-            in = Files.newInputStream( Paths.get(Config.configPath) );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Config.initConfig();
+        org.cloudbus.cloudsim.Log.init("cloudsim.log");
+        org.cloudbus.spotsim.main.config.Config.load(null);
 
-        Config config = null;
-        try {
-            config = yaml.loadAs( in, Config.class );
-        } catch (Exception e) {
-            System.out.println("An exception occurred");
-        }
+        org.optframework.core.Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+
+        Solution solution = new Solution(workflow, instanceInfo,100);
+        solution.xArray = a;
+        solution.yArray = b;
+
+        solution.numberOfUsedInstances = 4;
+
+        solution.fitness();
 
     }
 }
