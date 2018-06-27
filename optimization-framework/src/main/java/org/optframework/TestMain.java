@@ -71,8 +71,8 @@ public class TestMain {
 
         WorkflowDAG dag = simpleWorkflow.getWfDAG();
 
-        int a[] = {1,1,1,0};
-        int b[] = {4,8};
+        int a[] = {0,1,2,2,1,0};
+        int b[] = {8,5,6};
 
         Config.initConfig();
         org.cloudbus.cloudsim.Log.init("cloudsim.log");
@@ -85,7 +85,7 @@ public class TestMain {
         solution.xArray = a;
         solution.yArray = b;
 
-        solution.numberOfUsedInstances = 2;
+        solution.numberOfUsedInstances = 3;
 
         solution.fitness();
 

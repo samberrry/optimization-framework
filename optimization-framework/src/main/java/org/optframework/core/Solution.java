@@ -292,19 +292,19 @@ public class Solution {
                 latestParentFinishTime = maxParentJob.getFinishTime();
             }
 
-            if (instanceList[xArray[i]].gapList.size() > 0){
-                Collections.sort(instanceList[xArray[i]].gapList , Gap.gapComparator);
+            if (instanceList[xArray[job.getIntId()]].gapList.size() > 0){
+                Collections.sort(instanceList[xArray[job.getIntId()]].gapList , Gap.gapComparator);
             }
 
             //this if for gap usage
-            if (instanceList[xArray[i]].gapList.size() >= 1 && parentJobs.size() != 0){
+            if (instanceList[xArray[job.getIntId()]].gapList.size() >= 1 && parentJobs.size() != 0){
                 int k =0;
-                for (Gap gap: instanceList[xArray[i]].gapList){
+                for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
                     if (latestParentFinishTime < gap.endTime){
                         double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double tempCIJ = tempEdge / (double)Config.global.bandwidth;
 
-                        double taskExeTime = job.getExeTime()[yArray[xArray[i]]] + tempCIJ;
+                        double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]] + tempCIJ;
 
                         if (gap.duration >= taskExeTime){
                             double gapTaskFinishTime = gap.startTime + taskExeTime;
@@ -313,7 +313,7 @@ public class Solution {
                                 tempTaskExeTime = taskExeTime;
                                 tempTaskFinishTime = gap.startTime + taskExeTime;
                                 gapIsUsed = true;
-                                instanceGapId = xArray[i];
+                                instanceGapId = xArray[job.getIntId()];
                                 gapId = k;
                             }
                             break;
@@ -326,8 +326,8 @@ public class Solution {
             }
             //this is for when there is no gap
             if (parentJobs.size() == 0){
-                double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
-                double currentFinishTime = instanceTimeLine[xArray[i]] + taskExeTime;
+                double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
+                double currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
 
                 if (currentFinishTime < tempTaskFinishTime){
                     tempTaskExeTime = taskExeTime;
@@ -338,13 +338,13 @@ public class Solution {
                 //check minimum task finish time for all of the current instances
                 maxParentId = getJobWithMaxParentFinishTime(parentJobs);
 
-                double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[xArray[i]];
+                double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[xArray[job.getIntId()]];
 
                 if (waitingTime > 0 ){
-                    double currentTime = instanceTimeLine[xArray[i]] + waitingTime;
+                    double currentTime = instanceTimeLine[xArray[job.getIntId()]] + waitingTime;
                     double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                     double cij = edge / (double)Config.global.bandwidth;
-                    double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
+                    double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
 
                     double currentFinishTime = currentTime + cij + taskExeTime;
 
@@ -358,9 +358,9 @@ public class Solution {
                 }else {
                     double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                     double cij = edge / (double)Config.global.bandwidth;
-                    double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
+                    double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
 
-                    double currentFinishTime = instanceTimeLine[xArray[i]] + cij + taskExeTime;
+                    double currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + cij + taskExeTime;
 
                     if (currentFinishTime < tempTaskFinishTime){
                         tempTaskExeTime = taskExeTime + cij;
@@ -371,9 +371,9 @@ public class Solution {
             }
 /////////////////////////**********************************************************
             if (gapOccurred){
-                instanceList[xArray[i]].hasGap = true;
-                Gap gap = new Gap(instanceTimeLine[xArray[i]], endOfInstanceWaitTime);
-                instanceList[xArray[i]].gapList.add(gap);
+                instanceList[xArray[job.getIntId()]].hasGap = true;
+                Gap gap = new Gap(instanceTimeLine[xArray[job.getIntId()]], endOfInstanceWaitTime);
+                instanceList[xArray[job.getIntId()]].gapList.add(gap);
             }
             if (gapIsUsed){
                 Gap gap = instanceList[instanceGapId].getGapList().get(gapId);
@@ -386,11 +386,11 @@ public class Solution {
                 }
             }
          ///////////////////***********************************************************
-            if (!instanceIsUsed[xArray[i]]){
-                instanceStartTime[xArray[i]] = tempTaskFinishTime - tempTaskExeTime;
-                instanceIsUsed[xArray[i]] = true;
+            if (!instanceIsUsed[xArray[job.getIntId()]]){
+                instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
+                instanceIsUsed[xArray[job.getIntId()]] = true;
             }
-            instanceTimeLine[xArray[i]] = tempTaskFinishTime;
+            instanceTimeLine[xArray[job.getIntId()]] = tempTaskFinishTime;
             originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
         }
 
