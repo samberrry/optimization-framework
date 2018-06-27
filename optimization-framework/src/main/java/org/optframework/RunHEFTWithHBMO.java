@@ -50,8 +50,10 @@ public class RunHEFTWithHBMO {
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
         start = System.currentTimeMillis();
-        Solution solution = heftAlgorithm.runAlgorithm();
+        Solution heftSolution = heftAlgorithm.runAlgorithm();
         stop = System.currentTimeMillis();
+
+        Log.logger.info("HBMO Makespan: " + hbmoSolution.makespan + "   HEFT Makespan: " + heftSolution.makespan);
 
         Printer.printTime(stop-start);
     }
