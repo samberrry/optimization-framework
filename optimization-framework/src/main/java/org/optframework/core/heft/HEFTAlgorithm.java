@@ -137,6 +137,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
 
                     if (currentFinishTime < tempTaskFinishTime){
+                        gapIsUsed = false;
                         tempTaskFinishTime = currentFinishTime;
                         tempInstanceId = j;
                     }
@@ -158,6 +159,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             endOfInstanceWaitTime = currentTime;
                             tempTaskFinishTime = currentFinishTime;
                             tempInstanceId = j;
+                            gapIsUsed = false;
                         }
                     }else {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
@@ -168,6 +170,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         if (currentFinishTime < tempTaskFinishTime){
                             tempTaskFinishTime = currentFinishTime;
                             tempInstanceId = j;
+                            gapIsUsed = false;
                         }
                     }
                 }
