@@ -6,7 +6,6 @@ import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
-import org.optframework.core.utils.TaskUtility;
 
 import java.util.*;
 
@@ -258,7 +257,8 @@ public class Solution {
 
         Job firstJob = orderedJobList.get(0);
         Job originalVersion = originalJobList.get(firstJob.getIntId());
-        double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[yArray[xArray[firstJob.getIntId()]]].getType());
+
+        double exeTime = firstJob.getExeTime()[yArray[xArray[firstJob.getIntId()]]];
 
         instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
         instanceIsUsed[xArray[firstJob.getIntId()]] = true;
@@ -304,7 +304,7 @@ public class Solution {
                         double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double tempCIJ = tempEdge / (double)Config.global.bandwidth;
 
-                        double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[yArray[xArray[i]]].getType()) + tempCIJ;
+                        double taskExeTime = job.getExeTime()[yArray[xArray[i]]] + tempCIJ;
 
                         if (gap.duration >= taskExeTime){
                             double gapTaskFinishTime = gap.startTime + taskExeTime;
@@ -326,7 +326,7 @@ public class Solution {
             }
             //this is for when there is no gap
             if (parentJobs.size() == 0){
-                double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[yArray[xArray[i]]].getType());
+                double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
                 double currentFinishTime = instanceTimeLine[xArray[i]] + taskExeTime;
 
                 if (currentFinishTime < tempTaskFinishTime){
@@ -344,7 +344,7 @@ public class Solution {
                     double currentTime = instanceTimeLine[xArray[i]] + waitingTime;
                     double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                     double cij = edge / (double)Config.global.bandwidth;
-                    double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[yArray[xArray[i]]].getType());
+                    double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
 
                     double currentFinishTime = currentTime + cij + taskExeTime;
 
@@ -358,7 +358,7 @@ public class Solution {
                 }else {
                     double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                     double cij = edge / (double)Config.global.bandwidth;
-                    double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[yArray[xArray[i]]].getType());
+                    double taskExeTime = job.getExeTime()[yArray[xArray[i]]];
 
                     double currentFinishTime = instanceTimeLine[xArray[i]] + cij + taskExeTime;
 
