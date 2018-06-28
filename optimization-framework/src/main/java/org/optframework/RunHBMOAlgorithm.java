@@ -45,6 +45,8 @@ public class RunHBMOAlgorithm {
         double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
+            Printer.printSplitter();
+            Log.logger.info("<<<<<<<<<<<    NEW RUN    >>>>>>>>>>>\n");
 
             long start = System.currentTimeMillis();
 
