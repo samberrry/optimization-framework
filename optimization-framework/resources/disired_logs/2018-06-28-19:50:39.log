@@ -1,0 +1,1040 @@
+Jun 28, 2018 7:50:40 PM org.optframework.Main main
+INFO: Main Flow is started
+Jun 28, 2018 7:50:42 PM org.optframework.config.Config initConfig
+INFO: config file is read
+Jun 28, 2018 7:50:42 PM org.optframework.core.utils.Printer printSplitter
+INFO: 
+===================================================
+===================================================
+===================================================
+
+Jun 28, 2018 7:50:42 PM org.optframework.core.InstanceInfo populateInstancePrices
+INFO: Loads spot prices history
+Jun 28, 2018 3:20:45 PM org.optframework.RunHEFTWithHBMO runHEFTWithHBMO
+INFO: <<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>
+Jun 28, 2018 3:20:45 PM org.optframework.core.utils.PopulateWorkflow populateWorkflowWithId
+INFO: Populates the workflow from Dax file
+Jun 28, 2018 3:20:50 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: Queen local search time: 2812
+Jun 28, 2018 3:20:50 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :0
+Jun 28, 2018 3:20:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 17
+Jun 28, 2018 3:20:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 14465.001908832446 Makespan: 14466 Total Cost: 1.9088324455000003
+Jun 28, 2018 3:20:57 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :1
+Jun 28, 2018 3:21:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 13
+Jun 28, 2018 3:21:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 9100.001889030213 Makespan: 9101 Total Cost: 1.8890302122457268
+Jun 28, 2018 3:21:02 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :2
+Jun 28, 2018 3:21:06 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:06 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:06 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :3
+Jun 28, 2018 3:21:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:12 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :4
+Jun 28, 2018 3:21:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:17 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :5
+Jun 28, 2018 3:21:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:21 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :6
+Jun 28, 2018 3:21:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:26 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :7
+Jun 28, 2018 3:21:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:31 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :8
+Jun 28, 2018 3:21:36 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:36 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:36 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :9
+Jun 28, 2018 3:21:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:40 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :10
+Jun 28, 2018 3:21:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:45 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :11
+Jun 28, 2018 3:21:49 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:49 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:49 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :12
+Jun 28, 2018 3:21:54 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:54 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:54 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :13
+Jun 28, 2018 3:21:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:21:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:21:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :14
+Jun 28, 2018 3:22:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:04 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :15
+Jun 28, 2018 3:22:09 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:09 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:09 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :16
+Jun 28, 2018 3:22:14 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:14 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:14 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :17
+Jun 28, 2018 3:22:19 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:19 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:19 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :18
+Jun 28, 2018 3:22:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:23 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :19
+Jun 28, 2018 3:22:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:28 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :20
+Jun 28, 2018 3:22:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 7799.001650052173 Makespan: 7800 Total Cost: 1.6500521734764957
+Jun 28, 2018 3:22:33 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :21
+Jun 28, 2018 3:22:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:37 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :22
+Jun 28, 2018 3:22:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:41 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :23
+Jun 28, 2018 3:22:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:45 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :24
+Jun 28, 2018 3:22:50 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:50 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:50 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :25
+Jun 28, 2018 3:22:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:53 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :26
+Jun 28, 2018 3:22:58 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:22:58 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:22:58 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :27
+Jun 28, 2018 3:23:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:02 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :28
+Jun 28, 2018 3:23:06 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:06 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:06 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :29
+Jun 28, 2018 3:23:10 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:10 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:10 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :30
+Jun 28, 2018 3:23:14 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:14 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:14 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :31
+Jun 28, 2018 3:23:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:18 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :32
+Jun 28, 2018 3:23:22 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:22 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:22 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :33
+Jun 28, 2018 3:23:27 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:27 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:27 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :34
+Jun 28, 2018 3:23:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:31 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :35
+Jun 28, 2018 3:23:35 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:35 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:35 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :36
+Jun 28, 2018 3:23:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:40 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :37
+Jun 28, 2018 3:23:44 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:44 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:44 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :38
+Jun 28, 2018 3:23:48 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:48 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:48 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :39
+Jun 28, 2018 3:23:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:53 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :40
+Jun 28, 2018 3:23:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:23:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:23:57 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :41
+Jun 28, 2018 3:24:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:02 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :42
+Jun 28, 2018 3:24:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:07 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :43
+Jun 28, 2018 3:24:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:13 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :44
+Jun 28, 2018 3:24:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:18 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :45
+Jun 28, 2018 3:24:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:24 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :46
+Jun 28, 2018 3:24:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:29 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :47
+Jun 28, 2018 3:24:34 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:34 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:34 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :48
+Jun 28, 2018 3:24:38 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:38 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:38 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :49
+Jun 28, 2018 3:24:43 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:43 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:43 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :50
+Jun 28, 2018 3:24:48 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:48 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:48 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :51
+Jun 28, 2018 3:24:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:53 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :52
+Jun 28, 2018 3:24:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:24:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:24:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :53
+Jun 28, 2018 3:25:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:03 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :54
+Jun 28, 2018 3:25:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:08 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :55
+Jun 28, 2018 3:25:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:13 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :56
+Jun 28, 2018 3:25:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:18 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :57
+Jun 28, 2018 3:25:22 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:22 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:22 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :58
+Jun 28, 2018 3:25:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:26 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :59
+Jun 28, 2018 3:25:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:31 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:31 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :60
+Jun 28, 2018 3:25:36 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:36 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:36 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :61
+Jun 28, 2018 3:25:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:41 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :62
+Jun 28, 2018 3:25:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:46 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :63
+Jun 28, 2018 3:25:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:51 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :64
+Jun 28, 2018 3:25:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:25:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:25:57 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :65
+Jun 28, 2018 3:26:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:02 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :66
+Jun 28, 2018 3:26:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:07 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :67
+Jun 28, 2018 3:26:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:12 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :68
+Jun 28, 2018 3:26:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:17 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :69
+Jun 28, 2018 3:26:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:23 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :70
+Jun 28, 2018 3:26:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:28 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :71
+Jun 28, 2018 3:26:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:33 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :72
+Jun 28, 2018 3:26:38 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:38 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:38 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :73
+Jun 28, 2018 3:26:43 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:43 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:43 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :74
+Jun 28, 2018 3:26:47 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:47 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:47 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :75
+Jun 28, 2018 3:26:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:53 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :76
+Jun 28, 2018 3:26:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:26:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:26:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :77
+Jun 28, 2018 3:27:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:03 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :78
+Jun 28, 2018 3:27:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:07 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :79
+Jun 28, 2018 3:27:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:12 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :80
+Jun 28, 2018 3:27:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:16 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :81
+Jun 28, 2018 3:27:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:20 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :82
+Jun 28, 2018 3:27:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:24 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :83
+Jun 28, 2018 3:27:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:29 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :84
+Jun 28, 2018 3:27:35 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:35 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:35 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :85
+Jun 28, 2018 3:27:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:40 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:40 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :86
+Jun 28, 2018 3:27:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:45 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :87
+Jun 28, 2018 3:27:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:51 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :88
+Jun 28, 2018 3:27:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:27:57 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:27:57 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :89
+Jun 28, 2018 3:28:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:02 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:02 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :90
+Jun 28, 2018 3:28:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:07 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :91
+Jun 28, 2018 3:28:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:13 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :92
+Jun 28, 2018 3:28:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:18 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:18 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :93
+Jun 28, 2018 3:28:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:23 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:23 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :94
+Jun 28, 2018 3:28:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:28 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :95
+Jun 28, 2018 3:28:34 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:34 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:34 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :96
+Jun 28, 2018 3:28:39 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:39 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:39 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :97
+Jun 28, 2018 3:28:44 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:44 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:44 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :98
+Jun 28, 2018 3:28:49 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:49 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:49 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :99
+Jun 28, 2018 3:28:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:53 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:53 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :100
+Jun 28, 2018 3:28:58 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:28:58 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:28:58 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :101
+Jun 28, 2018 3:29:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:03 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :102
+Jun 28, 2018 3:29:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:07 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:07 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :103
+Jun 28, 2018 3:29:11 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:11 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:11 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :104
+Jun 28, 2018 3:29:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:16 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :105
+Jun 28, 2018 3:29:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:20 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :106
+Jun 28, 2018 3:29:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:24 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :107
+Jun 28, 2018 3:29:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:28 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :108
+Jun 28, 2018 3:29:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:33 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :109
+Jun 28, 2018 3:29:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:37 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :110
+Jun 28, 2018 3:29:42 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:42 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:42 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :111
+Jun 28, 2018 3:29:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:46 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :112
+Jun 28, 2018 3:29:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:51 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :113
+Jun 28, 2018 3:29:55 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:55 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:55 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :114
+Jun 28, 2018 3:29:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:29:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:29:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :115
+Jun 28, 2018 3:30:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:04 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :116
+Jun 28, 2018 3:30:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:08 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :117
+Jun 28, 2018 3:30:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:12 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :118
+Jun 28, 2018 3:30:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:17 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :119
+Jun 28, 2018 3:30:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:21 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :120
+Jun 28, 2018 3:30:25 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:25 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:25 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :121
+Jun 28, 2018 3:30:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:29 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:29 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :122
+Jun 28, 2018 3:30:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:33 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :123
+Jun 28, 2018 3:30:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:37 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :124
+Jun 28, 2018 3:30:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:41 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:41 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :125
+Jun 28, 2018 3:30:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:45 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:45 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :126
+Jun 28, 2018 3:30:50 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:50 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:50 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :127
+Jun 28, 2018 3:30:54 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:54 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:54 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :128
+Jun 28, 2018 3:30:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:30:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:30:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :129
+Jun 28, 2018 3:31:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:03 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:03 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :130
+Jun 28, 2018 3:31:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:08 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :131
+Jun 28, 2018 3:31:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:12 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:12 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :132
+Jun 28, 2018 3:31:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:16 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:16 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :133
+Jun 28, 2018 3:31:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:20 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:20 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :134
+Jun 28, 2018 3:31:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:24 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:24 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :135
+Jun 28, 2018 3:31:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:28 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:28 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :136
+Jun 28, 2018 3:31:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:33 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:33 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :137
+Jun 28, 2018 3:31:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:37 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:37 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :138
+Jun 28, 2018 3:31:42 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:42 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:42 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :139
+Jun 28, 2018 3:31:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:46 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:46 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :140
+Jun 28, 2018 3:31:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:51 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:51 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :141
+Jun 28, 2018 3:31:55 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:55 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:55 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :142
+Jun 28, 2018 3:31:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:31:59 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:31:59 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :143
+Jun 28, 2018 3:32:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:04 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:04 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :144
+Jun 28, 2018 3:32:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:08 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:08 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :145
+Jun 28, 2018 3:32:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:13 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:13 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :146
+Jun 28, 2018 3:32:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:17 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:17 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :147
+Jun 28, 2018 3:32:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:21 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:21 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :148
+Jun 28, 2018 3:32:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:26 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:26 PM org.optframework.core.hbmo.HBMOAlgorithm runAlgorithm
+INFO: =========================Iteration :149
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer lightPrintSolutionForHBMOItr
+INFO: Fitness Value: 6873.000604388069 Makespan: 6874 Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Number of used Instances: 15
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 2284.6193846153847
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 6874.623384615385
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 5672.322692307694
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.xlarge : 4786.157846153846
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.xlarge : -1366.1578461538459
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 5700.014
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.2xlarge : -2224.6303846153833
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 2187.7023076923088
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : -62.30769230769246
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : -2220.004
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.2xlarge : 985.390615384616
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m1.large : -4815.0109999999995
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 13.846153846154266
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.xlarge : -4986.935076923078
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 0.0
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 2284.6193846153847
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 6874.623384615385
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 5757.707307692309
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.xlarge : 4786.157846153846
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.xlarge : 23.076923076923077
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 5743.860153846154
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.2xlarge : 4389.23176923077
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 5007.706307692309
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 25.384615384615387
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 687.6923076923077
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.2xlarge : 5007.706307692308
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m1.large : 75.001
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 4993.860153846154
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.xlarge : 27.692307692307693
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 0.0
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Value of the X Array:  0 1 0 2 3 0 1 1 3 3 4 2 1 0 3 3 3 1 5 3 3 3 1 5 2 5 2 4 5 2 0 6 1 3 8 2 2 7 9 8 0 4 3 9 10 10 6 11 0 8 8 3 2 2 3 2 3 5 4 10 9 3 11 13 5 12 9 7 10 7 9 7 1 4 10 1 11 7 8 9 1 5 7 3 13 7 3 0 5 9 8 3 3 6 6 1 2 11 2 11
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Value of the Y Array:  6 8 6 7 7 8 5 8 6 6 5 2 8 7 8
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Total Cost: 0.604388068965812
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Makespan: 6874
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Fitness Value: 6873.000604388069
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printSolution
+INFO: Algorithm runtime: 11 Minutes [702444]
+Jun 28, 2018 3:32:30 PM org.optframework.RunHEFTWithHBMO runHEFTWithHBMO
+INFO: ----------  HBMO Algorithm is finished  ----------
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.PopulateWorkflow populateWorkflowWithId
+INFO: Populates the workflow from Dax file
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.4xlarge : 4386.932076923077
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.2xlarge : 4800.008
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.4xlarge : 4363.854153846154
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.xlarge : 4377.700307692307
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.xlarge : 4257.700307692307
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.2xlarge : 4276.163846153847
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.2xlarge : 3923.0809230769228
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.2xlarge : 4257.700307692308
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.4xlarge : 4375.392615384615
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.4xlarge : 4500.008
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m2.2xlarge : 4329.2397692307695
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m1.large : 2430.009
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.2xlarge : 4262.316692307692
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.xlarge : 3853.8501538461537
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Timeline for instance m3.2xlarge : 4276.161846153846
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Value of the X Array:  9 11 1 14 10 2 1 8 11 4 11 13 4 5 7 10 0 13 12 2 3 11 6 9 8 1 14 9 1 0 8 2 3 5 4 10 5 7 6 0 13 12 2 14 7 12 0 4 5 4 1 0 4 11 3 11 11 2 11 11 13 4 6 4 11 13 10 11 11 5 10 11 12 4 1 0 3 10 12 1 0 2 7 2 14 8 9 6 12 13 7 5 14 5 8 1 9 0 5 0
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Value of the Real Y Array:  6 8 6 7 7 8 5 8 6 6 5 2 8 7 8
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Instance IDs used in HEFT: VM0 VM1 VM2 VM3 VM4 VM5 VM6 VM7 VM8 VM9 VM10 VM11 VM12 VM13 VM14 
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Available Instances:15 Number of used instances in HEFT: 15
+Jun 28, 2018 3:32:30 PM org.optframework.core.heft.HEFTAlgorithm runAlgorithm
+INFO: Makespan from HEFT: 4800
+Jun 28, 2018 3:32:30 PM org.optframework.RunHEFTWithHBMO runHEFTWithHBMO
+INFO: HBMO Makespan: 6874   HEFT Makespan: 4800
+Jun 28, 2018 3:32:30 PM org.optframework.core.utils.Printer printTime
+INFO: Algorithm runtime: 0 Seconds [7]

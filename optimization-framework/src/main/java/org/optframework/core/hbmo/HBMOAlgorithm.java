@@ -36,7 +36,12 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     Cloner cloner = new Cloner();
 
-    public HBMOAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int generationNumber) {
+    boolean hasInitialSolution;
+
+   public Solution initialSolution;
+
+    public HBMOAlgorithm(boolean hasInitialSolution, Workflow workflow, InstanceInfo[] instanceInfo, int generationNumber) {
+        this.hasInitialSolution = hasInitialSolution;
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         this.generationNumber = generationNumber;
@@ -45,7 +50,15 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     @Override
     public Solution runAlgorithm() {
         // Queen generation
-        queen = new Queen(workflow, instanceInfo, M_NUMBER);
+        if (hasInitialSolution){
+            queen = new Queen(workflow, instanceInfo, M_NUMBER);
+            queen.chromosome.yArray = initialSolution.yArray;
+            queen.chromosome.xArray = initialSolution.xArray;
+            queen.chromosome.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
+            queen.chromosome.fitness();
+        }else {
+            queen = new Queen(workflow, instanceInfo, M_NUMBER);
+        }
 
         long start2 = System.currentTimeMillis();
         queen.chromosome = localSearch(queen.chromosome);

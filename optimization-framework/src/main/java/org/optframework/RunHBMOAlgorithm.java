@@ -40,7 +40,7 @@ public class RunHBMOAlgorithm {
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
 
         double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
 

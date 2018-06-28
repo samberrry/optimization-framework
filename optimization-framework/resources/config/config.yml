@@ -8,7 +8,7 @@
 # heft2hbmo
 
 global:
-  algorithm: "hbmo"
+  algorithm: "heft-before-hbmo"
   workflow_id: 2
   budget: 1000
   bandwidth: 1000
@@ -34,6 +34,6 @@ honeybee_algorithm:
   spermatheca_size: 250
   generation_number: 150
   neighborhood_ratio: 0.0
-  number_of_runs: 100
+  number_of_runs: 20
 
 #antcolony_algorithm:

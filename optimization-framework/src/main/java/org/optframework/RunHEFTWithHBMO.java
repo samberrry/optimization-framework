@@ -30,7 +30,7 @@ public class RunHEFTWithHBMO {
 
         hbmoWorkflow.setBeta(Beta.computeBetaValue(hbmoWorkflow, instanceInfo, M_NUMBER));
 
-        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(hbmoWorkflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(false, hbmoWorkflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
 
         long start = System.currentTimeMillis();
         Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
