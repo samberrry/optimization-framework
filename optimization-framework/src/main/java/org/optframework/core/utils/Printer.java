@@ -59,10 +59,6 @@ public class Printer {
     public static void lightPrintSolution(Solution solution, InstanceInfo instanceInfo[], long time){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
-            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
-        }
-
         Log.logger.info(  "Fitness Value: "+ solution.fitnessValue + " Makespan: " + solution.makespan+" Total Cost: " + solution.cost);
         String timePrefix;
         long sec = time/1000;
