@@ -84,6 +84,12 @@ public class Printer {
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
 
+    public static void lightPrintSolutionForHBMOItr(Solution solution, InstanceInfo instanceInfo[]){
+        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+
+        Log.logger.info(  "Fitness Value: "+ solution.fitnessValue + " Makespan: " + solution.makespan+" Total Cost: " + solution.cost);
+    }
+
     public static void printSolutionWithoutTime(Solution solution, InstanceInfo instanceInfo[]){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
