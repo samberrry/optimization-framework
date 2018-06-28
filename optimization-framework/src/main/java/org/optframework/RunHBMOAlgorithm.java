@@ -54,8 +54,7 @@ public class RunHBMOAlgorithm {
 
             long stop = System.currentTimeMillis();
 
-            Log.logger.info("Global Counter: " + HBMOAlgorithm.globalCounter);
-            Printer.printSolution(solution, instanceInfo, stop-start);
+            Printer.lightPrintSolution(solution, instanceInfo, stop-start);
         }
 
         double sum = 0.0;

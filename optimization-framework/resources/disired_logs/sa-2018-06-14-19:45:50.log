@@ -1,0 +1,80 @@
+Jun 14, 2018 7:45:50 PM org.optframework.RunSAAlgorithm main
+INFO: <<<<<<<<< SA Algorithm is started >>>>>>>>>
+Jun 14, 2018 7:45:50 PM org.optframework.RunSAAlgorithm main
+INFO: Loads configs
+Jun 14, 2018 7:45:50 PM org.optframework.core.utils.PopulateWorkflow populateWorkflowFromDax
+INFO: Populates the workflow from Dax file
+Jun 14, 2018 7:45:50 PM org.optframework.RunSAAlgorithm main
+INFO: Maximum number of instances: 100 Number of different types of instances: 9 Number of tasks: 30
+Jun 14, 2018 7:45:50 PM org.optframework.RunSAAlgorithm populateInstancePrices
+INFO: Loads spot prices history
+Jun 14, 2018 3:15:51 PM org.optframework.core.sa.SimulatedAnnealingAlgorithm runAlgorithm
+INFO: Starts SA Algorithm
+Jun 14, 2018 3:15:51 PM org.optframework.core.sa.SimulatedAnnealingAlgorithm runAlgorithm
+INFO: Simulated Annealing parameters Initial temp: 850.0 Final temp: 0.1 Cooling Factor: 0.8 Equilibrium point: 50.0
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Number of used Instances: 13
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 3073.8461538461534
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 3041.538461538461
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 1571.5384615384614
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 3002.307692307692
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 1206.923076923077
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.xlarge : 175.3846153846154
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 1585.3846153846152
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 2333.076923076923
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m3.2xlarge : 2471.5384615384614
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.2xlarge : 23.076923076923077
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.2xlarge : 27.692307692307693
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.2xlarge : 1181.5384615384614
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Requested time for instance m2.4xlarge : 13.846153846153847
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 3073.8461538461534
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 3041.538461538461
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 1613.0769230769229
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 3085.384615384615
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 2820.0
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.xlarge : 175.3846153846154
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 1626.9230769230767
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 2333.076923076923
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m3.2xlarge : 2471.5384615384614
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.2xlarge : 1636.153846153846
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.2xlarge : 1640.7692307692305
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.2xlarge : 2808.461538461538
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Timeline for instance m2.4xlarge : 1626.9230769230767
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Value of the X Array:  8 7 0 7 5 1 5 8 6 2 3 7 1 0 2 7 12 9 4 8 10 6 0 1 3 11 7 4 8 3
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Value of the Y Array:  8 6 6 6 6 7 8 6 8 5 5 5 6
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Total Cost: 0.6053385897435898
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Makespan: 3085.384615384615
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Fitness Value: 3085.384615384615
+Jun 14, 2018 3:15:55 PM org.optframework.core.utils.Printer printSolution
+INFO: Algorithm runtime: 3 Seconds [3594]

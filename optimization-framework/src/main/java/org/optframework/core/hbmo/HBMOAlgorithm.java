@@ -50,7 +50,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         long start2 = System.currentTimeMillis();
         queen.chromosome = localSearch(queen.chromosome);
         long stop2 = System.currentTimeMillis();
-        Log.logger.info("Queen local search: "+ (stop2 - start2));
+        Log.logger.info("Queen local search time: "+ (stop2 - start2));
 
         for (int i = 0; i < generationNumber; i++) {
             Log.logger.info("=========================Iteration :" + i);
@@ -60,7 +60,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             generateBrood();
 
             long stop = System.currentTimeMillis();
-            Printer.printSolution(queen.chromosome,instanceInfo,stop-start);
+            Printer.lightPrintSolution(queen.chromosome,instanceInfo,stop-start);
             spermathecaList.clear();
         }
 

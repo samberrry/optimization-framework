@@ -56,6 +56,38 @@ public class Printer {
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
 
+    public static void lightPrintSolution(Solution solution, InstanceInfo instanceInfo[], long time){
+        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
+        }
+
+        Log.logger.info(  "Fitness Value: "+ solution.fitnessValue + " Makespan: " + solution.makespan+" Total Cost: " + solution.cost);
+        String timePrefix;
+        long sec = time/1000;
+        long min = sec/60;
+        long hr = min/60;
+
+        long converted;
+
+        if (sec < 0){
+            timePrefix = "Milisec";
+            converted = time;
+        }else if (min < 1){
+            timePrefix = "Seconds";
+            converted = sec;
+        }else if (hr < 1){
+            timePrefix = "Minutes";
+            converted = min;
+        }else {
+            timePrefix = "Hours";
+            converted = hr;
+        }
+
+        Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
+    }
+
     public static void printSolutionWithoutTime(Solution solution, InstanceInfo instanceInfo[]){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
