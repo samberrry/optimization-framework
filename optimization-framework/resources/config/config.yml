@@ -10,7 +10,7 @@
 global:
   algorithm: "heft-before-hbmo"
   workflow_id: 2
-  budget: 1000
+  budget: 0.7
   bandwidth: 1000
   t_extra: -1
   m_number: 100

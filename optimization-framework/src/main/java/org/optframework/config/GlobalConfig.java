@@ -3,7 +3,7 @@ package org.optframework.config;
 public class GlobalConfig {
     public String algorithm;
     public Integer workflow_id;
-    public Integer budget;
+    public Double budget;
     public Long bandwidth;
     public Integer m_number;
     public Integer t_extra;
@@ -40,19 +40,19 @@ public class GlobalConfig {
         this.t_extra = t_extra;
     }
 
-    public Integer getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Integer budget) {
-        this.budget = budget;
-    }
-
     public Integer getWorkflow_id() {
         return workflow_id;
     }
 
     public void setWorkflow_id(Integer workflow_id) {
         this.workflow_id = workflow_id;
+    }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
     }
 }
