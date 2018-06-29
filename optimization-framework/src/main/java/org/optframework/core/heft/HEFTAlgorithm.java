@@ -200,33 +200,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             yArray[tempInstanceId] = availableInstances[tempInstanceId];
         }
 
-        for (int i = 0; i < instanceTimeLine.length; i++) {
-            Log.logger.info("Timeline for instance " + instanceInfo[yArray[i]].getType().getName() + " : " + instanceTimeLine[i]);
-        }
-
-        String xArrayStr = "";
-        for (int val : xArray){
-            xArrayStr += " " + String.valueOf(val);
-        }
-        Log.logger.info("Value of the X Array: "+ xArrayStr);
-
-        String yArrayStr = "";
-        for (int i = 0; i < availableInstances.length; i++) {
-            yArrayStr += " " + String.valueOf(availableInstances[i]);
-        }
-        Log.logger.info("Value of the Real Y Array: "+ yArrayStr);
-
-        String used = "";
-        int usedCounter=0;
-        for (int i = 0; i < availableInstances.length; i++) {
-            if (yArray[i] != 0){
-                used += "VM" + i + " ";
-                usedCounter++;
-            }
-        }
-        Log.logger.info("Instance IDs used in HEFT: "+ used);
-        Log.logger.info("Available Instances:" + availableInstances.length +" Number of used instances in HEFT: "+ usedCounter);
-
         double maxTime = instanceTimeLine[0];
         for (double time : instanceTimeLine){
             if (time > maxTime){
@@ -236,8 +209,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
 
         int numberOfUsedInstances =0;
-        for (int i = 0; i < availableInstances.length; i++) {
-            if (availableInstances[i] != 0){
+        for (int i = 0; i < yArray.length; i++) {
+            if (yArray[i] != 0){
                 numberOfUsedInstances++;
             }
         }
@@ -248,6 +221,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         solution.yArray = yArray;
 
         solution.fitness();
+
+        Log.logger.info("HEFT fitness:  " + solution.makespan);
+
+        solution.oldFitness();
+        Log.logger.info("Old fitness:   " + solution.makespan);
+
 
         return solution;
     }

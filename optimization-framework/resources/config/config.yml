@@ -11,7 +11,7 @@
 
 
 global:
-  algorithm: "hbmo"
+  algorithm: "hbmo-heft"
   workflow_id: 2
   budget: 1000
   bandwidth: 1000
@@ -34,9 +34,9 @@ honeybee_algorithm:
   sMax_division: 10
   cooling_factor: 0.9
   number_of_threads: 4
-  spermatheca_size: 250
-  generation_number: 150
+  spermatheca_size: 30
+  generation_number: 3
   neighborhood_ratio: 0.0
-  number_of_runs: 20
+  number_of_runs: 1
 
 #antcolony_algorithm:

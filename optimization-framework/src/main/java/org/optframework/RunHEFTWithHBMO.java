@@ -36,7 +36,7 @@ public class RunHEFTWithHBMO {
         Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
         long stop = System.currentTimeMillis();
 
-        Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
+//        Printer.printSolution(hbmoSolution, instanceInfo, stop-start);
 
         int totalInstances[] = new int[hbmoSolution.numberOfUsedInstances];
         for (int i = 0; i < hbmoSolution.numberOfUsedInstances; i++) {
@@ -53,7 +53,7 @@ public class RunHEFTWithHBMO {
         Solution heftSolution = heftAlgorithm.runAlgorithm();
         stop = System.currentTimeMillis();
 
-        Log.logger.info("HBMO Makespan: " + hbmoSolution.makespan + "   HEFT Makespan: " + heftSolution.makespan);
+//        Log.logger.info("HBMO Makespan: " + hbmoSolution.makespan + "   HEFT Makespan: " + heftSolution.makespan);
 
         Printer.printTime(stop-start);
     }
