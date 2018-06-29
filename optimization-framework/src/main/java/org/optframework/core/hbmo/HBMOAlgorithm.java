@@ -73,11 +73,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             generateBrood();
 
             long stop = System.currentTimeMillis();
-            Printer.lightPrintSolutionForHBMOItr(queen.chromosome,instanceInfo);
+            Log.logger.info("Main Fitness: "+ queen.chromosome.fitnessValue);
+
             queen.chromosome.oldFitness();
-            Printer.lightPrintSolutionForHBMOItr(queen.chromosome,instanceInfo);
+            Log.logger.info("Old Fitness: "+ queen.chromosome.fitnessValue);
+
             queen.chromosome.fitness();
-            Printer.lightPrintSolutionForHBMOItr(queen.chromosome,instanceInfo);
+            Log.logger.info("Main Fitness: "+ queen.chromosome.fitnessValue);
 
             spermathecaList.clear();
         }

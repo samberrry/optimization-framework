@@ -11,7 +11,7 @@
 
 
 global:
-  algorithm: "hbmo-heft"
+  algorithm: "hbmo"
   workflow_id: 2
   budget: 1000
   bandwidth: 1000
