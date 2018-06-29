@@ -115,8 +115,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                             double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
 
-                            if (gap.duration >= taskExeTime){
-                                double gapTaskFinishTime = gap.startTime + taskExeTime;
+                            double availableGapTime = gap.endTime - latestParentFinishTime;
+
+                            if (availableGapTime >= taskExeTime){
+                                double gapTaskFinishTime = latestParentFinishTime + taskExeTime;
 
                                 if (gapTaskFinishTime < tempTaskFinishTime){
                                     tempTaskFinishTime = gap.startTime + taskExeTime;
@@ -190,8 +192,9 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 }else {
                     gap.duration = gap.endTime - gap.startTime;
                 }
+            }else {
+                instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
             }
-            instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
             originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
             xArray[job.getIntId()] = tempInstanceId;
             yArray[tempInstanceId] = usedInstances[tempInstanceId];
