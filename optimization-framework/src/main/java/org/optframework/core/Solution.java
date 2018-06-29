@@ -315,7 +315,7 @@ public class Solution {
 
                             if (gapTaskFinishTime < tempTaskFinishTime){
                                 tempTaskExeTime = taskExeTime;
-                                tempTaskFinishTime = latestParentFinishTime + taskExeTime;
+                                tempTaskFinishTime = gapTaskFinishTime;
                                 gapIsUsed = true;
                                 instanceGapId = xArray[job.getIntId()];
                                 gapId = k;

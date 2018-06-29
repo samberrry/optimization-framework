@@ -23,12 +23,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     Cloner cloner = new Cloner();
 
     //this array is the y array from the hbmo algorithm with specified size
-    int usedInstances[];
+    int availableInstances[];
 
-    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int usedInstances[]) {
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int availableInstances[]) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
-        this.usedInstances = usedInstances;
+        this.availableInstances = availableInstances;
     }
 
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
@@ -44,24 +44,24 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Collections.sort(orderedJobList, Job.rankComparator);
         WorkflowDAG dag = workflow.getWfDAG();
 
-        double instanceTimeLine[] = new double[usedInstances.length];
+        double instanceTimeLine[] = new double[availableInstances.length];
 
         int xArray[] = new int[orderedJobList.size()];
-        int yArray[] = new int[usedInstances.length];
+        int yArray[] = new int[availableInstances.length];
 
-        Instance instanceList[] = new Instance[usedInstances.length];
-        for (int i = 0; i < usedInstances.length; i++) {
+        Instance instanceList[] = new Instance[availableInstances.length];
+        for (int i = 0; i < availableInstances.length; i++) {
             instanceList[i] = new Instance();
         }
 
         Job firstJob = orderedJobList.get(0);
         Job originalVersion = originalJobList.get(firstJob.getIntId());
-        double temp = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[0]].getType());
+        double temp = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[availableInstances[0]].getType());
         int tempInstance = 0;
 
         //for the first task
-        for (int i = 1; i < usedInstances.length; i++) {
-            double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[usedInstances[i]].getType());
+        for (int i = 1; i < availableInstances.length; i++) {
+            double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[availableInstances[i]].getType());
             if (exeTime < temp){
                 temp = exeTime;
                 tempInstance = i;
@@ -69,7 +69,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
 
         xArray[firstJob.getIntId()] = tempInstance;
-        yArray[tempInstance] = usedInstances[tempInstance];
+        yArray[tempInstance] = availableInstances[tempInstance];
         instanceTimeLine[tempInstance] = temp;
 
         originalVersion.setFinishTime(instanceTimeLine[tempInstance]);
@@ -91,7 +91,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
 
             //it is possible to have multiple start tasks without dependencies
-            for (int j = 0; j < usedInstances.length; j++) {
+            for (int j = 0; j < availableInstances.length; j++) {
                 int maxParentId = -1;
                 Job maxParentJob;
                 double latestParentFinishTime = 0.0;
@@ -113,7 +113,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
 
-                            double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType()) + tempCIJ;
+                            double taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType()) + tempCIJ;
 
                             double availableGapTime = gap.endTime - latestParentFinishTime;
 
@@ -121,7 +121,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                                 double gapTaskFinishTime = latestParentFinishTime + taskExeTime;
 
                                 if (gapTaskFinishTime < tempTaskFinishTime){
-                                    tempTaskFinishTime = gap.startTime + taskExeTime;
+                                    tempTaskFinishTime = gapTaskFinishTime;
                                     tempInstanceId = j;
                                     gapIsUsed = true;
                                     instanceGapId = j;
@@ -136,7 +136,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     }
                 }
                 if (parentJobs.size() == 0){
-                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
+                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
 
                     if (currentFinishTime < tempTaskFinishTime){
                         gapIsUsed = false;
@@ -154,7 +154,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
-                        double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
+                        double currentFinishTime = currentTime + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
 
                         if (currentFinishTime < tempTaskFinishTime){
                             gapOccurred = true;
@@ -167,7 +167,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         double cij = edge / (double)Config.global.bandwidth;
 
-                        double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[usedInstances[j]].getType());
+                        double currentFinishTime = instanceTimeLine[j] + cij + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
 
                         if (currentFinishTime < tempTaskFinishTime){
                             tempTaskFinishTime = currentFinishTime;
@@ -197,7 +197,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
             originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
             xArray[job.getIntId()] = tempInstanceId;
-            yArray[tempInstanceId] = usedInstances[tempInstanceId];
+            yArray[tempInstanceId] = availableInstances[tempInstanceId];
         }
 
         for (int i = 0; i < instanceTimeLine.length; i++) {
@@ -211,21 +211,21 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Value of the X Array: "+ xArrayStr);
 
         String yArrayStr = "";
-        for (int i = 0; i < usedInstances.length; i++) {
-            yArrayStr += " " + String.valueOf(usedInstances[i]);
+        for (int i = 0; i < availableInstances.length; i++) {
+            yArrayStr += " " + String.valueOf(availableInstances[i]);
         }
         Log.logger.info("Value of the Real Y Array: "+ yArrayStr);
 
         String used = "";
         int usedCounter=0;
-        for (int i = 0; i < usedInstances.length; i++) {
+        for (int i = 0; i < availableInstances.length; i++) {
             if (yArray[i] != 0){
                 used += "VM" + i + " ";
                 usedCounter++;
             }
         }
         Log.logger.info("Instance IDs used in HEFT: "+ used);
-        Log.logger.info("Available Instances:" + usedInstances.length +" Number of used instances in HEFT: "+ usedCounter);
+        Log.logger.info("Available Instances:" + availableInstances.length +" Number of used instances in HEFT: "+ usedCounter);
 
         double maxTime = instanceTimeLine[0];
         for (double time : instanceTimeLine){
@@ -235,8 +235,15 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
         Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
 
+        int numberOfUsedInstances =0;
+        for (int i = 0; i < availableInstances.length; i++) {
+            if (availableInstances[i] != 0){
+                numberOfUsedInstances++;
+            }
+        }
+
         Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
-        solution.numberOfUsedInstances = usedInstances.length;
+        solution.numberOfUsedInstances = numberOfUsedInstances;
         solution.xArray = xArray;
         solution.yArray = yArray;
 
