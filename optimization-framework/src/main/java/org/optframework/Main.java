@@ -36,6 +36,9 @@ public class Main {
             case "heft-before-hbmo":
                 RunHEFTBeforeHBMO.runHEFTBeforeHBMO();
                 break;
+            case "heft-example":
+                RunHEFTExample.runHEFTExample();
+                break;
         }
     }
 }

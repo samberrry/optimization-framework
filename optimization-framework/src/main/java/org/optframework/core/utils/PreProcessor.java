@@ -12,9 +12,11 @@ import java.util.List;
 
 public class PreProcessor {
     static List<Job> jobList;
+    static org.cloudbus.cloudsim.util.workload.Workflow workflow;
 
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
         jobList = new ArrayList<>();
+        PreProcessor.workflow = workflow;
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double exeTime[] = new double[InstanceType.values().length];
@@ -30,36 +32,12 @@ public class PreProcessor {
                     job.getEdgeInfo()));
         }
 
-        WorkflowDAG dag = workflow.getWfDAG();
-        ArrayList<Integer> level = dag.getLastLevel();
-
-        for (int jobId: level){
-            Job job = jobList.get(jobId);
-            job.setRank(job.getAvgExeTime());
-        }
-
-        level = dag.getParents(level);
-
-        while (level.size() != 0){
-            for (int jobId : level){
-                ArrayList<Integer> children = dag.getChildren(jobId);
-                Job job = jobList.get(jobId);
-                int maxChildId = getMaxChildRank(jobId, children);
-
-                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/Config.global.bandwidth);
-            }
-            level = dag.getParents(level);
-        }
-
-        return new Workflow(workflow.getWfDAG(),
-                jobList,
-                workflow.getJobList().size(),
-                workflow.getDeadline(),
-                workflow.getBudget(),
-                0.0);
+        return computeRank();
     }
 
-    public static Workflow doPreProcessingForHEFTExample(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw){
+    public static Workflow doPreProcessingForHEFTExample(org.cloudbus.cloudsim.util.workload.Workflow workflow){
+        PreProcessor.workflow = workflow;
+
         double taskTimes[][] = {
                 {14,16,9},
                 {13,19,18},
@@ -83,6 +61,31 @@ public class PreProcessor {
                     taskTimes[job.getIntId()],
                     (total/taskTimes[job.getIntId()].length),
                     job.getEdgeInfo()));
+        }
+
+        return computeRank();
+    }
+
+    static Workflow computeRank(){
+        WorkflowDAG dag = workflow.getWfDAG();
+        ArrayList<Integer> level = dag.getLastLevel();
+
+        for (int jobId: level){
+            Job job = jobList.get(jobId);
+            job.setRank(job.getAvgExeTime());
+        }
+
+        level = dag.getParents(level);
+
+        while (level.size() != 0){
+            for (int jobId : level){
+                ArrayList<Integer> children = dag.getChildren(jobId);
+                Job job = jobList.get(jobId);
+                int maxChildId = getMaxChildRank(jobId, children);
+
+                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/Config.global.bandwidth);
+            }
+            level = dag.getParents(level);
         }
 
         return new Workflow(workflow.getWfDAG(),
