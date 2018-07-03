@@ -55,7 +55,7 @@ public class HEFTExampleAlgorithm {
         }
 
         xArray[firstJob.getIntId()] = tempInstance;
-//        yArray[tempInstance] = availableInstances[tempInstance];
+        instanceUsed[tempInstance] = true;
         instanceTimeLine[tempInstance] = temp;
 
         originalVersion.setFinishTime(instanceTimeLine[tempInstance]);
@@ -100,7 +100,7 @@ public class HEFTExampleAlgorithm {
                             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
                             double taskExeTime;
 
-                            if (j == maxParentId){
+                            if (j == xArray[maxParentId]){
                                 taskExeTime = job.getExeTime()[j];
                             }else {
                                 taskExeTime = job.getExeTime()[j] + tempCIJ;
@@ -114,6 +114,7 @@ public class HEFTExampleAlgorithm {
                                 if (gapTaskFinishTime < tempTaskFinishTime){
                                     tempTaskFinishTime = gapTaskFinishTime;
                                     tempInstanceId = j;
+                                    gapOccurred = false;
                                     gapIsUsed = true;
                                     instanceGapId = j;
                                     gapId = k;
@@ -146,7 +147,7 @@ public class HEFTExampleAlgorithm {
                         double cij = edge / (double)Config.global.bandwidth;
                         double currentFinishTime;
 
-                        if (j == maxParentId){
+                        if (j == xArray[maxParentId]){
                             currentFinishTime = currentTime + job.getExeTime()[j];
                         }else {
                             currentFinishTime = currentTime + cij + job.getExeTime()[j];
@@ -164,7 +165,7 @@ public class HEFTExampleAlgorithm {
                         double cij = edge / (double)Config.global.bandwidth;
                         double currentFinishTime;
 
-                        if (j == maxParentId){
+                        if (j == xArray[maxParentId]){
                             currentFinishTime = instanceTimeLine[j] + job.getExeTime()[j];
                         }else {
                             currentFinishTime = instanceTimeLine[j] + cij + job.getExeTime()[j];
@@ -174,6 +175,7 @@ public class HEFTExampleAlgorithm {
                             tempTaskFinishTime = currentFinishTime;
                             tempInstanceId = j;
                             gapIsUsed = false;
+                            gapOccurred = false;
                         }
                     }
                 }

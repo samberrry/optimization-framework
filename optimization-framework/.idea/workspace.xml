@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PreProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PreProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,8 +30,8 @@
       <file leaf-file-name="HEFTExampleAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="184" column="13" lean-forward="true" selection-start-line="184" selection-start-column="13" selection-end-line="184" selection-end-column="13" />
+            <state relative-caret-position="1456">
+              <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#854#855#0" expanded="true" />
@@ -493,7 +488,7 @@
       <workItem from="1529603725508" duration="13606000" />
       <workItem from="1529799415795" duration="710000" />
       <workItem from="1529931830682" duration="12150000" />
-      <workItem from="1530566120805" duration="18398000" />
+      <workItem from="1530566120805" duration="21167000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -520,11 +515,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="915159000" />
+    <option name="totallyTimeSpent" value="917928000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -581,8 +575,14 @@
           <properties />
           <option name="timeStamp" value="326" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java</url>
+          <line>182</line>
+          <properties />
+          <option name="timeStamp" value="327" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="327" />
+      <option name="time" value="328" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -965,8 +965,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="184" column="13" lean-forward="true" selection-start-line="184" selection-start-column="13" selection-end-line="184" selection-end-column="13" />
+        <state relative-caret-position="1456">
+          <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#854#855#0" expanded="true" />
