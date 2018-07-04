@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,15 +27,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HEFTExampleAlgorithm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HEFTExampleAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1456">
-              <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
+            <state relative-caret-position="374">
+              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#854#855#0" expanded="true" />
                 <element signature="e#894#895#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#getJobWithMaxParentFinishTime#0;class#Solution#0" />
+                <element signature="method#computeFitnessValue#0;class#Solution#0" />
+                <element signature="method#saving#0;class#Solution#0" />
+                <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
               </folding>
             </state>
           </provider>
@@ -53,7 +69,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>M_NUMBER</find>
       <find>setRank</find>
       <find>sort</find>
       <find>job</find>
@@ -83,6 +98,7 @@
       <find>budget</find>
       <find>usedInstances</find>
       <find>tempCIJ</find>
+      <find>oldFitness</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -144,7 +160,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTBeforeHBMO.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/GlobalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTWithHBMO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/Main.java" />
@@ -152,6 +167,7 @@
         <option value="$PROJECT_DIR$/resources/config/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTExample.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
       </list>
     </option>
   </component>
@@ -488,7 +504,7 @@
       <workItem from="1529603725508" duration="13606000" />
       <workItem from="1529799415795" duration="710000" />
       <workItem from="1529931830682" duration="12150000" />
-      <workItem from="1530566120805" duration="21167000" />
+      <workItem from="1530566120805" duration="25314000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -515,10 +531,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="917928000" />
+    <option name="totallyTimeSpent" value="922075000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -579,10 +596,10 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java</url>
           <line>182</line>
           <properties />
-          <option name="timeStamp" value="327" />
+          <option name="timeStamp" value="328" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="328" />
+      <option name="time" value="329" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -885,22 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10166">
-          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#fitnessWithoutGap#0;class#Solution#0" />
-            <element signature="method#getJobWithMaxParentFinishTime#0;class#Solution#0" />
-            <element signature="method#computeFitnessValue#0;class#Solution#0" />
-            <element signature="method#saving#0;class#Solution#0" />
-            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
-            <element signature="method#getJobIdWithMaxParentFinishTime#0;class#Solution#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/TestMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="692">
@@ -965,12 +966,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/HEFTExampleAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1456">
-          <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
+        <state relative-caret-position="374">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#854#855#0" expanded="true" />
             <element signature="e#894#895#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getJobWithMaxParentFinishTime#0;class#Solution#0" />
+            <element signature="method#computeFitnessValue#0;class#Solution#0" />
+            <element signature="method#saving#0;class#Solution#0" />
+            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
           </folding>
         </state>
       </provider>
