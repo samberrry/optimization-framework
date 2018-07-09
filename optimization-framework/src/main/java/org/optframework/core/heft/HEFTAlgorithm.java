@@ -224,10 +224,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         Log.logger.info("HEFT fitness:  " + solution.makespan);
 
-        solution.oldFitness();
-        Log.logger.info("Old fitness:   " + solution.makespan);
-
-
         return solution;
     }
 

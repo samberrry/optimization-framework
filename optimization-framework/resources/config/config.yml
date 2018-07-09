@@ -6,15 +6,20 @@
 # hbmo              HoneyBee mating optimization algorithm
 # hbmo-heft         Gets the number of available instances from HBMO algorithm and then do the Heterogeneous     Earliest Finish Time workflow scheduling algorithm
 # heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
+# heft-example      The customized HEFT algorithm for the example in the HEFT paper
 #
-# * Note that all of the algorithm's fitness are based on the HEFT algorithm
+#
+# Key NOTES:
+# - All of the algorithm's fitness are based on the HEFT algorithm
+# - For the heft-example, the bandwidth parameter MUST be set to zero
+#
 
 
 global:
   algorithm: "heft-example"
   workflow_id: 2
   budget: 1000
-  bandwidth: 1000
+  bandwidth: 1
   t_extra: -1
   m_number: 100
 

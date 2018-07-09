@@ -109,7 +109,19 @@ public class HEFTExampleAlgorithm {
                             double availableGapTime = gap.endTime - latestParentFinishTime;
 
                             if (availableGapTime >= taskExeTime){
-                                double gapTaskFinishTime = latestParentFinishTime + taskExeTime;
+                                double remainingTimeToStartGap = gap.startTime - latestParentFinishTime;
+                                double gapTaskFinishTime;
+
+                                if (remainingTimeToStartGap >= 0){
+                                    double timeToSendData = gap.startTime - latestParentFinishTime;
+                                    if (timeToSendData >= tempCIJ){
+                                        gapTaskFinishTime = gap.startTime + (taskExeTime - tempCIJ);
+                                    }else {
+                                        gapTaskFinishTime = gap.startTime + (taskExeTime - timeToSendData);
+                                    }
+                                }else {
+                                    gapTaskFinishTime = latestParentFinishTime + taskExeTime;
+                                }
 
                                 if (gapTaskFinishTime < tempTaskFinishTime){
                                     tempTaskFinishTime = gapTaskFinishTime;
@@ -127,6 +139,7 @@ public class HEFTExampleAlgorithm {
                         }
                     }
                 }
+                //this is for the tasks in the first layer
                 if (parentJobs.size() == 0){
                     double currentFinishTime = instanceTimeLine[j] + job.getExeTime()[j];
 
@@ -150,7 +163,13 @@ public class HEFTExampleAlgorithm {
                         if (j == xArray[maxParentId]){
                             currentFinishTime = currentTime + job.getExeTime()[j];
                         }else {
-                            currentFinishTime = currentTime + cij + job.getExeTime()[j];
+                            double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+
+                            if (timeToSendData >= cij){
+                                currentFinishTime = currentTime + job.getExeTime()[j];
+                            }else {
+                                currentFinishTime = currentTime + (cij - timeToSendData) + job.getExeTime()[j];
+                            }
                         }
 
                         if (currentFinishTime < tempTaskFinishTime){
@@ -168,7 +187,13 @@ public class HEFTExampleAlgorithm {
                         if (j == xArray[maxParentId]){
                             currentFinishTime = instanceTimeLine[j] + job.getExeTime()[j];
                         }else {
-                            currentFinishTime = instanceTimeLine[j] + cij + job.getExeTime()[j];
+                            double timeToSendData = instanceTimeLine[j] - originalJobList.get(maxParentId).getFinishTime();
+
+                            if (timeToSendData >= cij){
+                                currentFinishTime = instanceTimeLine[j] + job.getExeTime()[j];
+                            }else {
+                                currentFinishTime = instanceTimeLine[j] + (cij - timeToSendData) + job.getExeTime()[j];
+                            }
                         }
 
                         if (currentFinishTime < tempTaskFinishTime){
