@@ -19,6 +19,8 @@ public class HEFTExampleAlgorithm {
 
     Cloner cloner = new Cloner();
 
+    int xArray[];
+
     public HEFTExampleAlgorithm(Workflow workflow) {
         this.workflow = workflow;
     }
@@ -33,7 +35,7 @@ public class HEFTExampleAlgorithm {
         double instanceTimeLine[] = new double[3];
         boolean instanceUsed[] = new boolean[3];
 
-        int xArray[] = new int[orderedJobList.size()];
+        xArray = new int[orderedJobList.size()];
 
         Instance instanceList[] = new Instance[3];
         for (int i = 0; i < 3; i++) {
@@ -78,12 +80,11 @@ public class HEFTExampleAlgorithm {
 
             //it is possible to have multiple start tasks without dependencies
             for (int j = 0; j < 3; j++) {
-                int maxParentId = -1;
+                int maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId(), j);
                 Job maxParentJob;
                 double latestParentFinishTime = 0.0;
 
                 if (parentJobs.size() != 0){
-                    maxParentId = getJobWithMaxParentFinishTime(parentJobs);
                     maxParentJob = originalJobList.get(maxParentId);
                     latestParentFinishTime = maxParentJob.getFinishTime();
                 }
@@ -150,8 +151,6 @@ public class HEFTExampleAlgorithm {
                     }
                 }else {
                     //check minimum task finish time for all of the current instances
-                    maxParentId = getJobWithMaxParentFinishTime(parentJobs);
-
                     double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[j];
 
                     if (waitingTime > 0 ){
@@ -243,12 +242,21 @@ public class HEFTExampleAlgorithm {
         System.out.println(xStr);
     }
 
-    int getJobWithMaxParentFinishTime(ArrayList<Integer> parentJobs){
-        double tempValue = originalJobList.get(parentJobs.get(0)).getFinishTime();
-        int tempId = originalJobList.get(parentJobs.get(0)).getIntId();
+    int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId, int assignedInstanceId){
+        double tempValue = -1;
+        int tempId = -1;
 
         for (int parentId : parentJobs){
-            if (tempValue < originalJobList.get(parentId).getFinishTime()){
+            double tempEdge = originalJobList.get(parentId).getEdge(jobId);
+            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
+            double maxJobStartTime;
+            if (assignedInstanceId == xArray[parentId]){
+                maxJobStartTime = originalJobList.get(parentId).getFinishTime();
+            }else {
+                maxJobStartTime = originalJobList.get(parentId).getFinishTime() + tempCIJ;
+            }
+
+            if (tempValue < maxJobStartTime){
                 tempId = originalJobList.get(parentId).getIntId();
             }
         }
