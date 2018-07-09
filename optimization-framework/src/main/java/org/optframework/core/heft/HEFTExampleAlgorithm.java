@@ -257,6 +257,7 @@ public class HEFTExampleAlgorithm {
             }
 
             if (tempValue < maxJobStartTime){
+                tempValue = maxJobStartTime;
                 tempId = originalJobList.get(parentId).getIntId();
             }
         }
