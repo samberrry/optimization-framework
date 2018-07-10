@@ -73,6 +73,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             generateBrood();
 
             long stop = System.currentTimeMillis();
+            Printer.lightPrintSolutionForHBMOItr(queen.chromosome,instanceInfo);
 
             spermathecaList.clear();
         }
