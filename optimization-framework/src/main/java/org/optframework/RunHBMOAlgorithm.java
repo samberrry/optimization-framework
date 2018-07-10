@@ -46,7 +46,7 @@ public class RunHBMOAlgorithm {
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
-            Log.logger.info("<<<<<<<<<<<    NEW RUN    >>>>>>>>>>>\n");
+            Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
             long start = System.currentTimeMillis();
 

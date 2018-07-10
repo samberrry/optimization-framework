@@ -44,6 +44,9 @@ public class RunSAAlgorithm {
         double fitnessValueList[] = new double[Config.sa_algorithm.getNumber_of_runs()];
 
         for (int i = 0; i < Config.sa_algorithm.getNumber_of_runs(); i++) {
+            Printer.printSplitter();
+            Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
+
             long start = System.currentTimeMillis();
 
             Solution solution = saAlgorithm.runAlgorithm();
