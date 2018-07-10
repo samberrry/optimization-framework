@@ -4,7 +4,7 @@
 #----------------------------------------------------------------------------------------
 # sa                Simulated annealing algorithm
 # hbmo              HoneyBee mating optimization algorithm
-# hbmo-heft         Gets the number of available instances from HBMO algorithm and then do the Heterogeneous Earliest Finish Time (HEFT) workflow scheduling algorithm
+# hbmo-heft         Gets the number of available instances from HBMO algorithm and then runs the Heterogeneous Earliest Finish Time (HEFT) workflow scheduling algorithm
 # heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 #
@@ -15,7 +15,7 @@
 
 
 global:
-  algorithm: "hbmo"
+  algorithm: "hbmo-heft"
   workflow_id: 2
   budget: 1000
   bandwidth: 1
@@ -38,7 +38,7 @@ honeybee_algorithm:
   sMax_division: 10
   cooling_factor: 0.9
   number_of_threads: 4
-  spermatheca_size: 300
+  spermatheca_size: 400
 # the generation number equals to number of iterations
   generation_number: 150
   neighborhood_ratio: 0.0
