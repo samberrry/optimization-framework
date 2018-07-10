@@ -30,6 +30,9 @@ public class Main {
             case "hbmo":
                 RunHBMOAlgorithm.runHBMO();
                 break;
+            case "heft":
+                RunHEFTAlgorithm.runSingleHEFT();
+                break;
             case "hbmo-heft":
                 RunHEFTWithHBMO.runHEFTWithHBMO();
                 break;
