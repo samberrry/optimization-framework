@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="optframework:jar">
+  <artifact type="jar" name="optframework:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/optframework_jar</output-path>
     <root id="archive" name="optframework.jar">
       <element id="module-output" name="Cloudsim" />

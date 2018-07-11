@@ -264,9 +264,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         solution.numberOfUsedInstances = numberOfUsedInstances;
         solution.xArray = xArray;
         solution.yArray = yArray;
-
         solution.fitness();
-
         Log.logger.info("HEFT fitness:  " + solution.makespan);
 
         return solution;

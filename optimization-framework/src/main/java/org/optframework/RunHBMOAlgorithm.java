@@ -56,7 +56,7 @@ public class RunHBMOAlgorithm {
 
             long stop = System.currentTimeMillis();
 
-            Printer.lightPrintSolution(solution, instanceInfo, stop-start);
+            Printer.lightPrintSolution(solution,stop-start);
         }
 
         double sum = 0.0;

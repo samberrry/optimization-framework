@@ -32,7 +32,14 @@ public class RunHEFTAlgorithm {
             totalInstances[i] = 6;
         }
 
-        Log.logger.info("----------  HBMO Algorithm is finished  ----------");
+//        int totalInstances[] = new int[M_NUMBER * 9];
+//        int k = 0;
+//        for (int i = 0; i < M_NUMBER; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                totalInstances[k] = j;
+//                        k++;
+//            }
+//        }
 
         Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
@@ -42,6 +49,6 @@ public class RunHEFTAlgorithm {
         Solution heftSolution = heftAlgorithm.runAlgorithm();
         long stop = System.currentTimeMillis();
 
-        Printer.printTime(stop-start);
+        Printer.printSolution(heftSolution, instanceInfo, stop-start);
     }
 }

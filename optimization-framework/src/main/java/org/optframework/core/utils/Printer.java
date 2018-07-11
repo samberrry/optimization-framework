@@ -13,7 +13,7 @@ public class Printer {
             Log.logger.info("Requested time for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimes[i]);
         }
 
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
+        for (int i = 0; i < solution.instanceTimelines.length; i++) {
             Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
         }
 
@@ -56,7 +56,13 @@ public class Printer {
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
 
-    public static void lightPrintSolution(Solution solution, InstanceInfo instanceInfo[], long time){
+    public static void printStartTime(Solution solution, InstanceInfo instanceInfo[]){
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
+        }
+    }
+
+    public static void lightPrintSolution(Solution solution, long time){
         Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
 
         Log.logger.info(  "Fitness Value: "+ solution.fitnessValue + " Makespan: " + solution.makespan+" Total Cost: " + solution.cost);
