@@ -13,6 +13,7 @@ public class HoneyBeeConfig {
     Integer number_of_runs;
     Double sMin_division;
     Double sMax_division;
+    Boolean full_mutation;
 
     public Double getMax_speed() {
         return max_speed;
@@ -100,5 +101,13 @@ public class HoneyBeeConfig {
 
     public void setsMax_division(Double sMax_division) {
         this.sMax_division = sMax_division;
+    }
+
+    public Boolean getFull_mutation() {
+        return full_mutation;
+    }
+
+    public void setFull_mutation(Boolean full_mutation) {
+        this.full_mutation = full_mutation;
     }
 }

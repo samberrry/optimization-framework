@@ -3,7 +3,7 @@
 # Value             Description
 #----------------------------------------------------------------------------------------
 # sa                Simulated annealing algorithm
-# hbmo              HoneyBee mating optimization algorithm
+# hbmo              HoneyBee mating optimization algorithm with random initial solution
 # heft              Heterogeneous Earliest Finish Time algorithm that uses all best instances with a limited number of instances
 # hbmo-heft         Gets the number of available instances from HBMO algorithm and then runs the Heterogeneous Earliest Finish Time (HEFT) workflow scheduling algorithm
 # heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
@@ -16,7 +16,7 @@
 
 
 global:
-  algorithm: "heft"
+  algorithm: "hbmo"
   workflow_id: 2
   budget: 1000
   bandwidth: 1
@@ -27,14 +27,14 @@ sa_algorithm:
   start_temperature: 850
   final_temperature: 0.1
   cooling_factor: 0.8
-  force_cooling: false
+  force_cooling: no
   equilibrium_point: 10
   number_of_runs: 30
 
 honeybee_algorithm:
   max_speed: 800
   min_speed: 0.1
-  force_speed: false
+  force_speed: no
   sMin_division: 100
   sMax_division: 10
   cooling_factor: 0.95
@@ -44,5 +44,7 @@ honeybee_algorithm:
   generation_number: 80
   neighborhood_ratio: 0.0
   number_of_runs: 15
+# this toggle is used to switch between single mutation or mutation on every brood
+  full_mutation: no
 
 #antcolony_algorithm:

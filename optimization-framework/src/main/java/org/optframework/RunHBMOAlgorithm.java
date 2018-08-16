@@ -7,6 +7,7 @@ import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
+import org.optframework.core.hbmo.HBMOAlgorithmWithFullMutation;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
@@ -40,7 +41,13 @@ public class RunHBMOAlgorithm {
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        HBMOAlgorithm hbmoAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        OptimizationAlgorithm optimizationAlgorithm;
+
+        if (Config.honeybee_algorithm.getFull_mutation()){
+            optimizationAlgorithm = new HBMOAlgorithmWithFullMutation(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        }else {
+            optimizationAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+        }
 
         double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
 
@@ -50,7 +57,7 @@ public class RunHBMOAlgorithm {
 
             long start = System.currentTimeMillis();
 
-            Solution solution = hbmoAlgorithm.runAlgorithm();
+            Solution solution = optimizationAlgorithm.runAlgorithm();
 
             fitnessValueList[i] = solution.fitnessValue;
 
