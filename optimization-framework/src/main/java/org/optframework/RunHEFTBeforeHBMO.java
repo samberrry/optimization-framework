@@ -49,12 +49,39 @@ public class RunHEFTBeforeHBMO {
 
         hbmoAlgorithm.initialSolution = heftSolution;
 
-        long start = System.currentTimeMillis();
-        Solution hbmoSolution = hbmoAlgorithm.runAlgorithm();
-        long stop = System.currentTimeMillis();
+        double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
 
-        Log.logger.info("HEFT Fitness: "+ heftSolution.fitnessValue + " HBMO Fitness: " + hbmoSolution.fitnessValue);
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
+            Printer.printSplitter();
+            Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-        Printer.printTime(stop-start);
+            long start = System.currentTimeMillis();
+
+            Solution solution = hbmoAlgorithm.runAlgorithm();
+
+            fitnessValueList[i] = solution.fitnessValue;
+
+            long stop = System.currentTimeMillis();
+
+            Printer.lightPrintSolution(solution,stop-start);
+        }
+
+        double sum = 0.0;
+        double max = 0.0;
+        double min = 999999999999.9;
+        for (double value : fitnessValueList){
+            sum += value;
+            if (value > max){
+                max = value;
+            }
+            if (value < min){
+                min = value;
+            }
+        }
+        Printer.printSplitter();
+        Log.logger.info("Average fitness value: " + sum / Config.honeybee_algorithm.getNumber_of_runs());
+
+        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+        Printer.printHoneBeeInfo();
     }
 }
