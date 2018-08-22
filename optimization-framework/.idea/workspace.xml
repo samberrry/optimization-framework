@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/input/pricesMap/mowsc/data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Hessam.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Hessam.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/our/HistoryPriceManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/our/HistoryPriceManagement.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,8 +30,8 @@
       <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="2" column="31" lean-forward="true" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+            <state relative-caret-position="233">
+              <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -30,26 +39,38 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+            <state relative-caret-position="245">
+              <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HBMOAlgorithm.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
+      <file leaf-file-name="RunHBMOAlgorithm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="485" lean-forward="true" selection-start-line="485" selection-end-line="485" />
+            <state relative-caret-position="152">
+              <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#HBMOAlgorithm#0;class#HBMOAlgorithm#0" />
-                <element signature="method#runAlgorithm#0;class#HBMOAlgorithm#0" />
-                <element signature="method#matingFlight#0;class#HBMOAlgorithm#0" />
-                <element signature="method#probability#0;class#HBMOAlgorithm#0" />
-                <element signature="method#mutation#0;class#HBMOAlgorithm#0" />
-                <element signature="method#crossOver#0;class#HBMOAlgorithm#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstanceInfo.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InstanceType.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="25" column="7" lean-forward="true" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -66,12 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>average</find>
-      <find>rank</find>
-      <find>firstJob</find>
-      <find>bw</find>
-      <find>getBandwidth</find>
-      <find>mips</find>
       <find>bandwidth</find>
       <find>tempInstance</find>
       <find>System</find>
@@ -96,6 +111,12 @@
       <find>Config</find>
       <find>mutation</find>
       <find>M_NUMBER</find>
+      <find>hessam</find>
+      <find>m3.xlarge</find>
+      <find>InstanceType</find>
+      <find>m1.small</find>
+      <find>ec2units</find>
+      <find>m3.medium</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -114,9 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/Ant.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Queen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Chromosome.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ProblemInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/Drone.java" />
         <option value="$PROJECT_DIR$/resources/log/2018-06-15-04:10:31.log" />
@@ -130,14 +148,11 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/CompleteAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Beta.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Instance.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" />
-        <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/SAConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunCompleteAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/dfs/DFSAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/Config.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
@@ -163,8 +178,14 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/HoneyBeeConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTBeforeHBMO.java" />
-        <option value="$PROJECT_DIR$/resources/config/config.yml" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java" />
+        <option value="$PROJECT_DIR$/resources/config/config.yml" />
+        <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java" />
+        <option value="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java" />
+        <option value="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/our/HistoryPriceManagement.java" />
+        <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java" />
       </list>
     </option>
   </component>
@@ -211,7 +232,22 @@
               <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
               <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+              <item name="pricesMap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+              <item name="pricesMap" type="462c0819:PsiDirectoryNode" />
+              <item name="mowsc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
@@ -299,11 +335,11 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/input/pricesMap/mowsc" />
       <recent name="$PROJECT_DIR$/resources/disired_logs" />
       <recent name="$PROJECT_DIR$/resources/config" />
       <recent name="$PROJECT_DIR$/resources/input/inputDAGfiles" />
       <recent name="$PROJECT_DIR$/src/main/java/org/optframework/util/spotsim" />
-      <recent name="$PROJECT_DIR$/src/main/java/org/optframework/util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.optframework.core.hbmo" />
@@ -527,7 +563,7 @@
       <workItem from="1530566120805" duration="27071000" />
       <workItem from="1531124490483" duration="20658000" />
       <workItem from="1531220769049" duration="2331000" />
-      <workItem from="1534355483884" duration="5966000" />
+      <workItem from="1534355483884" duration="13955000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -554,14 +590,23 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="971065000" />
+    <option name="totallyTimeSpent" value="979054000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.328877" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.3342246" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5046875" side_tool="true" weight="0.62700534" />
@@ -570,10 +615,11 @@
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4953125" weight="0.56684494" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.35695186" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.5561497" />
       <window_info id="Designer" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -588,7 +634,6 @@
       <window_info anchor="right" x="0" y="0" width="270" height="600" id="Documentation" order="7" side_tool="true" weight="0.3296875" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -608,7 +653,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="347" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="347" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="348" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -682,64 +735,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" column="33" lean-forward="true" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunDFSAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHoneyBeeHEFTHoneyBee.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/ProblemInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/Gap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/heft/Instance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-14:54:56.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-20:57:54.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-15:47:40.log" />
@@ -806,6 +801,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
           <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -836,13 +834,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -935,30 +926,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" column="31" lean-forward="true" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="77" column="28" lean-forward="true" selection-start-line="77" selection-start-column="28" selection-end-line="77" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="12" column="17" lean-forward="true" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTBeforeHBMO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-181">
@@ -969,19 +936,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="485" lean-forward="true" selection-start-line="485" selection-end-line="485" />
+        <state relative-caret-position="176">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#HBMOAlgorithm#0;class#HBMOAlgorithm#0" />
             <element signature="method#runAlgorithm#0;class#HBMOAlgorithm#0" />
             <element signature="method#matingFlight#0;class#HBMOAlgorithm#0" />
@@ -989,6 +948,114 @@
             <element signature="method#mutation#0;class#HBMOAlgorithm#0" />
             <element signature="method#crossOver#0;class#HBMOAlgorithm#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/pricing/PriceRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1969">
+          <caret line="137" column="21" lean-forward="true" selection-start-line="137" selection-start-column="21" selection-end-line="137" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="38" column="20" lean-forward="true" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/cloudsim/util/workload/WorkflowUtilis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="99" column="40" lean-forward="true" selection-start-line="99" selection-start-column="40" selection-end-line="99" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/TaskUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/input/pricesMap/m1_small.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="28" column="35" lean-forward="true" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/input/pricesMap/mowsc/data.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="616" lean-forward="true" selection-start-line="616" selection-end-line="616" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/our/HistoryPriceManagement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1912">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/broker/WorkflowBroker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="1272" column="34" selection-start-line="1272" selection-start-column="34" selection-end-line="1272" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="25" column="7" lean-forward="true" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHBMOAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
         </state>
       </provider>
     </entry>

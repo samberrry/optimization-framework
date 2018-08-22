@@ -9,6 +9,6 @@ public class TaskUtility {
     }
 
     public static double executionTimeOnTypeWithCustomJob(org.optframework.core.Job job, InstanceType type){
-        return job.getLength() / type.getEc2units();
+        return job.getLength() / type.getEcu();
     }
 }

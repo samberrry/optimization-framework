@@ -40,11 +40,11 @@ honeybee_algorithm:
   sMax_division: 10
   cooling_factor: 0.95
   number_of_threads: 4
-  spermatheca_size: 400
+  spermatheca_size: 100
 # the generation number equals to number of iterations
-  generation_number: 80
+  generation_number: 2
   neighborhood_ratio: 0.0
-  number_of_runs: 5
+  number_of_runs: 1
 # this toggle is used to switch between single mutation or mutation on every brood
   full_mutation: no
 
