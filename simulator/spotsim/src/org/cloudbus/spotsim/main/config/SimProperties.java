@@ -163,8 +163,9 @@ public enum SimProperties implements SimProp {
 
 	WORKFLOW_LENGTH_MULT("spotsim.workflow.lengthMult", 60),
 
+	//mowsc
 	LIBERAL_POLICY_REF_INSTANCE("spotsim.workflow.liberalpolicy.refInstance",
-			InstanceType.M24XLARGE),
+			InstanceType.M32XLARGE),
 
 	WF_INPUT_FILE_MODE("spotsim.workflow.inputFileMode", true),
 
