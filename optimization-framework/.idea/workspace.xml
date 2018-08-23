@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/optframework_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/input/inputDAGfiles/Inspiral_50.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/enums/InstanceType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/workflowsim/src/org/cloudbus/cloudsim/workflow/Newpolicies/PolicyUtils.java" afterDir="false" />
@@ -26,8 +26,17 @@
       <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
+            <state relative-caret-position="702">
               <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PopulateWorkflow.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -35,17 +44,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Printer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
+            <state relative-caret-position="165">
+              <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -128,7 +128,6 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/dfs/DFSAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Job.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/Config.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/StaticProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunDFSAlgorithm.java" />
@@ -161,6 +160,7 @@
         <option value="$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/main/config/SimProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/InstanceInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
       </list>
     </option>
   </component>
@@ -214,7 +214,7 @@
               <item name="optimization-framework" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="input" type="462c0819:PsiDirectoryNode" />
-              <item name="pricesMap" type="462c0819:PsiDirectoryNode" />
+              <item name="inputDAGfiles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optframework" type="b2602c69:ProjectViewProjectNode" />
@@ -302,10 +302,10 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/input/inputDAGfiles" />
       <recent name="$PROJECT_DIR$/resources/input/pricesMap/mowsc" />
       <recent name="$PROJECT_DIR$/resources/disired_logs" />
       <recent name="$PROJECT_DIR$/resources/config" />
-      <recent name="$PROJECT_DIR$/resources/input/inputDAGfiles" />
       <recent name="$PROJECT_DIR$/src/main/java/org/optframework/util/spotsim" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -530,7 +530,7 @@
       <workItem from="1530566120805" duration="27071000" />
       <workItem from="1531124490483" duration="20658000" />
       <workItem from="1531220769049" duration="2331000" />
-      <workItem from="1534355483884" duration="14813000" />
+      <workItem from="1534355483884" duration="15397000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -557,7 +557,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="979912000" />
+    <option name="totallyTimeSpent" value="980496000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -580,11 +580,11 @@
       <window_info anchor="bottom" id="Application Servers" order="10" weight="0.328877" />
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4953125" visible="true" weight="0.56684494" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4953125" weight="0.56684494" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.5561497" />
       <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3171875" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328877" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -694,7 +694,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-14:54:56.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-20:57:54.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-15:47:40.log" />
     <entry file="file://$PROJECT_DIR$/resources/log/2018-06-28-16:06:46.log" />
@@ -817,13 +816,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
@@ -999,22 +991,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
+        <state relative-caret-position="702">
           <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
+        <state relative-caret-position="499">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/input/inputDAGfiles/Inspiral_50.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
         </state>
       </provider>
     </entry>

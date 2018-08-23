@@ -36,6 +36,9 @@ public class PopulateWorkflow {
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
                     break;
                 case 3:
+                    workflowPath = "resources/input/inputDAGfiles/Inspiral_50.xml";
+                    break;
+                case 4:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
                     break;
             }
