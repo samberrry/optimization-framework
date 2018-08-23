@@ -118,7 +118,7 @@ public class PreProcessor {
             double exeTime[] = new double[InstanceType.values().length];
 
             for (int typeId: totalInstances){
-                double taskExeTime = job.getLength() / instanceInfo[typeId].getType().getEc2units();
+                double taskExeTime = job.getLength() / instanceInfo[typeId].getType().getEcu();
                 total += taskExeTime;
             }
 

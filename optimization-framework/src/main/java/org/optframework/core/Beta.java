@@ -45,7 +45,7 @@ public class Beta {
         InstanceType temp = InstanceType.M1SMALL;
 
         for (InstanceType type: InstanceType.values()){
-            if (type.getEc2units() > temp.getEc2units()){
+            if (type.getEcu() > temp.getEcu()){
                 temp = type;
             }
         }
@@ -56,7 +56,7 @@ public class Beta {
         InstanceType temp = InstanceType.M1SMALL;
 
         for (InstanceType type: InstanceType.values()){
-            if (type.getEc2units() < temp.getEc2units()){
+            if (type.getEcu() < temp.getEcu()){
                 temp = type;
             }
         }

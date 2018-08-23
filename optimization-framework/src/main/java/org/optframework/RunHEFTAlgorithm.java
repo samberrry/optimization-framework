@@ -1,6 +1,7 @@
 package org.optframework;
 
 import org.cloudbus.spotsim.enums.AZ;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
@@ -24,12 +25,21 @@ public class RunHEFTAlgorithm {
          * */
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
+        int maxECUId = -1;
+        double maxECU = 0.0;
+
+        for (InstanceType type : InstanceType.values()){
+            if (type.getEcu() > maxECU){
+                maxECUId = type.getId();
+            }
+        }
+
         /**
          * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
          * */
         int totalInstances[] = new int[M_NUMBER];
         for (int i = 0; i < M_NUMBER; i++) {
-            totalInstances[i] = 6;
+            totalInstances[i] = maxECUId;
         }
 
 //        int totalInstances[] = new int[M_NUMBER * 9];
