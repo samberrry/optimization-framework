@@ -161,7 +161,8 @@ public enum SimProperties implements SimProp {
 
 	WORKFLOW_BUDGET("spotsim.workflow.budget", 55000.9),
 
-	WORKFLOW_LENGTH_MULT("spotsim.workflow.lengthMult", 60),
+	//mowsc HESSAM
+	WORKFLOW_LENGTH_MULT("spotsim.workflow.lengthMult", 1),
 
 	//mowsc
 	LIBERAL_POLICY_REF_INSTANCE("spotsim.workflow.liberalpolicy.refInstance",

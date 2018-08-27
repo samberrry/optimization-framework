@@ -26,7 +26,7 @@ public enum InstanceType {
 	/**
 	 * mowsc changed the instance types and adds ecu field to every instance type
 	 * */
-    M1SMALL(0, 1740, 1, 1, 160, 1000, Bits.B32, "m1.small", 1, 1.7) {
+    M1SMALL(0, 1740, 0, 1, 160, 1000, Bits.B32, "m1.small", 1, 1.7) {
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
 	    return 0.065;
@@ -43,7 +43,7 @@ public enum InstanceType {
 	}
     },
     
-    M1MEDIUM(1, 3840, 2, 2, 410, 1000, Bits.B32, "m1.medium", 1, 3.75) {
+    M1MEDIUM(1, 3840, 0, 2, 410, 1000, Bits.B32, "m1.medium", 1, 3.75) {
     	@Override
     	public double getOnDemandPrice(final Region r, final OS os) {
     	    return 0.130;
@@ -60,7 +60,7 @@ public enum InstanceType {
     	}
         },
 
-	M3MEDIUM(2, 7680, 4, 2, 850, 1000, Bits.B64, "m3.medium", 1, 3.75) {
+	M3MEDIUM(2, 7680, 0, 2, 850, 1000, Bits.B64, "m3.medium", 1, 3.75) {
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
 	    return 0.260;
@@ -77,7 +77,7 @@ public enum InstanceType {
 	}
     },
 
-    M1LARGE(3, 15360, 8, 4, 1690, 1000, Bits.B64, "m1.large", 1, 7.5) {
+    M1LARGE(3, 15360, 0, 4, 1690, 1000, Bits.B64, "m1.large", 1, 7.5) {
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
 	    return 0.520;
@@ -96,7 +96,7 @@ public enum InstanceType {
 
     // High-memory instances
 
-    M3LARGE(4, 17510, 6, 2, 420, 1000, Bits.B64, "m3.large", 1, 7.5) {
+    M3LARGE(4, 17510, 0, 2, 420, 1000, Bits.B64, "m3.large", 1, 7.5) {
 
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
@@ -114,7 +114,7 @@ public enum InstanceType {
 	}
     },
 
-    M1XLARGE(5, 35020, 13, 4, 850, 1000, Bits.B64, "m2.2xlarge", 1, 15) {
+    M1XLARGE(5, 35020, 0, 4, 850, 1000, Bits.B64, "m2.2xlarge", 1, 15) {
 
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
@@ -132,7 +132,7 @@ public enum InstanceType {
 	}
     },
 
-    M3XLARGE(6, 70041, 26, 8, 1690, 1000, Bits.B64, "m3.xlarge", 1, 15) {
+    M3XLARGE(6, 70041, 0, 8, 1690, 1000, Bits.B64, "m3.xlarge", 1, 15) {
 
 	@Override
 	public double getOnDemandPrice(final Region r, final OS os) {
@@ -150,7 +150,7 @@ public enum InstanceType {
 	}
     },
     
-    M32XLARGE(7, 15360, 13, 4, 1690, 1000, Bits.B64, "m3.xlarge", 1, 30) {
+    M32XLARGE(7, 15360, 0, 4, 1690, 1000, Bits.B64, "m3.xlarge", 1, 30) {
 
     	@Override
     	public double getOnDemandPrice(final Region r, final OS os) {
