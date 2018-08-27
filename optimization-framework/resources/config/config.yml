@@ -19,7 +19,7 @@
 global:
   algorithm: "hbmo"
   workflow_id: 4
-  budget: 1000
+  budget: 0.45
   bandwidth: 100000
   t_extra: -1
   m_number: 100
@@ -42,7 +42,7 @@ honeybee_algorithm:
   number_of_threads: 4
   spermatheca_size: 100
 # the generation number equals to number of iterations
-  generation_number: 2
+  generation_number: 30
   neighborhood_ratio: 0.0
   number_of_runs: 1
 # this toggle is used to switch between single mutation or mutation on every brood
