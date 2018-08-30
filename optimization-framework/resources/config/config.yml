@@ -53,6 +53,7 @@ global:
   bandwidth: 100000
   t_extra: -1
   m_number: 100
+  task_length_coefficient: 60
 
 sa_algorithm:
   start_temperature: 850

@@ -7,6 +7,7 @@ public class GlobalConfig {
     public Long bandwidth;
     public Integer m_number;
     public Integer t_extra;
+    public Integer task_length_coefficient;
 
     public String getAlgorithm() {
         return algorithm;
@@ -54,5 +55,13 @@ public class GlobalConfig {
 
     public void setBudget(Double budget) {
         this.budget = budget;
+    }
+
+    public Integer getTask_length_coefficient() {
+        return task_length_coefficient;
+    }
+
+    public void setTask_length_coefficient(Integer task_length_coefficient) {
+        this.task_length_coefficient = task_length_coefficient;
     }
 }

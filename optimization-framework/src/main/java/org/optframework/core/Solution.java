@@ -42,7 +42,7 @@ public class Solution {
     /**
      * M, is the total elapsed time required to execute the entire workflow when only SIs are employed
      */
-    public int makespan;
+    public double makespan;
 
     public short instanceUsages[];
 
@@ -454,7 +454,7 @@ public class Solution {
         this.instanceTimelines = instanceTimeLine;
         this.instanceStartTime = instanceStartTime;
         this.cost = totalCost;
-        this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
+        this.makespan = findMaxInstanceTime(instanceTimeLine);
 
         computeFitnessValue();
     }
