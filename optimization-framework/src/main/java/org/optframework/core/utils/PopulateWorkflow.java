@@ -25,18 +25,90 @@ public class PopulateWorkflow {
         Log.logger.info("Populates the workflow from Dax file");
 
         String workflowPath = "";
+        String name = "";
         Workflow workflow = null;
 
         if (workflow_id < 100){
             switch (workflow_id){
                 case 1:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_1000.xml";
+                    name = "Inspiral 1000";
                     break;
                 case 2:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
+                    name = "Inspiral 100";
                     break;
                 case 3:
+                    workflowPath = "resources/input/inputDAGfiles/Inspiral_50.xml";
+                    name = "Inspiral 50";
+                    break;
+                case 4:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
+                    name = "Inspiral 30";
+                    break;
+                case 10:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_1000.xml";
+                    name = "Montage 1000";
+                    break;
+                case 11:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_100.xml";
+                    name = "Montage 100";
+                    break;
+                case 12:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_50.xml";
+                    name = "Montage 50";
+                    break;
+                case 13:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_25.xml";
+                    name = "Montage 25";
+                    break;
+                case 20:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_1000.xml";
+                    name = "Sipht 1000";
+                    break;
+                case 21:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_100.xml";
+                    name = "Sipht 100";
+                    break;
+                case 22:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_60.xml";
+                    name = "Sipht 60";
+                    break;
+                case 23:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_30.xml";
+                    name = "Sipht 30";
+                    break;
+                case 30:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_997.xml";
+                    name = "Epigenomics 997";
+                    break;
+                case 31:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_100.xml";
+                    name = "Epigenomics 100";
+                    break;
+                case 32:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_46.xml";
+                    name = "Epigenomics 46";
+                    break;
+                case 33:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_24.xml";
+                    name = "Epigenomics 24";
+                    break;
+                case 40:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_1000.xml";
+                    name = "CyberShake 1000";
+                    break;
+                case 41:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_100.xml";
+                    name = "CyberShake 100";
+                    break;
+                case 42:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_50.xml";
+                    name = "CyberShake 50";
+                    break;
+                case 43:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_30.xml";
+                    name = "CyberShake 30";
                     break;
             }
 
@@ -51,6 +123,8 @@ public class PopulateWorkflow {
             workflow = dax.workflow;
             workflow.initBudget(budget);
             workflow.setDeadline(deadline);
+
+            Printer.printWorkflowName(name);
         }else {
             switch (workflow_id){
                 case 101:

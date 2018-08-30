@@ -158,4 +158,8 @@ public class Printer {
 
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
+
+    public static void printWorkflowName(String name){
+        Log.logger.info("Workflow "+ name + " imported!");
+    }
 }
