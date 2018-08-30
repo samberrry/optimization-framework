@@ -41,6 +41,54 @@ public class PopulateWorkflow {
                 case 4:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
                     break;
+                case 10:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_1000.xml";
+                    break;
+                case 11:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_100.xml";
+                    break;
+                case 12:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_50.xml";
+                    break;
+                case 13:
+                    workflowPath = "resources/input/inputDAGfiles/Montage_25.xml";
+                    break;
+                case 20:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_1000.xml";
+                    break;
+                case 21:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_100.xml";
+                    break;
+                case 22:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_60.xml";
+                    break;
+                case 23:
+                    workflowPath = "resources/input/inputDAGfiles/Sipht_30.xml";
+                    break;
+                case 30:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_997.xml";
+                    break;
+                case 31:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_100.xml";
+                    break;
+                case 32:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_46.xml";
+                    break;
+                case 33:
+                    workflowPath = "resources/input/inputDAGfiles/Epigenomics_24.xml";
+                    break;
+                case 40:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_1000.xml";
+                    break;
+                case 41:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_100.xml";
+                    break;
+                case 42:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_50.xml";
+                    break;
+                case 43:
+                    workflowPath = "resources/input/inputDAGfiles/CyberShake_30.xml";
+                    break;
             }
 
             if (workflowPath == ""){
