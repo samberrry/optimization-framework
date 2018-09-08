@@ -51,6 +51,9 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         xArray = new int[orderedJobList.size()];
         int yArray[] = new int[availableInstances.length];
+        for (int i = 0; i < availableInstances.length; i++) {
+            yArray[i] = -1;
+        }
 
         Instance instanceList[] = new Instance[availableInstances.length];
         for (int i = 0; i < availableInstances.length; i++) {
@@ -253,7 +256,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         int numberOfUsedInstances =0;
         for (int i = 0; i < yArray.length; i++) {
-            if (yArray[i] != 0){
+            if (yArray[i] != -1){
                 numberOfUsedInstances++;
             }
         }
