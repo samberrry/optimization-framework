@@ -121,7 +121,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
 
 //                long start = System.currentTimeMillis();
-                        brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
+//                        brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
 //                long stop = System.currentTimeMillis();
 //                Log.logger.info("brood local search: "+ (stop - start));
 
