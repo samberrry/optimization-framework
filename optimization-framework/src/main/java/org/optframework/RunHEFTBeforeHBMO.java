@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -57,6 +58,23 @@ public class RunHEFTBeforeHBMO {
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
         Solution heftSolution = heftAlgorithm.runAlgorithm();
+
+        /**
+         * Extension to the heft before hbmo algorithm
+         * */
+        Cloner cloner = new Cloner();
+        for (int i = 0; i < heftSolution.numberOfUsedInstances; i++) {
+            for (InstanceType type : InstanceType.values()){
+                Solution temp = cloner.deepClone(heftSolution);
+                temp.yArray[i] = type.getId();
+                temp.fitness();
+                if (temp.fitnessValue < heftSolution.fitnessValue && temp.cost <= Config.global.budget){
+                    heftSolution = temp;
+                }
+            }
+        }
+
+        Log.logger.info("Optimized Initial Solution makespan"+ heftSolution.makespan+ " cost: "+ heftSolution.cost);
 
         Log.logger.info("<<<<<<<<<<  HBMO Algorithm is started  >>>>>>>>>>>");
 
