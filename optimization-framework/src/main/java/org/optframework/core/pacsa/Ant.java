@@ -28,7 +28,7 @@ public class Ant extends RecursiveTask<List<Solution>> {
             Log.logger.info("An ant is started");
             //Simulated Annealing portion
             SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm();
-            saAlgorithm.setWorkflow(workflow);
+//            saAlgorithm.setWorkflow(workflow);
             solutionList.add(saAlgorithm.runAlgorithm());
             return solutionList;
         }else{

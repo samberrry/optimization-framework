@@ -1,26 +1,25 @@
 package org.optframework;
 
-import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
-import java.util.ArrayList;
+import org.cloudbus.spotsim.enums.AZ;
+import org.cloudbus.spotsim.enums.OS;
+import org.cloudbus.spotsim.enums.Region;
+import org.optframework.config.Config;
+import org.optframework.core.InstanceInfo;
+import org.optframework.core.Solution;
+import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class TestMain {
-    public static void main(String[] args) {
-//        SimProperties s = SimProperties.PRICING_HISTORY_MAP_DIR;
-//
-//        System.out.println(SimProperties.PRICING_HISTORY_MAP_DIR.getValue());
-//        System.out.println();
-//
-//        Dax2Workflow dax = new Dax2Workflow();
-//        dax.processDagFile(SimProperties.WORKFLOW_FILE_DAG.asString()
-//                , 1, 100,0);
-//
-//        Workflow workflow = dax.workflow;
-//        workflow.initBudget(1000);
-//        workflow.setDeadline(4000);
-
+    public static void main(String[] args) throws Exception{
 
         Workflow simpleWorkflow = new Workflow(6, 1000, 1000);
 
@@ -69,56 +68,26 @@ public class TestMain {
         simpleWorkflow.addEdge(wfD, wfF, 1);
         simpleWorkflow.addEdge(wfE, wfF, 0);
         simpleWorkflow.addEdge(wfC, wfF, 2);
-//
-//
+
         WorkflowDAG dag = simpleWorkflow.getWfDAG();
-//        WorkflowDAG dag = workflow.getWfDAG();
-//
-//        ArrayList<Integer> arrayList = dag.getFirstLevel();
-//
-//        ArrayList<Integer> nextArray = dag.getNextLevel(arrayList);
-//
-//        ArrayList<Integer> nextArray2 = dag.getNextLevel(nextArray);
-//
-//        ArrayList<Integer> nextArray3 = dag.getNextLevel(nextArray2);
-//
-//        ArrayList<Integer> nexetArray4 = dag.getNextLevel(nextArray3);
 
-//        dag.getFirstLevel()
-//        dag.getChildren();
-//        dag.getLastLevel();
-//        dag.getNode();
-//        dag.printDAG();
+        int a[] = {0,1,2,2,1,0};
+        int b[] = {8,5,6};
 
-        ArrayList<Job> jobArrayList = (ArrayList<Job>) simpleWorkflow.getJobList();
-//        Job job2 = jobArrayList.get(10);
-//        job2.setLength(550000);
-//        job2.setReqRunTime(550000);
-//
-//        Job job = dag.getCriticalParent(14);
-//        ArrayList<Integer> arrayList = dag.getParents(14);
-//
+        Config.initConfig();
+        org.cloudbus.cloudsim.Log.init("cloudsim.log");
+        org.cloudbus.spotsim.main.config.Config.load(null);
 
-        ArrayList<Integer> arrayList = dag.getFirstLevel();
+        org.optframework.core.Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        ArrayList<Integer> parents = dag.getParents(arrayList.get(0));
+        Solution solution = new Solution(workflow, instanceInfo,100);
+        solution.xArray = a;
+        solution.yArray = b;
 
-        int a =1;
+        solution.numberOfUsedInstances = 3;
 
-        Cloner cloner = new Cloner();
-        Workflow workflow = cloner.deepClone(simpleWorkflow);
-
-        workflow.setDeadline(123123123);
-        workflow.setBudget(987654);
-
-        ArrayList<Job> jobArrayList2 = (ArrayList<Job>) workflow.getJobList();
-        Job job2 = jobArrayList2.get(1);
-        job2.setCriticalPathWeight(23456);
-        job2.setLength(987654);
-
-
-
-//        ==============
+        solution.fitness();
 
     }
 }

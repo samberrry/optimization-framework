@@ -1,10 +1,9 @@
 package org.optframework.core;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.InstanceType;
 
 public class Beta {
-    public static double computerBetaValue(Workflow workflow, InstanceInfo instanceInfo[], int numberOfInstances){
+    public static double computeBetaValue(Workflow workflow, InstanceInfo instanceInfo[], int numberOfInstances){
         //solution with best makespan
         int bestCaseTasks[] = new int[workflow.getJobList().size()];
         int bestCaseInstances[] = new int[workflow.getJobList().size()];

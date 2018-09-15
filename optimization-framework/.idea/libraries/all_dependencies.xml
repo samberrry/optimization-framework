@@ -20,6 +20,7 @@
       <root url="jar://$PROJECT_DIR$/../dependencies/xpp3-1.1.6.jar!/" />
       <root url="jar://$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar!/" />
       <root url="jar://$PROJECT_DIR$/../dependencies/objenesis-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../dependencies/snakeyaml-1.17.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

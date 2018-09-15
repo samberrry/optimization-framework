@@ -1,0 +1,82 @@
+# to run different optimization algorithms change the 'algorithm' field in global setting
+#
+#========================================================================================
+#============================= ALGORITHM DESCRIPTION TABLE ==============================
+#========================================================================================
+# Value             Description
+#----------------------------------------------------------------------------------------
+# sa                Simulated annealing algorithm
+# hbmo              HoneyBee mating optimization algorithm with random initial solution
+# heft              Heterogeneous Earliest Finish Time algorithm that uses all best instances with a limited number of instances
+# hbmo-heft         Gets the number of available instances from HBMO algorithm and then runs the HEFT algorithm
+# heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
+# heft-example      The customized HEFT algorithm for the example in the HEFT paper
+#
+#
+#========================================================================================
+#============================== WORKFLOW ID MAPPER TABLE ================================
+#========================================================================================
+# Workflow ID             Description
+#----------------------------------------------------------------------------------------
+# 1                       Inspiral 1000
+# 2                       Inspiral 100
+# 3                       Inspiral 50
+# 4                       Inspiral 30
+# 10                      Montage 1000
+# 11                      Montage 100
+# 12                      Montage 50
+# 13                      Montage 25
+# 20                      Sipht 1000
+# 21                      Sipht 100
+# 22                      Sipht 60
+# 23                      Sipht 30
+# 30                      Epigenomics 997
+# 31                      Epigenomics 100
+# 32                      Epigenomics 46
+# 33                      Epigenomics 24
+# 40                      CyberShake 1000
+# 41                      CyberShake 100
+# 42                      CyberShake 50
+# 43                      CyberShake 30
+#
+# Key NOTES:
+# - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
+# - All of the algorithm's fitness are based on the HEFT algorithm
+# - Number of runs for the heft-before-hbmo algorithm is specified in hbmo section of the config
+#
+
+
+global:
+  algorithm: "hbmo"
+  workflow_id: 4
+  budget: 2.31
+  bandwidth: 100000
+  t_extra: -1
+  m_number: 100
+  task_length_coefficient: 60
+
+sa_algorithm:
+  start_temperature: 850
+  final_temperature: 0.1
+  cooling_factor: 0.8
+  force_cooling: no
+  equilibrium_point: 10
+  number_of_runs: 30
+
+honeybee_algorithm:
+  max_speed: 800
+  min_speed: 0.1
+  force_speed: no
+  sMin_division: 100
+  sMax_division: 10
+  cooling_factor: 0.95
+  number_of_threads: 4
+  spermatheca_size: 400
+# the generation number equals to number of iterations
+  generation_number: 150
+  neighborhood_ratio: 0.0
+  number_of_runs: 1
+# this toggle is used to switch between single mutation or mutation on every brood
+  full_mutation: no
+
+#antcolony_algorithm:

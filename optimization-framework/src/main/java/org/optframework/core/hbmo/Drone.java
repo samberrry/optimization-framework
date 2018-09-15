@@ -1,7 +1,7 @@
 package org.optframework.core.hbmo;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.core.InstanceInfo;
+import org.optframework.core.Workflow;
 
 public class Drone {
     Chromosome chromosome;

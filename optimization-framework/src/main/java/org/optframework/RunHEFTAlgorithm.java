@@ -1,35 +1,20 @@
 package org.optframework;
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.spotsim.enums.AZ;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.cloudbus.spotsim.main.config.Config;
-import org.cloudbus.spotsim.pricing.PriceRecord;
-import org.cloudbus.spotsim.pricing.SpotPriceHistory;
-import org.cloudbus.spotsim.pricing.db.PriceDB;
-import org.optframework.config.StaticProperties;
+import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
+import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
+import org.optframework.core.utils.Printer;
 
-public class RunHEFTAlgorithm implements StaticProperties {
+public class RunHEFTAlgorithm {
 
-    public static void main(String[] args) throws Exception{
-        Log.init();
+    public static final int M_NUMBER = Config.global.m_number;
 
-        Log.logger.info("<<<<<<<<< HEFT Algorithm is started >>>>>>>>>");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        Log.logger.info("Loads configs");
-        Config.load(null);
-
-        Workflow workflow = PopulateWorkflow.populateSimpleWorkflow(0.1, 0);
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + N_TYPES + " Number of tasks: "+ workflow.getJobList().size());
+    public static void runSingleHEFT(){
 
         /**
          * Assumptions:
@@ -37,58 +22,33 @@ public class RunHEFTAlgorithm implements StaticProperties {
          * Availability Zone: A
          * OS type: Linux System
          * */
-        InstanceInfo instanceInfo[] = populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        workflow.setBeta(Beta.computerBetaValue(workflow, instanceInfo, M_NUMBER));
-
-        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, M_NUMBER);
-
-        Solution solution = heftAlgorithm.runAlgorithm();
-
-        printSolution(solution, instanceInfo);
-    }
-
-    private static InstanceInfo[] populateInstancePrices(Region region , AZ az, OS os){
-        Log.logger.info("Loads spot prices history");
-        SpotPriceHistory priceTraces = PriceDB.getPriceTrace(region , az);
-        InstanceInfo info[] = new InstanceInfo[InstanceType.values().length];
-
-        for (InstanceType type: InstanceType.values()){
-            PriceRecord priceRecord = priceTraces.getNextPriceChange(type,os);
-            InstanceInfo instanceInfo = new InstanceInfo();
-            instanceInfo.setSpotPrice(priceRecord.getPrice());
-            instanceInfo.setType(type);
-
-            info[type.getId()] = instanceInfo;
-        }
-        return info;
-    }
-
-    private static void printSolution(Solution solution, InstanceInfo instanceInfo[]){
-        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
-
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
-            Log.logger.info("Requested time for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimes[i]);
+        /**
+         * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
+         * */
+        int totalInstances[] = new int[M_NUMBER];
+        for (int i = 0; i < M_NUMBER; i++) {
+            totalInstances[i] = 6;
         }
 
-        for (int i = 0; i < solution.instanceTimes.length; i++) {
-            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
-        }
+//        int totalInstances[] = new int[M_NUMBER * 9];
+//        int k = 0;
+//        for (int i = 0; i < M_NUMBER; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                totalInstances[k] = j;
+//                        k++;
+//            }
+//        }
 
-        String xArray = "";
-        for (int val : solution.xArray){
-            xArray += " " + String.valueOf(val);
-        }
-        Log.logger.info("Value of the X Array: "+ xArray);
+        Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
-        String yArray = "";
-        for (int i = 0; i < solution.numberOfUsedInstances; i++) {
-            yArray += " " + String.valueOf(solution.yArray[i]);
-        }
-        Log.logger.info("Value of the Y Array: "+ yArray);
+        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
-        Log.logger.info("Total Cost: " + solution.cost);
-        Log.logger.info("Makespan: " + solution.makespan);
-        Log.logger.info("Fitness Value: "+ solution.fitnessValue);
+        long start = System.currentTimeMillis();
+        Solution heftSolution = heftAlgorithm.runAlgorithm();
+        long stop = System.currentTimeMillis();
+
+        Printer.printSolution(heftSolution, instanceInfo, stop-start);
     }
 }

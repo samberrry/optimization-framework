@@ -1,16 +1,14 @@
 package org.optframework.core.heft;
 
-import org.cloudbus.cloudsim.util.workload.Job;
-import org.cloudbus.cloudsim.util.workload.Workflow;
+import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
-import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.config.Config;
 import org.optframework.core.*;
+import org.optframework.core.utils.TaskUtility;
 
-import java.util.*;
-
-/**
- * This is implementation for the Heterogeneous Earliest Finish Time algorithm
- * */
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class HEFTAlgorithm implements OptimizationAlgorithm {
 
@@ -18,132 +16,279 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
     InstanceInfo instanceInfo[];
 
-    int numberOfInstances;
+    List<Job> orderedJobList;
 
-    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
+    List<Job> originalJobList;
+
+    Cloner cloner = new Cloner();
+
+    int xArray[];
+
+    //this array is the y array from the hbmo algorithm with specified size
+    int availableInstances[];
+
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int availableInstances[]) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
-        this.numberOfInstances = numberOfInstances;
+        this.availableInstances = availableInstances;
+    }
+
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
+        this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
     }
 
     @Override
     public Solution runAlgorithm() {
+        originalJobList = workflow.getJobList();
+        orderedJobList = cloner.deepClone(originalJobList);
 
-        return null;
+        Collections.sort(orderedJobList, Job.rankComparator);
+        WorkflowDAG dag = workflow.getWfDAG();
+
+        double instanceTimeLine[] = new double[availableInstances.length];
+        boolean instanceUsed[] = new boolean[availableInstances.length];
+
+        xArray = new int[orderedJobList.size()];
+        int yArray[] = new int[availableInstances.length];
+
+        Instance instanceList[] = new Instance[availableInstances.length];
+        for (int i = 0; i < availableInstances.length; i++) {
+            instanceList[i] = new Instance();
+        }
+
+        Job firstJob = orderedJobList.get(0);
+        Job originalVersion = originalJobList.get(firstJob.getIntId());
+        double temp = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[availableInstances[0]].getType());
+        int tempInstance = 0;
+
+        //for the first task
+        for (int i = 1; i < availableInstances.length; i++) {
+            double exeTime = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[availableInstances[i]].getType());
+            if (exeTime < temp){
+                temp = exeTime;
+                tempInstance = i;
+            }
+        }
+
+        xArray[firstJob.getIntId()] = tempInstance;
+        yArray[tempInstance] = availableInstances[tempInstance];
+        instanceTimeLine[tempInstance] = temp;
+        instanceUsed[tempInstance] = true;
+
+        originalVersion.setFinishTime(instanceTimeLine[tempInstance]);
+
+        //for the rest of tasks
+        for (int i = 1; i < orderedJobList.size(); i++) {
+            Job job = orderedJobList.get(i);
+            double tempTaskFinishTime = 999999999999999999.0;
+            int tempInstanceId = -1;
+            boolean gapOccurred = false;
+            double endOfInstanceWaitTime = -99999999999999999.9;
+
+            //Info about the gap and the instance
+            boolean gapIsUsed = false;
+            int instanceGapId = -1;
+            int gapId = -1;
+            //
+
+            ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
+
+            //it is possible to have multiple start tasks without dependencies
+            for (int j = 0; j < availableInstances.length; j++) {
+                int maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId(), j);
+                Job maxParentJob;
+                double latestParentFinishTime = 0.0;
+
+                if (parentJobs.size() != 0){
+                    maxParentJob = originalJobList.get(maxParentId);
+                    latestParentFinishTime = maxParentJob.getFinishTime();
+                }
+
+                if (instanceList[j].gapList.size() > 0){
+                    Collections.sort(instanceList[j].gapList , Gap.gapComparator);
+                }
+
+                if (instanceList[j].gapList.size() >= 1 && parentJobs.size() != 0){
+                    int k =0;
+                    for (Gap gap: instanceList[j].gapList){
+                        if (latestParentFinishTime < gap.endTime){
+                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
+                            double taskExeTime;
+
+                            if (j == xArray[maxParentId]){
+                                taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                            }else {
+                                taskExeTime = TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType()) + tempCIJ;
+                            }
+
+                            double availableGapTime = gap.endTime - latestParentFinishTime;
+
+                            if (availableGapTime >= taskExeTime){
+                                double remainingTimeToStartGap = gap.startTime - latestParentFinishTime;
+                                double gapTaskFinishTime;
+
+                                if (remainingTimeToStartGap >= 0){
+                                    double timeToSendData = gap.startTime - latestParentFinishTime;
+                                    if (timeToSendData >= tempCIJ){
+                                        gapTaskFinishTime = gap.startTime + (taskExeTime - tempCIJ);
+                                    }else {
+                                        gapTaskFinishTime = gap.startTime + (taskExeTime - timeToSendData);
+                                    }
+                                }else {
+                                    gapTaskFinishTime = latestParentFinishTime + taskExeTime;
+                                }
+
+                                if (gapTaskFinishTime < tempTaskFinishTime){
+                                    tempTaskFinishTime = gapTaskFinishTime;
+                                    tempInstanceId = j;
+                                    gapIsUsed = true;
+                                    gapOccurred = false;
+                                    instanceGapId = j;
+                                    gapId = k;
+                                }
+                                break;
+                            }
+                            k++;
+                        }else {
+                            break;
+                        }
+                    }
+                }
+                if (parentJobs.size() == 0){
+                    double currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+
+                    if (currentFinishTime < tempTaskFinishTime){
+                        gapIsUsed = false;
+                        tempTaskFinishTime = currentFinishTime;
+                        tempInstanceId = j;
+                    }
+                }else {
+                    //check minimum task finish time for all of the current instances
+                    double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[j];
+
+                    if (waitingTime > 0 ){
+                        double currentTime = instanceTimeLine[j] + waitingTime;
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double cij = edge / (double)Config.global.bandwidth;
+                        double currentFinishTime;
+
+                        if (j == xArray[maxParentId]){
+                            currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                        }else {
+                            double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+
+                            if (timeToSendData >= cij){
+                                currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                            }else {
+                                currentFinishTime = currentTime + (cij - timeToSendData) + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                            }
+                        }
+
+                        if (currentFinishTime < tempTaskFinishTime){
+                            gapOccurred = true;
+                            endOfInstanceWaitTime = currentTime;
+                            tempTaskFinishTime = currentFinishTime;
+                            tempInstanceId = j;
+                            gapIsUsed = false;
+                        }
+                    }else {
+                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double cij = edge / (double)Config.global.bandwidth;
+                        double currentFinishTime;
+
+                        if (j == xArray[maxParentId]){
+                            currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                        }else {
+                            double timeToSendData = instanceTimeLine[j] - originalJobList.get(maxParentId).getFinishTime();
+
+                            if (timeToSendData >= cij){
+                                currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                            }else {
+                                currentFinishTime = instanceTimeLine[j] + (cij - timeToSendData) + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
+                            }
+                        }
+
+                        if (currentFinishTime < tempTaskFinishTime){
+                            tempTaskFinishTime = currentFinishTime;
+                            tempInstanceId = j;
+                            gapOccurred = false;
+                            gapIsUsed = false;
+                        }
+                    }
+                }
+            }
+            if (gapOccurred && instanceUsed[tempInstanceId]){
+                instanceList[tempInstanceId].hasGap = true;
+                Gap gap = new Gap(instanceTimeLine[tempInstanceId], endOfInstanceWaitTime);
+                instanceList[tempInstanceId].gapList.add(gap);
+            }
+            instanceUsed[tempInstanceId] = true;
+
+            if (gapIsUsed){
+                Gap gap = instanceList[instanceGapId].getGapList().get(gapId);
+                gap.startTime = tempTaskFinishTime;
+                if (gap.startTime >= gap.endTime){
+                    instanceList[instanceGapId].gapList.remove(gapId);
+                    Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
+                }else {
+                    gap.duration = gap.endTime - gap.startTime;
+                }
+            }else {
+                instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
+            }
+            originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
+            xArray[job.getIntId()] = tempInstanceId;
+            yArray[tempInstanceId] = availableInstances[tempInstanceId];
+        }
+
+        double maxTime = instanceTimeLine[0];
+        for (double time : instanceTimeLine){
+            if (time > maxTime){
+                maxTime = time;
+            }
+        }
+        Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
+
+        int numberOfUsedInstances =0;
+        for (int i = 0; i < yArray.length; i++) {
+            if (yArray[i] != 0){
+                numberOfUsedInstances++;
+            }
+        }
+
+        Log.logger.info("Number of used instances: "+ numberOfUsedInstances);
+
+        Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+        solution.numberOfUsedInstances = numberOfUsedInstances;
+        solution.xArray = xArray;
+        solution.yArray = yArray;
+        solution.fitness();
+        Log.logger.info("HEFT fitness:  " + solution.makespan);
+
+        return solution;
     }
 
-//    List<Job> getSortedJobsBasedOnWeight(Workflow workflow){
-//        if (workflow == null){
-//            Log.logger.warning("Invalid input");
-//            return null;
-//        }
-//
-//        double totalCost = 0D;
-//
-//        WorkflowDAG dag = workflow.getWfDAG();
-//        ArrayList<Integer> level = dag.getFirstLevel();
-//
-//        ArrayList<Job> jobList = (ArrayList<Job>) workflow.getJobList();
-//
-//        Map<Integer, ArrayList<ReadyTask>> instanceList = new HashMap();
-//
-////      Do this for the first level - First level may contain several tasks
-//        for (int jobId: level){
-//            int type = Beta.findFastestInstanceId();
-//            double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceInfo[type].getType());
-//
-//            if (!instanceList.containsKey(instanceId)){
-//                instanceList.put(instanceId, new ArrayList<ReadyTask>());
-//            }
-//            ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
-//            readyTaskList.add(new ReadyTask(jobId, exeTime));
-//        }
-//
-////      Computes maximum task's length and updates the instance times
-//        for (Integer instance : instanceList.keySet()){
-//            ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
-//            Collections.sort(readyTaskList);
-//
-//            for (ReadyTask readyTask : readyTaskList){
-//                instancesTimes[instance] += readyTask.exeTime;
-//                instanceTimeLine[instance] += readyTask.exeTime;
-//                instanceUsed[instance] = true;
-//                Job job = jobList.get(readyTask.jobId);
-//
-//                job.setExeTime(readyTask.exeTime);
-//                job.setWeight(readyTask.exeTime);
-//                job.setFinishTime(instanceTimeLine[instance]);
-//            }
-//        }
-//
-//        //Go to the second level
-//        level = dag.getNextLevel(level);
-//
-//        //Do this for the levels after the initial level
-//        while (level.size() != 0){
-//            instanceList = new HashMap<>();
-//
-//            /**
-//             * This 'for' does the following:
-//             * - finds max parent's finish time for every task in a level
-//             * - assigns all of them to an instance
-//             * - computes weights for all of the tasks in a level and make them ready to run on instance
-//             * */
-//            for (int jobId: level){
-//                int instanceId = this.xArray[jobId];
-//                int typeId = this.yArray[instanceId];
-//
-//                InstanceType instanceType = instanceInfo[typeId].getType();
-//                double exeTime = TaskUtility.executionTimeOnType(jobList.get(jobId), instanceType);
-//
-//                ArrayList<Integer> parentList = dag.getParents(jobId);
-//
-//                ArrayList<ParentTask> parentTaskList = new ArrayList<>();
-//                for (Integer parentId : parentList){
-//                    parentTaskList.add(new ParentTask(parentId , jobList.get(parentId).getFinishTime() , jobList.get(parentId).getEdge(jobId)/ instanceType.getBandwidth()));
-//                }
-//                ParentTask maxParent = findMaxParentFinishTimeWithCR(parentTaskList);
-//
-//                if (!instanceList.containsKey(instanceId)){
-//                    instanceList.put(instanceId, new ArrayList<ReadyTask>());
-//                }
-//                ArrayList<ReadyTask> readyTaskList = instanceList.get(instanceId);
-//
-//                readyTaskList.add(new ReadyTask(jobId,exeTime, maxParent.parentFinishTime, jobList.get(maxParent.parentId).getWeight() , maxParent.cr));
-//            }
-//
-////            It is time to compute the time for every instance
-//            for (Integer instance : instanceList.keySet()){
-//                ArrayList<ReadyTask> readyTaskList = instanceList.get(instance);
-//                Collections.sort(readyTaskList, ReadyTask.weightComparator);
-//
-//                for (ReadyTask readyTask : readyTaskList){
-//                    Job job = jobList.get(readyTask.jobId);
-//
-//                    if (!instanceUsed[instance]){
-//                        instanceUsed[instance] = true;
-//                        instancesTimes[instance] = readyTask.exeTime + readyTask.cr;
-//                        instanceTimeLine[instance] = readyTask.maxParentFinishTime;
-//                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
-//                    }else if (readyTask.maxParentFinishTime > instanceTimeLine[instance]){
-//                        double timeToWait = readyTask.maxParentFinishTime - instanceTimeLine[instance];
-//                        instancesTimes[instance] += (timeToWait + readyTask.exeTime + readyTask.cr);
-//
-//                        instanceTimeLine[instance] = readyTask.maxParentFinishTime + readyTask.exeTime + readyTask.cr;
-//                    }else{
-//                        instancesTimes[instance] += readyTask.exeTime + readyTask.cr;
-//                        instanceTimeLine[instance] += readyTask.exeTime + readyTask.cr;
-//                    }
-//
-//                    job.setExeTime(readyTask.exeTime);
-//                    job.setFinishTime(instanceTimeLine[instance]);
-//                    job.setWeight( readyTask.weight);
-//                }
-//            }
-//
-//            level = dag.getNextLevel(level);
-//        }
-//
-//        return null;
-//    }
+    int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId, int assignedInstanceId){
+        double tempValue = -1;
+        int tempId = -1;
+
+        for (int parentId : parentJobs){
+            double tempEdge = originalJobList.get(parentId).getEdge(jobId);
+            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
+            double maxJobStartTime;
+            if (assignedInstanceId == xArray[parentId]){
+                maxJobStartTime = originalJobList.get(parentId).getFinishTime();
+            }else {
+                maxJobStartTime = originalJobList.get(parentId).getFinishTime() + tempCIJ;
+            }
+
+            if (tempValue < maxJobStartTime){
+                tempValue = maxJobStartTime;
+                tempId = originalJobList.get(parentId).getIntId();
+            }
+        }
+        return tempId;
+    }
 }

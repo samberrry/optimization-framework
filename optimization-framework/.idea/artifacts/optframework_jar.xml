@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="optframework:jar">
+  <artifact type="jar" name="optframework:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/optframework_jar</output-path>
     <root id="archive" name="optframework.jar">
-      <element id="module-output" name="OptimizationFramework" />
       <element id="module-output" name="Cloudsim" />
+      <element id="module-output" name="OptimizationFramework" />
       <element id="module-output" name="Spotsim" />
       <element id="module-output" name="WorkflowSim" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar" path-in-jar="/" />
@@ -26,8 +26,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/xpp3-1.1.6.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/objenesis-2.6.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/snakeyaml-1.17.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
