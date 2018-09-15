@@ -59,6 +59,10 @@ public class RunHEFTBeforeHBMO {
 
         Solution heftSolution = heftAlgorithm.runAlgorithm();
 
+        heftSolution.yArray[0] = 4;
+
+        heftSolution.fitness();
+
         /**
          * Extension to the heft before hbmo algorithm
          * */
