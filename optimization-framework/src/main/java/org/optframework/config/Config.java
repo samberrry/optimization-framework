@@ -11,7 +11,7 @@ public class Config {
 
     public static HoneyBeeConfig honeybee_algorithm;
 
-    public static AntColonyConfig antcolony_algorithm;
+    public static PACSAConfig pacsa_algorithm;
 
     public static void initConfig(){
         ReadConfig readConfig = ReadConfig.readYaml();
@@ -19,7 +19,7 @@ public class Config {
         Config.global = readConfig.global;
         Config.sa_algorithm = readConfig.sa_algorithm;
         Config.honeybee_algorithm = readConfig.honeybee_algorithm;
-        Config.antcolony_algorithm = readConfig.antcolony_algorithm;
+        Config.pacsa_algorithm = readConfig.pacsa_algorithm;
         Log.logger.info("config file is read");
     }
 }

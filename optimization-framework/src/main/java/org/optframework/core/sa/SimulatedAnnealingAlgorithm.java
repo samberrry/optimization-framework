@@ -30,9 +30,6 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     public static final int M_NUMBER = Config.global.m_number;
 
-    public SimulatedAnnealingAlgorithm() {
-    }
-
     public SimulatedAnnealingAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
@@ -40,8 +37,6 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     @Override
     public Solution runAlgorithm(){
-        Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature + " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
-
         Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
 
         //Initializes the initial solution with random values
@@ -71,7 +66,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                     if (delta <= 0){
                         bestCurrent = randomNeighbor;
                         if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
-                            globalBest = cloner.deepClone(randomNeighbor);
+                            globalBest = randomNeighbor;
                         }
                     }else {
                         //Generate a uniform random value x in the range (0,1)

@@ -1,11 +1,15 @@
 package org.optframework;
 
-import org.cloudbus.cloudsim.util.workload.Job;
-import org.cloudbus.cloudsim.util.workload.Workflow;
-import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
-import org.cloudbus.spotsim.main.config.SimProperties;
-import org.optframework.core.Log;
+import org.cloudbus.spotsim.enums.AZ;
+import org.cloudbus.spotsim.enums.InstanceType;
+import org.cloudbus.spotsim.enums.OS;
+import org.cloudbus.spotsim.enums.Region;
+import org.optframework.config.Config;
+import org.optframework.core.*;
 import org.optframework.core.pacsa.PACSAOptimization;
+import org.optframework.core.utils.PopulateWorkflow;
+import org.optframework.core.utils.PreProcessor;
+import org.optframework.core.utils.Printer;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
@@ -13,81 +17,76 @@ import org.optframework.core.pacsa.PACSAOptimization;
  */
 
 public class RunPACSAAlgorithm {
+    public static final int M_NUMBER = Config.global.m_number;
 
     public static void runPACSA()
     {
-        PACSAOptimization pacsaOptimization = new PACSAOptimization(populateSimpleWorkflow(1000, 0));
+        Log.logger.info("<<<<<<<<< PACSA Algorithm is started >>>>>>>>>");
 
-//        PACSAOptimization saAlgorithm = new PACSAOptimization(populateWorkflowFromDax(1000, 0));
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
-        pacsaOptimization.runAlgorithm();
-    }
-
-    private static Workflow populateSimpleWorkflow(double budget, long deadline){
-        Log.logger.info("Populates the workflow from the simple workflow");
-
-        Workflow simpleWorkflow = new Workflow(6, 1000, 1000);
-
-        simpleWorkflow.initBudget(budget);
-        simpleWorkflow.setDeadline(deadline);
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         /**
-         * Defining a simple workflow A->B, A->C, B->D, B->E, D->F, E->F, C->F
+         * Assumptions:
+         * Region: europe
+         * Availability Zone: A
+         * OS type: Linux System
          * */
+        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        int taskID = 0;
+        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        int groupID = 1;
-        int userID = 1;
-        long submitTime = 0 ;
-        int numProc = 1;
+        OptimizationAlgorithm optimizationAlgorithm;
 
-        Job wfA = new Job(taskID, submitTime, 360 , userID, groupID, 360, numProc);
-        simpleWorkflow.createTask(wfA);
-        taskID++;
+        double fitnessValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
+        double costValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
 
-        Job wfB = new Job(taskID, submitTime, 1080 , userID, groupID, 1080, numProc);
-        simpleWorkflow.createTask(wfB);
-        taskID++;
+        optimizationAlgorithm = new PACSAOptimization(workflow, instanceInfo);
 
-        Job wfC = new Job(taskID, submitTime, 15360 , userID, groupID, 15360, numProc);
-        simpleWorkflow.createTask(wfC);
-        taskID++;
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
+            Printer.printSplitter();
+            Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-        Job wfD = new Job(taskID, submitTime, 1080 , userID, groupID, 1080, numProc);
-        simpleWorkflow.createTask(wfD);
-        taskID++;
+            long start = System.currentTimeMillis();
 
-        Job wfE = new Job(taskID, submitTime, 25140 , userID, groupID, 25140, numProc);
-        simpleWorkflow.createTask(wfE);
-        taskID++;
+            Solution solution = optimizationAlgorithm.runAlgorithm();
 
-        Job wfF = new Job(taskID, submitTime, 15360 , userID, groupID, 15360, numProc);
-        simpleWorkflow.createTask(wfF);
-        taskID++;
+            fitnessValueList[i] = solution.fitnessValue;
+            costValueList[i] = solution.cost;
 
-        simpleWorkflow.addEdge(wfA, wfB, 0);
-        simpleWorkflow.addEdge(wfA, wfC, 0);
-        simpleWorkflow.addEdge(wfB, wfD, 2);
-        simpleWorkflow.addEdge(wfB, wfE, 2);
-        simpleWorkflow.addEdge(wfD, wfF, 1);
-        simpleWorkflow.addEdge(wfE, wfF, 0);
-        simpleWorkflow.addEdge(wfC, wfF, 2);
+            long stop = System.currentTimeMillis();
 
-        return simpleWorkflow;
-    }
+            Printer.lightPrintSolution(solution,stop-start);
+        }
 
-    private static Workflow populateWorkflowFromDax(double budget, long deadline) {
-        Log.logger.info("Populates the workflow from Dax file");
+        double sum = 0.0, costSum = 0.0;
+        double max = 0.0, costMax = 0.0;
+        double min = 999999999999.9, costMin = 99999999.9;
+        for (double value : fitnessValueList){
+            sum += value;
+            if (value > max){
+                max = value;
+            }
+            if (value < min){
+                min = value;
+            }
+        }
 
-        Dax2Workflow dax = new Dax2Workflow();
-        dax.processDagFile(SimProperties.WORKFLOW_FILE_DAG.asString()
-                , 1, 100,0);
+        for (double value : costValueList){
+            costSum += value;
+            if (value > costMax){
+                costMax = value;
+            }
+            if (value < costMin){
+                costMin = value;
+            }
+        }
 
-        Workflow workflow = dax.workflow;
-        workflow.initBudget(budget);
-        workflow.setDeadline(deadline);
+        Printer.printSplitter();
+        Log.logger.info("Average Fitness value: " + sum / Config.pacsa_algorithm.getNumber_of_runs());
+        Log.logger.info("Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs());
 
-        return workflow;
+        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
     }
 }

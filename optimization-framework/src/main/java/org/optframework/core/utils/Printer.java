@@ -158,4 +158,8 @@ public class Printer {
 
         Log.logger.info("Algorithm runtime: "+ converted + " "+ timePrefix + " ["+time+"]");
     }
+
+    public static void printSAInfo(){
+        Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature + " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
+    }
 }

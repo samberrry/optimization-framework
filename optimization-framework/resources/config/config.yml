@@ -11,7 +11,7 @@
 # hbmo-heft         Gets the number of available instances from HBMO algorithm and then runs the HEFT algorithm
 # heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
-#
+# pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 #
 #========================================================================================
 #============================== WORKFLOW ID MAPPER TABLE ================================
@@ -78,4 +78,6 @@ honeybee_algorithm:
 # this toggle is used to switch between single mutation or mutation on every brood
   full_mutation: no
 
-#antcolony_algorithm:
+pacsa_algorithm:
+  number_of_ants: 12
+  number_of_runs: 1

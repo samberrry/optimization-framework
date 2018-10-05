@@ -1,14 +1,12 @@
 package org.optframework.core.pacsa;
 
 
-import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.optframework.config.Config;
-import org.optframework.core.Log;
-import org.optframework.core.OptimizationAlgorithm;
-import org.optframework.core.Solution;
+import org.optframework.core.*;
+import org.optframework.core.utils.Printer;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 
 /**
  * Implementation for Parallel Ant Colony leveraged by Simulated Annealing
@@ -21,43 +19,69 @@ import java.util.concurrent.ForkJoinPool;
 
 public class PACSAOptimization implements OptimizationAlgorithm {
 
-    Solution solution;
+    Solution globalBestSolution;
 
     double pheromoneTrail[][];
 
-    static Workflow workflow;
+    private Workflow workflow;
 
-    public static final int M_NUMBER = Config.global.m_number;
+    private InstanceInfo instanceInfo[];
 
-    public PACSAOptimization(Workflow workflow) {
+    private List<Solution> antSolutions = new ArrayList<>();
+
+    public PACSAOptimization(Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
+        /**
+         * Pheromone trail structure:
+         * rows = tasks
+         * columns = number of instances + number of different types of instances
+         * */
+        pheromoneTrail = new double[workflow.getNumberTasks()][Config.global.m_number + instanceInfo.length];
     }
 
     @Override
     public Solution runAlgorithm() {
-        Log.logger.info("PACSA Optimization Algorithm is started");
-        ForkJoinPool pool = new ForkJoinPool();
+        Printer.printSAInfo();
 
-        //Initializes the size of the pheromone trail
-        Log.logger.info("Initializes Pheromone Trail with the size of: ["+workflow.getJobList().size()+"]["+M_NUMBER+"] Number of workflow tasks: "+workflow.getJobList().size()+ " Maximum number of instances: "+ M_NUMBER);
+        for (int i = 0; i < 1; i++) {
+            runAnts();
+            //TODO: update the best solution
+            //TODO: increment iteration counter
+            //TODO: update pheromone trail
+            //TODO: update cooling factor
+            //TODO: update initial temperature
 
-        pheromoneTrail = new double[workflow.getJobList().size()][M_NUMBER];
-
-        for (int i = 0; i < 10; i++) {
-            Log.logger.info("Iteration " + i + 1 + " is started with "+ 16 + " ants");
-            Ant ant = new Ant(16);
-            ant.workflow = workflow;
-            List<Solution> solutionList  =  pool.invoke(ant);
-
-            // Print results
-            //Getting feedback and update pheromone trail
-
-            Log.logger.info("End of iteration "+ i + 1);
         }
 
-        Log.logger.info("End of PACSA Algorithm");
 
-        return null;
+
+        return globalBestSolution;
+    }
+
+    void runAnts(){
+        Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
+        List<Solution> solutionList = new ArrayList<>();
+
+        for (int itr = 0; itr < Config.pacsa_algorithm.getNumber_of_ants(); itr++) {
+            solutionList.add(itr, new Solution(workflow, instanceInfo, Config.global.m_number));
+            threadList[itr] = new Thread(() -> {
+
+            });
+
+        }
+
+        for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+            threadList[i].start();
+        }
+
+        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_threads(); i++) {
+            try {
+                threadList[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

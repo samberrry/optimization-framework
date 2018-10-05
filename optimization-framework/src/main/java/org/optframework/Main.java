@@ -42,6 +42,9 @@ public class Main {
             case "heft-example":
                 RunHEFTExample.runHEFTExample();
                 break;
+            case "pacsa":
+                RunPACSAAlgorithm.runPACSA();
+                break;
         }
     }
 }
