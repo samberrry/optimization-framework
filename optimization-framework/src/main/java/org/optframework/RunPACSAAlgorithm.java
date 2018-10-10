@@ -6,6 +6,7 @@ import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
 import org.optframework.core.*;
+import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
@@ -23,10 +24,6 @@ public class RunPACSAAlgorithm {
     {
         Log.logger.info("<<<<<<<<< PACSA Algorithm is started >>>>>>>>>");
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
-
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
-
         /**
          * Assumptions:
          * Region: europe
@@ -34,6 +31,39 @@ public class RunPACSAAlgorithm {
          * OS type: Linux System
          * */
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+
+        int maxECUId = -1;
+        double maxECU = 0.0;
+
+        for (InstanceType type : InstanceType.values()){
+            if (type.getEcu() > maxECU){
+                maxECUId = type.getId();
+                maxECU = type.getEcu();
+            }
+        }
+
+        /**
+         * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
+         * */
+        int totalInstances[] = new int[M_NUMBER];
+        for (int i = 0; i < M_NUMBER; i++) {
+            totalInstances[i] = maxECUId;
+        }
+
+        Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
+
+        Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
+
+        heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, M_NUMBER));
+
+        HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
+        Solution heftSolution = heftAlgorithm.runAlgorithm();
+        heftSolution.fitness();
+
+
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 

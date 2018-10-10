@@ -12,6 +12,8 @@ import java.util.*;
  */
 public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
+    Solution initialSolution;
+
     double temp;
 
     Set<Solution> visited_solutions = new HashSet<>();
@@ -30,17 +32,19 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     public static final int M_NUMBER = Config.global.m_number;
 
-    public SimulatedAnnealingAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
+    public SimulatedAnnealingAlgorithm(Solution initialSolution, Workflow workflow, InstanceInfo[] instanceInfo) {
+        this.initialSolution = initialSolution;
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
     }
 
     @Override
     public Solution runAlgorithm(){
-        Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
-
-        //Initializes the initial solution with random values
-        initialSolution.generateRandomSolution(workflow);
+        if (initialSolution == null){
+            initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
+            //Initializes the initial solution with random values
+            initialSolution.generateRandomSolution(workflow);
+        }
 
         temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;

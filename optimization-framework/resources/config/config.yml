@@ -47,7 +47,7 @@
 
 
 global:
-  algorithm: "heft-before-hbmo"
+  algorithm: "pacsa"
   workflow_id: 2
   budget: 20.0
   bandwidth: 100000
@@ -81,3 +81,9 @@ honeybee_algorithm:
 pacsa_algorithm:
   number_of_ants: 12
   number_of_runs: 1
+#  cf: cooling factor
+  cf_increase_ratio: 1.2
+#  temp: temperature
+  temp_decrease_ratio: 0.9
+  equilibrium_point: 1.5
+  evaporation_factor: 1.6
