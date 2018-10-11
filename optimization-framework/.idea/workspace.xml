@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54d186c5-e239-440c-960b-54a7acfa8d54" name="Default" comment="``">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PACSAOptimization.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PACSAOptimization.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="205" column="42" selection-start-line="205" selection-start-column="42" selection-end-line="205" selection-end-column="42" />
+            <state relative-caret-position="-69">
+              <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#generateRandomInitialSolutionList#0;class#PACSAOptimization#0" />
@@ -35,24 +31,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="988">
-              <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
+            <state relative-caret-position="-787">
+              <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
               <folding>
-                <element signature="method#Solution#0;class#Solution#0" />
                 <element signature="method#generateRandomNeighborSolution#0;class#Solution#0" />
-                <element signature="method#solutionMapping#0;class#Solution#0" />
                 <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
                 <element signature="method#generateRandomSolution#0;class#Solution#0" />
                 <element signature="docComment;method#fitness#0;class#Solution#0" />
@@ -64,6 +49,15 @@
                 <element signature="method#equals#0;class#Solution#0" />
                 <element signature="method#hashCode#0;class#Solution#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1326">
+              <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -185,9 +179,9 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/PACSAConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/ReadConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" />
         <option value="$PROJECT_DIR$/resources/config/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
       </list>
     </option>
   </component>
@@ -207,7 +201,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="234" />
     <option name="y" value="78" />
     <option name="width" value="1260" />
@@ -537,7 +531,7 @@
       <workItem from="1536837539411" duration="31166000" />
       <workItem from="1537021150433" duration="594000" />
       <workItem from="1537024166758" duration="1299000" />
-      <workItem from="1539192133114" duration="15641000" />
+      <workItem from="1539192133114" duration="26646000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -564,7 +558,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1091303000" />
+    <option name="totallyTimeSpent" value="1102308000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -576,7 +570,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1366" height="743" extended-state="6" />
+    <frame x="0" y="25" width="1366" height="743" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -593,14 +587,14 @@
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.5560821" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3169839" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3169839" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="4" sideWeight="0.5053333" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49921876" weight="0.43759874" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49921876" weight="0.57345974" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -692,7 +686,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="436" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java</url>
+          <line>207</line>
+          <properties />
+          <option name="timeStamp" value="436" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java</url>
+          <line>212</line>
+          <properties />
+          <option name="timeStamp" value="441" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="443" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1092,43 +1100,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="205" column="42" selection-start-line="205" selection-start-column="42" selection-end-line="205" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#generateRandomInitialSolutionList#0;class#PACSAOptimization#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
           <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="988">
-          <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
-          <folding>
-            <element signature="method#Solution#0;class#Solution#0" />
-            <element signature="method#generateRandomNeighborSolution#0;class#Solution#0" />
-            <element signature="method#solutionMapping#0;class#Solution#0" />
-            <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
-            <element signature="method#generateRandomSolution#0;class#Solution#0" />
-            <element signature="docComment;method#fitness#0;class#Solution#0" />
-            <element signature="method#fitness#0;class#Solution#0" />
-            <element signature="method#getJobWithMaxParentFinishTimeWithCij#0;class#Solution#0" />
-            <element signature="method#computeFitnessValue#0;class#Solution#0" />
-            <element signature="method#saving#0;class#Solution#0" />
-            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
-            <element signature="method#equals#0;class#Solution#0" />
-            <element signature="method#hashCode#0;class#Solution#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1148,10 +1123,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-787">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+          <folding>
+            <element signature="method#generateRandomNeighborSolution#0;class#Solution#0" />
+            <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
+            <element signature="method#generateRandomSolution#0;class#Solution#0" />
+            <element signature="docComment;method#fitness#0;class#Solution#0" />
+            <element signature="method#fitness#0;class#Solution#0" />
+            <element signature="method#getJobWithMaxParentFinishTimeWithCij#0;class#Solution#0" />
+            <element signature="method#computeFitnessValue#0;class#Solution#0" />
+            <element signature="method#saving#0;class#Solution#0" />
+            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
+            <element signature="method#equals#0;class#Solution#0" />
+            <element signature="method#hashCode#0;class#Solution#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
+        <state relative-caret-position="1326">
           <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#generateRandomInitialSolutionList#0;class#PACSAOptimization#0" />
+          </folding>
         </state>
       </provider>
     </entry>
