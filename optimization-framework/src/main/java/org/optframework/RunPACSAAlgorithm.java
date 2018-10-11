@@ -72,7 +72,7 @@ public class RunPACSAAlgorithm {
         double fitnessValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
         double costValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
 
-        optimizationAlgorithm = new PACSAOptimization(workflow, instanceInfo);
+        optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();

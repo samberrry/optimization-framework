@@ -45,11 +45,11 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             //Initializes the initial solution with random values
             initialSolution.generateRandomSolution(workflow);
         }
+        initialSolution.fitness();
 
         temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;
         globalBest = cloner.deepClone(bestCurrent);
-        bestCurrent.fitness();
 
         //LOOPs at a fixed temperature:
         while (temp >= Config.sa_algorithm.final_temperature){
@@ -61,33 +61,26 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                 //Generates a random neighbor solution
                 randomNeighbor.generateRandomNeighborSolution(workflow);
 
-                if (!visited_solutions.contains(randomNeighbor)){
-                    visited_solutions.add(randomNeighbor);
+                randomNeighbor.fitness();
 
-                    randomNeighbor.fitness();
-
-                    double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
-                    if (delta <= 0){
-                        bestCurrent = randomNeighbor;
-                        if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
-                            globalBest = randomNeighbor;
-                        }
-                    }else {
-                        //Generate a uniform random value x in the range (0,1)
-                        Random r = new Random();
-                        double random = r.nextDouble();
-
-                        if (random < bolzmanDist(delta, temp)){
-                            bestCurrent = randomNeighbor;
-                        }
+                double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
+                if (delta <= 0){
+                    bestCurrent = randomNeighbor;
+                    if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
+                        globalBest = randomNeighbor;
                     }
-                }else{
-                    updateVisitedField(randomNeighbor);
+                }else {
+                    //Generate a uniform random value x in the range (0,1)
+                    Random r = new Random();
+                    double random = r.nextDouble();
+
+                    if (random < bolzmanDist(delta, temp)){
+                        bestCurrent = randomNeighbor;
+                    }
                 }
             }
             temp = temp * Config.sa_algorithm.cooling_factor;
         }
-        Log.logger.info("loop counter: "+ counter);
         if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
             globalBest = bestCurrent;
             return globalBest;
@@ -116,28 +109,22 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                 //GENERATES random neighbor
                 Solution randomNeighbor = new Solution(workflow, instanceInfo, M_NUMBER);
                 randomNeighbor.generateRandomSolution(workflow);
-                if (!visited_solutions.contains(randomNeighbor)){
-                    visited_solutions.add(randomNeighbor);
+                randomNeighbor.fitness();
 
-                    randomNeighbor.fitness();
-
-                    double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
-                    if (delta <= 0){
-                        bestCurrent = randomNeighbor;
-                        if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
-                            globalBest = randomNeighbor;
-                        }
-                    }else {
-                        //Generate a uniform random value x in the range (0,1)
-                        Random r = new Random();
-                        double random = r.nextDouble();
-
-                        if (random < bolzmanDist(delta, temp)){
-                            bestCurrent = randomNeighbor;
-                        }
+                double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
+                if (delta <= 0){
+                    bestCurrent = randomNeighbor;
+                    if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
+                        globalBest = randomNeighbor;
                     }
-                }else{
-                    updateVisitedField(randomNeighbor);
+                }else {
+                    //Generate a uniform random value x in the range (0,1)
+                    Random r = new Random();
+                    double random = r.nextDouble();
+
+                    if (random < bolzmanDist(delta, temp)){
+                        bestCurrent = randomNeighbor;
+                    }
                 }
             }
             temp = temp * Config.sa_algorithm.cooling_factor;
@@ -147,14 +134,6 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             return globalBest;
         }else {
             return bestCurrent;
-        }
-    }
-
-    void updateVisitedField(Solution solution){
-        for (Solution temp: visited_solutions){
-            if (temp.equals(solution)){
-                temp.visited ++;
-            }
         }
     }
 
