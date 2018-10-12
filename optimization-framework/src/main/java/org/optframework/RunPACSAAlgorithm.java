@@ -60,6 +60,9 @@ public class RunPACSAAlgorithm {
         Solution heftSolution = heftAlgorithm.runAlgorithm();
         heftSolution.fitness();
 
+        if (Config.pacsa_algorithm.m_number_from_heft){
+            Config.global.m_number = heftSolution.numberOfUsedInstances;
+        }
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 

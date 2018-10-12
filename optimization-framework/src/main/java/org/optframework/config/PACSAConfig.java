@@ -7,6 +7,7 @@ public class PACSAConfig {
     public double temp_decrease_ratio;
     public double equilibrium_point;
     public double evaporation_factor;
+    public boolean m_number_from_heft;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -54,5 +55,13 @@ public class PACSAConfig {
 
     public void setEvaporation_factor(double evaporation_factor) {
         this.evaporation_factor = evaporation_factor;
+    }
+
+    public boolean isM_number_from_heft() {
+        return m_number_from_heft;
+    }
+
+    public void setM_number_from_heft(boolean m_number_from_heft) {
+        this.m_number_from_heft = m_number_from_heft;
     }
 }

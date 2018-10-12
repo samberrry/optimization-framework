@@ -52,6 +52,7 @@ global:
   budget: 20.0
   bandwidth: 100000
   t_extra: -1
+#  M number: maximum number of instances used during workflow scheduling
   m_number: 100
 
 sa_algorithm:
@@ -87,3 +88,4 @@ pacsa_algorithm:
   temp_decrease_ratio: 0.9
   equilibrium_point: 1.5
   evaporation_factor: 1.6
+  m_number_from_heft: yes
