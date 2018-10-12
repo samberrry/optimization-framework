@@ -80,12 +80,12 @@ honeybee_algorithm:
   full_mutation: no
 
 pacsa_algorithm:
-  number_of_ants: 12
+  number_of_ants: 16
   number_of_runs: 1
 #  cf: cooling factor
-  cf_increase_ratio: 1.2
-#  temp: temperature
-  temp_decrease_ratio: 0.9
-  equilibrium_point: 1.5
-  evaporation_factor: 1.6
+  cf_increase_ratio: 1.004
+# temp_decrease_ratio: intensification rate
+  temp_decrease_ratio: 0.95
+  equilibrium_point: 0.99
+  evaporation_factor: 0.9
   m_number_from_heft: yes

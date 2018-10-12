@@ -66,6 +66,8 @@ public class RunPACSAAlgorithm {
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
+        computeCoolingFactorForSA(workflow.getJobList().size());
+
         Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
@@ -121,5 +123,15 @@ public class RunPACSAAlgorithm {
         Log.logger.info("Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs());
 
         Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+    }
+
+    static void computeCoolingFactorForSA(int numberOfTasks){
+        if (!Config.sa_algorithm.force_cooling){
+            if (numberOfTasks >= 10){
+                Config.sa_algorithm.cooling_factor = 1 - 1 / (double)numberOfTasks;
+            }else {
+                Config.sa_algorithm.cooling_factor = 0.9;
+            }
+        }
     }
 }
