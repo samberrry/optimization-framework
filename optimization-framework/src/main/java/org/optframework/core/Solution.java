@@ -445,7 +445,7 @@ public class Solution {
 //       Now we have exe time for each instance
         for (int i = 0; i < instanceTimes.length; i++) {
             double theHour = instanceTimes[i]/3600D;
-            if (theHour < 1D){
+            if (theHour!= 0 && theHour < 1D){
                 theHour = 1D;
             }
             totalCost += theHour * instanceInfo[this.yArray[i]].spotPrice;

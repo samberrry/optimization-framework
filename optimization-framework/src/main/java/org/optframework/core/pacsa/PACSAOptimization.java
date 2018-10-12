@@ -30,7 +30,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     private Workflow workflow;
 
     private InstanceInfo instanceInfo[];
-    int numberOfCurrentUsedInstances;
+//    int numberOfCurrentUsedInstances;
 
     public PACSAOptimization(double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
@@ -79,8 +79,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     globalBestSolution = bestCurrentSolution;
                 }
             }
-
-            numberOfCurrentUsedInstances = bestCurrentSolution.numberOfUsedInstances;
 
             //The best current solution (found in this iteration) updates the pheromone trail
             for (int k = 0; k < workflow.getNumberTasks(); k++) {
@@ -159,10 +157,10 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         int maxInstances = -1;
 
         for (int k = 0; k < workflow.getNumberTasks(); k++) {
-            double xProbability[] = new double[numberOfCurrentUsedInstances+1];
-            for (int j = 0; j < numberOfCurrentUsedInstances+1; j++) {
+            double xProbability[] = new double[Config.global.m_number];
+            for (int j = 0; j < Config.global.m_number; j++) {
                 double pheromoneSum = 0;
-                for (int i = 0; i < numberOfCurrentUsedInstances+1; i++) {
+                for (int i = 0; i < Config.global.m_number; i++) {
                     pheromoneSum += pheromoneTrailForX[i][k];
                 }
                 xProbability[j] = (pheromoneTrailForX[j][k] / pheromoneSum);
@@ -170,7 +168,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             double randomX = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
-            for (int i = 0; i < numberOfCurrentUsedInstances+1; i++) {
+            for (int i = 0; i < Config.global.m_number; i++) {
                 probabilitySumTemp += xProbability[i];
                 if (probabilitySumTemp > randomX){
                     selectedInstance = i;
@@ -183,14 +181,14 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
         }
 
-        for (int k = 0; k < maxInstances+1; k++) {
+        for (int instanceId: generatedXArray){
             double yProbability[] = new double[instanceInfo.length];
             for (int j = 0; j < instanceInfo.length; j++) {
                 double pheromoneSum = 0;
                 for (int i = 0; i < instanceInfo.length; i++) {
-                    pheromoneSum += pheromoneTrailForY[i][k];
+                    pheromoneSum += pheromoneTrailForY[i][instanceId];
                 }
-                yProbability[j] = (pheromoneTrailForY[j][k] / pheromoneSum);
+                yProbability[j] = (pheromoneTrailForY[j][instanceId] / pheromoneSum);
             }
             double randomY = rand.nextDouble();
             double probabilitySumTemp = 0;
@@ -202,7 +200,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     break;
                 }
             }
-            generatedYArray[k] = selectedInstance;
+            generatedYArray[instanceId] = selectedInstance;
         }
 
         Solution solution = new Solution(workflow, instanceInfo, maxInstances + 1);

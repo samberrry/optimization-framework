@@ -345,15 +345,15 @@ public class PopulateWorkflow {
         long submitTime = 0 ;
         int numProc = 1;
 
-        Job wfA = new Job(taskID, submitTime, 3000 , userID, groupID, 3000, numProc);
+        Job wfA = new Job(taskID, submitTime, 100 , userID, groupID, 100, numProc);
         simpleWorkflow.createTask(wfA);
         taskID++;
 
-        Job wfB = new Job(taskID, submitTime, 10000 , userID, groupID, 10000, numProc);
+        Job wfB = new Job(taskID, submitTime, 30 , userID, groupID, 30, numProc);
         simpleWorkflow.createTask(wfB);
         taskID++;
 
-        Job wfC = new Job(taskID, submitTime, 50000 , userID, groupID, 50000, numProc);
+        Job wfC = new Job(taskID, submitTime, 50 , userID, groupID, 50, numProc);
         simpleWorkflow.createTask(wfC);
         taskID++;
 
