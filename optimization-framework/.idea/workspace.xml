@@ -5,6 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/config/config.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -20,14 +23,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PACSAOptimization.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
+      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3493">
-              <caret line="198" column="41" lean-forward="true" selection-start-line="198" selection-start-column="41" selection-end-line="198" selection-end-column="41" />
+            <state relative-caret-position="11">
+              <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#generateRandomInitialSolutionList#0;class#PACSAOptimization#0" />
+                <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
+                <element signature="method#getJobWithMaxParentFinishTimeWithCij#0;class#Solution#0" />
+                <element signature="method#computeFitnessValue#0;class#Solution#0" />
+                <element signature="method#saving#0;class#Solution#0" />
+                <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
+                <element signature="e#19503#19504#0" expanded="true" />
+                <element signature="e#19528#19529#0" expanded="true" />
+                <element signature="e#19561#19562#0" expanded="true" />
+                <element signature="e#19589#19590#0" expanded="true" />
+                <element signature="method#equals#0;class#Solution#0" />
+                <element signature="method#hashCode#0;class#Solution#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimulatedAnnealingAlgorithm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-28">
+              <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
+              <folding>
+                <element signature="method#runAlgorithWithRandomSolution#0;class#SimulatedAnnealingAlgorithm#0" />
+                <element signature="e#5152#5153#0" expanded="true" />
+                <element signature="e#5183#5184#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,8 +62,8 @@
       <file leaf-file-name="RunPACSAAlgorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
+            <state relative-caret-position="81">
+              <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,25 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="86" column="43" lean-forward="true" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimulatedAnnealingAlgorithm.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="81" column="61" selection-start-line="81" selection-start-column="61" selection-end-line="81" selection-end-column="61" />
-              <folding>
-                <element signature="method#runAlgorithWithRandomSolution#0;class#SimulatedAnnealingAlgorithm#0" />
-                <element signature="e#5152#5153#0" expanded="true" />
-                <element signature="e#5183#5184#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
             </state>
           </provider>
         </entry>
@@ -80,10 +92,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mutation</find>
-      <find>M_NUMBER</find>
-      <find>m3.xlarge</find>
-      <find>InstanceType</find>
       <find>m1.small</find>
       <find>m3.medium</find>
       <find>max</find>
@@ -110,6 +118,10 @@
       <find>3</find>
       <find>force_cooling</find>
       <find>coolin</find>
+      <find>M_NUMBER</find>
+      <find>instanceList</find>
+      <find>numberOfUsedInstances</find>
+      <find>mapping</find>
     </findStrings>
     <replaceStrings>
       <replace>SAParameters</replace>
@@ -121,9 +133,12 @@
       <replace>Long</replace>
       <replace>getEcu</replace>
       <replace />
+      <replace>Config.global.m_number</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa</dir>
+      <dir>$PROJECT_DIR$/src/main/java/org/optframework/core/sa</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -178,16 +193,16 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/AntColonyConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/ReadConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/PopulateWorkflow.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optframework/config/PACSAConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" />
         <option value="$PROJECT_DIR$/resources/config/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java" />
       </list>
     </option>
   </component>
@@ -207,7 +222,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="234" />
     <option name="y" value="78" />
     <option name="width" value="1260" />
@@ -537,7 +552,7 @@
       <workItem from="1536837539411" duration="31166000" />
       <workItem from="1537021150433" duration="594000" />
       <workItem from="1537024166758" duration="1299000" />
-      <workItem from="1539192133114" duration="37029000" />
+      <workItem from="1539192133114" duration="49206000" />
     </task>
     <task id="LOCAL-00001" summary="reshapes the structure of the optimization framework">
       <created>1522835563200</created>
@@ -564,7 +579,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1112691000" />
+    <option name="totallyTimeSpent" value="1124868000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -589,11 +604,11 @@
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.328594" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4953125" weight="0.5655608" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4953125" weight="0.6666667" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4984375" weight="0.5560821" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3169839" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49466667" visible="true" weight="0.3169839" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328594" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -601,7 +616,7 @@
       <window_info id="UI Designer" order="3" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Favorites" order="6" sideWeight="0.5053333" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49921876" weight="0.5371248" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49921876" weight="0.63981044" />
       <window_info anchor="bottom" id="JRebel Executor" order="13" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -657,7 +672,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="459" />
+      <option name="time" value="517" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -674,6 +689,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>M_NUMBER</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>pheromoneTrailForX</expression-string>
         <language-id>JAVA</language-id>
@@ -719,21 +739,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>queen</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithmWithFullMutation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-91">
-          <caret line="42" column="105" selection-start-line="42" selection-start-column="105" selection-end-line="42" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../simulator/spotsim/src/org/cloudbus/spotsim/pricing/PriceRecord.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -967,13 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="162" column="294" selection-start-line="162" selection-start-column="294" selection-end-line="162" selection-end-column="294" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/config/ReadConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -994,20 +995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTBeforeHBMO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/hbmo/HBMOAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-356">
@@ -1019,25 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="713">
           <caret line="354" lean-forward="true" selection-start-line="354" selection-end-line="354" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="446" column="52" lean-forward="true" selection-start-line="446" selection-start-column="52" selection-end-line="446" selection-end-column="52" />
-          <folding>
-            <element signature="method#generateRandomNeighborSolution#0;class#Solution#0" />
-            <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
-            <element signature="method#generateRandomSolution#0;class#Solution#0" />
-            <element signature="docComment;method#fitness#0;class#Solution#0" />
-            <element signature="method#getJobWithMaxParentFinishTimeWithCij#0;class#Solution#0" />
-            <element signature="method#computeFitnessValue#0;class#Solution#0" />
-            <element signature="method#saving#0;class#Solution#0" />
-            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
-            <element signature="method#equals#0;class#Solution#0" />
-            <element signature="method#hashCode#0;class#Solution#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1055,21 +1023,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloudsim.log.1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/pacsa/PACSAOptimization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3493">
-          <caret line="198" column="41" lean-forward="true" selection-start-line="198" selection-start-column="41" selection-end-line="198" selection-end-column="41" />
+        <state relative-caret-position="529">
+          <caret line="209" column="27" lean-forward="true" selection-start-line="209" selection-start-column="27" selection-end-line="209" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#generateRandomInitialSolutionList#0;class#PACSAOptimization#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/utils/Printer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9">
+          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunHEFTBeforeHBMO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2522">
+          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/RunPACSAAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
+        <state relative-caret-position="81">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1078,8 +1076,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/sa/SimulatedAnnealingAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="81" column="61" selection-start-line="81" selection-start-column="61" selection-end-line="81" selection-end-column="61" />
+        <state relative-caret-position="-28">
+          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
           <folding>
             <element signature="method#runAlgorithWithRandomSolution#0;class#SimulatedAnnealingAlgorithm#0" />
             <element signature="e#5152#5153#0" expanded="true" />
@@ -1088,10 +1086,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/config/config.yml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optframework/core/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="86" column="43" lean-forward="true" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
+        <state relative-caret-position="11">
+          <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+          <folding>
+            <element signature="method#settingInstanceUsageArray#0;class#Solution#0" />
+            <element signature="method#getJobWithMaxParentFinishTimeWithCij#0;class#Solution#0" />
+            <element signature="method#computeFitnessValue#0;class#Solution#0" />
+            <element signature="method#saving#0;class#Solution#0" />
+            <element signature="method#findMaxInstanceTime#0;class#Solution#0" />
+            <element signature="e#19503#19504#0" expanded="true" />
+            <element signature="e#19528#19529#0" expanded="true" />
+            <element signature="e#19561#19562#0" expanded="true" />
+            <element signature="e#19589#19590#0" expanded="true" />
+            <element signature="method#equals#0;class#Solution#0" />
+            <element signature="method#hashCode#0;class#Solution#0" />
+          </folding>
         </state>
       </provider>
     </entry>

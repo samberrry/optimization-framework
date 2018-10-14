@@ -77,8 +77,6 @@ public class Solution {
      */
     public int makespanPrime;
 
-    public static final int M_NUMBER = Config.global.m_number;
-
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
@@ -107,7 +105,7 @@ public class Solution {
 
                 while (isEqual){
                     randomInstanceId = r.nextInt(numberOfUsedInstances+1);
-                    if (randomInstanceId != currentInstanceId && randomInstanceId < M_NUMBER){
+                    if (randomInstanceId != currentInstanceId && randomInstanceId < Config.global.m_number){
                         isEqual = false;
                     }
                 }
@@ -141,6 +139,7 @@ public class Solution {
 
                 break;
         }
+        instanceUsages = new short[numberOfUsedInstances];
 
         solutionMapping();
     }
@@ -164,7 +163,7 @@ public class Solution {
         if (realNumberOfInstances != numberOfUsedInstances){
             int mapper[] = new int[numberOfUsedInstances];
 
-            int newYArray[] = new int[M_NUMBER];
+            int newYArray[] = new int[Config.global.m_number];
 
             int instanceCounter = 0;
             for (int i = 0; i < numberOfUsedInstances; i++) {
@@ -209,11 +208,11 @@ public class Solution {
         bound++;
         for (int i = 1; i < jobList.size(); i++) {
             Job job = jobList.get(i);
-            int random = r.nextInt(bound + 1);
+            int random = r.nextInt(bound);
 
             xArray[job.getIntId()] = random;
 
-            if (bound == random && bound < M_NUMBER){
+            if (bound == random && bound < Config.global.m_number-1){
                 bound++;
             }
         }

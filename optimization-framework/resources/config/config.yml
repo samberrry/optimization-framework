@@ -53,7 +53,7 @@ global:
   bandwidth: 100000
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 100
+  m_number: 7
 
 sa_algorithm:
   start_temperature: 850

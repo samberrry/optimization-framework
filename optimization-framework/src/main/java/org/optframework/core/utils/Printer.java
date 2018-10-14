@@ -162,4 +162,32 @@ public class Printer {
     public static void printSAInfo(){
         Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature + " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
     }
+
+    public static void printSolutionWithouthTime(Solution solution, InstanceInfo instanceInfo[]){
+        Log.logger.info("Number of used Instances: " + solution.numberOfUsedInstances);
+
+        for (int i = 0; i < solution.instanceTimes.length; i++) {
+            Log.logger.info("Requested time for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimes[i]);
+        }
+
+        for (int i = 0; i < solution.instanceTimelines.length; i++) {
+            Log.logger.info("Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i]);
+        }
+
+        String xArray = "";
+        for (int val : solution.xArray){
+            xArray += " " + String.valueOf(val);
+        }
+        Log.logger.info("Value of the X Array: "+ xArray);
+
+        String yArray = "";
+        for (int i = 0; i < solution.numberOfUsedInstances; i++) {
+            yArray += " " + String.valueOf(solution.yArray[i]);
+        }
+        Log.logger.info("Value of the Y Array: "+ yArray);
+
+        Log.logger.info("Total Cost: " + solution.cost);
+        Log.logger.info("Makespan: " + solution.makespan);
+        Log.logger.info("Fitness Value: "+ solution.fitnessValue);
+    }
 }

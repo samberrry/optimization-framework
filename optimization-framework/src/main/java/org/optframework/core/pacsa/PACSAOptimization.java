@@ -207,7 +207,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         solution.numberOfUsedInstances = maxInstances + 1;
         solution.xArray = generatedXArray;
         solution.yArray = generatedYArray;
-        solution.solutionMapping();
         solution.fitness();
 
         return solution;

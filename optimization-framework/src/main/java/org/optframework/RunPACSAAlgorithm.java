@@ -12,13 +12,15 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
  * @version 1.0.0
  */
 
 public class RunPACSAAlgorithm {
-    public static final int M_NUMBER = Config.global.m_number;
 
     public static void runPACSA()
     {
@@ -45,8 +47,8 @@ public class RunPACSAAlgorithm {
         /**
          * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
          * */
-        int totalInstances[] = new int[M_NUMBER];
-        for (int i = 0; i < M_NUMBER; i++) {
+        int totalInstances[] = new int[Config.global.m_number];
+        for (int i = 0; i < Config.global.m_number; i++) {
             totalInstances[i] = maxECUId;
         }
 
@@ -54,7 +56,7 @@ public class RunPACSAAlgorithm {
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
-        heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, M_NUMBER));
+        heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, Config.global.m_number));
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
         Solution heftSolution = heftAlgorithm.runAlgorithm();
@@ -68,16 +70,15 @@ public class RunPACSAAlgorithm {
 
         computeCoolingFactorForSA(workflow.getJobList().size());
 
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
-        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
+        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
         OptimizationAlgorithm optimizationAlgorithm;
 
-        double fitnessValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
-        double costValueList[] = new double[Config.pacsa_algorithm.getNumber_of_runs()];
-
         optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
+
+        List<Solution> solutionList = new ArrayList<>();
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
@@ -86,43 +87,46 @@ public class RunPACSAAlgorithm {
             long start = System.currentTimeMillis();
 
             Solution solution = optimizationAlgorithm.runAlgorithm();
-
-            fitnessValueList[i] = solution.fitnessValue;
-            costValueList[i] = solution.cost;
+            solutionList.add(solution);
 
             long stop = System.currentTimeMillis();
 
             Printer.lightPrintSolution(solution,stop-start);
         }
 
-        double sum = 0.0, costSum = 0.0;
-        double max = 0.0, costMax = 0.0;
-        double min = 999999999999.9, costMin = 99999999.9;
-        for (double value : fitnessValueList){
-            sum += value;
-            if (value > max){
-                max = value;
-            }
-            if (value < min){
-                min = value;
-            }
-        }
+        double fitnessSum = 0.0, costSum = 0.0;
+        double fitnessMax = 0.0, costMax = 0.0;
+        double fitnessMin = 999999999999.9, costMin = 9999999999.9;
+        Solution bestSolution = null;
 
-        for (double value : costValueList){
-            costSum += value;
-            if (value > costMax){
-                costMax = value;
+        for (Solution solution: solutionList){
+            fitnessSum += solution.fitnessValue;
+            if (solution.fitnessValue > fitnessMax){
+                fitnessMax = solution.fitnessValue;
             }
-            if (value < costMin){
-                costMin = value;
+            if (solution.fitnessValue < fitnessMin){
+                fitnessMin = solution.fitnessValue;
+                bestSolution = solution;
+            }
+
+            costSum += solution.cost;
+            if (solution.cost > costMax){
+                costMax = solution.cost;
+            }
+            if (solution.cost < costMin){
+                costMin = solution.cost;
             }
         }
+        Printer.printSplitter();
+
+        Printer.printSolutionWithouthTime(bestSolution, instanceInfo);
 
         Printer.printSplitter();
-        Log.logger.info("Average Fitness value: " + sum / Config.pacsa_algorithm.getNumber_of_runs());
+
+        Log.logger.info("Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs());
         Log.logger.info("Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs());
 
-        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+        Log.logger.info("Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin);
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
