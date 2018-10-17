@@ -48,18 +48,18 @@
 
 global:
   algorithm: "pacsa"
-  workflow_id: 4
-  budget: 20.0
+  workflow_id: 2
+  budget: 6.7
   bandwidth: 100000
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 7
+  m_number: 100
 
 sa_algorithm:
   start_temperature: 850
   final_temperature: 0.1
   cooling_factor: 0.8
-  force_cooling: no
+  force_cooling: yes
   equilibrium_point: 10
   number_of_runs: 30
 
