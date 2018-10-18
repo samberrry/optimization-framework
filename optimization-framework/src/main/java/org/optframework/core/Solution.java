@@ -201,26 +201,31 @@ public class Solution {
          * */
         Random r = new Random();
         int bound = 0;
+        int used = 0;
 
 //        It always assigns task 0 (first task) to instance 0 (first instance)
         xArray[jobList.get(0).getIntId()] = bound;
 
         bound++;
+        used++;
         for (int i = 1; i < jobList.size(); i++) {
             Job job = jobList.get(i);
-            int random = r.nextInt(bound);
+            int random = r.nextInt(bound + 1);
 
             xArray[job.getIntId()] = random;
 
-            if (bound == random && bound < Config.global.m_number-1){
-                bound++;
+            if (bound == random && used < Config.global.m_number){
+                used++;
+                if (bound != Config.global.m_number -1){
+                    bound++;
+                }
             }
         }
 
         /**
          * Generate random yArray
          * */
-        numberOfUsedInstances = bound;
+        numberOfUsedInstances = used;
 
         for (int i = 0; i < numberOfUsedInstances; i++) {
             int random = r.nextInt(InstanceType.values().length);
