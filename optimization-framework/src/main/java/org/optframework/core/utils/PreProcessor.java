@@ -17,13 +17,15 @@ public class PreProcessor {
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
         jobList = new ArrayList<>();
         PreProcessor.workflow = workflow;
+        List<Job> jobListWithDoubleTaskLength = PopulateWorkflow.jobListWithDoubleTaskLength;
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double exeTime[] = new double[InstanceType.values().length];
             double total = 0.0;
+            Job doubleLengthJob = jobListWithDoubleTaskLength.get(job.getIntId());
 
             for (InstanceType type: InstanceType.values()){
-                exeTime[type.getId()] = TaskUtility.executionTimeOnType(job,type);
+                exeTime[type.getId()] = TaskUtility.executionTimeOnType(doubleLengthJob,type);
                 total += exeTime[type.getId()];
             }
             jobList.add(job.getIntId(), new Job(job.getIntId(),
@@ -112,18 +114,20 @@ public class PreProcessor {
 
     public static Workflow doPreProcessingForHEFT(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw, int totalInstances[], InstanceInfo instanceInfo[]){
         jobList = new ArrayList<>();
+        List<Job> jobListWithDoubleTaskLength = PopulateWorkflow.jobListWithDoubleTaskLength;
 
         for (org.cloudbus.cloudsim.util.workload.Job job : workflow.getJobList()){
             double total = 0.0;
             double exeTime[] = new double[InstanceType.values().length];
+            Job doubleLengthJob = jobListWithDoubleTaskLength.get(job.getIntId());
 
             for (int typeId: totalInstances){
-                double taskExeTime = job.getLength() / instanceInfo[typeId].getType().getEcu();
+                double taskExeTime = doubleLengthJob.getLength() / instanceInfo[typeId].getType().getEcu();
                 total += taskExeTime;
             }
 
             for (InstanceType type: InstanceType.values()){
-                exeTime[type.getId()] = TaskUtility.executionTimeOnType(job,type);
+                exeTime[type.getId()] = TaskUtility.executionTimeOnType(doubleLengthJob,type);
             }
 
             Job newJob = new Job(job.getIntId(),
@@ -131,7 +135,7 @@ public class PreProcessor {
                     (total/totalInstances.length),
                     job.getEdgeInfo());
 
-            newJob.setLength(job.getLength());
+            newJob.setLength(doubleLengthJob.getLength());
 
             jobList.add(job.getIntId(), newJob);
         }

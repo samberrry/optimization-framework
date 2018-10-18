@@ -6,7 +6,10 @@ import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
 import org.optframework.core.Log;
 
+import java.util.List;
+
 public class PopulateWorkflow {
+    public static List<org.optframework.core.Job> jobListWithDoubleTaskLength;
     public static Workflow populateWorkflowFromDax(double budget, long deadline) {
         Log.logger.info("Populates the workflow from Dax file");
 
@@ -95,10 +98,11 @@ public class PopulateWorkflow {
                 throw new RuntimeException("Invalid workflow Id. Possible values: 1 for 1000 nodes, 2 for 100 nodes , 3 for 30 nodes");
             }
 
-            Dax2Workflow dax = new Dax2Workflow();
+            OptDax2Workflow dax = new OptDax2Workflow();
             dax.processDagFile(workflowPath
                     , 1, 100,0);
 
+            jobListWithDoubleTaskLength = dax.jobListWithDoubleTaskLength;
             workflow = dax.workflow;
             workflow.initBudget(budget);
             workflow.setDeadline(deadline);

@@ -42,6 +42,11 @@ public class Job implements Serializable{
         this.edgeInfo = edgeInfo;
     }
 
+    public Job(long id, double length){
+        this.id = id;
+        this.length = length;
+    }
+
     public int getIntId() {
         return (int)this.id;
     }
