@@ -80,7 +80,7 @@ public class RunPACSAAlgorithm {
 
         List<Solution> solutionList = new ArrayList<>();
 
-        for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
+        for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
