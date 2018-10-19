@@ -22,8 +22,14 @@ import java.util.List;
 
 public class RunPACSAAlgorithm {
 
+    private static double originalStartTemperature_SA;
+    private static double originalCoolingFactor_SA;
+
     public static void runPACSA()
     {
+        originalCoolingFactor_SA = Config.sa_algorithm.cooling_factor;
+        originalStartTemperature_SA = Config.sa_algorithm.start_temperature;
+
         Log.logger.info("<<<<<<<<< PACSA Algorithm is started >>>>>>>>>");
 
         /**
@@ -76,13 +82,15 @@ public class RunPACSAAlgorithm {
 
         OptimizationAlgorithm optimizationAlgorithm;
 
-        optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
-
         List<Solution> solutionList = new ArrayList<>();
 
         for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
+
+            Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
+            Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
+            optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
 
             long start = System.currentTimeMillis();
 

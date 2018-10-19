@@ -49,11 +49,11 @@
 global:
   algorithm: "pacsa"
   workflow_id: 2
-  budget: 25
+  budget: 4.05
   bandwidth: 100000
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 12
+  m_number: 20
 
 sa_algorithm:
   start_temperature: 850
@@ -80,8 +80,8 @@ honeybee_algorithm:
   full_mutation: no
 
 pacsa_algorithm:
-  number_of_ants: 16
-  number_of_runs: 1
+  number_of_ants: 4
+  number_of_runs: 3
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
