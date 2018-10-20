@@ -8,6 +8,7 @@ public class PACSAConfig {
     public double equilibrium_point;
     public double evaporation_factor;
     public boolean m_number_from_heft;
+    public boolean global_based;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -63,5 +64,13 @@ public class PACSAConfig {
 
     public void setM_number_from_heft(boolean m_number_from_heft) {
         this.m_number_from_heft = m_number_from_heft;
+    }
+
+    public boolean isGlobal_based() {
+        return global_based;
+    }
+
+    public void setGlobal_based(boolean global_based) {
+        this.global_based = global_based;
     }
 }

@@ -80,21 +80,28 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
 
+            Solution solutionToUpdate;
+            if (Config.pacsa_algorithm.global_based){
+                solutionToUpdate = globalBestSolution;
+            }else {
+                solutionToUpdate = bestCurrentSolution;
+            }
+
             //The best current solution (found in this iteration) updates the pheromone trail
             for (int k = 0; k < workflow.getNumberTasks(); k++) {
                 for (int j = 0; j < Config.global.m_number; j++) {
-                    if (j == bestCurrentSolution.xArray[k]){
-                        pheromoneTrailForX[j][k] = (pheromoneTrailForX[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / bestCurrentSolution.fitnessValue;
+                    if (j == solutionToUpdate.xArray[k]){
+                        pheromoneTrailForX[j][k] = (pheromoneTrailForX[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
                     }else {
                         pheromoneTrailForX[j][k] *= Config.pacsa_algorithm.evaporation_factor;
                     }
                 }
             }
 
-            for (int k = 0; k < bestCurrentSolution.numberOfUsedInstances; k++) {
+            for (int k = 0; k < solutionToUpdate.numberOfUsedInstances; k++) {
                 for (int j = 0; j < instanceInfo.length; j++) {
-                    if (j == bestCurrentSolution.xArray[k]){
-                        pheromoneTrailForY[j][k] = (pheromoneTrailForY[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / bestCurrentSolution.fitnessValue;
+                    if (j == solutionToUpdate.xArray[k]){
+                        pheromoneTrailForY[j][k] = (pheromoneTrailForY[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
                     }else {
                         pheromoneTrailForY[j][k] *= Config.pacsa_algorithm.evaporation_factor;
                     }

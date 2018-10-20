@@ -89,3 +89,4 @@ pacsa_algorithm:
   equilibrium_point: 0.99
   evaporation_factor: 0.9
   m_number_from_heft: no
+  global_based: yes
