@@ -88,5 +88,7 @@ pacsa_algorithm:
   temp_decrease_ratio: 0.95
   equilibrium_point: 0.99
   evaporation_factor: 0.9
+#  m number configurations which are mentioned here are based on their preferences
   m_number_from_heft: no
+  compute_m_number_from_budget: yes
   global_based: yes

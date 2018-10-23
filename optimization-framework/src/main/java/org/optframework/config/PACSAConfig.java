@@ -9,6 +9,7 @@ public class PACSAConfig {
     public double evaporation_factor;
     public boolean m_number_from_heft;
     public boolean global_based;
+    public boolean compute_m_number_from_budget;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -72,5 +73,13 @@ public class PACSAConfig {
 
     public void setGlobal_based(boolean global_based) {
         this.global_based = global_based;
+    }
+
+    public boolean isCompute_m_number_from_budget() {
+        return compute_m_number_from_budget;
+    }
+
+    public void setCompute_m_number_from_budget(boolean compute_m_number_from_budget) {
+        this.compute_m_number_from_budget = compute_m_number_from_budget;
     }
 }
