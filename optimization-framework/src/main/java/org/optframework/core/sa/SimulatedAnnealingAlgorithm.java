@@ -30,8 +30,6 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     long counter = 0;
 
-    public static final int M_NUMBER = Config.global.m_number;
-
     public SimulatedAnnealingAlgorithm(Solution initialSolution, Workflow workflow, InstanceInfo[] instanceInfo) {
         this.initialSolution = initialSolution;
         this.workflow = workflow;
@@ -41,7 +39,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
     @Override
     public Solution runAlgorithm(){
         if (initialSolution == null){
-            initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
+            initialSolution = new Solution(workflow, instanceInfo, Config.global.m_number);
             //Initializes the initial solution with random values
             initialSolution.generateRandomSolution(workflow);
         }
@@ -93,7 +91,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
         Log.logger.info("Starts SA Algorithm");
         Log.logger.info("Simulated Annealing parameters Initial temp: "+ Config.sa_algorithm.start_temperature+ " Final temp: " + Config.sa_algorithm.final_temperature + " Cooling Factor: " + Config.sa_algorithm.cooling_factor + " Equilibrium point: " + Config.sa_algorithm.equilibrium_point);
 
-        Solution initialSolution = new Solution(workflow, instanceInfo, M_NUMBER);
+        Solution initialSolution = new Solution(workflow, instanceInfo, Config.global.m_number);
 
         //Initializes the initial solution with random values
         initialSolution.generateRandomSolution(workflow);
@@ -107,7 +105,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
         while (temp >= Config.sa_algorithm.final_temperature){
             for (int i = 0; i < Config.sa_algorithm.equilibrium_point; i++) {
                 //GENERATES random neighbor
-                Solution randomNeighbor = new Solution(workflow, instanceInfo, M_NUMBER);
+                Solution randomNeighbor = new Solution(workflow, instanceInfo, Config.global.m_number);
                 randomNeighbor.generateRandomSolution(workflow);
                 randomNeighbor.fitness();
 
