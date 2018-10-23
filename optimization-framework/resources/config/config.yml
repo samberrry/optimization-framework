@@ -49,7 +49,7 @@
 global:
   algorithm: "pacsa"
   workflow_id: 4
-  budget: 3.0
+  budget: 0.1
   bandwidth: 100000
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
