@@ -1,6 +1,8 @@
 package org.optframework.config;
 
 public class PACSAConfig {
+    public int iteration_number;
+    public boolean iteration_number_based;
     public int number_of_ants;
     public int number_of_runs;
     public double cf_increase_ratio;
@@ -81,5 +83,21 @@ public class PACSAConfig {
 
     public void setCompute_m_number_from_budget(boolean compute_m_number_from_budget) {
         this.compute_m_number_from_budget = compute_m_number_from_budget;
+    }
+
+    public int getIteration_number() {
+        return iteration_number;
+    }
+
+    public void setIteration_number(int iteration_number) {
+        this.iteration_number = iteration_number;
+    }
+
+    public boolean isIteration_number_based() {
+        return iteration_number_based;
+    }
+
+    public void setIteration_number_based(boolean iteration_number_based) {
+        this.iteration_number_based = iteration_number_based;
     }
 }

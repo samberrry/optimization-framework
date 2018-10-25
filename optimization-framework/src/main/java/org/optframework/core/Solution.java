@@ -507,16 +507,7 @@ public class Solution {
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + beta * (penalty1) - saving();
-    }
-
-    double saving(){
-        double e = 1 / workflow.getBudget();
-        if (cost < workflow.getBudget()){
-            return e * (workflow.getBudget() - cost);
-        }else {
-            return 0.0;
-        }
+        fitnessValue = makespan + beta * (penalty1);
     }
 
     double findMaxInstanceTime(double instanceTimes[]){

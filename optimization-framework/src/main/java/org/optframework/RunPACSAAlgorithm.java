@@ -7,6 +7,7 @@ import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
+import org.optframework.core.pacsa.PACSAIterationNumber;
 import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
@@ -98,7 +99,11 @@ public class RunPACSAAlgorithm {
 
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
-            optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
+            if (Config.pacsa_algorithm.iteration_number_based){
+                optimizationAlgorithm = new PACSAIterationNumber((1/(double)heftSolution.makespan),workflow, instanceInfo);
+            }else {
+                optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
+            }
 
             long start = System.currentTimeMillis();
 

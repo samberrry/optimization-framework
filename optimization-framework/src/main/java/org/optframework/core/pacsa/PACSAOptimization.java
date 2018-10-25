@@ -21,15 +21,15 @@ import java.util.Random;
 
 public class PACSAOptimization implements OptimizationAlgorithm {
 
-    Solution globalBestSolution;
-    List<Solution> initialSolutionList = new ArrayList<>();
+    protected Solution globalBestSolution;
+    protected List<Solution> initialSolutionList = new ArrayList<>();
 
-    double pheromoneTrailForX[][];
-    double pheromoneTrailForY[][];
+    protected double pheromoneTrailForX[][];
+    protected double pheromoneTrailForY[][];
 
-    private Workflow workflow;
+    protected Workflow workflow;
 
-    private InstanceInfo instanceInfo[];
+    protected InstanceInfo instanceInfo[];
 //    int numberOfCurrentUsedInstances;
 
     public PACSAOptimization(double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
@@ -149,7 +149,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         return solutionList;
     }
 
-    private void generateRandomInitialSolutionList(){
+    protected void generateRandomInitialSolutionList(){
         for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
             Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
             solution.generateRandomSolution(workflow);
@@ -157,7 +157,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         }
     }
 
-    private Solution generateInitialSolutionFromPheromone(){
+    protected Solution generateInitialSolutionFromPheromone(){
         int generatedXArray[] = new int[workflow.getNumberTasks()];
         int generatedYArray[] = new int[Config.global.m_number];
         Random rand = new Random();
