@@ -73,7 +73,11 @@ public class RunPACSAAlgorithm {
         }
 
         if (Config.pacsa_algorithm.compute_m_number_from_budget){
-            Config.global.m_number = (int)Math.ceil(Config.global.budget)+ 2;
+            if (Config.global.budget < 1){
+                Config.global.m_number = (int)Math.ceil(Config.global.budget)+ 2;
+            }else {
+                Config.global.m_number = (int)Math.ceil(Config.global.budget)+ 1;
+            }
         }
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
