@@ -127,8 +127,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             }
 
                             double availableGapTime = gap.endTime - latestParentFinishTime;
+                            double gapTest = availableGapTime;
+                            if (availableGapTime > gap.duration){
+                                gapTest = gap.duration;
+                            }
 
-                            if (availableGapTime >= taskExeTime){
+                            if (gapTest >= taskExeTime){
                                 double remainingTimeToStartGap = gap.startTime - latestParentFinishTime;
                                 double gapTaskFinishTime;
 
@@ -173,15 +177,15 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                     if (waitingTime > 0 ){
                         double currentTime = instanceTimeLine[j] + waitingTime;
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                        double cij = edge / (double)Config.global.bandwidth;
+                        double cij = 0.0;
                         double currentFinishTime;
 
                         if (j == xArray[maxParentId]){
                             currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                         }else {
+                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            cij = edge / (double)Config.global.bandwidth;
                             double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
-
                             if (timeToSendData >= cij){
                                 currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                             }else {
