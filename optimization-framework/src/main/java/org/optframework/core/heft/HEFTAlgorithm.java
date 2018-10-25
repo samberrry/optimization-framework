@@ -265,14 +265,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
         }
 
-        Log.logger.info("Number of used instances: "+ numberOfUsedInstances);
-
         Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
         solution.numberOfUsedInstances = numberOfUsedInstances;
         solution.xArray = xArray;
         solution.yArray = yArray;
         solution.fitness();
-        Log.logger.info("HEFT fitness:  " + solution.makespan);
 
         return solution;
     }

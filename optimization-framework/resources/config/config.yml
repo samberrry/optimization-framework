@@ -81,7 +81,7 @@ honeybee_algorithm:
 
 pacsa_algorithm:
   iteration_number: 100
-  iteration_number_based: yes
+  iteration_number_based: no
   number_of_ants: 4
   number_of_runs: 2
 #  cf: cooling factor
