@@ -13,6 +13,8 @@ public class Config {
 
     public static PACSAConfig pacsa_algorithm;
 
+    public static PSOConfig pso_algorithm;
+
     public static void initConfig(){
         ReadConfig readConfig = ReadConfig.readYaml();
 
@@ -20,6 +22,7 @@ public class Config {
         Config.sa_algorithm = readConfig.sa_algorithm;
         Config.honeybee_algorithm = readConfig.honeybee_algorithm;
         Config.pacsa_algorithm = readConfig.pacsa_algorithm;
+        Config.pso_algorithm = readConfig.pso_algorithm;
         Log.logger.info("config file is read");
     }
 }

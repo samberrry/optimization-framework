@@ -18,6 +18,8 @@ public class ReadConfig {
 
     PACSAConfig pacsa_algorithm;
 
+    PSOConfig pso_algorithm;
+
     public static ReadConfig readYaml(){
         Yaml yaml = new Yaml();
 
@@ -68,5 +70,13 @@ public class ReadConfig {
 
     public void setPacsa_algorithm(PACSAConfig pacsa_algorithm) {
         this.pacsa_algorithm = pacsa_algorithm;
+    }
+
+    public PSOConfig getPso_algorithm() {
+        return pso_algorithm;
+    }
+
+    public void setPso_algorithm(PSOConfig pso_algorithm) {
+        this.pso_algorithm = pso_algorithm;
     }
 }
