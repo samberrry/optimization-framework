@@ -1,5 +1,6 @@
 package org.optframework.core.pso;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
@@ -17,6 +18,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
 
     Particle globalBestParticle;
     List<Particle> particleList = new ArrayList<>();
+    Cloner cloner;
 
     public PSOOptimization(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
@@ -24,6 +26,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
         this.globalBestParticle = new Particle(workflow, instanceInfo, Config.global.m_number);
         this.globalBestParticle.generateRandomSolution(workflow);
         this.globalBestParticle.fitness();
+        this.cloner = new Cloner();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
 
                 //check for the best particle as gbest
                 if (particle.fitnessValue < globalBestParticle.fitnessValue){
-                    globalBestParticle = particle;
+                    globalBestParticle = cloner.deepClone(particle);
                 }
             }
         }
