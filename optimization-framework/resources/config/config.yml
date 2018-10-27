@@ -47,13 +47,13 @@
 
 
 global:
-  algorithm: "pacsa"
+  algorithm: "pso"
   workflow_id: 4
   budget: 3.56
   bandwidth: 39321600
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 10000
+  m_number: 15
 
 sa_algorithm:
   start_temperature: 850
@@ -96,9 +96,9 @@ pacsa_algorithm:
   global_based: yes
 
 pso_algorithm:
-  number_of_runs: 1
-  number_of_particles: 4
-  maximum_iteration: 10
+  number_of_runs: 5
+  number_of_particles: 50
+  maximum_iteration: 100
   weight: 0.729
   acceleration_coefficient1: 1.494
   acceleration_coefficient2: 1.494

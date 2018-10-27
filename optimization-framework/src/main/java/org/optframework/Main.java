@@ -45,7 +45,7 @@ public class Main {
             case "pacsa":
                 RunPACSAAlgorithm.runPACSA();
                 break;
-            case "psw":
+            case "pso":
                 RunPSOAlgorithm.runPSO();
                 break;
         }

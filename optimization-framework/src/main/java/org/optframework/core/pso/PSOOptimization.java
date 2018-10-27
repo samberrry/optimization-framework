@@ -21,6 +21,9 @@ public class PSOOptimization implements OptimizationAlgorithm {
     public PSOOptimization(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
+        this.globalBestParticle = new Particle(workflow, instanceInfo, Config.global.m_number);
+        this.globalBestParticle.generateRandomSolution(workflow);
+        this.globalBestParticle.fitness();
     }
 
     @Override
@@ -28,9 +31,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
 
         //Initialize particles and their velocities
         generateRandomInitialParticleList();
-
         for (Particle particle: particleList){
-            //For each particle, calculate its fitness value
             particle.fitness();
 
             //If the fitness value is better than the previous best pbest,
@@ -45,12 +46,31 @@ public class PSOOptimization implements OptimizationAlgorithm {
             if (particle.fitnessValue < globalBestParticle.fitnessValue){
                 globalBestParticle = particle;
             }
-
-            //calculate velocityX and update their positions
-            calculateVelocity(particle);
-            updatePosition(particle);
         }
 
+        for (int i = 0; i < Config.pso_algorithm.maximum_iteration; i++) {
+            for (Particle particle: particleList){
+                //calculate velocityX and update their positions
+                calculateVelocity(particle);
+                updatePosition(particle);
+
+                //For each particle, calculate its fitness value
+                particle.fitness();
+
+                //If the fitness value is better than the previous best pbest,
+                // set the current fitness value as the new pbest.
+                if (particle.fitnessValue < particle.bestFitnessValueSoFar){
+                    particle.bestFitnessValueSoFar = particle.fitnessValue;
+                    particle.bestXArraySoFar = particle.xArray;
+                    particle.bestYArraySoFar = particle.yArray;
+                }
+
+                //check for the best particle as gbest
+                if (particle.fitnessValue < globalBestParticle.fitnessValue){
+                    globalBestParticle = particle;
+                }
+            }
+        }
         return globalBestParticle;
     }
 
@@ -58,6 +78,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
         for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {
             Particle solution = new Particle(workflow, instanceInfo, Config.global.m_number);
             solution.generateRandomSolution(workflow);
+            solution.generateRandomVelocities();
             particleList.add(i , solution);
         }
     }
@@ -71,7 +92,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
                     (Config.pso_algorithm.acceleration_coefficient2 * random.nextDouble())*
                             (globalBestParticle.xArray[i] - particle.xArray[i]);
 
-            if (particle.velocityX[i] > Config.global.m_number || particle.velocityX[i] < - Config.global.m_number){
+            if (particle.velocityX[i] >= Config.global.m_number || particle.velocityX[i] <= - Config.global.m_number){
                 particle.velocityX[i] %= Config.global.m_number;
             }
         }
@@ -82,7 +103,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
                             (particle.bestYArraySoFar[i] - particle.yArray[i]) +
                     (Config.pso_algorithm.acceleration_coefficient2 * random.nextDouble())*
                             (globalBestParticle.yArray[i] - particle.yArray[i]);
-            if (particle.velocityY[i] > InstanceType.values().length || particle.velocityY[i] < -InstanceType.values().length){
+            if (particle.velocityY[i] >= InstanceType.values().length || particle.velocityY[i] <= -InstanceType.values().length){
                 particle.velocityY[i] %= InstanceType.values().length;
             }
         }
@@ -91,9 +112,31 @@ public class PSOOptimization implements OptimizationAlgorithm {
     void updatePosition(Particle particle){
         for (int i = 0; i < particle.xArray.length; i++) {
             particle.xArray[i] = particle.xArray[i] + (int)particle.velocityX[i];
+
+            if (particle.xArray[i] >= Config.global.m_number){
+                particle.xArray[i] %= Config.global.m_number;
+            }else if (particle.xArray[i] <= -Config.global.m_number){
+                particle.xArray[i] %= Config.global.m_number;
+                particle.xArray[i] = - particle.xArray[i];
+            }else if (particle.xArray[i] < 0){
+                particle.xArray[i] = - particle.xArray[i];
+            }
+
+            if (particle.xArray[i]+1 > particle.numberOfUsedInstances){
+                particle.numberOfUsedInstances = particle.xArray[i]+1;
+            }
         }
         for (int i = 0; i < particle.numberOfUsedInstances; i++) {
             particle.yArray[i] = particle.yArray[i] + (int)particle.velocityY[i];
+
+            if (particle.yArray[i] >= InstanceType.values().length){
+                particle.yArray[i] %= InstanceType.values().length;
+            }else if (particle.yArray[i] <= - InstanceType.values().length){
+                particle.yArray[i] %= InstanceType.values().length;
+                particle.yArray[i] = - particle.yArray[i];
+            }else if (particle.yArray[i] < 0){
+                particle.yArray[i] = - particle.yArray[i];
+            }
         }
     }
 }

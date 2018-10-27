@@ -75,8 +75,8 @@ public class RunPSOAlgorithm {
 
         Printer.printSplitter();
 
-        Log.logger.info("Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs());
-        Log.logger.info("Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs());
+        Log.logger.info("Average Fitness value: " + fitnessSum / Config.pso_algorithm.getNumber_of_runs());
+        Log.logger.info("Average Cost value: " + costSum / Config.pso_algorithm.getNumber_of_runs());
 
         Log.logger.info("Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin);
     }
