@@ -20,13 +20,16 @@ public class PSOOptimization implements OptimizationAlgorithm {
     List<Particle> particleList = new ArrayList<>();
     Cloner cloner;
 
-    public PSOOptimization(Workflow workflow, InstanceInfo[] instanceInfo) {
+    Particle initialSolution;
+
+    public PSOOptimization(Particle initialSolution, Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         this.globalBestParticle = new Particle(workflow, instanceInfo, Config.global.m_number);
         this.globalBestParticle.generateRandomSolution(workflow);
         this.globalBestParticle.fitness();
         this.cloner = new Cloner();
+        this.initialSolution = initialSolution;
     }
 
     @Override
@@ -78,11 +81,17 @@ public class PSOOptimization implements OptimizationAlgorithm {
     }
 
     void generateRandomInitialParticleList(){
-        for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {
-            Particle solution = new Particle(workflow, instanceInfo, Config.global.m_number);
-            solution.generateRandomSolution(workflow);
-            solution.generateRandomVelocities();
-            particleList.add(i , solution);
+        if (initialSolution != null){
+            for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {
+                particleList.add(cloner.deepClone(initialSolution));
+            }
+        }else {
+            for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {
+                Particle solution = new Particle(workflow, instanceInfo, Config.global.m_number);
+                solution.generateRandomSolution(workflow);
+                solution.generateRandomVelocities();
+                particleList.add(i , solution);
+            }
         }
     }
 

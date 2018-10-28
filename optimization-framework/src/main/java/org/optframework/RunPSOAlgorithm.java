@@ -6,7 +6,9 @@ import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
 import org.optframework.core.*;
+import org.optframework.core.heft.HEFTService;
 import org.optframework.core.pso.PSOOptimization;
+import org.optframework.core.pso.Particle;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
@@ -34,7 +36,8 @@ public class RunPSOAlgorithm {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-            optimizationAlgorithm = new PSOOptimization(workflow, instanceInfo);
+            optimizationAlgorithm = new PSOOptimization(getInitialSolution(instanceInfo, workflow)
+                    , workflow, instanceInfo);
 
             long start = System.currentTimeMillis();
 
@@ -79,5 +82,28 @@ public class RunPSOAlgorithm {
         Log.logger.info("Average Cost value: " + costSum / Config.pso_algorithm.getNumber_of_runs());
 
         Log.logger.info("Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin);
+    }
+
+    public static Particle getInitialSolution(InstanceInfo instanceInfo[], Workflow workflow){
+        Particle particleSolution;
+        switch (Config.global.initial_solution_from_heft_id){
+            case 1:
+                particleSolution = new Particle(workflow, instanceInfo, Config.global.m_number);
+                Solution initialSolution = HEFTService.getHEFT(instanceInfo);
+                particleSolution.xArray = initialSolution.xArray;
+                particleSolution.yArray = initialSolution.yArray;
+                particleSolution.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
+                break;
+            case 2:
+                particleSolution = new Particle(workflow, instanceInfo, Config.global.m_number);
+                initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
+                particleSolution.xArray = initialSolution.xArray;
+                particleSolution.yArray = initialSolution.yArray;
+                particleSolution.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
+                break;
+            default:
+                particleSolution = null;
+        }
+        return particleSolution;
     }
 }

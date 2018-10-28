@@ -7,6 +7,7 @@ public class GlobalConfig {
     public Long bandwidth;
     public Integer m_number;
     public Integer t_extra;
+    public Integer initial_solution_from_heft_id;
 
     public String getAlgorithm() {
         return algorithm;
@@ -54,5 +55,13 @@ public class GlobalConfig {
 
     public void setBudget(Double budget) {
         this.budget = budget;
+    }
+
+    public Integer getInitial_solution_from_heft_id() {
+        return initial_solution_from_heft_id;
+    }
+
+    public void setInitial_solution_from_heft_id(Integer initial_solution_from_heft_id) {
+        this.initial_solution_from_heft_id = initial_solution_from_heft_id;
     }
 }
