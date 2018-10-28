@@ -12,8 +12,8 @@ import org.optframework.core.utils.Printer;
 
 public class PACSAIterationNumber extends PACSAOptimization{
 
-    public PACSAIterationNumber(double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
-        super(pheromoneInitialSeed, workflow, instanceInfo);
+    public PACSAIterationNumber(Solution initialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
+        super(initialSolution, pheromoneInitialSeed, workflow, instanceInfo);
     }
 
     @Override

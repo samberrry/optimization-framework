@@ -7,6 +7,7 @@ import org.cloudbus.spotsim.enums.Region;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
+import org.optframework.core.heft.HEFTService;
 import org.optframework.core.pacsa.PACSAIterationNumber;
 import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
@@ -101,9 +102,9 @@ public class RunPACSAAlgorithm {
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
             if (Config.pacsa_algorithm.iteration_number_based){
-                optimizationAlgorithm = new PACSAIterationNumber((1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAIterationNumber(getInitialSolution(instanceInfo), (1/(double)heftSolution.makespan),workflow, instanceInfo);
             }else {
-                optimizationAlgorithm = new PACSAOptimization((1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAOptimization(getInitialSolution(instanceInfo) ,(1/(double)heftSolution.makespan),workflow, instanceInfo);
             }
 
             long start = System.currentTimeMillis();
@@ -159,5 +160,20 @@ public class RunPACSAAlgorithm {
                 Config.sa_algorithm.cooling_factor = 0.9;
             }
         }
+    }
+
+    public static Solution getInitialSolution(InstanceInfo instanceInfo[]){
+        Solution initialSolution;
+        switch (Config.global.initial_solution_from_heft_id){
+            case 1:
+                 initialSolution = HEFTService.getHEFT(instanceInfo);
+                break;
+            case 2:
+                initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
+                break;
+            default:
+                initialSolution = null;
+        }
+        return initialSolution;
     }
 }

@@ -1,6 +1,7 @@
 package org.optframework.core.pacsa;
 
 
+import com.rits.cloning.Cloner;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
@@ -21,6 +22,7 @@ import java.util.Random;
 
 public class PACSAOptimization implements OptimizationAlgorithm {
 
+    protected Solution initialSolution;
     protected Solution globalBestSolution;
     protected List<Solution> initialSolutionList = new ArrayList<>();
 
@@ -32,9 +34,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected InstanceInfo instanceInfo[];
 //    int numberOfCurrentUsedInstances;
 
-    public PACSAOptimization(double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
+    public PACSAOptimization(Solution initialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
+        this.initialSolution = initialSolution;
+
         /**
          * Pheromone trail structure:
          * rows = tasks
@@ -150,10 +154,17 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected void generateRandomInitialSolutionList(){
-        for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-            Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
-            solution.generateRandomSolution(workflow);
-            initialSolutionList.add(i , solution);
+        if (initialSolution != null){
+            Cloner cloner = new Cloner();
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+                initialSolutionList.add(cloner.deepClone(initialSolution));
+            }
+        }else {
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+                Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+                solution.generateRandomSolution(workflow);
+                initialSolutionList.add(i , solution);
+            }
         }
     }
 
