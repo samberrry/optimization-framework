@@ -49,7 +49,7 @@
 global:
   algorithm: "pso"
   workflow_id: 3
-  budget: 5.43
+  budget: 2.5
   bandwidth: 39321600
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
@@ -57,7 +57,9 @@ global:
 # id: 1 => normal heft
 # id: 2 => cost efficient heft
 # id: others => none
-  initial_solution_from_heft_id: 2
+  initial_solution_from_heft_id: 0
+  order_position_limit: 0
+  force_order_limits: no
 
 sa_algorithm:
   start_temperature: 850
@@ -87,7 +89,7 @@ pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
   number_of_ants: 4
-  number_of_runs: 3
+  number_of_runs: 10
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
@@ -100,7 +102,7 @@ pacsa_algorithm:
   global_based: yes
 
 pso_algorithm:
-  number_of_runs: 5
+  number_of_runs: 10
   number_of_particles: 500
   maximum_iteration: 1000
   weight: 0.729

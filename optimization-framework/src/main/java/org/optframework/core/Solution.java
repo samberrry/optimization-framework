@@ -1,6 +1,7 @@
 package org.optframework.core;
 
-import com.rits.cloning.Cloner;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
@@ -35,6 +36,11 @@ public class Solution {
     public int yArray[];
 
     /**
+     * Z array is the magic array and is used to specify job order
+     * */
+    public Integer zArray[];
+
+    /**
      * Y prime represents the type of instances used in assignment X where only on-demand instances are utilized to run the workflow
      */
     public int yPrimeArray[];
@@ -54,8 +60,6 @@ public class Solution {
 
     public int maxNumberOfInstances;
 
-    public int visited;
-
     public double instanceTimes[];
 
     public double instanceStartTime[];
@@ -64,11 +68,7 @@ public class Solution {
 
     public Workflow workflow;
 
-    List<Job> orderedJobList;
-
     List<Job> originalJobList;
-
-    List<Job> jobList;
 
     public InstanceInfo instanceInfo[];
 
@@ -81,6 +81,7 @@ public class Solution {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         xArray = new int[workflow.getJobList().size()];
+        zArray = new Integer[workflow.getJobList().size()];
         yArray = new int[numberOfInstances];
         yPrimeArray = new int[numberOfInstances];
         instanceUsages = new short[numberOfInstances];
@@ -92,7 +93,7 @@ public class Solution {
         this.workflow = workflow;
 
         Random r = new Random();
-        int xOry = r.nextInt(2);
+        int xOry = r.nextInt(3);
 
         switch (xOry){
                 //changes x array
@@ -137,6 +138,46 @@ public class Solution {
                 }
                 yArray[randomInstanceIdY] = randomType;
 
+                break;
+                //change z array
+            case 3:
+                boolean changeTaskAgain = true;
+                boolean changePositionAgain = true;
+                int randomOldPosition = -1;
+                int randomNewPosition = -1;
+                int limit = 0;
+                while (changeTaskAgain){
+                    randomOldPosition = r.nextInt(workflow.getJobList().size());
+                    WorkflowDAG dag = workflow.getWfDAG();
+                    ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
+
+                    while (changePositionAgain){
+                        randomNewPosition = r.nextInt(zArray.length + 1);
+                        int isSeen =0;
+                        for (int i = 0; i < randomNewPosition; i++) {
+                            for (Integer parentId : parentList){
+                                if (parentId == zArray[i]){
+                                    isSeen++;
+                                }
+                            }
+                        }
+                        limit++;
+                        if (isSeen == parentList.size() && randomOldPosition != randomNewPosition){
+                            changePositionAgain = false;
+                            changeTaskAgain = false;
+                        }else if (limit == workflow.getJobList().size()){
+                            changePositionAgain = false;
+                            changeTaskAgain = true;
+                        }
+                    }
+                }
+
+                ArrayList<Integer> arrayList = new ArrayList<>();
+                CollectionUtils.addAll(arrayList, zArray);
+                arrayList.add(randomNewPosition, zArray[randomOldPosition]);
+                arrayList.remove(randomOldPosition);
+
+                zArray = arrayList.toArray(new Integer[arrayList.size()]);
                 break;
         }
         instanceUsages = new short[numberOfUsedInstances];
@@ -231,6 +272,46 @@ public class Solution {
             int random = r.nextInt(InstanceType.values().length);
             yArray[i] = random;
         }
+
+        /**
+         * Generate random zArray
+         * */
+        WorkflowDAG dag = workflow.getWfDAG();
+        Random random = new Random();
+
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int randomId = random.nextInt(readyTasksToOrder.size());
+        int taskId = readyTasksToOrder.get(randomId);
+//        originalJobList.get(taskId).visitedForOrder = true;
+        boolean repeatIt = true;
+        zArray[0] = originalJobList.get(taskId).getIntId();
+
+        readyTasksToOrder.addAll(dag.getChildren(taskId));
+        readyTasksToOrder.remove(randomId);
+
+        for (int i = 1; i < workflow.getJobList().size(); i++) {
+            while (repeatIt){
+                randomId = random.nextInt(readyTasksToOrder.size());
+                taskId = readyTasksToOrder.get(randomId);
+                ArrayList<Integer> parentList = dag.getParents(taskId);
+
+                int isSeen = 0;
+                for (Integer parentId: parentList){
+                    for (int j = 0; j < i; j++) {
+                        if (parentId == zArray[j]){
+                            isSeen++;
+                        }
+                    }
+                }
+                if (isSeen == parentList.size()){
+                    repeatIt = false;
+                }
+            }
+            zArray[i] = originalJobList.get(taskId).getIntId();
+            readyTasksToOrder.remove(randomId);
+            readyTasksToOrder.addAll(dag.getChildren(taskId));
+            SetUniqueList.setUniqueList(readyTasksToOrder);
+        }
     }
 
     /**
@@ -242,13 +323,7 @@ public class Solution {
             Log.logger.warning("Problem with fitness function properties");
             return;
         }
-        Cloner cloner = new Cloner();
-
         originalJobList = workflow.getJobList();
-
-        orderedJobList = cloner.deepClone(originalJobList);
-
-        Collections.sort(orderedJobList, Job.rankComparator);
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[numberOfUsedInstances];
@@ -262,19 +337,18 @@ public class Solution {
             instanceList[i] = new Instance();
         }
 
-        Job firstJob = orderedJobList.get(0);
-        Job originalVersion = originalJobList.get(firstJob.getIntId());
+        Job firstJob = originalJobList.get(zArray[0]);
 
         double exeTime = firstJob.getExeTime()[yArray[xArray[firstJob.getIntId()]]];
 
         instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
         instanceIsUsed[xArray[firstJob.getIntId()]] = true;
         instanceStartTime[xArray[firstJob.getIntId()]] = 0;
-        originalVersion.setFinishTime(instanceTimeLine[xArray[firstJob.getIntId()]]);
+        firstJob.setFinishTime(instanceTimeLine[xArray[firstJob.getIntId()]]);
 
         //for the rest of tasks
-        for (int i = 1; i < orderedJobList.size(); i++) {
-            Job job = orderedJobList.get(i);
+        for (int i = 1; i < zArray.length; i++) {
+            Job job = originalJobList.get(zArray[i]);
             /**
              * TempTaskFinishTime: is used to choose, benefit from the gap or not. If the temp task
              * finish time for the gap is smaller than regular scheduling, the gap is used!

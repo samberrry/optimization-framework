@@ -83,7 +83,9 @@ public class PSOOptimization implements OptimizationAlgorithm {
     void generateRandomInitialParticleList(){
         if (initialSolution != null){
             for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {
-                particleList.add(cloner.deepClone(initialSolution));
+                Particle particle = cloner.deepClone(initialSolution);
+                particle.generateRandomVelocities();
+                particleList.add(particle);
             }
         }else {
             for (int i = 0; i < Config.pso_algorithm.number_of_particles; i++) {

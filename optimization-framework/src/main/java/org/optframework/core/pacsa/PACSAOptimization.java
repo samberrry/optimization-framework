@@ -2,6 +2,7 @@ package org.optframework.core.pacsa;
 
 
 import com.rits.cloning.Cloner;
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
@@ -28,14 +29,17 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
     protected double pheromoneTrailForX[][];
     protected double pheromoneTrailForY[][];
+    protected double pheromoneTrailForZ[][];
 
     protected Workflow workflow;
+    protected WorkflowDAG dag;
 
     protected InstanceInfo instanceInfo[];
 //    int numberOfCurrentUsedInstances;
 
     public PACSAOptimization(Solution initialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
+        this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
         this.initialSolution = initialSolution;
 
@@ -55,6 +59,13 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         for (int i = 0; i < instanceInfo.length; i++) {
             for (int j = 0; j < Config.global.m_number; j++) {
                 pheromoneTrailForY[i][j] = pheromoneInitialSeed;
+            }
+        }
+
+        pheromoneTrailForZ = new double[this.workflow.getJobList().size()][this.workflow.getJobList().size()];
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            for (int j = 0; j < workflow.getJobList().size(); j++) {
+                pheromoneTrailForZ[i][j] = pheromoneInitialSeed;
             }
         }
     }
@@ -108,6 +119,16 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                         pheromoneTrailForY[j][k] = (pheromoneTrailForY[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
                     }else {
                         pheromoneTrailForY[j][k] *= Config.pacsa_algorithm.evaporation_factor;
+                    }
+                }
+            }
+
+            for (int k = 0; k < workflow.getJobList().size(); k++) {
+                for (int j = 0; j < workflow.getJobList().size(); j++) {
+                    if (j == solutionToUpdate.zArray[k]){
+                        pheromoneTrailForZ[j][k] = (pheromoneTrailForZ[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+                    }else {
+                        pheromoneTrailForZ[j][k] *= Config.pacsa_algorithm.evaporation_factor;
                     }
                 }
             }
@@ -171,6 +192,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected Solution generateInitialSolutionFromPheromone(){
         int generatedXArray[] = new int[workflow.getNumberTasks()];
         int generatedYArray[] = new int[Config.global.m_number];
+        Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
         Random rand = new Random();
         int maxInstances = -1;
 
@@ -181,6 +203,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 for (int i = 0; i < Config.global.m_number; i++) {
                     pheromoneSum += pheromoneTrailForX[i][k];
                 }
+                //computes probability for a total column
                 xProbability[j] = (pheromoneTrailForX[j][k] / pheromoneSum);
             }
             double randomX = rand.nextDouble();
@@ -221,10 +244,50 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             generatedYArray[instanceId] = selectedInstance;
         }
 
+        for (int k = 0; k < workflow.getNumberTasks(); k++) {
+            double zProbability[] = new double[workflow.getNumberTasks()];
+            for (int j = 0; j < workflow.getNumberTasks(); j++) {
+                double pheromoneSum = 0;
+                for (int i = 0; i < workflow.getNumberTasks(); i++) {
+                    pheromoneSum += pheromoneTrailForZ[i][k];
+                }
+                zProbability[j] = (pheromoneTrailForZ[j][k] / pheromoneSum);
+            }
+            boolean repeatIt = true;
+            int newSelectedTaskToOrder = -1;
+
+            while (repeatIt){
+                double randomX = rand.nextDouble();
+                double probabilitySumTemp = 0;
+                for (int i = 0; i < workflow.getNumberTasks(); i++) {
+                    probabilitySumTemp += zProbability[i];
+                    if (probabilitySumTemp > randomX){
+                        newSelectedTaskToOrder = i;
+                        break;
+                    }
+                }
+
+                ArrayList<Integer> parentList = dag.getParents(newSelectedTaskToOrder);
+                int isSeen = 0;
+                for (Integer parentId: parentList){
+                    for (int j = 0; j < k; j++) {
+                        if (parentId == generatedZArray[j]){
+                            isSeen++;
+                        }
+                    }
+                }
+                if (isSeen == parentList.size()){
+                    repeatIt = false;
+                }
+            }
+            generatedZArray[k] = newSelectedTaskToOrder;
+        }
+
         Solution solution = new Solution(workflow, instanceInfo, maxInstances + 1);
         solution.numberOfUsedInstances = maxInstances + 1;
         solution.xArray = generatedXArray;
         solution.yArray = generatedYArray;
+        solution.zArray = generatedZArray;
         solution.fitness();
 
         return solution;
