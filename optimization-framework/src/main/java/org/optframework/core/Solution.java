@@ -142,34 +142,42 @@ public class Solution {
 
                 break;
                 //change z array
-            case 3:
-                boolean changeTaskAgain = true;
-                boolean changePositionAgain = true;
+            case 2:
                 int randomOldPosition = -1;
                 int randomNewPosition = -1;
-                int limit = 0;
-                while (changeTaskAgain){
+                boolean repeatIt = true;
+                while (repeatIt){
                     randomOldPosition = r.nextInt(workflow.getJobList().size());
                     WorkflowDAG dag = workflow.getWfDAG();
                     ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
+                    ArrayList<Integer> childList = dag.getChildren(zArray[randomOldPosition]);
+                    int startString = 0;
+                    int endString = 0;
 
-                    while (changePositionAgain){
-                        randomNewPosition = r.nextInt(zArray.length + 1);
-                        int isSeen =0;
-                        for (int i = 0; i < randomNewPosition; i++) {
-                            for (Integer parentId : parentList){
-                                if (parentId == zArray[i]){
-                                    isSeen++;
-                                }
+                    for (int i = randomOldPosition; i < 0; i--) {
+                        for(Integer parentId: parentList){
+                            if (zArray[i] == parentId)
+                                startString = i;
+                            i = 0;
+                            break;
+                        }
+                    }
+
+                    for (int i = randomOldPosition; i < zArray.length; i++) {
+                        for (Integer childId: childList){
+                            if (zArray[i] == childId){
+                                endString = i;
+                                i = zArray.length;
+                                break;
                             }
                         }
-                        limit++;
-                        if (isSeen == parentList.size() && randomOldPosition != randomNewPosition){
-                            changePositionAgain = false;
-                            changeTaskAgain = false;
-                        }else if (limit == workflow.getJobList().size()){
-                            changePositionAgain = false;
-                            changeTaskAgain = true;
+                    }
+                    int diff = endString - startString;
+                    if (diff > 2){
+                        randomNewPosition = r.nextInt(diff-1);
+                        randomNewPosition += (startString+1);
+                        if (randomNewPosition != randomOldPosition){
+                            repeatIt = false;
                         }
                     }
                 }
