@@ -47,7 +47,7 @@
 
 
 global:
-  algorithm: "pso"
+  algorithm: "pacsa"
   workflow_id: 3
   budget: 2.5
   bandwidth: 39321600
@@ -58,8 +58,6 @@ global:
 # id: 2 => cost efficient heft
 # id: others => none
   initial_solution_from_heft_id: 0
-  order_position_limit: 0
-  force_order_limits: no
 
 sa_algorithm:
   start_temperature: 850
