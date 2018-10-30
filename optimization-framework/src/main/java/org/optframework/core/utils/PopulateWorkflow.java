@@ -44,6 +44,12 @@ public class PopulateWorkflow {
                 case 4:
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
                     break;
+                case 5:
+                    workflowPath = "resources/input/inputDAGfiles/inspiral200.xml";
+                    break;
+                case 6:
+                    workflowPath = "resources/input/inputDAGfiles/inspiral300.xml";
+                    break;
                 case 10:
                     workflowPath = "resources/input/inputDAGfiles/Montage_1000.xml";
                     break;
@@ -55,6 +61,12 @@ public class PopulateWorkflow {
                     break;
                 case 13:
                     workflowPath = "resources/input/inputDAGfiles/Montage_25.xml";
+                    break;
+                case 14:
+                    workflowPath = "resources/input/inputDAGfiles/montage200.xml";
+                    break;
+                case 15:
+                    workflowPath = "resources/input/inputDAGfiles/montage300.xml";
                     break;
                 case 20:
                     workflowPath = "resources/input/inputDAGfiles/Sipht_1000.xml";
@@ -68,6 +80,12 @@ public class PopulateWorkflow {
                 case 23:
                     workflowPath = "resources/input/inputDAGfiles/Sipht_30.xml";
                     break;
+                case 24:
+                    workflowPath = "resources/input/inputDAGfiles/sipht200.xml";
+                    break;
+                case 25:
+                    workflowPath = "resources/input/inputDAGfiles/sipht300.xml";
+                    break;
                 case 30:
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_997.xml";
                     break;
@@ -80,6 +98,12 @@ public class PopulateWorkflow {
                 case 33:
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_24.xml";
                     break;
+                case 34:
+                    workflowPath = "resources/input/inputDAGfiles/epigenomics200.xml";
+                    break;
+                case 35:
+                    workflowPath = "resources/input/inputDAGfiles/epigenomics300.xml";
+                    break;
                 case 40:
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_1000.xml";
                     break;
@@ -91,6 +115,12 @@ public class PopulateWorkflow {
                     break;
                 case 43:
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_30.xml";
+                    break;
+                case 44:
+                    workflowPath = "resources/input/inputDAGfiles/cyberShake200.xml";
+                    break;
+                case 45:
+                    workflowPath = "resources/input/inputDAGfiles/cyberShake300.xml";
                     break;
             }
 

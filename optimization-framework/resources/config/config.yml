@@ -13,32 +13,6 @@
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 #
-#========================================================================================
-#============================== WORKFLOW ID MAPPER TABLE ================================
-#========================================================================================
-# Workflow ID             Description
-#----------------------------------------------------------------------------------------
-# 1                       Inspiral 1000
-# 2                       Inspiral 100
-# 3                       Inspiral 50
-# 4                       Inspiral 30
-# 10                      Montage 1000
-# 11                      Montage 100
-# 12                      Montage 50
-# 13                      Montage 25
-# 20                      Sipht 1000
-# 21                      Sipht 100
-# 22                      Sipht 60
-# 23                      Sipht 30
-# 30                      Epigenomics 997
-# 31                      Epigenomics 100
-# 32                      Epigenomics 46
-# 33                      Epigenomics 24
-# 40                      CyberShake 1000
-# 41                      CyberShake 100
-# 42                      CyberShake 50
-# 43                      CyberShake 30
-#
 # Key NOTES:
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
 # - All of the algorithm's fitness are based on the HEFT algorithm
