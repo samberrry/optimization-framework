@@ -152,14 +152,15 @@ public class Solution {
                     ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
                     ArrayList<Integer> childList = dag.getChildren(zArray[randomOldPosition]);
                     int startString = 0;
-                    int endString = 0;
+                    int endString = zArray.length-1;
 
-                    for (int i = randomOldPosition; i < 0; i--) {
+                    for (int i = randomOldPosition; i >= 0; i--) {
                         for(Integer parentId: parentList){
-                            if (zArray[i] == parentId)
+                            if (zArray[i] == parentId){
                                 startString = i;
-                            i = 0;
-                            break;
+                                i = 0;
+                                break;
+                            }
                         }
                     }
 
@@ -185,7 +186,9 @@ public class Solution {
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 CollectionUtils.addAll(arrayList, zArray);
                 arrayList.add(randomNewPosition, zArray[randomOldPosition]);
-                arrayList.remove(randomOldPosition);
+                if (randomOldPosition > randomNewPosition){
+                    arrayList.remove(randomOldPosition+1);
+                }
 
                 zArray = arrayList.toArray(new Integer[arrayList.size()]);
                 break;
