@@ -269,7 +269,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         solution.numberOfUsedInstances = numberOfUsedInstances;
         solution.xArray = xArray;
         solution.yArray = yArray;
-        solution.fitness();
+        solution.heftFitness();
 
         return solution;
     }

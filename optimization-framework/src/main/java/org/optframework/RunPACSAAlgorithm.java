@@ -68,7 +68,7 @@ public class RunPACSAAlgorithm {
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
         Solution heftSolution = heftAlgorithm.runAlgorithm();
-        heftSolution.fitness();
+        heftSolution.heftFitness();
         Printer.lightPrintSolution(heftSolution , 0);
 
         if (Config.pacsa_algorithm.m_number_from_heft){
