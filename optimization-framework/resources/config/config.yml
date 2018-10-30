@@ -49,11 +49,11 @@
 global:
   algorithm: "pacsa"
   workflow_id: 4
-  budget: 2.5
+  budget: 3.18
   bandwidth: 39321600
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 50
+  m_number: 5
 # id: 1 => normal heft
 # id: 2 => cost efficient heft
 # id: others => none

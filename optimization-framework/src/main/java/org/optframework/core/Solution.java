@@ -188,6 +188,8 @@ public class Solution {
                 arrayList.add(randomNewPosition, zArray[randomOldPosition]);
                 if (randomOldPosition > randomNewPosition){
                     arrayList.remove(randomOldPosition+1);
+                }else {
+                    arrayList.remove(randomOldPosition);
                 }
 
                 zArray = arrayList.toArray(new Integer[arrayList.size()]);

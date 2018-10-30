@@ -2,6 +2,7 @@ package org.optframework.core.pacsa;
 
 
 import com.rits.cloning.Cloner;
+import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -243,24 +244,29 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
             generatedYArray[instanceId] = selectedInstance;
         }
+
         boolean repeatIt = true;
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+
         for (int k = 0; k < workflow.getNumberTasks(); k++) {
-            double zProbability[] = new double[workflow.getNumberTasks()];
-            for (int j = 0; j < workflow.getNumberTasks(); j++) {
+            double zProbability[] = new double[workflow.getJobList().size()];
+            for (Integer taskIdI: readyTasksToOrder){
                 double pheromoneSum = 0;
-                for (int i = 0; i < workflow.getNumberTasks(); i++) {
-                    pheromoneSum += pheromoneTrailForZ[i][k];
+                for (Integer taskId : readyTasksToOrder){
+                    pheromoneSum += pheromoneTrailForZ[taskId][k];
                 }
-                zProbability[j] = (pheromoneTrailForZ[j][k] / pheromoneSum);
+                zProbability[taskIdI] = (pheromoneTrailForZ[taskIdI][k] / pheromoneSum);
             }
             int newSelectedTaskToOrder = -1;
+            int idInReadyList = -1;
             while (repeatIt){
                 double randomX = rand.nextDouble();
                 double probabilitySumTemp = 0;
-                for (int i = 0; i < workflow.getNumberTasks(); i++) {
-                    probabilitySumTemp += zProbability[i];
+                for (int i = 0; i < readyTasksToOrder.size(); i++) {
+                    probabilitySumTemp += zProbability[readyTasksToOrder.get(i)];
                     if (probabilitySumTemp > randomX){
-                        newSelectedTaskToOrder = i;
+                        newSelectedTaskToOrder = readyTasksToOrder.get(i);
+                        idInReadyList = i;
                         break;
                     }
                 }
@@ -278,6 +284,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     repeatIt = false;
                 }
             }
+            readyTasksToOrder.remove(idInReadyList);
+            readyTasksToOrder.addAll(dag.getChildren(newSelectedTaskToOrder));
+            SetUniqueList.setUniqueList(readyTasksToOrder);
             repeatIt = true;
             generatedZArray[k] = newSelectedTaskToOrder;
         }
