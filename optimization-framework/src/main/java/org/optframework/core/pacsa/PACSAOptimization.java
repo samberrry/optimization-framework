@@ -243,7 +243,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
             generatedYArray[instanceId] = selectedInstance;
         }
-
+        boolean repeatIt = true;
         for (int k = 0; k < workflow.getNumberTasks(); k++) {
             double zProbability[] = new double[workflow.getNumberTasks()];
             for (int j = 0; j < workflow.getNumberTasks(); j++) {
@@ -253,9 +253,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
                 zProbability[j] = (pheromoneTrailForZ[j][k] / pheromoneSum);
             }
-            boolean repeatIt = true;
             int newSelectedTaskToOrder = -1;
-
             while (repeatIt){
                 double randomX = rand.nextDouble();
                 double probabilitySumTemp = 0;
@@ -280,6 +278,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     repeatIt = false;
                 }
             }
+            repeatIt = true;
             generatedZArray[k] = newSelectedTaskToOrder;
         }
 

@@ -69,8 +69,6 @@ public class Solution {
 
     public Workflow workflow;
 
-    List<Job> originalJobList;
-
     public InstanceInfo instanceInfo[];
 
     /**
@@ -83,6 +81,9 @@ public class Solution {
         this.instanceInfo = instanceInfo;
         xArray = new int[workflow.getJobList().size()];
         zArray = new Integer[workflow.getJobList().size()];
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            zArray[i] = new Integer(-1);
+        }
         yArray = new int[numberOfInstances];
         yPrimeArray = new int[numberOfInstances];
         instanceUsages = new short[numberOfInstances];
@@ -278,13 +279,14 @@ public class Solution {
          * Generate random zArray
          * */
         WorkflowDAG dag = workflow.getWfDAG();
+        List<Job> originalJobList = workflow.getJobList();
         Random random = new Random();
 
         ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
         int randomId = random.nextInt(readyTasksToOrder.size());
         int taskId = readyTasksToOrder.get(randomId);
-//        originalJobList.get(taskId).visitedForOrder = true;
         boolean repeatIt = true;
+
         zArray[0] = originalJobList.get(taskId).getIntId();
 
         readyTasksToOrder.addAll(dag.getChildren(taskId));
@@ -308,6 +310,7 @@ public class Solution {
                     repeatIt = false;
                 }
             }
+            repeatIt = true;
             zArray[i] = originalJobList.get(taskId).getIntId();
             readyTasksToOrder.remove(randomId);
             readyTasksToOrder.addAll(dag.getChildren(taskId));
@@ -324,6 +327,7 @@ public class Solution {
             Log.logger.warning("Problem with fitness function properties");
             return;
         }
+        List<Job> originalJobList = workflow.getJobList();
         originalJobList = workflow.getJobList();
         WorkflowDAG dag = workflow.getWfDAG();
 
@@ -553,6 +557,7 @@ public class Solution {
     }
 
     int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId){
+        List<Job> originalJobList = workflow.getJobList();
         double tempValue = -1;
         int tempId = -1;
 
@@ -609,6 +614,7 @@ public class Solution {
             Log.logger.warning("Problem with fitness function properties");
             return;
         }
+        List<Job> originalJobList = workflow.getJobList();
         Cloner cloner = new Cloner();
 
         originalJobList = workflow.getJobList();
