@@ -23,7 +23,7 @@ public class Beta {
         solution.xArray = bestCaseTasks;
         solution.yArray = bestCaseInstances;
 
-        solution.fitness();
+        solution.heftFitness();
 
         //solution with worst makespan
         int worstCaseTasks[] = new int[workflow.getJobList().size()];
@@ -36,7 +36,7 @@ public class Beta {
         solution2.xArray = worstCaseTasks;
         solution2.yArray = worstCaseInstances;
 
-        solution2.fitness();
+        solution2.heftFitness();
 
         return 100 * (solution2.makespan - solution.makespan);
     }
