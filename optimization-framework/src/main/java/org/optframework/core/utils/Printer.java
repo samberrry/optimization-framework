@@ -159,7 +159,7 @@ public class Printer {
         String str = "";
 
         for (int i = 0; i < utilization.length; i++) {
-            str += "Instance " + i + " "+ utilization[i] + "\n\n";
+            str += "Instance" + i + ": "+ utilization[i] + "\n\n";
         }
 
         str += "AVERAGE RESOURCE UTILIZATION: " + utilizationAverage;
