@@ -72,7 +72,7 @@ pacsa_algorithm:
   m_number_from_heft: no
   compute_m_number_from_budget: no
   global_based: yes
-  insert_heft_initial_solution: no
+  insert_heft_initial_solution: yes
 
 pso_algorithm:
   number_of_runs: 10

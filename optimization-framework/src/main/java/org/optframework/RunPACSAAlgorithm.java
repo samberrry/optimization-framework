@@ -177,7 +177,7 @@ public class RunPACSAAlgorithm {
     }
 
     public static List<Solution> getInitialSolution(InstanceInfo instanceInfo[]){
-        List<Solution> initialSolutionList = null;
+        List<Solution> initialSolutionList = new ArrayList<>();
         if (Config.pacsa_algorithm.insert_heft_initial_solution){
             Solution initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
             initialSolutionList.add(initialSolution);

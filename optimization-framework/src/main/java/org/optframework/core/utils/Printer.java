@@ -124,12 +124,12 @@ public class Printer {
     public static void printSolutionWithouthTime(Solution solution, InstanceInfo instanceInfo[]){
         String toPrint = "\n";
         toPrint += "Number of used Instances: " + solution.numberOfUsedInstances + "\n\n";
-        toPrint += "======================================================================";
+        toPrint += "======================================================================\n";
 
         for (int i = 0; i < solution.instanceTimes.length; i++) {
             toPrint += "Requested time for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimes[i] + "\n";
         }
-        toPrint += "======================================================================";
+        toPrint += "======================================================================\n";
 
         for (int i = 0; i < solution.instanceTimelines.length; i++) {
             toPrint += "Timeline for instance " + instanceInfo[solution.yArray[i]].getType().getName() + " : " + solution.instanceTimelines[i] + "\n";
