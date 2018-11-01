@@ -1,7 +1,6 @@
 package org.optframework.core.pacsa;
 
 
-import com.rits.cloning.Cloner;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.config.Config;

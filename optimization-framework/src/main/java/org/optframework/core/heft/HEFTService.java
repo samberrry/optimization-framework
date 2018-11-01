@@ -1,10 +1,14 @@
 package org.optframework.core.heft;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
+
+import java.util.Collections;
+import java.util.List;
 
 public class HEFTService {
     public static Solution getHEFT(InstanceInfo instanceInfo[]){
@@ -34,7 +38,18 @@ public class HEFTService {
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
         Solution heftSolution = heftAlgorithm.runAlgorithm();
-        heftSolution.fitness();
+
+        Cloner cloner = new Cloner();
+
+        List<Job> orderedJobList = cloner.deepClone(heftWorkflow.getJobList());
+        Collections.sort(orderedJobList, Job.rankComparator);
+        Integer zArray[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray[i] = orderedJobList.get(i).getIntId();
+        }
+
+        heftSolution.zArray = zArray;
+        heftSolution.heftFitness();
 
         return heftSolution;
     }
@@ -66,7 +81,17 @@ public class HEFTService {
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
         Solution heftSolution = heftAlgorithm.runAlgorithm();
-        heftSolution.fitness();
+
+        Cloner cloner = new Cloner();
+
+        List<Job> orderedJobList = cloner.deepClone(heftWorkflow.getJobList());
+        Collections.sort(orderedJobList, Job.rankComparator);
+        Integer zArray[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray[i] = orderedJobList.get(i).getIntId();
+        }
+        heftSolution.zArray = zArray;
+        heftSolution.heftFitness();
 
         return heftSolution;
     }
