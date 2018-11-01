@@ -148,4 +148,22 @@ public class Printer {
         Log.logger.info("Makespan: " + solution.makespan);
         Log.logger.info("Fitness Value: "+ solution.fitnessValue);
     }
+
+    public static void printUtilization(double utilization[]){
+        double utilizationSum = 0;
+        for (int i = 0; i < utilization.length ; i++) {
+            utilizationSum += utilization[i];
+        }
+
+        double utilizationAverage = utilizationSum / utilization.length;
+        String str = "";
+
+        for (int i = 0; i < utilization.length; i++) {
+            str += "Instance " + i + " "+ utilization[i] + "\n\n";
+        }
+
+        str += "AVERAGE RESOURCE UTILIZATION: " + utilizationAverage;
+
+        Log.logger.info(str);
+    }
 }
