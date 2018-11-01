@@ -176,7 +176,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected void generateRandomInitialSolutionList(){
-        if (outInitialSolution.size() != 0){
+        if (outInitialSolution != null){
             for (Solution solution: outInitialSolution){
                 initialSolutionList.add(solution);
             }
