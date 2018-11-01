@@ -61,7 +61,7 @@ pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
   number_of_ants: 4
-  number_of_runs: 10
+  number_of_runs: 1
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate

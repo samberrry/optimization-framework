@@ -148,7 +148,7 @@ public class RunPACSAAlgorithm {
         double resourceUtilization[] = new double[bestSolution.numberOfUsedInstances];
         double onlyTaskUtilization[] = new double[bestSolution.numberOfUsedInstances];
         for (Job job : workflow.getJobList()){
-            onlyTaskUtilization[bestSolution.yArray[job.getIntId()]] += job.getExeTime()[bestSolution.yArray[bestSolution.xArray[job.getIntId()]]];
+            onlyTaskUtilization[bestSolution.xArray[job.getIntId()]] += job.getExeTime()[bestSolution.yArray[bestSolution.xArray[job.getIntId()]]];
         }
 
         for (int i = 0; i < bestSolution.numberOfUsedInstances; i++) {
