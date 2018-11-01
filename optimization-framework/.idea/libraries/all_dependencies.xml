@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="aws-java-sdk-core-1.10.37">
+  <library name="all-dependencies">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../dependencies/aws-java-sdk-core-1.10.37.jar!/" />
       <root url="jar://$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar!/" />

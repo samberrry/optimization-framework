@@ -27,7 +27,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/cloning-1.9.10.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/objenesis-2.6.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/snakeyaml-1.17.jar" path-in-jar="/" />
-      <element id="library" level="project" name="aws-java-sdk-core-1.10.37" />
+      <element id="library" level="project" name="all-dependencies" />
       <element id="library" level="project" name="aws-java-sdk-ec2-1.9.0" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/commons-collections4-4.2.jar" path-in-jar="/" />
     </root>
