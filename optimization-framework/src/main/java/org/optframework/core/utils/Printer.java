@@ -122,7 +122,7 @@ public class Printer {
     }
 
     public static void printSolutionWithouthTime(Solution solution, InstanceInfo instanceInfo[]){
-        String toPrint = "";
+        String toPrint = "\n";
         toPrint += "Number of used Instances: " + solution.numberOfUsedInstances + "\n\n";
         toPrint += "======================================================================";
 
@@ -149,7 +149,7 @@ public class Printer {
         }
         Log.logger.info("Value of the Y Array: "+ yArray);
 
-        toPrint = "Total Cost: " + solution.cost + "\n";
+        toPrint = "\nTotal Cost: " + solution.cost + "\n";
         toPrint += "Makespan: " + solution.makespan + "\n";
         toPrint += "Fitness Value: "+ solution.fitnessValue + "\n";
 
@@ -163,7 +163,7 @@ public class Printer {
         }
 
         double utilizationAverage = utilizationSum / utilization.length;
-        String str = "";
+        String str = "\n";
 
         for (int i = 0; i < utilization.length; i++) {
             str += "Instance" + i + ": "+ utilization[i] + "\n";

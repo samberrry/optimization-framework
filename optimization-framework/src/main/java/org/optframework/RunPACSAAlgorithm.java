@@ -158,10 +158,11 @@ public class RunPACSAAlgorithm {
 
         Printer.printSplitter();
 
-        Log.logger.info("Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs());
-        Log.logger.info("Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs());
-
-        Log.logger.info("Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin);
+        String toPrint = "\n";
+        toPrint += "Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
+        toPrint += "Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
+        toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n";
+        Log.logger.info(toPrint);
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
