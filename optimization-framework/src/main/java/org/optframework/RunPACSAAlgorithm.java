@@ -94,6 +94,7 @@ public class RunPACSAAlgorithm {
         OptimizationAlgorithm optimizationAlgorithm;
 
         List<Solution> solutionList = new ArrayList<>();
+        List<Solution> initialSolutionList = getInitialSolution(instanceInfo);
 
         for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
@@ -102,9 +103,9 @@ public class RunPACSAAlgorithm {
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
             if (Config.pacsa_algorithm.iteration_number_based){
-                optimizationAlgorithm = new PACSAIterationNumber(getInitialSolution(instanceInfo), (1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, (1/(double)heftSolution.makespan),workflow, instanceInfo);
             }else {
-                optimizationAlgorithm = new PACSAOptimization(getInitialSolution(instanceInfo) ,(1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAOptimization(initialSolutionList ,(1/(double)heftSolution.makespan),workflow, instanceInfo);
             }
 
             long start = System.currentTimeMillis();
@@ -175,18 +176,12 @@ public class RunPACSAAlgorithm {
         }
     }
 
-    public static Solution getInitialSolution(InstanceInfo instanceInfo[]){
-        Solution initialSolution;
-        switch (Config.global.initial_solution_from_heft_id){
-            case 1:
-                 initialSolution = HEFTService.getHEFT(instanceInfo);
-                break;
-            case 2:
-                initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
-                break;
-            default:
-                initialSolution = null;
+    public static List<Solution> getInitialSolution(InstanceInfo instanceInfo[]){
+        List<Solution> initialSolutionList = null;
+        if (Config.pacsa_algorithm.insert_heft_initial_solution){
+            Solution initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
+            initialSolutionList.add(initialSolution);
         }
-        return initialSolution;
+        return initialSolutionList;
     }
 }

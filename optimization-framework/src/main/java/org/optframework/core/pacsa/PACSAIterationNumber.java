@@ -6,14 +6,16 @@ import org.optframework.core.Solution;
 import org.optframework.core.Workflow;
 import org.optframework.core.utils.Printer;
 
+import java.util.List;
+
 /**
  * This PACSA versions does the algorithm based on iteration number specified in the config file
  * */
 
 public class PACSAIterationNumber extends PACSAOptimization{
 
-    public PACSAIterationNumber(Solution initialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
-        super(initialSolution, pheromoneInitialSeed, workflow, instanceInfo);
+    public PACSAIterationNumber(List<Solution> initialSolutionList, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
+        super(initialSolutionList, pheromoneInitialSeed, workflow, instanceInfo);
     }
 
     @Override

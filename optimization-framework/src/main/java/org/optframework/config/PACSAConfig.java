@@ -12,6 +12,7 @@ public class PACSAConfig {
     public boolean m_number_from_heft;
     public boolean global_based;
     public boolean compute_m_number_from_budget;
+    public boolean insert_heft_initial_solution;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -99,5 +100,13 @@ public class PACSAConfig {
 
     public void setIteration_number_based(boolean iteration_number_based) {
         this.iteration_number_based = iteration_number_based;
+    }
+
+    public boolean isInsert_heft_initial_solution() {
+        return insert_heft_initial_solution;
+    }
+
+    public void setInsert_heft_initial_solution(boolean insert_heft_initial_solution) {
+        this.insert_heft_initial_solution = insert_heft_initial_solution;
     }
 }

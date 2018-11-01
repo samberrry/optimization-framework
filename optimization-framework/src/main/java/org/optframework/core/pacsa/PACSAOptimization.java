@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class PACSAOptimization implements OptimizationAlgorithm {
 
-    protected Solution initialSolution;
+    protected List<Solution> outInitialSolution;
     protected Solution globalBestSolution;
     protected List<Solution> initialSolutionList = new ArrayList<>();
 
@@ -38,11 +38,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected InstanceInfo instanceInfo[];
 //    int numberOfCurrentUsedInstances;
 
-    public PACSAOptimization(Solution initialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
+    public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
         this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
-        this.initialSolution = initialSolution;
+        this.outInitialSolution = outInitialSolution;
 
         /**
          * Pheromone trail structure:
@@ -176,10 +176,14 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected void generateRandomInitialSolutionList(){
-        if (initialSolution != null){
-            Cloner cloner = new Cloner();
-            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-                initialSolutionList.add(cloner.deepClone(initialSolution));
+        if (outInitialSolution.size() != 0){
+            for (Solution solution: outInitialSolution){
+                initialSolutionList.add(solution);
+            }
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants - outInitialSolution.size(); i++) {
+                Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+                solution.generateRandomSolution(workflow);
+                initialSolutionList.add(i , solution);
             }
         }else {
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
