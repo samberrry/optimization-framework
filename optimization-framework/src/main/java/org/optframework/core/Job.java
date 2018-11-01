@@ -19,13 +19,7 @@ public class Job implements Serializable{
 
     private double rank;
 
-    private double startTime;
-
     private double finishTime;
-
-    private int maxParentId;
-
-    private double cijForMaxParent;
 
     private double length;
 
@@ -122,14 +116,6 @@ public class Job implements Serializable{
         this.exeTime = exeTime;
     }
 
-    public double getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(double startTime) {
-        this.startTime = startTime;
-    }
-
     public static Comparator<Job> rankComparator = new Comparator<Job>() {
         @Override
         public int compare(Job o1, Job o2) {
@@ -145,19 +131,4 @@ public class Job implements Serializable{
         this.length = length;
     }
 
-    public int getMaxParentId() {
-        return maxParentId;
-    }
-
-    public void setMaxParentId(int maxParentId) {
-        this.maxParentId = maxParentId;
-    }
-
-    public double getCijForMaxParent() {
-        return cijForMaxParent;
-    }
-
-    public void setCijForMaxParent(double cijForMaxParent) {
-        this.cijForMaxParent = cijForMaxParent;
-    }
 }

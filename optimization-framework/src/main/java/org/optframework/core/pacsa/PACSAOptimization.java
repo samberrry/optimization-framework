@@ -294,7 +294,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             generatedZArray[k] = newSelectedTaskToOrder;
         }
 
-        Solution solution = new Solution(workflow, instanceInfo, maxInstances + 1);
+        Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
         solution.numberOfUsedInstances = maxInstances + 1;
         solution.xArray = generatedXArray;
         solution.yArray = generatedYArray;

@@ -1,6 +1,5 @@
 package org.optframework.core.sa;
 
-import com.rits.cloning.Cloner;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 
@@ -26,8 +25,6 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
     InstanceInfo instanceInfo[];
 
-    Cloner cloner = new Cloner();
-
     long counter = 0;
 
     public SimulatedAnnealingAlgorithm(Solution initialSolution, Workflow workflow, InstanceInfo[] instanceInfo) {
@@ -47,15 +44,24 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
         temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;
-        globalBest = cloner.deepClone(bestCurrent);
+
+        try {
+            globalBest = bestCurrent.clone();
+        }catch (Exception e){
+            System.out.println("cloning exception");
+        }
 
         //LOOPs at a fixed temperature:
         while (temp >= Config.sa_algorithm.final_temperature){
             for (int i = 0; i < Config.sa_algorithm.equilibrium_point; i++) {
                 counter++;
                 //GENERATES random neighbor
-                Solution randomNeighbor = cloner.deepClone(bestCurrent);
-
+                Solution randomNeighbor = null;
+                try {
+                    randomNeighbor = bestCurrent.clone();
+                }catch (Exception e){
+                    System.out.println("cloning exception");
+                }
                 //Generates a random neighbor solution
                 randomNeighbor.generateRandomNeighborSolution(workflow);
 

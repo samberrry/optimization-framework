@@ -18,7 +18,7 @@ import java.util.*;
  * @since 2018
  *
  * */
-public class Solution {
+public class Solution implements Cloneable{
     int id;
     /**
      * Cost of the solution
@@ -71,23 +71,25 @@ public class Solution {
 
     public InstanceInfo instanceInfo[];
 
+    double taskFinishTimes[];
+
     /**
      * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
      */
     public int makespanPrime;
 
-    public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
+    public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int maxNumberOfInstances) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
+        this.maxNumberOfInstances = maxNumberOfInstances;
         xArray = new int[workflow.getJobList().size()];
         zArray = new Integer[workflow.getJobList().size()];
         for (int i = 0; i < workflow.getJobList().size(); i++) {
             zArray[i] = new Integer(-1);
         }
-        yArray = new int[numberOfInstances];
-        yPrimeArray = new int[numberOfInstances];
-        instanceUsages = new short[numberOfInstances];
-        maxNumberOfInstances = numberOfInstances;
+        yArray = new int[maxNumberOfInstances];
+        yPrimeArray = new int[maxNumberOfInstances];
+        instanceUsages = new short[maxNumberOfInstances];
         beta = workflow.getBeta();
     }
 
@@ -341,12 +343,13 @@ public class Solution {
             return;
         }
         List<Job> originalJobList = workflow.getJobList();
-        originalJobList = workflow.getJobList();
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[numberOfUsedInstances];
         double instanceStartTime[] = new double[numberOfUsedInstances];
         boolean instanceIsUsed[] = new boolean[numberOfUsedInstances];
+
+        taskFinishTimes = new double[workflow.getJobList().size()];
 
         instanceTimes = new double[numberOfUsedInstances];
 
@@ -362,7 +365,8 @@ public class Solution {
         instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
         instanceIsUsed[xArray[firstJob.getIntId()]] = true;
         instanceStartTime[xArray[firstJob.getIntId()]] = 0;
-        firstJob.setFinishTime(instanceTimeLine[xArray[firstJob.getIntId()]]);
+
+        taskFinishTimes[firstJob.getIntId()] = instanceTimeLine[xArray[firstJob.getIntId()]];
 
         //for the rest of tasks
         for (int i = 1; i < zArray.length; i++) {
@@ -394,7 +398,7 @@ public class Solution {
                 Collections.sort(instanceList[xArray[job.getIntId()]].gapList , Gap.gapComparator);
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
                 maxParentJob = originalJobList.get(maxParentId);
-                latestParentFinishTime = maxParentJob.getFinishTime();
+                latestParentFinishTime = taskFinishTimes[maxParentJob.getIntId()];
 
                 int k =0;
                 for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
@@ -460,7 +464,7 @@ public class Solution {
                 //check maximum task finish time for all of the current instances
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
 
-                double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[xArray[job.getIntId()]];
+                double waitingTime = taskFinishTimes[maxParentId] - instanceTimeLine[xArray[job.getIntId()]];
 
                 if (waitingTime > 0 ){
                     double currentTime = instanceTimeLine[xArray[job.getIntId()]] + waitingTime;
@@ -478,7 +482,7 @@ public class Solution {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         cij = edge / (double)Config.global.bandwidth;
 
-                        double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+                        double timeToSendData = currentTime - taskFinishTimes[maxParentId];
 
                         if (timeToSendData >= cij){
                             currentFinishTime = currentTime + taskExeTime;
@@ -502,7 +506,7 @@ public class Solution {
                     if (xArray[job.getIntId()] == xArray[maxParentId]){
                         currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
                     }else {
-                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - originalJobList.get(maxParentId).getFinishTime();
+                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
 
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         cij = edge / (double)Config.global.bandwidth;
@@ -544,7 +548,7 @@ public class Solution {
                 instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
                 instanceIsUsed[xArray[job.getIntId()]] = true;
             }
-            originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
+            taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
         }
 
         for (int i = 0; i < instanceTimes.length; i++) {
@@ -579,9 +583,9 @@ public class Solution {
             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
             double maxJobStartTime;
             if (xArray[jobId] == xArray[parentId]){
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime();
+                maxJobStartTime = taskFinishTimes[parentId];
             }else {
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime() + tempCIJ;
+                maxJobStartTime = taskFinishTimes[parentId] + tempCIJ;
             }
 
             if (tempValue < maxJobStartTime){
@@ -641,6 +645,7 @@ public class Solution {
         double instanceStartTime[] = new double[numberOfUsedInstances];
         boolean instanceIsUsed[] = new boolean[numberOfUsedInstances];
 
+        taskFinishTimes = new double[workflow.getJobList().size()];
         instanceTimes = new double[numberOfUsedInstances];
 
         Instance instanceList[] = new Instance[numberOfUsedInstances];
@@ -656,7 +661,7 @@ public class Solution {
         instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
         instanceIsUsed[xArray[firstJob.getIntId()]] = true;
         instanceStartTime[xArray[firstJob.getIntId()]] = 0;
-        originalVersion.setFinishTime(instanceTimeLine[xArray[firstJob.getIntId()]]);
+        taskFinishTimes[originalVersion.getIntId()] = instanceTimeLine[xArray[firstJob.getIntId()]];
 
         //for the rest of tasks
         for (int i = 1; i < orderedJobList.size(); i++) {
@@ -688,7 +693,7 @@ public class Solution {
                 Collections.sort(instanceList[xArray[job.getIntId()]].gapList , Gap.gapComparator);
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
                 maxParentJob = originalJobList.get(maxParentId);
-                latestParentFinishTime = maxParentJob.getFinishTime();
+                latestParentFinishTime = taskFinishTimes[maxParentJob.getIntId()];
 
                 int k =0;
                 for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
@@ -754,7 +759,7 @@ public class Solution {
                 //check maximum task finish time for all of the current instances
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
 
-                double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[xArray[job.getIntId()]];
+                double waitingTime = taskFinishTimes[maxParentId] - instanceTimeLine[xArray[job.getIntId()]];
 
                 if (waitingTime > 0 ){
                     double currentTime = instanceTimeLine[xArray[job.getIntId()]] + waitingTime;
@@ -772,7 +777,7 @@ public class Solution {
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         cij = edge / (double)Config.global.bandwidth;
 
-                        double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+                        double timeToSendData = currentTime - taskFinishTimes[maxParentId];
 
                         if (timeToSendData >= cij){
                             currentFinishTime = currentTime + taskExeTime;
@@ -796,7 +801,7 @@ public class Solution {
                     if (xArray[job.getIntId()] == xArray[maxParentId]){
                         currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
                     }else {
-                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - originalJobList.get(maxParentId).getFinishTime();
+                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
 
                         double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                         cij = edge / (double)Config.global.bandwidth;
@@ -838,7 +843,7 @@ public class Solution {
                 instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
                 instanceIsUsed[xArray[job.getIntId()]] = true;
             }
-            originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
+            taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
         }
 
         for (int i = 0; i < instanceTimes.length; i++) {
@@ -979,5 +984,38 @@ public class Solution {
     public int hashCode() {
 
         return Objects.hash(fitnessValue);
+    }
+
+    @Override
+    public Solution clone() throws CloneNotSupportedException {
+        Solution solution = (Solution)super.clone();
+
+        int newX[] = new int[workflow.getJobList().size()];
+        int newY[] = new int[maxNumberOfInstances];
+        Integer newZ[] = new Integer[workflow.getJobList().size()];
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            newX[i] = xArray[i];
+        }
+
+        for (int i = 0; i < maxNumberOfInstances; i++) {
+            newY[i] = yArray[i];
+        }
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            newZ[i] = new Integer(zArray[i]);
+        }
+
+        solution.xArray = newX;
+        solution.yArray = newY;
+        solution.zArray = newZ;
+
+        solution.instanceUsages = new short[maxNumberOfInstances];
+        solution.taskFinishTimes = new double[workflow.getJobList().size()];
+        solution.instanceTimelines = new double[maxNumberOfInstances];
+        solution.instanceStartTime = new double[maxNumberOfInstances];
+        solution.instanceTimes = new double[numberOfUsedInstances];
+
+        return solution;
     }
 }
