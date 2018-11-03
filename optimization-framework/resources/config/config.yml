@@ -12,6 +12,7 @@
 # heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
+# pso               Particle Swarm Intelligence
 #
 # Key NOTES:
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
@@ -23,15 +24,20 @@
 global:
   algorithm: "pacsa"
   workflow_id: 3
-  budget: 4.62
+  workflow_name: "inspiral_30"
+  budget: 2.3
   bandwidth: 39321600
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 100
+  m_number: 20
 # id: 1 => normal heft
 # id: 2 => cost efficient heft
 # id: others => none
   initial_solution_from_heft_id: 0
+  use_mysql_to_log: yes
+  mysql_username: "hessamdb"
+  mysql_password: "He$123456789"
+  connection_string: "jdbc:mysql://localhost:3306/optdb"
 
 sa_algorithm:
   start_temperature: 850
@@ -61,7 +67,7 @@ pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
   number_of_ants: 4
-  number_of_runs: 1
+  number_of_runs: 3
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
@@ -72,7 +78,8 @@ pacsa_algorithm:
   m_number_from_heft: no
   global_based: yes
   insert_heft_initial_solution: yes
-  compute_m_number: yes
+#  if compute m number is set to no, pacsa plus is actually used!
+  compute_m_number: no
 
 pso_algorithm:
   number_of_runs: 10

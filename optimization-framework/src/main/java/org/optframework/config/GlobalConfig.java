@@ -2,12 +2,17 @@ package org.optframework.config;
 
 public class GlobalConfig {
     public String algorithm;
+    public String workflow_name;
     public Integer workflow_id;
     public Double budget;
     public Long bandwidth;
     public Integer m_number;
     public Integer t_extra;
     public Integer initial_solution_from_heft_id;
+    public Boolean use_mysql_to_log;
+    public String mysql_username;
+    public String mysql_password;
+    public String connection_string;
 
     public String getAlgorithm() {
         return algorithm;
@@ -63,5 +68,45 @@ public class GlobalConfig {
 
     public void setInitial_solution_from_heft_id(Integer initial_solution_from_heft_id) {
         this.initial_solution_from_heft_id = initial_solution_from_heft_id;
+    }
+
+    public String getWorkflow_name() {
+        return workflow_name;
+    }
+
+    public void setWorkflow_name(String workflow_name) {
+        this.workflow_name = workflow_name;
+    }
+
+    public String getMysql_username() {
+        return mysql_username;
+    }
+
+    public void setMysql_username(String mysql_username) {
+        this.mysql_username = mysql_username;
+    }
+
+    public String getMysql_password() {
+        return mysql_password;
+    }
+
+    public void setMysql_password(String mysql_password) {
+        this.mysql_password = mysql_password;
+    }
+
+    public String getConnection_string() {
+        return connection_string;
+    }
+
+    public void setConnection_string(String connection_string) {
+        this.connection_string = connection_string;
+    }
+
+    public Boolean getUse_mysql_to_log() {
+        return use_mysql_to_log;
+    }
+
+    public void setUse_mysql_to_log(Boolean use_mysql_to_log) {
+        this.use_mysql_to_log = use_mysql_to_log;
     }
 }

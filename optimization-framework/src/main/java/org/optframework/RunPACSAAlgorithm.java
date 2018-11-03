@@ -14,6 +14,7 @@ import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
+import org.optframework.database.MySQLSolutionRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,28 @@ public class RunPACSAAlgorithm {
             totalInstances[i] = maxECUId;
         }
 
+        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+        /**
+         * Compute the maximum number of used instances
+         * */
+        if (Config.pacsa_algorithm.compute_m_number){
+            Config.global.algorithm = "pacsa_plus";
+            WorkflowDAG dag = workflow.getWfDAG();
+            ArrayList<Integer> nextLevel = dag.getFirstLevel();
+            int temp = nextLevel.size();
+
+            while (nextLevel.size() != 0){
+                if (nextLevel.size() > temp){
+                    temp = nextLevel.size();
+                }
+                nextLevel = dag.getNextLevel(nextLevel);
+            }
+            Config.global.m_number = temp;
+        }else {
+            Config.global.m_number = workflow.getJobList().size();
+        }
+
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
@@ -76,8 +99,6 @@ public class RunPACSAAlgorithm {
             Config.global.m_number = heftSolution.numberOfUsedInstances;
         }
 
-        Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
-
         computeCoolingFactorForSA(workflow.getJobList().size());
 
         Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
@@ -89,19 +110,7 @@ public class RunPACSAAlgorithm {
         List<Solution> solutionList = new ArrayList<>();
         List<Solution> initialSolutionList = getInitialSolution(instanceInfo);
 
-        if (Config.pacsa_algorithm.compute_m_number){
-            WorkflowDAG dag = workflow.getWfDAG();
-            ArrayList<Integer> nextLevel = dag.getFirstLevel();
-            int temp = nextLevel.size();
-
-            while (nextLevel.size() != 0){
-                if (nextLevel.size() > temp){
-                    temp = nextLevel.size();
-                }
-                nextLevel = dag.getNextLevel(nextLevel);
-            }
-            Config.global.m_number = temp;
-        }
+        long runTimeSum = 0;
 
         for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
@@ -121,6 +130,8 @@ public class RunPACSAAlgorithm {
             solutionList.add(solution);
 
             long stop = System.currentTimeMillis();
+
+            runTimeSum += (stop - start);
 
             Printer.lightPrintSolution(solution,stop-start);
         }
@@ -171,6 +182,18 @@ public class RunPACSAAlgorithm {
         toPrint += "Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
         toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n";
         Log.logger.info(toPrint);
+
+        if (Config.global.use_mysql_to_log){
+            MySQLSolutionRepository sqlSolutionRepository = new MySQLSolutionRepository();
+            sqlSolutionRepository.updateRecord(
+                    fitnessMin,
+                    fitnessMax,
+                    fitnessSum / Config.pacsa_algorithm.getNumber_of_runs(),
+                    costSum / Config.pacsa_algorithm.getNumber_of_runs(),
+                    (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs())/1000);
+
+            Log.logger.info("Successfully logged to the mysql database!");
+        }
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
