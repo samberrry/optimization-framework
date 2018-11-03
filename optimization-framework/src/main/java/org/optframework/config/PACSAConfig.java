@@ -11,8 +11,8 @@ public class PACSAConfig {
     public double evaporation_factor;
     public boolean m_number_from_heft;
     public boolean global_based;
-    public boolean compute_m_number_from_budget;
     public boolean insert_heft_initial_solution;
+    public boolean compute_m_number;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -78,14 +78,6 @@ public class PACSAConfig {
         this.global_based = global_based;
     }
 
-    public boolean isCompute_m_number_from_budget() {
-        return compute_m_number_from_budget;
-    }
-
-    public void setCompute_m_number_from_budget(boolean compute_m_number_from_budget) {
-        this.compute_m_number_from_budget = compute_m_number_from_budget;
-    }
-
     public int getIteration_number() {
         return iteration_number;
     }
@@ -108,5 +100,13 @@ public class PACSAConfig {
 
     public void setInsert_heft_initial_solution(boolean insert_heft_initial_solution) {
         this.insert_heft_initial_solution = insert_heft_initial_solution;
+    }
+
+    public boolean isCompute_m_number() {
+        return compute_m_number;
+    }
+
+    public void setCompute_m_number(boolean compute_m_number) {
+        this.compute_m_number = compute_m_number;
     }
 }

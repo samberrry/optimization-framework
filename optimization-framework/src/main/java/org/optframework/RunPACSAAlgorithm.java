@@ -1,5 +1,6 @@
 package org.optframework;
 
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -75,14 +76,6 @@ public class RunPACSAAlgorithm {
             Config.global.m_number = heftSolution.numberOfUsedInstances;
         }
 
-        if (Config.pacsa_algorithm.compute_m_number_from_budget){
-            if (Config.global.budget < 1){
-                Config.global.m_number = (int)Math.ceil(Config.global.budget)+ 2;
-            }else {
-                Config.global.m_number = (int)Math.ceil(Config.global.budget)+ 1;
-            }
-        }
-
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         computeCoolingFactorForSA(workflow.getJobList().size());
@@ -95,6 +88,20 @@ public class RunPACSAAlgorithm {
 
         List<Solution> solutionList = new ArrayList<>();
         List<Solution> initialSolutionList = getInitialSolution(instanceInfo);
+
+        if (Config.pacsa_algorithm.compute_m_number){
+            WorkflowDAG dag = workflow.getWfDAG();
+            ArrayList<Integer> nextLevel = dag.getFirstLevel();
+            int temp = nextLevel.size();
+
+            while (nextLevel.size() != 0){
+                if (nextLevel.size() > temp){
+                    temp = nextLevel.size();
+                }
+                nextLevel = dag.getNextLevel(nextLevel);
+            }
+            Config.global.m_number = temp;
+        }
 
         for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
