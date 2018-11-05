@@ -17,6 +17,7 @@ import org.optframework.core.utils.Printer;
 import org.optframework.database.MySQLSolutionRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,6 +64,9 @@ public class RunPACSAAlgorithm {
         }
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+        GlobalAccess.orderedJobList = workflow.getJobList();
+        Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
         /**
          * Compute the maximum number of used instances

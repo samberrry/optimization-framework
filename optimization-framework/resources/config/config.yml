@@ -22,7 +22,7 @@
 
 
 global:
-  algorithm: "pso"
+  algorithm: "pacsa"
   workflow_id: 3
   workflow_name: "inspiral_30"
   budget: 3.5
