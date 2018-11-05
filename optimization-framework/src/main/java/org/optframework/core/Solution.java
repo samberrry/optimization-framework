@@ -5,6 +5,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
@@ -625,20 +626,13 @@ public class Solution implements Cloneable{
 
     //TODO: change all the heft fitness to heftFitness function
     public void heftFitness(){
-        List<Job> orderedJobList;
-
         if (workflow == null || instanceInfo == null){
             Log.logger.warning("Problem with fitness function properties");
             return;
         }
         List<Job> originalJobList = workflow.getJobList();
-        Cloner cloner = new Cloner();
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
 
-        originalJobList = workflow.getJobList();
-
-        orderedJobList = cloner.deepClone(originalJobList);
-
-        Collections.sort(orderedJobList, Job.rankComparator);
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[numberOfUsedInstances];

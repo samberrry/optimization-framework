@@ -27,7 +27,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
         this.instanceInfo = instanceInfo;
         this.globalBestParticle = new Particle(workflow, instanceInfo, Config.global.m_number);
         this.globalBestParticle.generateRandomSolution(workflow);
-        this.globalBestParticle.fitness();
+        this.globalBestParticle.heftFitness();
         this.cloner = new Cloner();
         this.initialSolution = initialSolution;
     }
@@ -38,7 +38,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
         //Initialize particles and their velocities
         generateRandomInitialParticleList();
         for (Particle particle: particleList){
-            particle.fitness();
+            particle.heftFitness();
 
             //If the fitness value is better than the previous best pbest,
             // set the current fitness value as the new pbest.
@@ -61,7 +61,7 @@ public class PSOOptimization implements OptimizationAlgorithm {
                 updatePosition(particle);
 
                 //For each particle, calculate its fitness value
-                particle.fitness();
+                particle.heftFitness();
 
                 //If the fitness value is better than the previous best pbest,
                 // set the current fitness value as the new pbest.

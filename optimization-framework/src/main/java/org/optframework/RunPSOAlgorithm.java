@@ -13,6 +13,7 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RunPSOAlgorithm {
@@ -23,6 +24,9 @@ public class RunPSOAlgorithm {
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+        GlobalAccess.orderedJobList = workflow.getJobList();
+        Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
         Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 

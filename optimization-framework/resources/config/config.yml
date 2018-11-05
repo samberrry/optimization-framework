@@ -22,10 +22,10 @@
 
 
 global:
-  algorithm: "pacsa"
+  algorithm: "pso"
   workflow_id: 3
   workflow_name: "inspiral_30"
-  budget: 2.3
+  budget: 3.5
   bandwidth: 39321600
   t_extra: -1
 #  M number: maximum number of instances used during workflow scheduling
@@ -34,7 +34,7 @@ global:
 # id: 2 => cost efficient heft
 # id: others => none
   initial_solution_from_heft_id: 0
-  use_mysql_to_log: yes
+  use_mysql_to_log: no
   mysql_username: "hessamdb"
   mysql_password: "He$123456789"
   connection_string: "jdbc:mysql://localhost:3306/optdb"
@@ -67,7 +67,7 @@ pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
   number_of_ants: 4
-  number_of_runs: 3
+  number_of_runs: 1
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
@@ -79,7 +79,7 @@ pacsa_algorithm:
   global_based: yes
   insert_heft_initial_solution: yes
 #  if compute m number is set to no, pacsa plus is actually used!
-  compute_m_number: no
+  compute_m_number: yes
 
 pso_algorithm:
   number_of_runs: 10
