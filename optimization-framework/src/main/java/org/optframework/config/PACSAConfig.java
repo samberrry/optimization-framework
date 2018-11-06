@@ -9,7 +9,6 @@ public class PACSAConfig {
     public double temp_decrease_ratio;
     public double equilibrium_point;
     public double evaporation_factor;
-    public boolean m_number_from_heft;
     public boolean global_based;
     public boolean insert_heft_initial_solution;
 
@@ -59,14 +58,6 @@ public class PACSAConfig {
 
     public void setEvaporation_factor(double evaporation_factor) {
         this.evaporation_factor = evaporation_factor;
-    }
-
-    public boolean isM_number_from_heft() {
-        return m_number_from_heft;
-    }
-
-    public void setM_number_from_heft(boolean m_number_from_heft) {
-        this.m_number_from_heft = m_number_from_heft;
     }
 
     public boolean isGlobal_based() {

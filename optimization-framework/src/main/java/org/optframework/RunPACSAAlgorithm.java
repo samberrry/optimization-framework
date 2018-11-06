@@ -107,10 +107,6 @@ public class RunPACSAAlgorithm {
         heftSolution.heftFitness();
         Printer.lightPrintSolution(heftSolution , 0);
 
-        if (Config.pacsa_algorithm.m_number_from_heft){
-            Config.global.m_number = heftSolution.numberOfUsedInstances;
-        }
-
         computeCoolingFactorForSA(workflow.getJobList().size());
 
         Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
