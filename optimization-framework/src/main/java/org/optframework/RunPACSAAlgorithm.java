@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
@@ -67,7 +68,8 @@ public class RunPACSAAlgorithm {
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
-        GlobalAccess.orderedJobList = workflow.getJobList();
+        Cloner cloner = new Cloner();
+        GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
         Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
         /**
