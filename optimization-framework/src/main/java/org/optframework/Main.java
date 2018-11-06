@@ -43,7 +43,10 @@ public class Main {
                 RunHEFTExample.runHEFTExample();
                 break;
             case "pacsa":
-                RunPACSAAlgorithm.runPACSA();
+                RunPACSAAlgorithm.runPACSA(0);
+                break;
+            case "pacsa-plus":
+                RunPACSAAlgorithm.runPACSA(1);
                 break;
             case "pso":
                 RunPSOAlgorithm.runPSO();

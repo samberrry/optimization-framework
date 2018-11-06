@@ -12,7 +12,6 @@ public class PACSAConfig {
     public boolean m_number_from_heft;
     public boolean global_based;
     public boolean insert_heft_initial_solution;
-    public boolean compute_m_number;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -100,13 +99,5 @@ public class PACSAConfig {
 
     public void setInsert_heft_initial_solution(boolean insert_heft_initial_solution) {
         this.insert_heft_initial_solution = insert_heft_initial_solution;
-    }
-
-    public boolean isCompute_m_number() {
-        return compute_m_number;
-    }
-
-    public void setCompute_m_number(boolean compute_m_number) {
-        this.compute_m_number = compute_m_number;
     }
 }

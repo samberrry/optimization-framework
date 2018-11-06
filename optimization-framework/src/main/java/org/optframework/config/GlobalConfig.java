@@ -6,8 +6,9 @@ public class GlobalConfig {
     public Integer workflow_id;
     public Double budget;
     public Long bandwidth;
-    public Integer m_number;
+    public Boolean read_m_number_from_config;
     public Integer t_extra;
+    public Integer m_number;
     public Integer initial_solution_from_heft_id;
     public Boolean use_mysql_to_log;
     public String mysql_username;
@@ -108,5 +109,13 @@ public class GlobalConfig {
 
     public void setUse_mysql_to_log(Boolean use_mysql_to_log) {
         this.use_mysql_to_log = use_mysql_to_log;
+    }
+
+    public Boolean getRead_m_number_from_config() {
+        return read_m_number_from_config;
+    }
+
+    public void setRead_m_number_from_config(Boolean read_m_number_from_config) {
+        this.read_m_number_from_config = read_m_number_from_config;
     }
 }

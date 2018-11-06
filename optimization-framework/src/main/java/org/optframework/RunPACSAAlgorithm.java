@@ -29,11 +29,13 @@ public class RunPACSAAlgorithm {
 
     private static double originalStartTemperature_SA;
     private static double originalCoolingFactor_SA;
+    private static int originalMNumber;
 
-    public static void runPACSA()
+    public static void runPACSA(int algorithmId)
     {
         originalCoolingFactor_SA = Config.sa_algorithm.cooling_factor;
         originalStartTemperature_SA = Config.sa_algorithm.start_temperature;
+        originalMNumber = Config.global.m_number;
 
         Log.logger.info("<<<<<<<<< PACSA Algorithm is started >>>>>>>>>");
 
@@ -71,7 +73,7 @@ public class RunPACSAAlgorithm {
         /**
          * Compute the maximum number of used instances
          * */
-        if (Config.pacsa_algorithm.compute_m_number){
+        if (algorithmId == 1){
             Config.global.algorithm = "pacsa_plus";
             WorkflowDAG dag = workflow.getWfDAG();
             ArrayList<Integer> nextLevel = dag.getFirstLevel();
@@ -86,6 +88,10 @@ public class RunPACSAAlgorithm {
             Config.global.m_number = temp;
         }else {
             Config.global.m_number = workflow.getJobList().size();
+        }
+
+        if (Config.global.read_m_number_from_config){
+            Config.global.m_number = originalMNumber;
         }
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");

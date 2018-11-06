@@ -1,6 +1,5 @@
 package org.optframework.core;
 
-import com.rits.cloning.Cloner;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
