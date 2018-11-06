@@ -278,7 +278,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 int isSeen = 0;
                 for (Integer parentId: parentList){
                     for (int j = 0; j < k; j++) {
-                        if (parentId == generatedZArray[j]){
+                        if (parentId.equals(generatedZArray[j])){
                             isSeen++;
                         }
                     }

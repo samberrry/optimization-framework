@@ -215,6 +215,9 @@ public class RunPACSAAlgorithm {
         if (Config.pacsa_algorithm.insert_heft_initial_solution){
             Solution initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
             initialSolutionList.add(initialSolution);
+
+            Solution heftSolution = HEFTService.getHEFT(instanceInfo);
+            initialSolutionList.add(heftSolution);
         }
         return initialSolutionList;
     }

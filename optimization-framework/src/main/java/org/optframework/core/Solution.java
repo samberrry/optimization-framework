@@ -317,7 +317,7 @@ public class Solution implements Cloneable{
                 int isSeen = 0;
                 for (Integer parentId: parentList){
                     for (int j = 0; j < i; j++) {
-                        if (parentId == zArray[j]){
+                        if (parentId.equals(zArray[j])){
                             isSeen++;
                         }
                     }
