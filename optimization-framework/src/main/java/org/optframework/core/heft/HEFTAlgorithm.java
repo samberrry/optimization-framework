@@ -3,6 +3,7 @@ package org.optframework.core.heft;
 import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.utils.TaskUtility;
@@ -46,9 +47,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         taskFinishTimes = new double[workflow.getJobList().size()];
 
         originalJobList = workflow.getJobList();
-        orderedJobList = cloner.deepClone(originalJobList);
-
-        Collections.sort(orderedJobList, Job.rankComparator);
+        orderedJobList = GlobalAccess.orderedJobList;
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[availableInstances.length];

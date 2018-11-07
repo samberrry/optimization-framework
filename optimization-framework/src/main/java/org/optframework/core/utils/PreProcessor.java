@@ -28,10 +28,15 @@ public class PreProcessor {
                 exeTime[type.getId()] = TaskUtility.executionTimeOnType(doubleLengthJob,type);
                 total += exeTime[type.getId()];
             }
-            jobList.add(job.getIntId(), new Job(job.getIntId(),
+            Job newJob = new Job(job.getIntId(),
                     exeTime,
                     (total/InstanceType.values().length),
-                    job.getEdgeInfo()));
+                    job.getEdgeInfo());
+
+            //this is used only in heft algorithm
+            newJob.setLength(doubleLengthJob.getLength());
+
+            jobList.add(job.getIntId(), newJob);
         }
 
         return computeRank();
@@ -140,32 +145,6 @@ public class PreProcessor {
             jobList.add(job.getIntId(), newJob);
         }
 
-        WorkflowDAG dag = workflow.getWfDAG();
-        ArrayList<Integer> level = dag.getLastLevel();
-
-        for (int jobId: level){
-            Job job = jobList.get(jobId);
-            job.setRank(job.getAvgExeTime());
-        }
-
-        level = dag.getParents(level);
-
-        while (level.size() != 0){
-            for (int jobId : level){
-                ArrayList<Integer> children = dag.getChildren(jobId);
-                Job job = jobList.get(jobId);
-                int maxChildId = getMaxChildRank(jobId, children);
-
-                job.setRank(job.getAvgExeTime() + jobList.get(maxChildId).getRank() + job.getEdge(maxChildId)/bw);
-            }
-            level = dag.getParents(level);
-        }
-
-        return new Workflow(workflow.getWfDAG(),
-                jobList,
-                workflow.getJobList().size(),
-                workflow.getDeadline(),
-                workflow.getBudget(),
-                0.0);
+        return computeRank();
     }
 }
