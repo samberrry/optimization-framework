@@ -19,7 +19,7 @@ public class Job implements Serializable{
 
     private double rank;
 
-    private double finishTime;
+//    private double finishTime;
 
     private double length;
 
@@ -91,14 +91,14 @@ public class Job implements Serializable{
     public void setRank(double rank) {
         this.rank = rank;
     }
-
-    public double getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(double finishTime) {
-        this.finishTime = finishTime;
-    }
+//
+//    public double getFinishTime() {
+//        return finishTime;
+//    }
+//
+//    public void setFinishTime(double finishTime) {
+//        this.finishTime = finishTime;
+//    }
 
     public double getAvgExeTime() {
         return avgExeTime;

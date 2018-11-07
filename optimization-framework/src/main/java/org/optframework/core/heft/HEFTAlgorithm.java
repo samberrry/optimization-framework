@@ -24,6 +24,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
     int xArray[];
 
+    double taskFinishTimes[];
+
     //this array is the y array from the hbmo algorithm with specified size
     int availableInstances[];
 
@@ -40,6 +42,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
     @Override
     public Solution runAlgorithm() {
+        taskFinishTimes = new double[workflow.getJobList().size()];
+
         originalJobList = workflow.getJobList();
         orderedJobList = cloner.deepClone(originalJobList);
 
@@ -79,7 +83,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         instanceTimeLine[tempInstance] = temp;
         instanceUsed[tempInstance] = true;
 
-        originalVersion.setFinishTime(instanceTimeLine[tempInstance]);
+        taskFinishTimes[originalVersion.getIntId()] = instanceTimeLine[tempInstance];
 
         //for the rest of tasks
         for (int i = 1; i < orderedJobList.size(); i++) {
@@ -105,7 +109,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                 if (parentJobs.size() != 0){
                     maxParentJob = originalJobList.get(maxParentId);
-                    latestParentFinishTime = maxParentJob.getFinishTime();
+                    latestParentFinishTime = taskFinishTimes[maxParentJob.getIntId()];
                 }
 
                 if (instanceList[j].gapList.size() > 0){
@@ -173,7 +177,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     }
                 }else {
                     //check minimum task finish time for all of the current instances
-                    double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[j];
+                    double waitingTime = taskFinishTimes[maxParentId] - instanceTimeLine[j];
 
                     if (waitingTime > 0 ){
                         double currentTime = instanceTimeLine[j] + waitingTime;
@@ -185,7 +189,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         }else {
                             double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
                             cij = edge / (double)Config.global.bandwidth;
-                            double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+                            double timeToSendData = currentTime - taskFinishTimes[maxParentId];
                             if (timeToSendData >= cij){
                                 currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                             }else {
@@ -208,7 +212,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         if (j == xArray[maxParentId]){
                             currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                         }else {
-                            double timeToSendData = instanceTimeLine[j] - originalJobList.get(maxParentId).getFinishTime();
+                            double timeToSendData = instanceTimeLine[j] - taskFinishTimes[maxParentId];
 
                             if (timeToSendData >= cij){
                                 currentFinishTime = instanceTimeLine[j] + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
@@ -245,7 +249,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }else {
                 instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
             }
-            originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
+            taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
             xArray[job.getIntId()] = tempInstanceId;
             yArray[tempInstanceId] = availableInstances[tempInstanceId];
         }
@@ -283,9 +287,9 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
             double maxJobStartTime;
             if (assignedInstanceId == xArray[parentId]){
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime();
+                maxJobStartTime = taskFinishTimes[parentId];
             }else {
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime() + tempCIJ;
+                maxJobStartTime = taskFinishTimes[parentId] + tempCIJ;
             }
 
             if (tempValue < maxJobStartTime){
