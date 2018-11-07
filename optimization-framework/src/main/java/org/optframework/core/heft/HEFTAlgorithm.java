@@ -2,6 +2,7 @@ package org.optframework.core.heft;
 
 import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.utils.TaskUtility;
@@ -269,7 +270,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
         }
 
-        Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+        Solution solution = new Solution(workflow, instanceInfo, availableInstances.length);
         solution.numberOfUsedInstances = numberOfUsedInstances;
         solution.xArray = xArray;
         solution.yArray = yArray;
@@ -298,5 +299,28 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
         }
         return tempId;
+    }
+
+    public static int[] getTotalInstancesForHEFT(int numberOfInstances){
+        int maxECUId = -1;
+        double maxECU = 0.0;
+
+        for (InstanceType type : InstanceType.values()){
+            if (type.getEcu() > maxECU){
+                maxECUId = type.getId();
+                maxECU = type.getEcu();
+            }
+        }
+
+        /**
+         * Initializes available instances for the HEFT algorithm with maximum number of instances
+         * equals to the number of tasks
+         * */
+        int totalInstances[] = new int[numberOfInstances];
+        for (int i = 0; i < numberOfInstances; i++) {
+            totalInstances[i] = maxECUId;
+        }
+
+        return totalInstances;
     }
 }

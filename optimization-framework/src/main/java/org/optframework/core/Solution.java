@@ -624,6 +624,9 @@ public class Solution implements Cloneable{
      * */
 
     //TODO: change all the heft fitness to heftFitness function
+    /**
+     * To use heft fitness you MUST first set the public static orderedJobList in GlobalAccess class
+     * */
     public void heftFitness(){
         if (workflow == null || instanceInfo == null){
             Log.logger.warning("Problem with fitness function properties");

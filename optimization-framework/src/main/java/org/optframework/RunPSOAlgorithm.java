@@ -25,6 +25,8 @@ public class RunPSOAlgorithm {
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
+        Config.global.m_number = workflow.getJobList().size();
+
         GlobalAccess.orderedJobList = workflow.getJobList();
         Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 

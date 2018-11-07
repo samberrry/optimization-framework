@@ -47,25 +47,6 @@ public class RunPACSAAlgorithm {
          * OS type: Linux System
          * */
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
-
-        int maxECUId = -1;
-        double maxECU = 0.0;
-
-        for (InstanceType type : InstanceType.values()){
-            if (type.getEcu() > maxECU){
-                maxECUId = type.getId();
-                maxECU = type.getEcu();
-            }
-        }
-
-        /**
-         * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
-         * */
-        int totalInstances[] = new int[Config.global.m_number];
-        for (int i = 0; i < Config.global.m_number; i++) {
-            totalInstances[i] = maxECUId;
-        }
-
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         Cloner cloner = new Cloner();
@@ -97,6 +78,7 @@ public class RunPACSAAlgorithm {
         }
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(workflow.getJobList().size());
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
