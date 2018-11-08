@@ -262,7 +262,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
             int newSelectedTaskToOrder = -1;
             int idInReadyList = -1;
-            int loopLimit = 0;
             while (repeatIt){
                 double randomX = rand.nextDouble();
                 double probabilitySumTemp = 0;
@@ -286,13 +285,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
                 if (isSeen == parentList.size()){
                     repeatIt = false;
-                }
-                loopLimit++;
-                if (loopLimit == workflow.getJobList().size()){
-                    //todo: change random to high preference order task
-                    int r = rand.nextInt(readyTasksToOrder.size());
-                    newSelectedTaskToOrder = readyTasksToOrder.get(r);
-                    break;
                 }
             }
             readyTasksToOrder.remove(idInReadyList);

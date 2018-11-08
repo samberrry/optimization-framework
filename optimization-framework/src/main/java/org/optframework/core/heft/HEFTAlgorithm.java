@@ -270,9 +270,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
 
         Solution solution = new Solution(workflow, instanceInfo, availableInstances.length);
-        solution.numberOfUsedInstances = numberOfUsedInstances;
+        solution.numberOfUsedInstances = availableInstances.length;
         solution.xArray = xArray;
         solution.yArray = yArray;
+        solution.solutionMapping();
         solution.heftFitness();
 
         return solution;
@@ -301,23 +302,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     }
 
     public static int[] getTotalInstancesForHEFT(int numberOfInstances){
-        int maxECUId = -1;
-        double maxECU = 0.0;
-
-        for (InstanceType type : InstanceType.values()){
-            if (type.getEcu() > maxECU){
-                maxECUId = type.getId();
-                maxECU = type.getEcu();
-            }
-        }
-
-        /**
-         * Initializes available instances for the HEFT algorithm with maximum number of instances
-         * equals to the number of tasks
-         * */
         int totalInstances[] = new int[numberOfInstances];
-        for (int i = 0; i < numberOfInstances; i++) {
-            totalInstances[i] = maxECUId;
+        for (int i = 0; i < (numberOfInstances - InstanceType.values().length);) {
+            for (InstanceType type : InstanceType.values()){
+                totalInstances[i] = type.getId();
+                i++;
+            }
         }
 
         return totalInstances;
