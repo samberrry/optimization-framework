@@ -43,7 +43,8 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
                 if(j+1 >= solution.numberOfUsedInstances){
                     solution.numberOfUsedInstances = j+1;
-                    solution.solutionMapping();
+                    solution.yArray[j] = totalInstances[j];
+//                    solution.solutionMapping();
                 }
 
                 solution.heftFitness();

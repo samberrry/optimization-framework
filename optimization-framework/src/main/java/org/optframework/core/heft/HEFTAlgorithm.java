@@ -272,8 +272,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         Solution solution = new Solution(workflow, instanceInfo, availableInstances.length);
         solution.numberOfUsedInstances = availableInstances.length;
         solution.xArray = xArray;
-        solution.yArray = yArray;
-        solution.solutionMapping();
+        solution.yArray = availableInstances;
+//        solution.solutionMapping();
         solution.heftFitness();
 
         return solution;
