@@ -29,21 +29,29 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
          * */
         for (int i = 0; i < workflow.getJobList().size(); i++) {
             for (int j = 0; j < totalInstances.length; j++) {
-                double oldMakespan = heftSolution.makespan;
-                double oldCost = heftSolution.cost;
-                int tempX = heftSolution.xArray[i];
+                Solution solution = null;
+                try {
+                    solution = heftSolution.clone();
+                }catch (Exception e){
+                    Log.logger.info("Cloning Exception");
+                }
 
-                heftSolution.xArray[i] = j;
+                double oldMakespan = solution.makespan;
+                double oldCost = solution.cost;
 
-                heftSolution.fitness();
+                solution.xArray[i] = j;
 
+                if(j+1 >= solution.numberOfUsedInstances){
+                    solution.numberOfUsedInstances = j+1;
+                    solution.solutionMapping();
+                }
 
-                double newMakespan = heftSolution.makespan;
-                double newCost = heftSolution.cost;
+                solution.heftFitness();
+
+                double newMakespan = solution.makespan;
+                double newCost = solution.cost;
 
                 matrix[j][i] = (newMakespan - oldMakespan) / (oldCost - newCost);
-
-                heftSolution.xArray[i] = tempX;
             }
         }
 
@@ -61,12 +69,15 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
                     minInstanceId = j;
                 }
             }
+            if (minInstanceId >= heftSolution.numberOfUsedInstances){
+                heftSolution.numberOfUsedInstances = minInstanceId+1;
+            }
             newXArray[i] = minInstanceId;
         }
 
         heftSolution.xArray = newXArray;
 
-        heftSolution.fitness();
+        heftSolution.heftFitness();
 
         return heftSolution;
     }
