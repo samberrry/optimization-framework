@@ -91,7 +91,7 @@ public class RunPACSAAlgorithm {
         Printer.lightPrintSolution(heftSolution , 0);
 
         Loss2Algorithm loss2Algorithm = new Loss2Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
-        Solution loss2Solution = loss2Algorithm.runAlgorithm();
+//        Solution loss2Solution = loss2Algorithm.runAlgorithm();
 
 
         computeCoolingFactorForSA(workflow.getJobList().size());

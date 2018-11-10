@@ -35,6 +35,8 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected WorkflowDAG dag;
 
     protected InstanceInfo instanceInfo[];
+
+    protected double currentBasePheromoneValue;
 //    int numberOfCurrentUsedInstances;
 
     public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
@@ -42,6 +44,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
         this.outInitialSolution = outInitialSolution;
+        this.currentBasePheromoneValue = pheromoneInitialSeed;
 
         /**
          * Pheromone trail structure:
@@ -200,21 +203,26 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         Random rand = new Random();
         int maxInstances = -1;
 
-        for (int k = 0; k < workflow.getNumberTasks(); k++) {
-            double xProbability[] = new double[Config.global.m_number];
+        double xProbability[][] = new double[Config.global.m_number][workflow.getNumberTasks()];
+        double sumOfColumnsForX [] = new double[workflow.getNumberTasks()];
+        for (int i = 0; i < workflow.getNumberTasks(); i++) {
             for (int j = 0; j < Config.global.m_number; j++) {
-                double pheromoneSum = 0;
-                for (int i = 0; i < Config.global.m_number; i++) {
-                    pheromoneSum += pheromoneTrailForX[i][k];
-                }
-                //computes probability for a total column
-                xProbability[j] = (pheromoneTrailForX[j][k] / pheromoneSum);
+                sumOfColumnsForX[i] += pheromoneTrailForX[j][i];
             }
+        }
+
+        for (int i = 0; i < workflow.getNumberTasks(); i++) {
+            for (int j = 0; j < Config.global.m_number; j++) {
+                xProbability[j][i] = (pheromoneTrailForX[j][i] / sumOfColumnsForX[i]);
+            }
+        }
+
+        for (int k = 0; k < workflow.getNumberTasks(); k++) {
             double randomX = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
             for (int i = 0; i < Config.global.m_number; i++) {
-                probabilitySumTemp += xProbability[i];
+                probabilitySumTemp += xProbability[i][k];
                 if (probabilitySumTemp > randomX){
                     selectedInstance = i;
                     break;
@@ -226,20 +234,26 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
         }
 
-        for (int instanceId: generatedXArray){
-            double yProbability[] = new double[instanceInfo.length];
+        double yProbability[][] = new double[instanceInfo.length][Config.global.m_number];
+        double sumOfColumnsForY [] = new double[workflow.getNumberTasks()];
+        for (int i = 0; i < Config.global.m_number; i++) {
             for (int j = 0; j < instanceInfo.length; j++) {
-                double pheromoneSum = 0;
-                for (int i = 0; i < instanceInfo.length; i++) {
-                    pheromoneSum += pheromoneTrailForY[i][instanceId];
-                }
-                yProbability[j] = (pheromoneTrailForY[j][instanceId] / pheromoneSum);
+                sumOfColumnsForY[i] += pheromoneTrailForY[j][i];
             }
+        }
+
+        for (int i = 0; i < Config.global.m_number; i++) {
+            for (int j = 0; j < instanceInfo.length; j++) {
+                yProbability[j][i] = (pheromoneTrailForY[j][i] / sumOfColumnsForY[i]);
+            }
+        }
+
+        for (int instanceId: generatedXArray){
             double randomY = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
             for (int i = 0; i < instanceInfo.length; i++) {
-                probabilitySumTemp += yProbability[i];
+                probabilitySumTemp += yProbability[i][instanceId];
                 if (probabilitySumTemp > randomY){
                     selectedInstance = i;
                     break;

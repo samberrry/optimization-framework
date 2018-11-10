@@ -23,8 +23,8 @@
 
 
 global:
-  algorithm: "pacsa"
-  workflow_id: 3
+  algorithm: "pacsa-plus"
+  workflow_id: 1
   workflow_name: "inspiral_30"
   budget: 20.5
   bandwidth: 39321600
