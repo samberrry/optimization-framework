@@ -41,18 +41,19 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
                 solution.xArray[i] = j;
 
-                if(j+1 >= solution.numberOfUsedInstances){
-                    solution.numberOfUsedInstances = j+1;
-                    solution.yArray[j] = totalInstances[j];
-//                    solution.solutionMapping();
-                }
-
                 solution.heftFitness();
 
                 double newMakespan = solution.makespan;
                 double newCost = solution.cost;
 
-                matrix[j][i] = (newMakespan - oldMakespan) / (oldCost - newCost);
+                double costDiff = oldCost-newCost;
+                double makespanDiff = newMakespan - oldMakespan;
+
+                if (costDiff <= 0){
+                    matrix[j][i] = 0;
+                }else{
+                    matrix[j][i] = (makespanDiff) / (costDiff);
+                }
             }
         }
 
@@ -62,18 +63,22 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
         int newXArray[] = new int[heftSolution.xArray.length];
 
         for (int i = 0; i < workflow.getJobList().size(); i++) {
+            int oldInstanceId = heftSolution.xArray[i];
             double minValue = 99999999999.999;
             int minInstanceId = -1;
             for (int j = 0; j < totalInstances.length; j++) {
                 if (matrix[j][i] < minValue){
-                    minValue = matrix[j][i];
-                    minInstanceId = j;
+                    if (matrix[j][i] != 0){
+                        minValue = matrix[j][i];
+                        minInstanceId = j;
+                    }
                 }
             }
-            if (minInstanceId >= heftSolution.numberOfUsedInstances){
-                heftSolution.numberOfUsedInstances = minInstanceId+1;
+            if (minInstanceId != -1){
+                newXArray[i] = minInstanceId;
+            }else {
+                newXArray[i] = oldInstanceId;
             }
-            newXArray[i] = minInstanceId;
         }
 
         heftSolution.xArray = newXArray;
