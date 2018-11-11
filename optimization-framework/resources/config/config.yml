@@ -46,7 +46,7 @@ sa_algorithm:
   final_temperature: 0.01
   cooling_factor: 0.8
   force_cooling: yes
-  equilibrium_point: 50
+  equilibrium_point: 100
   number_of_runs: 30
 
 honeybee_algorithm:

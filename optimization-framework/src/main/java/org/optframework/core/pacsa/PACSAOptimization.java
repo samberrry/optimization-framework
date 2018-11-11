@@ -39,6 +39,12 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected double currentBasePheromoneValue;
 //    int numberOfCurrentUsedInstances;
 
+    double xProbability[][];
+    double sumOfColumnsForX [];
+
+    double yProbability[][];
+    double sumOfColumnsForY [];
+
     public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
         this.dag = workflow.getWfDAG();
@@ -141,6 +147,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             //Update initial temperature
             Config.sa_algorithm.start_temperature *= Config.pacsa_algorithm.temp_decrease_ratio;
 
+            //prepares probability matrix for solution generation from pheromone trail
+            createProbabilityMatrix();
+
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
                 initialSolutionList.add(i, generateInitialSolutionFromPheromone());
             }
@@ -196,15 +205,15 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         }
     }
 
-    protected Solution generateInitialSolutionFromPheromone(){
-        int generatedXArray[] = new int[workflow.getNumberTasks()];
-        int generatedYArray[] = new int[Config.global.m_number];
-        Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
-        Random rand = new Random();
-        int maxInstances = -1;
+    protected void createProbabilityMatrix(){
+        this.xProbability = new double[Config.global.m_number][workflow.getNumberTasks()];
+        this.sumOfColumnsForX = new double[workflow.getNumberTasks()];
 
-        double xProbability[][] = new double[Config.global.m_number][workflow.getNumberTasks()];
-        double sumOfColumnsForX [] = new double[workflow.getNumberTasks()];
+        this.yProbability = new double[instanceInfo.length][Config.global.m_number];
+        this.sumOfColumnsForY = new double[workflow.getNumberTasks()];
+
+        //probability matrix for x array
+
         for (int i = 0; i < workflow.getNumberTasks(); i++) {
             for (int j = 0; j < Config.global.m_number; j++) {
                 sumOfColumnsForX[i] += pheromoneTrailForX[j][i];
@@ -216,6 +225,28 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 xProbability[j][i] = (pheromoneTrailForX[j][i] / sumOfColumnsForX[i]);
             }
         }
+
+        //probability matrix for y array
+
+        for (int i = 0; i < Config.global.m_number; i++) {
+            for (int j = 0; j < instanceInfo.length; j++) {
+                sumOfColumnsForY[i] += pheromoneTrailForY[j][i];
+            }
+        }
+
+        for (int i = 0; i < Config.global.m_number; i++) {
+            for (int j = 0; j < instanceInfo.length; j++) {
+                yProbability[j][i] = (pheromoneTrailForY[j][i] / sumOfColumnsForY[i]);
+            }
+        }
+    }
+
+    protected Solution generateInitialSolutionFromPheromone(){
+        int generatedXArray[] = new int[workflow.getNumberTasks()];
+        int generatedYArray[] = new int[Config.global.m_number];
+        Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
+        Random rand = new Random();
+        int maxInstances = -1;
 
         for (int k = 0; k < workflow.getNumberTasks(); k++) {
             double randomX = rand.nextDouble();
@@ -231,20 +262,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             generatedXArray[k] = selectedInstance;
             if (selectedInstance > maxInstances){
                 maxInstances = selectedInstance;
-            }
-        }
-
-        double yProbability[][] = new double[instanceInfo.length][Config.global.m_number];
-        double sumOfColumnsForY [] = new double[workflow.getNumberTasks()];
-        for (int i = 0; i < Config.global.m_number; i++) {
-            for (int j = 0; j < instanceInfo.length; j++) {
-                sumOfColumnsForY[i] += pheromoneTrailForY[j][i];
-            }
-        }
-
-        for (int i = 0; i < Config.global.m_number; i++) {
-            for (int j = 0; j < instanceInfo.length; j++) {
-                yProbability[j][i] = (pheromoneTrailForY[j][i] / sumOfColumnsForY[i]);
             }
         }
 
