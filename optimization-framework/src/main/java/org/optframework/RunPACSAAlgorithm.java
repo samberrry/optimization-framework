@@ -108,6 +108,8 @@ public class RunPACSAAlgorithm {
 
         List<Solution> solutionList = new ArrayList<>();
         List<Solution> initialSolutionList = getInitialSolution(instanceInfo);
+        initialSolutionList.add(loss2Solution);
+        initialSolutionList.add(loss3Solution);
 
         long runTimeSum = 0;
 
