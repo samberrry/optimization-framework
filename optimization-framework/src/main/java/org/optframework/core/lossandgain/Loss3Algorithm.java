@@ -2,14 +2,14 @@ package org.optframework.core.lossandgain;
 
 import org.optframework.core.*;
 
-public class Loss2Algorithm implements OptimizationAlgorithm {
+public class Loss3Algorithm implements OptimizationAlgorithm {
 
     Solution heftSolution;
     int totalInstances[];
     Workflow workflow;
     InstanceInfo instanceInfo[];
 
-    public Loss2Algorithm(Solution heftSolution, int[] totalInstances, Workflow workflow, InstanceInfo[] instanceInfo) {
+    public Loss3Algorithm(Solution heftSolution, int[] totalInstances, Workflow workflow, InstanceInfo[] instanceInfo) {
         try {
             this.heftSolution = heftSolution.clone();
         } catch (Exception e) {
@@ -27,42 +27,8 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
         /**
          * This part is for calculating matrix elements
          * */
+        Solution solutionTemp = null;
         Solution solution = null;
-        for (int i = 0; i < workflow.getJobList().size(); i++) {
-            for (int j = 0; j < totalInstances.length; j++) {
-                try {
-                    solution = heftSolution.clone();
-                } catch (Exception e) {
-                    Log.logger.info("Cloning Exception");
-                }
-
-                double oldMakespan = solution.makespan;
-                double oldCost = solution.cost;
-
-                solution.xArray[i] = j;
-
-                solution.heftFitness();
-
-                double newMakespan = solution.makespan;
-                //  double newCost = solution.cost;
-                double temp1 = workflow.getJobList().get(i).getExeTime()[solution.yArray[solution.xArray[i]]];
-                double temp2 = instanceInfo[solution.yArray[solution.xArray[i]]].getSpotPrice();
-                double newCost = temp1 * temp2 / 3600.0;
-
-                double costDiff = oldCost - newCost;
-                double makespanDiff = newMakespan - oldMakespan;
-
-                if (costDiff <= 0) {
-                    matrix[i][j] = 0;
-                } else {
-                    matrix[i][j] = (makespanDiff) / (costDiff);
-                }
-            }
-        }
-
-        /**
-         * Generating loss solution from the weight matrix
-         * */
         try {
             solution = heftSolution.clone();
         } catch (Exception e) {
@@ -72,6 +38,43 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
         //int newXArray[] = new int[heftSolution.xArray.length];
         boolean furtherImprovement = true;
         while (solution.cost > workflow.getBudget() && furtherImprovement) {
+
+            for (int i = 0; i < workflow.getJobList().size(); i++) {
+                for (int j = 0; j < totalInstances.length; j++) {
+                    try {
+                        solutionTemp = solution.clone();
+                    } catch (Exception e) {
+                        Log.logger.info("Cloning Exception");
+                    }
+
+                    double oldMakespan = solution.makespan;
+                    double oldCost = solution.cost;
+
+                    solutionTemp.xArray[i] = j;
+
+                    solutionTemp.heftFitness();
+
+                    double newMakespan = solutionTemp.makespan;
+                    //  double newCost = solution.cost;
+                    double temp1 = workflow.getJobList().get(i).getExeTime()[solutionTemp.yArray[solutionTemp.xArray[i]]];
+                    double temp2 = instanceInfo[solutionTemp.yArray[solutionTemp.xArray[i]]].getSpotPrice();
+                    double newCost = temp1 * temp2 / 3600.0;
+
+                    double costDiff = oldCost - newCost;
+                    double makespanDiff = newMakespan - oldMakespan;
+
+                    if (costDiff <= 0) {
+                        matrix[i][j] = 0;
+                    } else {
+                        matrix[i][j] = (makespanDiff) / (costDiff);
+                    }
+                }
+            }
+
+            /**
+             * Generating loss solution from the weight matrix
+             * */
+
             //int oldInstanceId = heftSolution.xArray[i];
             // int minInstanceId,minTaskId;
             MatrixElement MinElement = FindMinPositiveElement(matrix);
