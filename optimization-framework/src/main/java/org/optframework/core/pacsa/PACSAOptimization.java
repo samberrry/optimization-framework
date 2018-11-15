@@ -48,12 +48,17 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     double zProbability[];
     double sumOfColumnsForZ[];
 
+    ArrayList<Integer> usedInstances;
+    boolean instanceVisited[];
+
     public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
         this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
         this.outInitialSolution = outInitialSolution;
         this.currentBasePheromoneValue = pheromoneInitialSeed;
+        this.usedInstances = new ArrayList<>();
+        this.instanceVisited = new boolean[Config.global.m_number];
 
         /**
          * Pheromone trail structure:

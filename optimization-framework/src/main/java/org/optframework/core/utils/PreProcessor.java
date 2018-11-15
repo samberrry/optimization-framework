@@ -16,6 +16,7 @@ import java.util.List;
  * - Ranks
  * - Execution times of tasks on every different instance type
  * - Number of parents for each task
+ * - Maximum level of the workflow
  * */
 
 public class PreProcessor {
@@ -30,6 +31,17 @@ public class PreProcessor {
             parents[job.getIntId()] = dag.getParents(job.getIntId()).size();
         }
         GlobalAccess.numberOfParentsList = parents;
+
+        ArrayList<Integer> nextLevel = dag.getFirstLevel();
+        int temp = nextLevel.size();
+
+        while (nextLevel.size() != 0){
+            if (nextLevel.size() > temp){
+                temp = nextLevel.size();
+            }
+            nextLevel = dag.getNextLevel(nextLevel);
+        }
+        GlobalAccess.maxLevel = temp;
 
         jobList = new ArrayList<>();
         PreProcessor.workflow = workflow;

@@ -17,4 +17,9 @@ public class GlobalAccess {
      * e.g: the value of the index 3 denotes that how many parents the task with Id=3 has
      * */
     public static int numberOfParentsList[];
+
+    /**
+     * maximum level of the workflow
+     * */
+    public static int maxLevel;
 }

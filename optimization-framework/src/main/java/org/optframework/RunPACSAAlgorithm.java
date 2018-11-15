@@ -1,7 +1,6 @@
 package org.optframework;
 
 import com.rits.cloning.Cloner;
-import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -55,29 +54,8 @@ public class RunPACSAAlgorithm {
         GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
         Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
-        /**
-         * Compute the maximum number of used instances
-         * */
-        if (algorithmId == 1){
-            Config.global.algorithm = "pacsa_plus";
-            WorkflowDAG dag = workflow.getWfDAG();
-            ArrayList<Integer> nextLevel = dag.getFirstLevel();
-            int temp = nextLevel.size();
-
-            while (nextLevel.size() != 0){
-                if (nextLevel.size() > temp){
-                    temp = nextLevel.size();
-                }
-                nextLevel = dag.getNextLevel(nextLevel);
-            }
-            Config.global.m_number = temp;
-        }else {
-            Config.global.m_number = workflow.getJobList().size();
-        }
-
-        if (Config.global.read_m_number_from_config){
-            Config.global.m_number = originalMNumber;
-        }
+        //todo:...
+        Config.global.m_number = workflow.getJobList().size();
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
         int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(workflow.getJobList().size() * instanceInfo.length);
@@ -93,14 +71,39 @@ public class RunPACSAAlgorithm {
 
         Loss2Algorithm loss2Algorithm = new Loss2Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
         Solution loss2Solution = loss2Algorithm.runAlgorithm();
-        loss2Solution.solutionMapping();
 
         Loss3Algorithm loss3Algorithm = new Loss3Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
         Solution loss3Solution = loss3Algorithm.runAlgorithm();
+
+        /**
+        * Compute the maximum number of used instances
+        * */
+        //todo:...
+        if (algorithmId == 1){
+            Config.global.algorithm = "pacsa_plus";
+//            WorkflowDAG dag = workflow.getWfDAG();
+//            ArrayList<Integer> nextLevel = dag.getFirstLevel();
+//            int temp = nextLevel.size();
+//
+//            while (nextLevel.size() != 0){
+//                if (nextLevel.size() > temp){
+//                    temp = nextLevel.size();
+//                }
+//                nextLevel = dag.getNextLevel(nextLevel);
+//            }
+//            Config.global.m_number = temp;
+            Config.global.m_number = loss3Solution.numberOfUsedInstances;
+        }else {
+            Config.global.m_number = workflow.getJobList().size();
+        }
+
+        if (Config.global.read_m_number_from_config){
+            Config.global.m_number = originalMNumber;
+        }
+
         loss3Solution.solutionMapping();
-
+        loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
-
 
         computeCoolingFactorForSA(workflow.getJobList().size());
 
@@ -114,9 +117,29 @@ public class RunPACSAAlgorithm {
         List<Solution> initialSolutionList = null;
 
         if (Config.pacsa_algorithm.insert_heft_initial_solution){
+            List<Job> orderedJobList = GlobalAccess.orderedJobList;
+            Integer zArray[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray[i] = orderedJobList.get(i).getIntId();
+            }
+            initialSolutionList = new ArrayList<>();
+
+            loss2Solution.zArray = zArray;
+            loss3Solution.zArray = zArray;
+            heftSolution.zArray = zArray;
+
+            loss2Solution.maxNumberOfInstances = Config.global.m_number;
+            loss3Solution.maxNumberOfInstances = Config.global.m_number;
+            heftSolution.maxNumberOfInstances = Config.global.m_number;
+
+            Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
+            costEfficientHeftSolution.solutionMapping();
+            costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
+
             initialSolutionList.add(loss2Solution);
             initialSolutionList.add(loss3Solution);
             initialSolutionList.add(heftSolution);
+            initialSolutionList.add(costEfficientHeftSolution);
         }
 
         long runTimeSum = 0;
