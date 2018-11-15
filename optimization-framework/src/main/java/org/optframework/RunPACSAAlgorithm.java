@@ -11,6 +11,7 @@ import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.heft.HEFTService;
 import org.optframework.core.lossandgain.Loss2Algorithm;
+import org.optframework.core.lossandgain.Loss3Algorithm;
 import org.optframework.core.pacsa.PACSAIterationNumber;
 import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
@@ -91,7 +92,10 @@ public class RunPACSAAlgorithm {
         Printer.lightPrintSolution(heftSolution , 0);
 
         Loss2Algorithm loss2Algorithm = new Loss2Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
-//        Solution loss2Solution = loss2Algorithm.runAlgorithm();
+        Solution loss2Solution = loss2Algorithm.runAlgorithm();
+
+        Loss3Algorithm loss3Algorithm = new Loss3Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
+        Solution loss3Solution = loss3Algorithm.runAlgorithm();
 
 
         computeCoolingFactorForSA(workflow.getJobList().size());
