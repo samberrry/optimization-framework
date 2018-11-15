@@ -109,8 +109,8 @@ public class Solution implements Cloneable{
                 int randomInstanceId = -1;
 
                 while (isEqual){
-                    randomInstanceId = r.nextInt(numberOfUsedInstances+1);
-                    if (randomInstanceId != currentInstanceId && randomInstanceId < Config.global.m_number){
+                    randomInstanceId = r.nextInt(Config.global.m_number);
+                    if (randomInstanceId != currentInstanceId){
                         isEqual = false;
                     }
                 }
@@ -118,10 +118,10 @@ public class Solution implements Cloneable{
                 xArray[randomTask] = randomInstanceId;
 
                 //if new instance is selected
-                if (randomInstanceId == numberOfUsedInstances){
+                if (randomInstanceId >= numberOfUsedInstances){
                     int randomType = r.nextInt(InstanceType.values().length);
                     yArray[randomInstanceId] = randomType;
-                    numberOfUsedInstances++;
+                    numberOfUsedInstances = randomInstanceId +1;
                 }
 
                 break;
@@ -199,7 +199,7 @@ public class Solution implements Cloneable{
         }
         instanceUsages = new short[numberOfUsedInstances];
 
-        solutionMapping();
+//        solutionMapping();
     }
 
     /**
@@ -248,6 +248,61 @@ public class Solution implements Cloneable{
     void settingInstanceUsageArray(){
         for (int i = 0; i < xArray.length; i++) {
             instanceUsages[xArray[i]]++;
+        }
+    }
+
+    public void generateFullyRandomSolution(){
+        numberOfUsedInstances = -1;
+        List<Job> jobList = workflow.getJobList();
+
+        /**
+         * Generates random xArray
+         * */
+        Random r = new Random();
+        for (int i = 0; i < jobList.size(); i++) {
+            int random = r.nextInt(Config.global.m_number);
+            xArray[i] = random;
+            if (random >= numberOfUsedInstances){
+                numberOfUsedInstances = random+1;
+            }
+        }
+
+        /**
+         * Generate random yArray
+         * */
+
+        for (int i = 0; i < numberOfUsedInstances; i++) {
+            int random = r.nextInt(InstanceType.values().length);
+            yArray[i] = random;
+        }
+
+        /**
+         * Generate random zArray
+         * */
+        WorkflowDAG dag = workflow.getWfDAG();
+        List<Job> originalJobList = workflow.getJobList();
+        Random random = new Random();
+
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int randomId, taskId;
+
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
+        int parentsSum[] = new int[workflow.getNumberTasks()];
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            randomId = random.nextInt(readyTasksToOrder.size());
+            taskId = readyTasksToOrder.get(randomId);
+
+            ArrayList<Integer> children = dag.getChildren(taskId);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+            zArray[i] = originalJobList.get(taskId).getIntId();
+            readyTasksToOrder.remove(randomId);
         }
     }
 

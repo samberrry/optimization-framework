@@ -54,8 +54,8 @@ public class HEFTService {
         return heftSolution;
     }
 
-    public static Solution getCostEfficientHEFT(InstanceInfo instanceInfo[]){
-        Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
+    public static Solution getCostEfficientHEFT(InstanceInfo instanceInfo[], int numberOfTasks){
+        Log.logger.info("<<<<<<<<<< Cost Efficient HEFT Algorithm is started  >>>>>>>>>>>");
 
         int minECUId = -1;
         double minECU = 99999999999.9;
@@ -70,7 +70,7 @@ public class HEFTService {
         /**
          * Initializes available instances for the HEFT algorithm with the max number of instances and sets them to the most powerful instance type (that is 6)
          * */
-        int totalInstances[] = new int[Config.global.m_number];
+        int totalInstances[] = new int[numberOfTasks * instanceInfo.length];
         for (int i = 0; i < Config.global.m_number; i++) {
             totalInstances[i] = minECUId;
         }

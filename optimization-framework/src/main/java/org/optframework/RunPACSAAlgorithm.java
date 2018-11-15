@@ -80,7 +80,7 @@ public class RunPACSAAlgorithm {
         }
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
-        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(workflow.getJobList().size());
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(workflow.getJobList().size() * instanceInfo.length);
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
@@ -93,9 +93,13 @@ public class RunPACSAAlgorithm {
 
         Loss2Algorithm loss2Algorithm = new Loss2Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
         Solution loss2Solution = loss2Algorithm.runAlgorithm();
+        loss2Solution.solutionMapping();
 
         Loss3Algorithm loss3Algorithm = new Loss3Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
         Solution loss3Solution = loss3Algorithm.runAlgorithm();
+        loss3Solution.solutionMapping();
+
+        heftSolution.solutionMapping();
 
 
         computeCoolingFactorForSA(workflow.getJobList().size());
@@ -107,9 +111,13 @@ public class RunPACSAAlgorithm {
         OptimizationAlgorithm optimizationAlgorithm;
 
         List<Solution> solutionList = new ArrayList<>();
-        List<Solution> initialSolutionList = getInitialSolution(instanceInfo);
-        initialSolutionList.add(loss2Solution);
-        initialSolutionList.add(loss3Solution);
+        List<Solution> initialSolutionList = null;
+
+        if (Config.pacsa_algorithm.insert_heft_initial_solution){
+            initialSolutionList.add(loss2Solution);
+            initialSolutionList.add(loss3Solution);
+            initialSolutionList.add(heftSolution);
+        }
 
         long runTimeSum = 0;
 
@@ -128,6 +136,7 @@ public class RunPACSAAlgorithm {
             long start = System.currentTimeMillis();
 
             Solution solution = optimizationAlgorithm.runAlgorithm();
+            solution.solutionMapping();
             solutionList.add(solution);
 
             long stop = System.currentTimeMillis();
@@ -205,17 +214,5 @@ public class RunPACSAAlgorithm {
                 Config.sa_algorithm.cooling_factor = 0.9;
             }
         }
-    }
-
-    public static List<Solution> getInitialSolution(InstanceInfo instanceInfo[]){
-        List<Solution> initialSolutionList = new ArrayList<>();
-        if (Config.pacsa_algorithm.insert_heft_initial_solution){
-            Solution initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo);
-            initialSolutionList.add(initialSolution);
-
-            Solution heftSolution = HEFTService.getHEFT(instanceInfo);
-            initialSolutionList.add(heftSolution);
-        }
-        return initialSolutionList;
     }
 }
