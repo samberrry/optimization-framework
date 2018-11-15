@@ -2,6 +2,7 @@ package org.optframework.core.utils;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Job;
@@ -10,11 +11,26 @@ import org.optframework.core.Workflow;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Preprocessor computes:
+ * - Ranks
+ * - Execution times of tasks on every different instance type
+ * - Number of parents for each task
+ * */
+
 public class PreProcessor {
     static List<Job> jobList;
     static org.cloudbus.cloudsim.util.workload.Workflow workflow;
 
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
+        WorkflowDAG dag = workflow.getWfDAG();
+
+        int parents[] = new int[workflow.getJobList().size()];
+        for (org.cloudbus.cloudsim.util.workload.Job job: workflow.getJobList()){
+            parents[job.getIntId()] = dag.getParents(job.getIntId()).size();
+        }
+        GlobalAccess.numberOfParentsList = parents;
+
         jobList = new ArrayList<>();
         PreProcessor.workflow = workflow;
         List<Job> jobListWithDoubleTaskLength = PopulateWorkflow.jobListWithDoubleTaskLength;

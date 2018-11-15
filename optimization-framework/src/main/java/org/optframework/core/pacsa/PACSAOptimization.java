@@ -1,8 +1,8 @@
 package org.optframework.core.pacsa;
 
 
-import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
@@ -44,6 +44,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
     double yProbability[][];
     double sumOfColumnsForY [];
+
+    double zProbability[];
+    double sumOfColumnsForZ[];
 
     public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
         this.workflow = workflow;
@@ -279,49 +282,45 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             generatedYArray[instanceId] = selectedInstance;
         }
 
-        boolean repeatIt = true;
         ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int parentsSum[] = new int[workflow.getNumberTasks()];
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
 
         for (int k = 0; k < workflow.getNumberTasks(); k++) {
-            double zProbability[] = new double[workflow.getJobList().size()];
+            zProbability = new double[workflow.getJobList().size()];
+            sumOfColumnsForZ = new double[workflow.getNumberTasks()];
+
+            for (Integer taskId : readyTasksToOrder){
+                sumOfColumnsForZ[k] += pheromoneTrailForZ[taskId][k];
+            }
+
             for (Integer taskIdI: readyTasksToOrder){
-                double pheromoneSum = 0;
-                for (Integer taskId : readyTasksToOrder){
-                    pheromoneSum += pheromoneTrailForZ[taskId][k];
-                }
-                zProbability[taskIdI] = (pheromoneTrailForZ[taskIdI][k] / pheromoneSum);
+                zProbability[taskIdI] = (pheromoneTrailForZ[taskIdI][k] / sumOfColumnsForZ[k]);
             }
             int newSelectedTaskToOrder = -1;
             int idInReadyList = -1;
-            while (repeatIt){
-                double randomX = rand.nextDouble();
-                double probabilitySumTemp = 0;
-                for (int i = 0; i < readyTasksToOrder.size(); i++) {
-                    probabilitySumTemp += zProbability[readyTasksToOrder.get(i)];
-                    if (probabilitySumTemp > randomX){
-                        newSelectedTaskToOrder = readyTasksToOrder.get(i);
-                        idInReadyList = i;
-                        break;
-                    }
-                }
 
-                ArrayList<Integer> parentList = dag.getParents(newSelectedTaskToOrder);
-                int isSeen = 0;
-                for (Integer parentId: parentList){
-                    for (int j = 0; j < k; j++) {
-                        if (parentId.equals(generatedZArray[j])){
-                            isSeen++;
-                        }
-                    }
-                }
-                if (isSeen == parentList.size()){
-                    repeatIt = false;
+            double randomX = rand.nextDouble();
+            double probabilitySumTemp = 0;
+            for (int i = 0; i < readyTasksToOrder.size(); i++) {
+                probabilitySumTemp += zProbability[readyTasksToOrder.get(i)];
+                if (probabilitySumTemp > randomX){
+                    newSelectedTaskToOrder = readyTasksToOrder.get(i);
+                    idInReadyList = i;
+                    break;
                 }
             }
+
+            ArrayList<Integer> children = dag.getChildren(newSelectedTaskToOrder);
+            for (int i = 0; i < children.size(); i++) {
+                int childId = children.get(i);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+
             readyTasksToOrder.remove(idInReadyList);
-            readyTasksToOrder.addAll(dag.getChildren(newSelectedTaskToOrder));
-            SetUniqueList.setUniqueList(readyTasksToOrder);
-            repeatIt = true;
             generatedZArray[k] = newSelectedTaskToOrder;
         }
 
