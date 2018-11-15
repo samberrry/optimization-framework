@@ -298,38 +298,25 @@ public class Solution implements Cloneable{
         Random random = new Random();
 
         ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
-        int randomId = random.nextInt(readyTasksToOrder.size());
-        int taskId = readyTasksToOrder.get(randomId);
-        boolean repeatIt = true;
+        int randomId, taskId;
 
-        zArray[0] = originalJobList.get(taskId).getIntId();
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
+        int parentsSum[] = new int[workflow.getNumberTasks()];
 
-        readyTasksToOrder.addAll(dag.getChildren(taskId));
-        readyTasksToOrder.remove(randomId);
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            randomId = random.nextInt(readyTasksToOrder.size());
+            taskId = readyTasksToOrder.get(randomId);
 
-        for (int i = 1; i < workflow.getJobList().size(); i++) {
-            while (repeatIt){
-                randomId = random.nextInt(readyTasksToOrder.size());
-                taskId = readyTasksToOrder.get(randomId);
-                ArrayList<Integer> parentList = dag.getParents(taskId);
-
-                int isSeen = 0;
-                for (Integer parentId: parentList){
-                    for (int j = 0; j < i; j++) {
-                        if (parentId.equals(zArray[j])){
-                            isSeen++;
-                        }
-                    }
-                }
-                if (isSeen == parentList.size()){
-                    repeatIt = false;
+            ArrayList<Integer> children = dag.getChildren(taskId);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
                 }
             }
-            repeatIt = true;
             zArray[i] = originalJobList.get(taskId).getIntId();
             readyTasksToOrder.remove(randomId);
-            readyTasksToOrder.addAll(dag.getChildren(taskId));
-            SetUniqueList.setUniqueList(readyTasksToOrder);
         }
     }
 
