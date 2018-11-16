@@ -437,67 +437,7 @@ public class Solution implements Cloneable{
 
             //it is possible to have multiple start tasks without dependencies
             int maxParentId = -1;
-            Job maxParentJob;
-            double latestParentFinishTime = 0.0;
-            
-            //this if for gap usage
-            if (instanceList[xArray[job.getIntId()]].gapList.size() >= 1 && parentJobs.size() != 0){
-                Collections.sort(instanceList[xArray[job.getIntId()]].gapList , Gap.gapComparator);
-                maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
-                maxParentJob = originalJobList.get(maxParentId);
-                latestParentFinishTime = taskFinishTimes[maxParentJob.getIntId()];
 
-                int k =0;
-                for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
-                    if (latestParentFinishTime < gap.endTime){
-                        double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                        double tempCIJ = tempEdge / (double)Config.global.bandwidth;
-                        double taskExeTime;
-
-                        if (xArray[job.getIntId()] == xArray[maxParentId]){
-                            taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
-                        }else {
-                            taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]] + tempCIJ;
-                        }
-
-                        double availableGapTime = gap.endTime - latestParentFinishTime;
-                        double gapTest = availableGapTime;
-                        if (availableGapTime > gap.duration){
-                            gapTest = gap.duration;
-                        }
-
-                        if (gapTest >= taskExeTime){
-                            double remainingTimeToStartGap = gap.startTime - latestParentFinishTime;
-                            double gapTaskFinishTime;
-
-                            if (remainingTimeToStartGap >= 0){
-                                double timeToSendData = gap.startTime - latestParentFinishTime;
-                                if (timeToSendData >= tempCIJ){
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - tempCIJ);
-                                }else {
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - timeToSendData);
-                                }
-                            }else {
-                                gapTaskFinishTime = latestParentFinishTime + taskExeTime;
-                            }
-
-                            if (gapTaskFinishTime < tempTaskFinishTime){
-                                tempTaskExeTime = taskExeTime;
-                                tempTaskFinishTime = gapTaskFinishTime;
-                                gapIsUsed = true;
-                                gapOccurred = false;
-                                instanceGapId = xArray[job.getIntId()];
-                                gapId = k;
-                            }
-                            break;
-                        }
-                        k++;
-                    }else {
-                        break;
-                    }
-                }
-            }
-            //this is for when there is no gap
             if (parentJobs.size() == 0){
                 double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
                 double currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
