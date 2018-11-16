@@ -80,20 +80,22 @@ public class RunPACSAAlgorithm {
         * */
         //todo:...
         loss3Solution.solutionMapping();
+        loss2Solution.solutionMapping();
+        heftSolution.solutionMapping();
+
         if (algorithmId == 1){
+            int m_number;
             Config.global.algorithm = "pacsa_plus";
-//            WorkflowDAG dag = workflow.getWfDAG();
-//            ArrayList<Integer> nextLevel = dag.getFirstLevel();
-//            int temp = nextLevel.size();
-//
-//            while (nextLevel.size() != 0){
-//                if (nextLevel.size() > temp){
-//                    temp = nextLevel.size();
-//                }
-//                nextLevel = dag.getNextLevel(nextLevel);
-//            }
-//            Config.global.m_number = temp;
-            Config.global.m_number = loss3Solution.numberOfUsedInstances;
+            if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
+                Config.global.m_number = loss2Solution.numberOfUsedInstances;
+                m_number = loss2Solution.numberOfUsedInstances;
+            }else {
+                Config.global.m_number = loss3Solution.numberOfUsedInstances;
+                m_number = loss3Solution.numberOfUsedInstances;
+            }
+            if (m_number < heftSolution.numberOfUsedInstances){
+                Config.global.m_number = heftSolution.numberOfUsedInstances;
+            }
         }else {
             Config.global.m_number = workflow.getJobList().size();
         }
@@ -101,10 +103,6 @@ public class RunPACSAAlgorithm {
         if (Config.global.read_m_number_from_config){
             Config.global.m_number = originalMNumber;
         }
-
-//        loss3Solution.solutionMapping();
-        loss2Solution.solutionMapping();
-        heftSolution.solutionMapping();
 
         computeCoolingFactorForSA(workflow.getJobList().size());
 
