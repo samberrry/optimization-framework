@@ -26,7 +26,7 @@ global:
   algorithm: "pacsa-plus"
   workflow_id: 4
   workflow_name: "inspiral_30"
-  budget: 0.45
+  budget: 10.2
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -68,8 +68,8 @@ honeybee_algorithm:
 pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
-  number_of_ants: 4
-  number_of_runs: 3
+  number_of_ants: 16
+  number_of_runs: 1
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
