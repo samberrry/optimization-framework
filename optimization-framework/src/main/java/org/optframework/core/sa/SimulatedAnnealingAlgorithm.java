@@ -64,6 +64,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                 }
                 //Generates a random neighbor solution
                 randomNeighbor.generateRandomNeighborSolution(workflow);
+                randomNeighbor.origin = "sa";
 
                 randomNeighbor.fitness();
 

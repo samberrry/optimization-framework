@@ -334,6 +334,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         solution.xArray = generatedXArray;
         solution.yArray = generatedYArray;
         solution.zArray = generatedZArray;
+        solution.origin = "pacsa";
         solution.fitness();
 
         return solution;

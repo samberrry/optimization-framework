@@ -51,6 +51,11 @@ public class Solution implements Cloneable{
      */
     public int makespan;
 
+    /**
+     * The Origin denotes the algorithm which generated the solution
+     * */
+    public String origin;
+
     public short instanceUsages[];
 
     public double fitnessValue;

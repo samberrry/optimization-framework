@@ -79,6 +79,7 @@ public class RunPACSAAlgorithm {
         * Compute the maximum number of used instances
         * */
         //todo:...
+        loss3Solution.solutionMapping();
         if (algorithmId == 1){
             Config.global.algorithm = "pacsa_plus";
 //            WorkflowDAG dag = workflow.getWfDAG();
@@ -101,7 +102,7 @@ public class RunPACSAAlgorithm {
             Config.global.m_number = originalMNumber;
         }
 
-        loss3Solution.solutionMapping();
+//        loss3Solution.solutionMapping();
         loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
 
@@ -135,6 +136,11 @@ public class RunPACSAAlgorithm {
             Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
             costEfficientHeftSolution.solutionMapping();
             costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
+
+            heftSolution.origin = "heft";
+            loss2Solution.origin = "loss2";
+            loss3Solution.origin = "loss3";
+            costEfficientHeftSolution.origin = "cost-efficient-heft";
 
             initialSolutionList.add(loss2Solution);
             initialSolutionList.add(loss3Solution);
