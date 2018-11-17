@@ -119,27 +119,24 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 solutionToUpdate = bestCurrentSolution;
             }
 
-            //The best current solution (found in this iteration) updates the pheromone trail
-            for (int k = 0; k < workflow.getNumberTasks(); k++) {
-                for (int j = 0; j < Config.global.m_number; j++) {
-                    if (j == solutionToUpdate.xArray[k]){
-                        pheromoneTrailForX[j][k] = (pheromoneTrailForX[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                    }else {
-                        pheromoneTrailForX[j][k] *= Config.pacsa_algorithm.evaporation_factor;
-                    }
+            for (int instanceId : solutionToUpdate.xArray){
+                if (!instanceVisited[instanceId]){
+                    usedInstances.add(instanceId);
+                    instanceVisited[instanceId] = true;
                 }
             }
 
-            for (int k = 0; k < solutionToUpdate.numberOfUsedInstances; k++) {
-                for (int j = 0; j < instanceInfo.length; j++) {
-                    if (j == solutionToUpdate.xArray[k]){
-                        pheromoneTrailForY[j][k] = (pheromoneTrailForY[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                    }else {
-                        pheromoneTrailForY[j][k] *= Config.pacsa_algorithm.evaporation_factor;
-                    }
-                }
+            //updates x pheromone trail
+            for (int i = 0; i < workflow.getNumberTasks(); i++) {
+                pheromoneTrailForX[solutionToUpdate.xArray[i]][i] = (pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
             }
 
+            //updates y pheromone trail
+            for (Integer instanceId: usedInstances){
+                pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] = (pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+            }
+
+            //updates z pheromone trail
             for (int k = 0; k < workflow.getJobList().size(); k++) {
                 for (int j = 0; j < workflow.getJobList().size(); j++) {
                     if (j == solutionToUpdate.zArray[k]){
@@ -149,6 +146,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     }
                 }
             }
+
+            //update current base seed
+            currentBasePheromoneValue *= Config.pacsa_algorithm.evaporation_factor;
 
             //Update cooling factor
             Config.sa_algorithm.cooling_factor *= Config.pacsa_algorithm.cf_increase_ratio;
@@ -223,28 +223,25 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         //probability matrix for x array
 
         for (int i = 0; i < workflow.getNumberTasks(); i++) {
-            for (int j = 0; j < Config.global.m_number; j++) {
-                sumOfColumnsForX[i] += pheromoneTrailForX[j][i];
+            for (Integer instanceId: usedInstances){
+                sumOfColumnsForX[i] += pheromoneTrailForX[instanceId][i];
             }
-        }
+            sumOfColumnsForX[i] += ((Config.global.m_number - usedInstances.size()) * currentBasePheromoneValue);
 
-        for (int i = 0; i < workflow.getNumberTasks(); i++) {
-            for (int j = 0; j < Config.global.m_number; j++) {
-                xProbability[j][i] = (pheromoneTrailForX[j][i] / sumOfColumnsForX[i]);
+            for (Integer instanceId: usedInstances){
+                xProbability[instanceId][i] = (pheromoneTrailForX[instanceId][i] / sumOfColumnsForX[i]);
             }
         }
 
         //probability matrix for y array
 
-        for (int i = 0; i < Config.global.m_number; i++) {
+        for (Integer instanceId: usedInstances){
             for (int j = 0; j < instanceInfo.length; j++) {
-                sumOfColumnsForY[i] += pheromoneTrailForY[j][i];
+                sumOfColumnsForY[instanceId] += pheromoneTrailForY[j][instanceId];
             }
-        }
 
-        for (int i = 0; i < Config.global.m_number; i++) {
             for (int j = 0; j < instanceInfo.length; j++) {
-                yProbability[j][i] = (pheromoneTrailForY[j][i] / sumOfColumnsForY[i]);
+                yProbability[j][instanceId] = (pheromoneTrailForY[j][instanceId] / sumOfColumnsForY[instanceId]);
             }
         }
     }
@@ -261,7 +258,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
             for (int i = 0; i < Config.global.m_number; i++) {
-                probabilitySumTemp += xProbability[i][k];
+                if (instanceVisited[i]){
+                    probabilitySumTemp += xProbability[i][k];
+                }else {
+                    probabilitySumTemp += (currentBasePheromoneValue/sumOfColumnsForX[i]);
+                }
                 if (probabilitySumTemp > randomX){
                     selectedInstance = i;
                     break;
@@ -278,7 +279,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
             for (int i = 0; i < instanceInfo.length; i++) {
-                probabilitySumTemp += yProbability[i][instanceId];
+                if (instanceVisited[instanceId]){
+                    probabilitySumTemp += yProbability[i][instanceId];
+                }else {
+                    probabilitySumTemp += (currentBasePheromoneValue/sumOfColumnsForY[instanceId]);
+                }
                 if (probabilitySumTemp > randomY){
                     selectedInstance = i;
                     break;
