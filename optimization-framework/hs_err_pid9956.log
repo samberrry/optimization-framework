@@ -1,0 +1,889 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaCalls.cpp:51), pid=9956, tid=0x00007f74d903f700
+#  guarantee(thread->is_Java_thread()) failed: crucial check - the VM thread cannot and must not escape to Java code
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_191-b12) (build 1.8.0_191-b12)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.191-b12 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f74f8212800):  VMThread [stack: 0x00007f74d8f3f000,0x00007f74d9040000] [id=9981]
+
+Stack: [0x00007f74d8f3f000,0x00007f74d9040000],  sp=0x00007f74d903d7f0,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xace425]  VMError::report_and_die()+0x2c5
+V  [libjvm.so+0x4dea88]  report_vm_error(char const*, int, char const*, char const*)+0x58
+V  [libjvm.so+0x682560]  JavaCallWrapper::JavaCallWrapper(methodHandle, Handle, JavaValue*, Thread*)+0x240
+V  [libjvm.so+0x684df0]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x8f0
+V  [libjvm.so+0x683463]  JavaCalls::call_special(JavaValue*, KlassHandle, Symbol*, Symbol*, JavaCallArguments*, Thread*)+0x223
+V  [libjvm.so+0x56dd76]  Exceptions::new_exception(Thread*, Symbol*, char const*, Handle, Handle, Handle, Exceptions::ExceptionMsgToUtf8Mode)+0x3d6
+V  [libjvm.so+0x56e4b5]  Exceptions::new_exception(Thread*, Symbol*, char const*, Exceptions::ExceptionMsgToUtf8Mode)+0x65
+V  [libjvm.so+0x5dda54]  GenerateOopMap::verify_error(char const*, ...)+0x84
+V  [libjvm.so+0x5e1513]  GenerateOopMap::interp_bb(BasicBlock*)+0xa73
+V  [libjvm.so+0x5e471d]  GenerateOopMap::do_interpretation()+0xbd
+V  [libjvm.so+0x5e4afb]  GenerateOopMap::compute_map(Thread*)+0x29b
+V  [libjvm.so+0x8fb4bf]  OopMapForCacheEntry::compute_map(Thread*)+0x8f
+V  [libjvm.so+0x8fd1c8]  OopMapCacheEntry::fill(methodHandle, int)+0x2a8
+V  [libjvm.so+0x8fe147]  OopMapCache::compute_one_oop_map(methodHandle, int, InterpreterOopMap*)+0x127
+V  [libjvm.so+0x8fe9d6]  OopMapCache::lookup(methodHandle, int, InterpreterOopMap*) const+0x5c6
+V  [libjvm.so+0x6406d3]  InstanceKlass::mask_for(methodHandle, int, InterpreterOopMap*)+0x83
+V  [libjvm.so+0x8911b1]  Method::mask_for(int, InterpreterOopMap*)+0xb1
+V  [libjvm.so+0x77d5aa]  VM_GetOrSetLocal::doit()+0x4a
+V  [libjvm.so+0xad50f6]  VM_Operation::evaluate()+0x46
+V  [libjvm.so+0xad347d]  VMThread::evaluate_operation(VM_Operation*) [clone .constprop.44]+0xcd
+V  [libjvm.so+0xad3a3b]  VMThread::loop()+0x37b
+V  [libjvm.so+0xad3de8]  VMThread::run()+0x78
+V  [libjvm.so+0x909c92]  java_start(Thread*)+0x102
+
+VM_Operation (0x00007f74d8a35a00): GetOrSetLocal, mode: safepoint, requested by thread 0x00007f74f825e000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f74f8411800 JavaThread "Service Thread" daemon [_thread_blocked, id=10002, stack(0x00007f74d8158000,0x00007f74d8259000)]
+  0x00007f74f8404000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=10001, stack(0x00007f74d8259000,0x00007f74d835a000)]
+  0x00007f74f8402000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=10000, stack(0x00007f74d835a000,0x00007f74d845b000)]
+  0x00007f74f83ff800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=9999, stack(0x00007f74d845b000,0x00007f74d855c000)]
+  0x00007f74f83f8800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=9998, stack(0x00007f74d855c000,0x00007f74d865d000)]
+  0x00007f748c001000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=9996, stack(0x00007f74d8734000,0x00007f74d8835000)]
+  0x00007f74f8261800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=9994, stack(0x00007f74d8835000,0x00007f74d8936000)]
+  0x00007f74f825e000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=9992, stack(0x00007f74d8936000,0x00007f74d8a37000)]
+  0x00007f74f8251000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=9991, stack(0x00007f74d8c3c000,0x00007f74d8d3d000)]
+  0x00007f74f821e800 JavaThread "Finalizer" daemon [_thread_blocked, id=9983, stack(0x00007f74d8d3d000,0x00007f74d8e3e000)]
+  0x00007f74f821c000 JavaThread "Reference Handler" daemon [_thread_blocked, id=9982, stack(0x00007f74d8e3e000,0x00007f74d8f3f000)]
+  0x00007f74f8011000 JavaThread "main" [_thread_blocked, id=9957, stack(0x00007f7501c16000,0x00007f7501d17000)]
+
+Other Threads:
+=>0x00007f74f8212800 VMThread [stack: 0x00007f74d8f3f000,0x00007f74d9040000] [id=9981]
+  0x00007f74f841c800 WatcherThread [stack: 0x00007f74d8057000,0x00007f74d8158000] [id=10003]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f74f800d3d0] Threads_lock - owner thread: 0x00007f74f8212800
+
+Heap:
+ PSYoungGen      total 149504K, used 110481K [0x0000000719580000, 0x000000072b980000, 0x00000007c0000000)
+  eden space 128512K, 84% used [0x0000000719580000,0x000000071ff80660,0x0000000721300000)
+  from space 20992K, 9% used [0x0000000722780000,0x0000000722964030,0x0000000723c00000)
+  to   space 20992K, 0% used [0x0000000721300000,0x0000000721300000,0x0000000722780000)
+ ParOldGen       total 341504K, used 88K [0x00000005cc000000, 0x00000005e0d80000, 0x0000000719580000)
+  object space 341504K, 0% used [0x00000005cc000000,0x00000005cc016010,0x00000005e0d80000)
+ Metaspace       used 9167K, capacity 9330K, committed 9600K, reserved 1058816K
+  class space    used 1034K, capacity 1083K, committed 1152K, reserved 1048576K
+
+Card table byte_map: [0x00007f74fd0ad000,0x00007f74fe04e000] byte_map_base: 0x00007f74fa24d000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f75010efd40
+ Begin Bits: [0x00007f749c600000, 0x00007f74a4300000)
+ End Bits:   [0x00007f74a4300000, 0x00007f74ac000000)
+
+Polling page: 0x00007f7501d34000
+
+CodeCache: size=245760Kb used=3485Kb max_used=3524Kb free=242274Kb
+ bounds [0x00007f74e9000000, 0x00007f74e9380000, 0x00007f74f8000000]
+ total_blobs=1158 nmethods=817 adapters=263
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 128,635 Thread 0x00007f74f8404000  813       3       java.lang.StringBuilder::append (9 bytes)
+Event: 128,636 Thread 0x00007f74f8404000 nmethod 813 0x00007f74e9335190 code [0x00007f74e9335320, 0x00007f74e9335718]
+Event: 145,153 Thread 0x00007f74f83f8800  814       4       org.cloudbus.cloudsim.util.workload.Bag::iterator (10 bytes)
+Event: 145,155 Thread 0x00007f74f83f8800 nmethod 814 0x00007f74e9337c50 code [0x00007f74e9337da0, 0x00007f74e9337e98]
+Event: 4030,984 Thread 0x00007f74f8402000  815       4       org.cloudbus.cloudsim.util.workload.Bag$ListIterator::hasNext (13 bytes)
+Event: 4030,984 Thread 0x00007f74f8404000  816       3       org.cloudbus.cloudsim.util.workload.Job::toString (61 bytes)
+Event: 4030,985 Thread 0x00007f74f8402000 nmethod 815 0x00007f74e92e9f50 code [0x00007f74e92ea0a0, 0x00007f74e92ea118]
+Event: 4030,985 Thread 0x00007f74f8404000 nmethod 816 0x00007f74e9333c50 code [0x00007f74e9333ea0, 0x00007f74e9334c68]
+Event: 4030,985 Thread 0x00007f74f8404000  817       3       java.lang.Integer::getChars (131 bytes)
+Event: 4030,986 Thread 0x00007f74f8404000 nmethod 817 0x00007f74e9333190 code [0x00007f74e9333340, 0x00007f74e93337d0]
+
+GC Heap History (4 events):
+Event: 0,580 GC heap before
+{Heap before GC invocations=1 (full 0):
+ PSYoungGen      total 149504K, used 128512K [0x0000000719580000, 0x0000000723c00000, 0x00000007c0000000)
+  eden space 128512K, 100% used [0x0000000719580000,0x0000000721300000,0x0000000721300000)
+  from space 20992K, 0% used [0x0000000722780000,0x0000000722780000,0x0000000723c00000)
+  to   space 20992K, 0% used [0x0000000721300000,0x0000000721300000,0x0000000722780000)
+ ParOldGen       total 341504K, used 0K [0x00000005cc000000, 0x00000005e0d80000, 0x0000000719580000)
+  object space 341504K, 0% used [0x00000005cc000000,0x00000005cc000000,0x00000005e0d80000)
+ Metaspace       used 9039K, capacity 9138K, committed 9344K, reserved 1056768K
+  class space    used 1029K, capacity 1083K, committed 1152K, reserved 1048576K
+Event: 0,583 GC heap after
+Heap after GC invocations=1 (full 0):
+ PSYoungGen      total 149504K, used 2759K [0x0000000719580000, 0x0000000723c00000, 0x00000007c0000000)
+  eden space 128512K, 0% used [0x0000000719580000,0x0000000719580000,0x0000000721300000)
+  from space 20992K, 13% used [0x0000000721300000,0x00000007215b1ca0,0x0000000722780000)
+  to   space 20992K, 0% used [0x0000000722780000,0x0000000722780000,0x0000000723c00000)
+ ParOldGen       total 341504K, used 80K [0x00000005cc000000, 0x00000005e0d80000, 0x0000000719580000)
+  object space 341504K, 0% used [0x00000005cc000000,0x00000005cc014010,0x00000005e0d80000)
+ Metaspace       used 9039K, capacity 9138K, committed 9344K, reserved 1056768K
+  class space    used 1029K, capacity 1083K, committed 1152K, reserved 1048576K
+}
+Event: 0,650 GC heap before
+{Heap before GC invocations=2 (full 0):
+ PSYoungGen      total 149504K, used 131271K [0x0000000719580000, 0x0000000723c00000, 0x00000007c0000000)
+  eden space 128512K, 100% used [0x0000000719580000,0x0000000721300000,0x0000000721300000)
+  from space 20992K, 13% used [0x0000000721300000,0x00000007215b1ca0,0x0000000722780000)
+  to   space 20992K, 0% used [0x0000000722780000,0x0000000722780000,0x0000000723c00000)
+ ParOldGen       total 341504K, used 80K [0x00000005cc000000, 0x00000005e0d80000, 0x0000000719580000)
+  object space 341504K, 0% used [0x00000005cc000000,0x00000005cc014010,0x00000005e0d80000)
+ Metaspace       used 9049K, capacity 9138K, committed 9344K, reserved 1056768K
+  class space    used 1029K, capacity 1083K, committed 1152K, reserved 1048576K
+Event: 0,653 GC heap after
+Heap after GC invocations=2 (full 0):
+ PSYoungGen      total 149504K, used 1936K [0x0000000719580000, 0x000000072b980000, 0x00000007c0000000)
+  eden space 128512K, 0% used [0x0000000719580000,0x0000000719580000,0x0000000721300000)
+  from space 20992K, 9% used [0x0000000722780000,0x0000000722964030,0x0000000723c00000)
+  to   space 20992K, 0% used [0x0000000721300000,0x0000000721300000,0x0000000722780000)
+ ParOldGen       total 341504K, used 88K [0x00000005cc000000, 0x00000005e0d80000, 0x0000000719580000)
+  object space 341504K, 0% used [0x00000005cc000000,0x00000005cc016010,0x00000005e0d80000)
+ Metaspace       used 9049K, capacity 9138K, committed 9344K, reserved 1056768K
+  class space    used 1029K, capacity 1083K, committed 1152K, reserved 1048576K
+}
+
+Deoptimization events (3 events):
+Event: 0,468 Thread 0x00007f74f8011000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f74e92d4fc0 method=org.optframework.core.Job.getEdge(I)J @ 34
+Event: 0,567 Thread 0x00007f74f8011000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f74e93186b8 method=java.util.TimSort.sort([Ljava/lang/Object;IILjava/util/Comparator;[Ljava/lang/Object;II)V @ 45
+Event: 0,584 Thread 0x00007f74f8011000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f74e92e5870 method=java.util.TimSort.sort([Ljava/lang/Object;IILjava/util/Comparator;[Ljava/lang/Object;II)V @ 45
+
+Classes redefined (6 events):
+Event: 4030,875 Thread 0x00007f74f8212800 redefined class name=org.optframework.RunPACSAAlgorithm, count=1
+Event: 4115,722 Thread 0x00007f74f8212800 redefined class name=org.optframework.RunPACSAAlgorithm, count=2
+Event: 4330,277 Thread 0x00007f74f8212800 redefined class name=org.optframework.core.lossandgain.Loss3Algorithm, count=1
+Event: 4330,280 Thread 0x00007f74f8212800 redefined class name=org.optframework.RunPACSAAlgorithm, count=3
+Event: 4702,890 Thread 0x00007f74f8212800 redefined class name=org.optframework.core.lossandgain.Loss3Algorithm, count=2
+Event: 6666,392 Thread 0x00007f74f8212800 redefined class name=org.optframework.core.lossandgain.Loss3Algorithm, count=3
+
+Internal exceptions (10 events):
+Event: 0,367 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/GlobalConfigBeanInfo> (0x000000071a9759c0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,367 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/GlobalConfigCustomizer> (0x000000071a986ba8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,370 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/SAConfigBeanInfo> (0x000000071a9c90b8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,371 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/SAConfigCustomizer> (0x000000071a9d96c0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,372 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/HoneyBeeConfigBeanInfo> (0x000000071a9fc718) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,373 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/HoneyBeeConfigCustomizer> (0x000000071aa0df68) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,375 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/PACSAConfigBeanInfo> (0x000000071aa41d60) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,375 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/PACSAConfigCustomizer> (0x000000071aa52f20) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,377 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/PSOConfigBeanInfo> (0x000000071aa80ba8) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 0,378 Thread 0x00007f74f8011000 Exception <a 'java/lang/ClassNotFoundException': org/optframework/config/PSOConfigCustomizer> (0x000000071aa91a38) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u191/11894/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+
+Events (10 events):
+Event: 4703,022 Executing VM operation: GetOrSetLocal done
+Event: 4735,682 Executing VM operation: ChangeBreakpoints
+Event: 4735,682 Executing VM operation: ChangeBreakpoints done
+Event: 6666,388 Executing VM operation: RedefineClasses
+Event: 6666,392 Executing VM operation: RedefineClasses done
+Event: 6666,393 Executing VM operation: GetOrSetLocal
+Event: 6666,393 Executing VM operation: GetOrSetLocal done
+Event: 6666,449 Executing VM operation: ChangeBreakpoints
+Event: 6666,450 Executing VM operation: ChangeBreakpoints done
+Event: 6666,521 Executing VM operation: GetOrSetLocal
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:02 20842065                           /home/faragardi/Documents/Project Materials/jdk1.8.0_191/bin/java
+00600000-00601000 r--p 00000000 08:02 20842065                           /home/faragardi/Documents/Project Materials/jdk1.8.0_191/bin/java
+00601000-00602000 rw-p 00001000 08:02 20842065                           /home/faragardi/Documents/Project Materials/jdk1.8.0_191/bin/java
+015f2000-01613000 rw-p 00000000 00:00 0                                  [heap]
+5cc000000-5e0d80000 rw-p 00000000 00:00 0 
+5e0d80000-719580000 ---p 00000000 00:00 0 
+719580000-72b980000 rw-p 00000000 00:00 0 
+72b980000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c0120000 rw-p 00000000 00:00 0 
+7c0120000-800000000 ---p 00000000 00:00 0 
+7f7468000000-7f7468021000 rw-p 00000000 00:00 0 
+7f7468021000-7f746c000000 ---p 00000000 00:00 0 
+7f746c000000-7f746c021000 rw-p 00000000 00:00 0 
+7f746c021000-7f7470000000 ---p 00000000 00:00 0 
+7f7470000000-7f7471416000 rw-p 00000000 00:00 0 
+7f7471416000-7f7474000000 ---p 00000000 00:00 0 
+7f7474000000-7f747429a000 rw-p 00000000 00:00 0 
+7f747429a000-7f7478000000 ---p 00000000 00:00 0 
+7f7478000000-7f7478b1f000 rw-p 00000000 00:00 0 
+7f7478b1f000-7f747c000000 ---p 00000000 00:00 0 
+7f747c000000-7f747c34a000 rw-p 00000000 00:00 0 
+7f747c34a000-7f7480000000 ---p 00000000 00:00 0 
+7f7480000000-7f748002a000 rw-p 00000000 00:00 0 
+7f748002a000-7f7484000000 ---p 00000000 00:00 0 
+7f7484000000-7f7484021000 rw-p 00000000 00:00 0 
+7f7484021000-7f7488000000 ---p 00000000 00:00 0 
+7f7488000000-7f7488021000 rw-p 00000000 00:00 0 
+7f7488021000-7f748c000000 ---p 00000000 00:00 0 
+7f748c000000-7f748c024000 rw-p 00000000 00:00 0 
+7f748c024000-7f7490000000 ---p 00000000 00:00 0 
+7f7490000000-7f7490021000 rw-p 00000000 00:00 0 
+7f7490021000-7f7494000000 ---p 00000000 00:00 0 
+7f7494000000-7f7494021000 rw-p 00000000 00:00 0 
+7f7494021000-7f7498000000 ---p 00000000 00:00 0 
+7f7498000000-7f749829e000 rw-p 00000000 00:00 0 
+7f749829e000-7f749c000000 ---p 00000000 00:00 0 
+7f749c600000-7f74ac000000 rw-p 00000000 00:00 0 
+7f74ac000000-7f74ac021000 rw-p 00000000 00:00 0 
+7f74ac021000-7f74b0000000 ---p 00000000 00:00 0 
+7f74b0000000-7f74b0021000 rw-p 00000000 00:00 0 
+7f74b0021000-7f74b4000000 ---p 00000000 00:00 0 
+7f74b4000000-7f74b4021000 rw-p 00000000 00:00 0 
+7f74b4021000-7f74b8000000 ---p 00000000 00:00 0 
+7f74bc000000-7f74bc021000 rw-p 00000000 00:00 0 
+7f74bc021000-7f74c0000000 ---p 00000000 00:00 0 
+7f74c4000000-7f74c4021000 rw-p 00000000 00:00 0 
+7f74c4021000-7f74c8000000 ---p 00000000 00:00 0 
+7f74cc000000-7f74cc021000 rw-p 00000000 00:00 0 
+7f74cc021000-7f74d0000000 ---p 00000000 00:00 0 
+7f74d09d6000-7f74d0a16000 rw-p 00000000 00:00 0 
+7f74d0a16000-7f74d0bd6000 ---p 00000000 00:00 0 
+7f74d0bd6000-7f74d3bd7000 rw-p 00000000 00:00 0 
+7f74d3bd7000-7f74d3bed000 r-xp 00000000 08:02 21758360                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnet.so
+7f74d3bed000-7f74d3dec000 ---p 00016000 08:02 21758360                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnet.so
+7f74d3dec000-7f74d3ded000 r--p 00015000 08:02 21758360                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnet.so
+7f74d3ded000-7f74d3dee000 rw-p 00016000 08:02 21758360                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnet.so
+7f74d3dee000-7f74d3dff000 r-xp 00000000 08:02 21758363                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnio.so
+7f74d3dff000-7f74d3ffe000 ---p 00011000 08:02 21758363                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnio.so
+7f74d3ffe000-7f74d3fff000 r--p 00010000 08:02 21758363                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnio.so
+7f74d3fff000-7f74d4000000 rw-p 00011000 08:02 21758363                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnio.so
+7f74d4000000-7f74d4021000 rw-p 00000000 00:00 0 
+7f74d4021000-7f74d8000000 ---p 00000000 00:00 0 
+7f74d802c000-7f74d8031000 r--s 000a0000 08:02 21758200                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jsse.jar
+7f74d8031000-7f74d803b000 r--s 00116000 08:02 21758211                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/localedata.jar
+7f74d803b000-7f74d8057000 r--s 00393000 08:02 21758204                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/cldrdata.jar
+7f74d8057000-7f74d8058000 ---p 00000000 00:00 0 
+7f74d8058000-7f74d8158000 rw-p 00000000 00:00 0 
+7f74d8158000-7f74d815b000 ---p 00000000 00:00 0 
+7f74d815b000-7f74d8259000 rw-p 00000000 00:00 0 
+7f74d8259000-7f74d825c000 ---p 00000000 00:00 0 
+7f74d825c000-7f74d835a000 rw-p 00000000 00:00 0 
+7f74d835a000-7f74d835d000 ---p 00000000 00:00 0 
+7f74d835d000-7f74d845b000 rw-p 00000000 00:00 0 
+7f74d845b000-7f74d845e000 ---p 00000000 00:00 0 
+7f74d845e000-7f74d855c000 rw-p 00000000 00:00 0 
+7f74d855c000-7f74d855f000 ---p 00000000 00:00 0 
+7f74d855f000-7f74d865d000 rw-p 00000000 00:00 0 
+7f74d865d000-7f74d8664000 r--s 00064000 08:02 21365275                   /home/faragardi/.IdeaIC2018.2/system/captureAgent/debugger-agent.jar
+7f74d8664000-7f74d8666000 r--s 0001a000 08:02 20973303                   /home/faragardi/Documents/Project Materials/idea-IC-182.4892.20/lib/idea_rt.jar
+7f74d8666000-7f74d867d000 r--s 001f2000 08:02 20720020                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/mysql-connector-java-8.0.13.jar
+7f74d867d000-7f74d868b000 r--s 00082000 08:02 20719971                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/xstream-1.4.10.jar
+7f74d868b000-7f74d8693000 r--s 00053000 08:02 20719970                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/xpp3-1.1.6.jar
+7f74d8693000-7f74d86a2000 r--s 0014f000 08:02 20719968                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/ssj-2.5.jar
+7f74d86a2000-7f74d86a8000 r--s 0003d000 08:02 20719967                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/snakeyaml-1.17.jar
+7f74d86a8000-7f74d86aa000 r--s 0000c000 08:02 20719966                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/objenesis-2.6.jar
+7f74d86aa000-7f74d86b2000 r--s 00045000 08:02 20719965                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/junit-4.12.jar
+7f74d86b2000-7f74d86c3000 r--s 000f6000 08:02 20719964                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/jackson-databind-2.4.4.jar
+7f74d86c3000-7f74d86c7000 r--s 00034000 08:02 20719963                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/jackson-core-2.4.4.jar
+7f74d86c7000-7f74d86ca000 r--s 00007000 08:02 20719962                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/jackson-annotations-2.4.4.jar
+7f74d86ca000-7f74d86cc000 r--s 00009000 08:02 20719961                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/hamcrest-core-1.3.jar
+7f74d86cc000-7f74d86d1000 r--s 00034000 08:02 20719960                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/gson-2.8.2.jar
+7f74d86d1000-7f74d86f8000 r--s 001f6000 08:02 20719958                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/commons-math3-3.6.1.jar
+7f74d86f8000-7f74d870b000 r--s 000df000 08:02 20719957                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/commons-math-2.2.jar
+7f74d870b000-7f74d871a000 r--s 000a9000 08:02 20719990                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/commons-collections4-4.2.jar
+7f74d871a000-7f74d8728000 r--s 00081000 08:02 20719954                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/colt-1.2.0.jar
+7f74d8728000-7f74d8734000 r--s 0007c000 08:02 20719947                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/aws-java-sdk-core-1.10.37.jar
+7f74d8734000-7f74d8737000 ---p 00000000 00:00 0 
+7f74d8737000-7f74d8835000 rw-p 00000000 00:00 0 
+7f74d8835000-7f74d8838000 ---p 00000000 00:00 0 
+7f74d8838000-7f74d8936000 rw-p 00000000 00:00 0 
+7f74d8936000-7f74d8939000 ---p 00000000 00:00 0 
+7f74d8939000-7f74d8a37000 rw-p 00000000 00:00 0 
+7f74d8a37000-7f74d8a3b000 r-xp 00000000 08:02 21758323                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libdt_socket.so
+7f74d8a3b000-7f74d8c3a000 ---p 00004000 08:02 21758323                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libdt_socket.so
+7f74d8c3a000-7f74d8c3b000 r--p 00003000 08:02 21758323                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libdt_socket.so
+7f74d8c3b000-7f74d8c3c000 rw-p 00004000 08:02 21758323                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libdt_socket.so
+7f74d8c3c000-7f74d8c3f000 ---p 00000000 00:00 0 
+7f74d8c3f000-7f74d8d3d000 rw-p 00000000 00:00 0 
+7f74d8d3d000-7f74d8d40000 ---p 00000000 00:00 0 
+7f74d8d40000-7f74d8e3e000 rw-p 00000000 00:00 0 
+7f74d8e3e000-7f74d8e41000 ---p 00000000 00:00 0 
+7f74d8e41000-7f74d8f3f000 rw-p 00000000 00:00 0 
+7f74d8f3f000-7f74d8f40000 ---p 00000000 00:00 0 
+7f74d8f40000-7f74dc000000 rw-p 00000000 00:00 0 
+7f74dc000000-7f74dc021000 rw-p 00000000 00:00 0 
+7f74dc021000-7f74e0000000 ---p 00000000 00:00 0 
+7f74e0000000-7f74e0021000 rw-p 00000000 00:00 0 
+7f74e0021000-7f74e4000000 ---p 00000000 00:00 0 
+7f74e4000000-7f74e4021000 rw-p 00000000 00:00 0 
+7f74e4021000-7f74e8000000 ---p 00000000 00:00 0 
+7f74e8001000-7f74e8151000 rw-p 00000000 00:00 0 
+7f74e8151000-7f74e832b000 r--s 03d6c000 08:02 21758143                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/rt.jar
+7f74e832b000-7f74e8bfc000 rw-p 00000000 00:00 0 
+7f74e8bfc000-7f74e8bfd000 ---p 00000000 00:00 0 
+7f74e8bfd000-7f74e8cfd000 rw-p 00000000 00:00 0 
+7f74e8cfd000-7f74e8cfe000 ---p 00000000 00:00 0 
+7f74e8cfe000-7f74e8dfe000 rw-p 00000000 00:00 0 
+7f74e8dfe000-7f74e8dff000 ---p 00000000 00:00 0 
+7f74e8dff000-7f74e8eff000 rw-p 00000000 00:00 0 
+7f74e8eff000-7f74e8f00000 ---p 00000000 00:00 0 
+7f74e8f00000-7f74e9000000 rw-p 00000000 00:00 0 
+7f74e9000000-7f74e9380000 rwxp 00000000 00:00 0 
+7f74e9380000-7f74f8000000 ---p 00000000 00:00 0 
+7f74f8000000-7f74f8867000 rw-p 00000000 00:00 0 
+7f74f8867000-7f74fc000000 ---p 00000000 00:00 0 
+7f74fc001000-7f74fc004000 r--s 00019000 08:02 20719959                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/easymock-3.1.jar
+7f74fc004000-7f74fc006000 r--s 0000e000 08:02 20719956                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/commons-logging-1.2.jar
+7f74fc006000-7f74fc008000 r--s 0000c000 08:02 20719955                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/commons-cli-1.4.jar
+7f74fc008000-7f74fc029000 r--s 0017e000 08:02 20719950                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/aws-java-sdk-ec2/aws-java-sdk-ec2-1.9.0.jar
+7f74fc029000-7f74fc03c000 r--s 00345000 08:02 21758181                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/resources.jar
+7f74fc03c000-7f74fc03d000 ---p 00000000 00:00 0 
+7f74fc03d000-7f74fc13d000 rw-p 00000000 00:00 0 
+7f74fc13d000-7f74fc13e000 ---p 00000000 00:00 0 
+7f74fc13e000-7f74fc23e000 rw-p 00000000 00:00 0 
+7f74fc23e000-7f74fc23f000 ---p 00000000 00:00 0 
+7f74fc23f000-7f74fc33f000 rw-p 00000000 00:00 0 
+7f74fc33f000-7f74fc340000 ---p 00000000 00:00 0 
+7f74fc340000-7f74fc440000 rw-p 00000000 00:00 0 
+7f74fc440000-7f74fc441000 ---p 00000000 00:00 0 
+7f74fc441000-7f74fc541000 rw-p 00000000 00:00 0 
+7f74fc541000-7f74fc542000 ---p 00000000 00:00 0 
+7f74fc542000-7f74fc6e9000 rw-p 00000000 00:00 0 
+7f74fc6e9000-7f74fd0ad000 ---p 00000000 00:00 0 
+7f74fd0ad000-7f74fd154000 rw-p 00000000 00:00 0 
+7f74fd154000-7f74fdb17000 ---p 00000000 00:00 0 
+7f74fdb17000-7f74fdbaa000 rw-p 00000000 00:00 0 
+7f74fdbaa000-7f74fe04d000 ---p 00000000 00:00 0 
+7f74fe04d000-7f74fe05c000 rw-p 00000000 00:00 0 
+7f74fe05c000-7f74fe40e000 ---p 00000000 00:00 0 
+7f74fe40e000-7f74fe428000 r-xp 00000000 08:02 21758356                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libzip.so
+7f74fe428000-7f74fe628000 ---p 0001a000 08:02 21758356                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libzip.so
+7f74fe628000-7f74fe629000 r--p 0001a000 08:02 21758356                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libzip.so
+7f74fe629000-7f74fe62a000 rw-p 0001b000 08:02 21758356                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libzip.so
+7f74fe62a000-7f74fe635000 r-xp 00000000 08:02 19660897                   /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f74fe635000-7f74fe834000 ---p 0000b000 08:02 19660897                   /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f74fe834000-7f74fe835000 r--p 0000a000 08:02 19660897                   /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f74fe835000-7f74fe836000 rw-p 0000b000 08:02 19660897                   /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f74fe836000-7f74fe83c000 rw-p 00000000 00:00 0 
+7f74fe83c000-7f74fe847000 r-xp 00000000 08:02 19665364                   /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f74fe847000-7f74fea46000 ---p 0000b000 08:02 19665364                   /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f74fea46000-7f74fea47000 r--p 0000a000 08:02 19665364                   /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f74fea47000-7f74fea48000 rw-p 0000b000 08:02 19665364                   /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f74fea48000-7f74fea5e000 r-xp 00000000 08:02 19660817                   /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f74fea5e000-7f74fec5d000 ---p 00016000 08:02 19660817                   /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f74fec5d000-7f74fec5e000 r--p 00015000 08:02 19660817                   /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f74fec5e000-7f74fec5f000 rw-p 00016000 08:02 19660817                   /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f74fec5f000-7f74fec61000 rw-p 00000000 00:00 0 
+7f74fec61000-7f74fec69000 r-xp 00000000 08:02 19660892                   /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f74fec69000-7f74fee68000 ---p 00008000 08:02 19660892                   /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f74fee68000-7f74fee69000 r--p 00007000 08:02 19660892                   /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f74fee69000-7f74fee6a000 rw-p 00008000 08:02 19660892                   /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f74fee6a000-7f74fee74000 r-xp 00000000 08:02 21758365                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libinstrument.so
+7f74fee74000-7f74ff073000 ---p 0000a000 08:02 21758365                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libinstrument.so
+7f74ff073000-7f74ff074000 r--p 00009000 08:02 21758365                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libinstrument.so
+7f74ff074000-7f74ff075000 rw-p 0000a000 08:02 21758365                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libinstrument.so
+7f74ff075000-7f74ff39b000 r--p 00000000 08:02 24386543                   /usr/lib/locale/locale-archive
+7f74ff39b000-7f74ff39d000 r-xp 00000000 08:02 21758325                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnpt.so
+7f74ff39d000-7f74ff59d000 ---p 00002000 08:02 21758325                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnpt.so
+7f74ff59d000-7f74ff59e000 r--p 00002000 08:02 21758325                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnpt.so
+7f74ff59e000-7f74ff59f000 rw-p 00003000 08:02 21758325                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libnpt.so
+7f74ff59f000-7f74ff5d9000 r-xp 00000000 08:02 21758343                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjdwp.so
+7f74ff5d9000-7f74ff7d8000 ---p 0003a000 08:02 21758343                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjdwp.so
+7f74ff7d8000-7f74ff7d9000 r--p 00039000 08:02 21758343                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjdwp.so
+7f74ff7d9000-7f74ff7da000 rw-p 0003a000 08:02 21758343                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjdwp.so
+7f74ff7da000-7f74ff807000 r-xp 00000000 08:02 21758350                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjava.so
+7f74ff807000-7f74ffa06000 ---p 0002d000 08:02 21758350                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjava.so
+7f74ffa06000-7f74ffa07000 r--p 0002c000 08:02 21758350                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjava.so
+7f74ffa07000-7f74ffa09000 rw-p 0002d000 08:02 21758350                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libjava.so
+7f74ffa09000-7f74ffa16000 r-xp 00000000 08:02 21758355                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libverify.so
+7f74ffa16000-7f74ffc15000 ---p 0000d000 08:02 21758355                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libverify.so
+7f74ffc15000-7f74ffc17000 r--p 0000c000 08:02 21758355                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libverify.so
+7f74ffc17000-7f74ffc18000 rw-p 0000e000 08:02 21758355                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/libverify.so
+7f74ffc18000-7f74ffc1f000 r-xp 00000000 08:02 19665365                   /lib/x86_64-linux-gnu/librt-2.23.so
+7f74ffc1f000-7f74ffe1e000 ---p 00007000 08:02 19665365                   /lib/x86_64-linux-gnu/librt-2.23.so
+7f74ffe1e000-7f74ffe1f000 r--p 00006000 08:02 19665365                   /lib/x86_64-linux-gnu/librt-2.23.so
+7f74ffe1f000-7f74ffe20000 rw-p 00007000 08:02 19665365                   /lib/x86_64-linux-gnu/librt-2.23.so
+7f74ffe20000-7f74fff28000 r-xp 00000000 08:02 19660814                   /lib/x86_64-linux-gnu/libm-2.23.so
+7f74fff28000-7f7500127000 ---p 00108000 08:02 19660814                   /lib/x86_64-linux-gnu/libm-2.23.so
+7f7500127000-7f7500128000 r--p 00107000 08:02 19660814                   /lib/x86_64-linux-gnu/libm-2.23.so
+7f7500128000-7f7500129000 rw-p 00108000 08:02 19660814                   /lib/x86_64-linux-gnu/libm-2.23.so
+7f7500129000-7f7500e0b000 r-xp 00000000 08:02 21758332                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/server/libjvm.so
+7f7500e0b000-7f750100b000 ---p 00ce2000 08:02 21758332                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/server/libjvm.so
+7f750100b000-7f75010a1000 r--p 00ce2000 08:02 21758332                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/server/libjvm.so
+7f75010a1000-7f75010d2000 rw-p 00d78000 08:02 21758332                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/amd64/server/libjvm.so
+7f75010d2000-7f750110d000 rw-p 00000000 00:00 0 
+7f750110d000-7f75012cd000 r-xp 00000000 08:02 19660884                   /lib/x86_64-linux-gnu/libc-2.23.so
+7f75012cd000-7f75014cd000 ---p 001c0000 08:02 19660884                   /lib/x86_64-linux-gnu/libc-2.23.so
+7f75014cd000-7f75014d1000 r--p 001c0000 08:02 19660884                   /lib/x86_64-linux-gnu/libc-2.23.so
+7f75014d1000-7f75014d3000 rw-p 001c4000 08:02 19660884                   /lib/x86_64-linux-gnu/libc-2.23.so
+7f75014d3000-7f75014d7000 rw-p 00000000 00:00 0 
+7f75014d7000-7f75014da000 r-xp 00000000 08:02 19660886                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7f75014da000-7f75016d9000 ---p 00003000 08:02 19660886                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7f75016d9000-7f75016da000 r--p 00002000 08:02 19660886                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7f75016da000-7f75016db000 rw-p 00003000 08:02 19660886                   /lib/x86_64-linux-gnu/libdl-2.23.so
+7f75016db000-7f75016f2000 r-xp 00000000 08:02 21758018                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/lib/amd64/jli/libjli.so
+7f75016f2000-7f75018f1000 ---p 00017000 08:02 21758018                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/lib/amd64/jli/libjli.so
+7f75018f1000-7f75018f2000 r--p 00016000 08:02 21758018                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/lib/amd64/jli/libjli.so
+7f75018f2000-7f75018f3000 rw-p 00017000 08:02 21758018                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/lib/amd64/jli/libjli.so
+7f75018f3000-7f750190b000 r-xp 00000000 08:02 19660883                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f750190b000-7f7501b0a000 ---p 00018000 08:02 19660883                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f7501b0a000-7f7501b0b000 r--p 00017000 08:02 19660883                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f7501b0b000-7f7501b0c000 rw-p 00018000 08:02 19660883                   /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f7501b0c000-7f7501b10000 rw-p 00000000 00:00 0 
+7f7501b10000-7f7501b36000 r-xp 00000000 08:02 19660825                   /lib/x86_64-linux-gnu/ld-2.23.so
+7f7501b36000-7f7501b37000 r--s 00001000 08:02 20719969                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/xmlpull-1.1.3.1.jar
+7f7501b37000-7f7501b39000 r--s 00006000 08:02 20719953                   /home/faragardi/Documents/GitProject/cloudproject/dependencies/cloning-1.9.10.jar
+7f7501b39000-7f7501b4c000 r--s 000d6000 08:02 21758085                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/plugin.jar
+7f7501b4c000-7f7501b4d000 r--s 00000000 08:02 21758067                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/management-agent.jar
+7f7501b4d000-7f7501b52000 r--s 000a0000 08:02 21758200                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jsse.jar
+7f7501b52000-7f7501b54000 r--s 00007000 08:02 21758378                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jfxswt.jar
+7f7501b54000-7f7501b5e000 r--s 0006e000 08:02 21758070                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/javaws.jar
+7f7501b5e000-7f7501b79000 r--s 0020c000 08:02 21758061                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/deploy.jar
+7f7501b79000-7f7501c16000 rw-p 00000000 00:00 0 
+7f7501c16000-7f7501c19000 ---p 00000000 00:00 0 
+7f7501c19000-7f7501d1c000 rw-p 00000000 00:00 0 
+7f7501d1c000-7f7501d21000 r--s 00084000 08:02 21758060                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jfr.jar
+7f7501d21000-7f7501d24000 r--s 0001a000 08:02 21758376                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jce.jar
+7f7501d24000-7f7501d29000 r--s 002f9000 08:02 21758141                   /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/charsets.jar
+7f7501d29000-7f7501d2b000 r--s 00001000 08:02 21365274                   /home/faragardi/.IdeaIC2018.2/system/captureAgent/debugger-agent-storage.jar
+7f7501d2b000-7f7501d33000 rw-s 00000000 08:02 5243567                    /tmp/hsperfdata_faragardi/9956
+7f7501d33000-7f7501d34000 rw-p 00000000 00:00 0 
+7f7501d34000-7f7501d35000 ---p 00000000 00:00 0 
+7f7501d35000-7f7501d36000 r--p 00025000 08:02 19660825                   /lib/x86_64-linux-gnu/ld-2.23.so
+7f7501d36000-7f7501d37000 rw-p 00026000 08:02 19660825                   /lib/x86_64-linux-gnu/ld-2.23.so
+7f7501d37000-7f7501d38000 rw-p 00000000 00:00 0 
+7ffd21b51000-7ffd21b73000 rw-p 00000000 00:00 0                          [stack]
+7ffd21ba7000-7ffd21baa000 r--p 00000000 00:00 0                          [vvar]
+7ffd21baa000-7ffd21bac000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:41197,suspend=y,server=n -javaagent:/home/faragardi/.IdeaIC2018.2/system/captureAgent/debugger-agent.jar=file:/tmp/capture.props -Dfile.encoding=UTF-8 
+java_command: org.optframework.Main
+java_class_path (initial): /home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/charsets.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/deploy.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/cldrdata.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/dnsns.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/jaccess.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/jfxrt.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/localedata.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/nashorn.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/sunec.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/sunjce_provider.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/sunpkcs11.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/ext/zipfs.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/javaws.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jce.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jfr.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jfxswt.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/jsse.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/management-agent.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/plugin.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/resources.jar:/home/faragardi/Documents/Project Materials/jdk1.8.0_191/jre/lib/rt.jar:/home/faragardi/Documents/GitProject/cloudproject/optimization-framework/target:/home/faragardi/Documents/GitProject/cloudproject/optimization-framework/out/production/Cloudsim:/home/faragardi/Documents/GitProject/cloudproject/optimization-framework/out/production/Spotsim:/home/faragardi/Documents/GitProject/cloudp
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/home/faragardi/bin:/home/faragardi/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SHELL=/bin/bash
+DISPLAY=:2
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xaced60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xaced60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x907ca0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x907ca0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x907ca0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x907ca0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x907b70], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x908190], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x908190], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x908190], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x908190], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.5 LTS"
+
+uname:Linux 4.15.0-36-generic #39~16.04.1-Ubuntu SMP Tue Sep 25 08:59:23 UTC 2018 x86_64
+libc:glibc 2.23 NPTL 2.23 
+rlimit: STACK 8192k, CORE 0k, NPROC 126425, NOFILE 1048576, AS infinity
+load average:0,46 0,91 2,24
+
+/proc/meminfo:
+MemTotal:       32763452 kB
+MemFree:        15863932 kB
+MemAvailable:   24912004 kB
+Buffers:          381216 kB
+Cached:          9015728 kB
+SwapCached:            0 kB
+Active:          9618348 kB
+Inactive:        5822336 kB
+Active(anon):    6048916 kB
+Inactive(anon):   432544 kB
+Active(file):    3569432 kB
+Inactive(file):  5389792 kB
+Unevictable:         528 kB
+Mlocked:             528 kB
+SwapTotal:      33376252 kB
+SwapFree:       33376252 kB
+Dirty:              7316 kB
+Writeback:             0 kB
+AnonPages:       6044400 kB
+Mapped:          1122008 kB
+Shmem:            437724 kB
+Slab:             651092 kB
+SReclaimable:     558932 kB
+SUnreclaim:        92160 kB
+KernelStack:       22812 kB
+PageTables:        82628 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    49757976 kB
+Committed_AS:   18786304 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:     1405144 kB
+DirectMap2M:     7854080 kB
+DirectMap1G:    26214400 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-11
+cpu_memory_nodes: 0
+active_processor_count: 12
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 15813955584
+memory_max_usage_in_bytes: 0
+
+
+CPU:total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 63 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3188.654
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 0
+cpu cores	: 6
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3250.341
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 1
+cpu cores	: 6
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 2795.253
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 2
+cpu cores	: 6
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3299.911
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 3
+cpu cores	: 6
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 2913.344
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 4
+cpu cores	: 6
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3370.211
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 5
+cpu cores	: 6
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3194.597
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 0
+cpu cores	: 6
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3224.220
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 1
+cpu cores	: 6
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 8
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3144.817
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 2
+cpu cores	: 6
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 9
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3299.911
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 3
+cpu cores	: 6
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 10
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 2874.575
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 4
+cpu cores	: 6
+apicid		: 9
+initial apicid	: 9
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+processor	: 11
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 63
+model name	: Intel(R) Core(TM) i7-5820K CPU @ 3.30GHz
+stepping	: 2
+microcode	: 0x3d
+cpu MHz		: 3374.274
+cache size	: 15360 KB
+physical id	: 0
+siblings	: 12
+core id		: 5
+cpu cores	: 6
+apicid		: 11
+initial apicid	: 11
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 15
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti intel_ppin ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm xsaveopt cqm_llc cqm_occup_llc dtherm ida arat pln pts flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips	: 6599.82
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 32763452k(15860024k free), swap 33376252k(33376252k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.191-b12) for linux-amd64 JRE (1.8.0_191-b12), built on Oct  6 2018 05:43:09 by "java_re" with gcc 7.3.0
+
+time: Fri Nov 16 20:30:07 2018
+elapsed time: 6666 seconds (0d 1h 51m 6s)
+
