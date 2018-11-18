@@ -164,6 +164,7 @@ public class RunPACSAAlgorithm {
 
             Solution solution = optimizationAlgorithm.runAlgorithm();
             solution.solutionMapping();
+            solution.fitness();
             solutionList.add(solution);
 
             long stop = System.currentTimeMillis();

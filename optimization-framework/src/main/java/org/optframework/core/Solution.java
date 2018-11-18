@@ -102,7 +102,7 @@ public class Solution implements Cloneable{
         this.workflow = workflow;
 
         Random r = new Random();
-        int xOry = r.nextInt(3);
+        int xOry = r.nextInt(2);
 
         switch (xOry){
                 //changes x array
@@ -424,14 +424,6 @@ public class Solution implements Cloneable{
              * */
             double tempTaskFinishTime = 999999999999999999.0;
             double tempTaskExeTime = -99999999999999999.9;
-            boolean gapOccurred = false;
-            double endOfInstanceWaitTime = -99999999999999999.9;
-
-            //Info about the gap and the instance
-            boolean gapIsUsed = false;
-            int instanceGapId = -1;
-            int gapId = -1;
-            //
 
             ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
 
@@ -445,7 +437,6 @@ public class Solution implements Cloneable{
                 if (currentFinishTime < tempTaskFinishTime){
                     tempTaskExeTime = taskExeTime;
                     tempTaskFinishTime = currentFinishTime;
-                    gapIsUsed = false;
                 }
             }else {
                 //check maximum task finish time for all of the current instances
@@ -480,10 +471,7 @@ public class Solution implements Cloneable{
 
                     if (currentFinishTime < tempTaskFinishTime){
                         tempTaskExeTime = taskExeTime + cij;
-                        gapOccurred = true;
-                        endOfInstanceWaitTime = currentTime;
                         tempTaskFinishTime = currentFinishTime;
-                        gapIsUsed = false;
                     }
                 }else {
                     double cij = 0D;
@@ -508,29 +496,11 @@ public class Solution implements Cloneable{
                     if (currentFinishTime < tempTaskFinishTime){
                         tempTaskExeTime = taskExeTime + cij;
                         tempTaskFinishTime = currentFinishTime;
-                        gapIsUsed = false;
-                        gapOccurred = false;
                     }
                 }
             }
+            instanceTimeLine[xArray[job.getIntId()]] = tempTaskFinishTime;
 
-            if (gapOccurred && instanceIsUsed[xArray[job.getIntId()]]){
-                instanceList[xArray[job.getIntId()]].hasGap = true;
-                Gap gap = new Gap(instanceTimeLine[xArray[job.getIntId()]], endOfInstanceWaitTime);
-                instanceList[xArray[job.getIntId()]].gapList.add(gap);
-            }
-            if (gapIsUsed){
-                Gap gap = instanceList[instanceGapId].getGapList().get(gapId);
-                gap.startTime = tempTaskFinishTime;
-                if (gap.startTime >= gap.endTime){
-                    instanceList[instanceGapId].gapList.remove(gapId);
-                    Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
-                }else {
-                    gap.duration = gap.endTime - gap.startTime;
-                }
-            }else {
-                instanceTimeLine[xArray[job.getIntId()]] = tempTaskFinishTime;
-            }
             if (!instanceIsUsed[xArray[job.getIntId()]]){
                 instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
                 instanceIsUsed[xArray[job.getIntId()]] = true;
