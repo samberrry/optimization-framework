@@ -150,7 +150,7 @@ public enum InstanceType {
 	}
     },
     
-    M32XLARGE(7, 15360, 0, 4, 1690, 1000, Bits.B64, "m3.xlarge", 1, 30) {
+    M32XLARGE(7, 15360, 0, 4, 1690, 1000, Bits.B64, "m3.2xlarge", 1, 30) {
 
     	@Override
     	public double getOnDemandPrice(final Region r, final OS os) {
