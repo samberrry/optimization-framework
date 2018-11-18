@@ -149,6 +149,12 @@ public class Printer {
         }
         Log.logger.info("Value of the Y Array: "+ yArray);
 
+        String zArray = "";
+        for (int val : solution.zArray){
+            zArray += " " + String.valueOf(val);
+        }
+        Log.logger.info("Value of the Z Array: "+ zArray);
+
         toPrint = "\nTotal Cost: " + solution.cost + "\n";
         toPrint += "Makespan: " + solution.makespan + "\n";
         toPrint += "Fitness Value: "+ solution.fitnessValue + "\n";

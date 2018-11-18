@@ -73,7 +73,7 @@ public class RunPACSAAlgorithm {
         Solution loss2Solution = loss2Algorithm.runAlgorithm();
 
         Loss3Algorithm loss3Algorithm = new Loss3Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
-        Solution loss3Solution = loss3Algorithm.runAlgorithm();
+        Solution loss3Solution = loss3Algorithm.runAlgorithm2();
 
         /**
         * Compute the maximum number of used instances
@@ -140,8 +140,8 @@ public class RunPACSAAlgorithm {
             loss3Solution.origin = "loss3";
             costEfficientHeftSolution.origin = "cost-efficient-heft";
 
-            initialSolutionList.add(loss2Solution);
-            initialSolutionList.add(loss3Solution);
+         //   initialSolutionList.add(loss2Solution);
+         //   initialSolutionList.add(loss3Solution);
             initialSolutionList.add(heftSolution);
             initialSolutionList.add(costEfficientHeftSolution);
         }
@@ -171,6 +171,7 @@ public class RunPACSAAlgorithm {
             runTimeSum += (stop - start);
 
             Printer.lightPrintSolution(solution,stop-start);
+            Printer.printSolutionWithouthTime(solution, instanceInfo);
         }
 
         double fitnessSum = 0.0, costSum = 0.0;

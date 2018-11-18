@@ -126,24 +126,45 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
 
+            //updated by Hamid/////////////
+
             //updates x pheromone trail
-            for (int i = 0; i < workflow.getNumberTasks(); i++) {
-                pheromoneTrailForX[solutionToUpdate.xArray[i]][i] = (pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+            for (int i = 0; i < Config.global.m_number; i++) {
+                for (int j = 0; j < workflow.getNumberTasks(); j++) {
+                    pheromoneTrailForX[i][j] *= Config.pacsa_algorithm.evaporation_factor;
+                    if(solutionToUpdate.xArray[j] == i){
+                        pheromoneTrailForX[i][j] += 1 / solutionToUpdate.fitnessValue;
+                    }
+                }
             }
+           // for (int i = 0; i < workflow.getNumberTasks(); i++) {
+
+                //pheromoneTrailForX[solutionToUpdate.xArray[i]][i] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+            //}
 
             //updates y pheromone trail
-            for (Integer instanceId: usedInstances){
-                pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] = (pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+            for (int i = 0; i < instanceInfo.length; i++) {
+                for (int j = 0; j < Config.global.m_number; j++) {
+                    pheromoneTrailForY[i][j] *= Config.pacsa_algorithm.evaporation_factor;
+                    if(solutionToUpdate.yArray[j] == i){
+                        pheromoneTrailForY[i][j] += 1 / solutionToUpdate.fitnessValue;
+                    }
+                }
             }
+
+         //   for (Integer instanceId: usedInstances){
+         //       pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
+         //   }
 
             //updates z pheromone trail
             for (int k = 0; k < workflow.getJobList().size(); k++) {
                 for (int j = 0; j < workflow.getJobList().size(); j++) {
-                    if (j == solutionToUpdate.zArray[k]){
-                        pheromoneTrailForZ[j][k] = (pheromoneTrailForZ[j][k] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                    }else {
-                        pheromoneTrailForZ[j][k] *= Config.pacsa_algorithm.evaporation_factor;
+                    pheromoneTrailForZ[j][k] *= Config.pacsa_algorithm.evaporation_factor;
+                    if (j == solutionToUpdate.zArray[k]) {
+                        pheromoneTrailForZ[j][k] += 1 / solutionToUpdate.fitnessValue;
                     }
+
+
                 }
             }
 
