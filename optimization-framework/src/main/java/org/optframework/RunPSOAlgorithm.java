@@ -9,6 +9,7 @@ import org.optframework.core.*;
 import org.optframework.core.heft.HEFTService;
 import org.optframework.core.pso.PSOOptimization;
 import org.optframework.core.pso.Particle;
+import org.optframework.core.pso.ZPSOOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
@@ -17,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class RunPSOAlgorithm {
-    public static void runPSO()
+    public static void runPSO(int algorithmId)
     {
         Log.logger.info("<<<<<<<<< PSO Algorithm is started >>>>>>>>>");
 
@@ -34,7 +35,7 @@ public class RunPSOAlgorithm {
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
-        OptimizationAlgorithm optimizationAlgorithm;
+        OptimizationAlgorithm optimizationAlgorithm = null;
 
         List<Solution> solutionList = new ArrayList<>();
 
@@ -42,8 +43,16 @@ public class RunPSOAlgorithm {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-            optimizationAlgorithm = new PSOOptimization(getInitialSolution(instanceInfo, workflow)
-                    , workflow, instanceInfo);
+            switch (algorithmId){
+                case 0:
+                    optimizationAlgorithm = new PSOOptimization(null
+                            , workflow, instanceInfo);
+                    break;
+                case 1:
+                    optimizationAlgorithm = new ZPSOOptimization(null
+                            , workflow, instanceInfo);
+                    break;
+            }
 
             long start = System.currentTimeMillis();
 

@@ -14,6 +14,7 @@
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 # pacsa-plus        PACSA algorithm with computed M number
 # pso               Particle Swarm Intelligence
+# zpso              PSO algorithm with z array
 #
 # Key NOTES:
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
@@ -23,7 +24,7 @@
 
 
 global:
-  algorithm: "pacsa"
+  algorithm: "zpso"
   workflow_id: 2
   workflow_name: "inspiral_30"
   budget: 0.675

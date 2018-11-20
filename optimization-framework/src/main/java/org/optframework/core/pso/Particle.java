@@ -10,14 +10,17 @@ import java.util.Random;
 public class Particle extends Solution {
     public double velocityX[];
     public double velocityY[];
+    public double velocityZ[];
     public double bestFitnessValueSoFar = 9999999999.9;
     public int bestXArraySoFar[];
     public int bestYArraySoFar[];
+    public Integer bestZArraySoFar[];
 
     public Particle(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
         super(workflow, instanceInfo, numberOfInstances);
         velocityX = new double[workflow.getJobList().size()];
         velocityY = new double[Config.global.m_number];
+        velocityZ = new double[workflow.getJobList().size()];
     }
 
     public void generateRandomVelocities(){
@@ -37,6 +40,14 @@ public class Particle extends Solution {
             int number = random.nextInt(max + 1 -min) + min;
 
             velocityY[i] = number;
+        }
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            int max = workflow.getJobList().size();
+            int min = -workflow.getJobList().size();
+            int number = random.nextInt(max + 1 -min) + min;
+
+            velocityZ[i] = number;
         }
     }
 }
