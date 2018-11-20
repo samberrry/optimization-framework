@@ -23,10 +23,10 @@
 
 
 global:
-  algorithm: "pacsa-plus"
-  workflow_id: 4
+  algorithm: "pacsa"
+  workflow_id: 2
   workflow_name: "inspiral_30"
-  budget: 6.3
+  budget: 0.675
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -69,12 +69,12 @@ pacsa_algorithm:
   iteration_number: 100
   iteration_number_based: no
   number_of_ants: 16
-  number_of_runs: 3
+  number_of_runs: 20
 #  cf: cooling factor
   cf_increase_ratio: 1.004
 # temp_decrease_ratio: intensification rate
   temp_decrease_ratio: 0.95
-  equilibrium_point: 0.999
+  equilibrium_point: 0.99
   evaporation_factor: 0.9
   global_based: yes
   insert_heft_initial_solution: yes

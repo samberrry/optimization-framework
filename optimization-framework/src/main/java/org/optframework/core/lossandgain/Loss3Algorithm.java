@@ -104,9 +104,9 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
     public Solution runAlgorithm2() {
         double matrix[][] = new double[workflow.getJobList().size()][totalInstances.length];
 
-        /**
-         * This part is for calculating matrix elements
-         * */
+
+         // This part is for calculating matrix elements
+
         Solution solutionTemp = null;
         Solution solution = null;
         try {
@@ -118,18 +118,18 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
         double sumExeTaks = 0;
 
       //  for(int k = 0; k < totalInstances.length; k++)
-        solution.yArray[0] = 0; // set it to the chaepest and the most efficient instance
-        solution.yArray[1] = 4; // set it to the chaepest and the most efficient instance
-        solution.yArray[2] = 4; // set it to the chaepest and the most efficient instance
+       // solution.yArray[0] = 0; // set it to the chaepest and the most efficient instance
+       // solution.yArray[1] = 4; // set it to the chaepest and the most efficient instance
+       // solution.yArray[2] = 4; // set it to the chaepest and the most efficient instance
 
-        /*int value = 7;
+        int value = 7;
         for (int i = 0; i < workflow.getJobList().size(); i++) {
 
             solution.xArray[i] = value;
-            value += 8;
+           // value += 8;
             sumExeTaks += workflow.getJobList().get(i).getExeTime()[solution.yArray[solution.xArray[i]]];
-        }*/
-        solution.xArray[0] = 2;
+        }
+      /*  solution.xArray[0] = 2;
         solution.xArray[1] = 2;
         solution.xArray[2] = 0;
         solution.xArray[3] = 0;
@@ -173,7 +173,7 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
         solution.fitness();
 
         //int newXArray[] = new int[heftSolution.xArray.length];
-        boolean furtherImprovement = true;
+      /*  boolean furtherImprovement = true;
         while (solution.cost > workflow.getBudget() && furtherImprovement) {
 
             for (int i = 0; i < workflow.getJobList().size(); i++) {
@@ -217,9 +217,9 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
                 }
             }
 
-            /**
-             * Generating loss solution from the weight matrix
-             * */
+
+             // Generating loss solution from the weight matrix
+
 
             //int oldInstanceId = heftSolution.xArray[i];
             // int minInstanceId,minTaskId;
@@ -233,10 +233,10 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
             }
 
         }
-        int test = 0;
+        int test = 0;*/
 
         heftSolution.xArray = solution.xArray;
-        //heftSolution.yArray = solution.yArray;
+        heftSolution.yArray = solution.yArray;
 
         heftSolution.heftFitness();
 

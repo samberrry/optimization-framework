@@ -102,54 +102,120 @@ public class Solution implements Cloneable{
         this.workflow = workflow;
 
         Random r = new Random();
-        int xOry = r.nextInt(2);
+        int xOry = r.nextInt(3);
+       // int xOry = 2;
 
-        switch (xOry){
-                //changes x array
+        int sizeofneighborhood = 1;
+        switch (xOry) {
+            //changes x array
             case 0:
-                int randomTask = r.nextInt(xArray.length);
-                int currentInstanceId = xArray[randomTask];
+                for(int i=0;i<sizeofneighborhood;i++) {
+                    int randomTask = r.nextInt(xArray.length);
+                    int currentInstanceId = xArray[randomTask];
 
-                boolean isEqual = true;
-                int randomInstanceId = -1;
+                    boolean isEqual = true;
+                    int randomInstanceId = -1;
 
-                while (isEqual){
-                    randomInstanceId = r.nextInt(Config.global.m_number);
-                    if (randomInstanceId != currentInstanceId){
-                        isEqual = false;
+                    while (isEqual) {
+                        randomInstanceId = r.nextInt(Config.global.m_number);
+                        if (randomInstanceId != currentInstanceId) {
+                            isEqual = false;
+                        }
+                    }
+
+                    xArray[randomTask] = randomInstanceId;
+
+                    //if new instance is selected
+                    if (randomInstanceId >= numberOfUsedInstances) {
+                        int randomType = r.nextInt(InstanceType.values().length);
+                        yArray[randomInstanceId] = randomType;
+                        numberOfUsedInstances = randomInstanceId + 1;
                     }
                 }
 
-                xArray[randomTask] = randomInstanceId;
-
-                //if new instance is selected
-                if (randomInstanceId >= numberOfUsedInstances){
-                    int randomType = r.nextInt(InstanceType.values().length);
-                    yArray[randomInstanceId] = randomType;
-                    numberOfUsedInstances = randomInstanceId +1;
-                }
-
                 break;
-                // changes y array
+            // changes y array
             case 1:
                 int randomInstanceIdY = r.nextInt(numberOfUsedInstances);
                 boolean isEqualY = true;
 
                 int randomType = -1;
 
-                while (isEqualY){
+                while (isEqualY) {
                     int instanceType = yArray[randomInstanceIdY];
                     randomType = r.nextInt(InstanceType.values().length);
 
-                    if (randomType != instanceType){
+                    if (randomType != instanceType) {
                         isEqualY = false;
                     }
                 }
                 yArray[randomInstanceIdY] = randomType;
 
                 break;
-                //change z array
+            //change z array
             case 2:
+                int randomOldPosition;
+                int n = workflow.getJobList().size();
+                randomOldPosition = r.nextInt(n);
+                int randomNewPosition = randomOldPosition;
+
+                //boolean repeatIt = true;
+                //   while (repeatIt){
+
+                WorkflowDAG dag = workflow.getWfDAG();
+                ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
+                ArrayList<Integer> childList = dag.getChildren(zArray[randomOldPosition]);
+                int start = randomOldPosition;
+                int end = randomOldPosition;
+
+                while (start >=0 && !ExistItemInList(parentList,zArray[start])) {
+                    start--;
+                }
+
+                while (end < n && !ExistItemInList(childList,zArray[end])) {
+                    end++;
+                }
+
+
+                int diff = (end - 1) - (start + 1);
+                if (diff > 0) {
+                    randomNewPosition = r.nextInt(diff);
+                    randomNewPosition += (start + 1);
+                    //  if (randomNewPosition != randomOldPosition) {
+                    //      repeatIt = false;
+                    //  }
+                    if (randomNewPosition != randomOldPosition) {
+                        if (randomNewPosition > randomOldPosition) {
+                            int temp = zArray[randomOldPosition];
+                            for (int j = randomOldPosition; j < randomNewPosition; j++)
+                                zArray[j] = zArray[j + 1];
+                            zArray[randomNewPosition] = temp;
+                        }
+                        else {
+                            int temp = zArray[randomOldPosition];
+                            for (int j = randomOldPosition -1; j >= randomNewPosition; j--)
+                                zArray[j+1] = zArray[j];
+                            zArray[randomNewPosition] = temp;
+                        }
+                    }
+                }
+
+            //    Log.logger.info("Value of the Z Array: "+ zArray);
+
+
+              //  ArrayList<Integer> arrayList = new ArrayList<>();
+             ///   CollectionUtils.addAll(arrayList, zArray);
+             //   arrayList.add(randomNewPosition, zArray[randomOldPosition]);
+             //   if (randomOldPosition > randomNewPosition) {
+             //       arrayList.remove(randomOldPosition + 1);
+            //    } else {
+            //        arrayList.remove(randomOldPosition);
+            //    }
+
+                //zArray = arrayList.toArray(new Integer[arrayList.size()]);
+
+
+                /*
                 int randomOldPosition = -1;
                 int randomNewPosition = -1;
                 boolean repeatIt = true;
@@ -200,11 +266,22 @@ public class Solution implements Cloneable{
                 }
 
                 zArray = arrayList.toArray(new Integer[arrayList.size()]);
+                 */
                 break;
         }
         instanceUsages = new short[numberOfUsedInstances];
 
 //        solutionMapping();
+    }
+
+    public boolean ExistItemInList(ArrayList<Integer> l, int item)
+    {
+        for (Integer i : l) {
+            if (i == item) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

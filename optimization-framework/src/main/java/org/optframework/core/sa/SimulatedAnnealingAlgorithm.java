@@ -51,17 +51,22 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             System.out.println("cloning exception");
         }
 
+        //double test_best_fitness = globalBest.fitnessValue;
+
         //LOOPs at a fixed temperature:
         while (temp >= Config.sa_algorithm.final_temperature){
             for (int i = 0; i < Config.sa_algorithm.equilibrium_point; i++) {
                 counter++;
+
                 //GENERATES random neighbor
                 Solution randomNeighbor = null;
                 try {
                     randomNeighbor = bestCurrent.clone();
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("cloning exception");
                 }
+
+
                 //Generates a random neighbor solution
                 randomNeighbor.generateRandomNeighborSolution(workflow);
                 randomNeighbor.origin = "sa";
@@ -69,29 +74,37 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                 randomNeighbor.fitness();
 
                 double delta = randomNeighbor.fitnessValue - bestCurrent.fitnessValue;
-                if (delta <= 0){
+                if (delta <= 0) {
                     bestCurrent = randomNeighbor;
-                    if((randomNeighbor.fitnessValue - globalBest.fitnessValue) <= 0){
-                        globalBest = randomNeighbor;
+                    if (randomNeighbor.fitnessValue < globalBest.fitnessValue) {
+
+                       // globalBest = randomNeighbor;
+                        try {
+                            globalBest = randomNeighbor.clone();
+                        } catch (Exception e) {
+                            System.out.println("cloning exception");
+                        }
                     }
-                }else {
+                } else {
                     //Generate a uniform random value x in the range (0,1)
                     Random r = new Random();
                     double random = r.nextDouble();
 
-                    if (random < bolzmanDist(delta, temp)){
+                    if (random < bolzmanDist(delta, temp)) {
                         bestCurrent = randomNeighbor;
                     }
                 }
+
             }
             temp = temp * Config.sa_algorithm.cooling_factor;
         }
-        if(bestCurrent.fitnessValue - globalBest.fitnessValue <= 0){
-            globalBest = bestCurrent;
+       // if(bestCurrent.fitnessValue < globalBest.fitnessValue){
+       //     globalBest = bestCurrent;
+
             return globalBest;
-        }else {
-            return bestCurrent;
-        }
+       // }else {
+        //    return bestCurrent;
+       // }
     }
 
     public Solution runAlgorithWithRandomSolution(){

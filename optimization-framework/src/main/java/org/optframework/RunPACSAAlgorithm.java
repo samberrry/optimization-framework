@@ -86,6 +86,9 @@ public class RunPACSAAlgorithm {
         if (algorithmId == 1){
             int m_number;
             Config.global.algorithm = "pacsa_plus";
+
+         //   Config.global.m_number = GlobalAccess.maxLevel;
+         //   m_number = GlobalAccess.maxLevel;
             if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
                 Config.global.m_number = loss2Solution.numberOfUsedInstances;
                 m_number = loss2Solution.numberOfUsedInstances;
@@ -131,19 +134,19 @@ public class RunPACSAAlgorithm {
             loss3Solution.maxNumberOfInstances = Config.global.m_number;
             heftSolution.maxNumberOfInstances = Config.global.m_number;
 
-            Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
-            costEfficientHeftSolution.solutionMapping();
-            costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
+          //  Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
+          //  costEfficientHeftSolution.solutionMapping();
+          //  costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
 
             heftSolution.origin = "heft";
             loss2Solution.origin = "loss2";
             loss3Solution.origin = "loss3";
-            costEfficientHeftSolution.origin = "cost-efficient-heft";
+            //costEfficientHeftSolution.origin = "cost-efficient-heft";
 
          //   initialSolutionList.add(loss2Solution);
          //   initialSolutionList.add(loss3Solution);
-            initialSolutionList.add(heftSolution);
-            initialSolutionList.add(costEfficientHeftSolution);
+         //   initialSolutionList.add(heftSolution);
+         //   initialSolutionList.add(costEfficientHeftSolution);
         }
 
         long runTimeSum = 0;

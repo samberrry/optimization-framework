@@ -24,10 +24,10 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
     public Solution runAlgorithm() {
         double matrix[][] = new double[workflow.getJobList().size()][totalInstances.length];
 
-        /**
-         * This part is for calculating matrix elements
-         * */
-        Solution solution = null;
+
+         // This part is for calculating matrix elements
+
+    /*    Solution solution = null;
         for (int i = 0; i < workflow.getJobList().size(); i++) {
             for (int j = 0; j < totalInstances.length; j++) {
                 try {
@@ -60,9 +60,9 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
             }
         }
 
-        /**
-         * Generating loss solution from the weight matrix
-         * */
+
+         // Generating loss solution from the weight matrix
+
         try {
             solution = heftSolution.clone();
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
         heftSolution.xArray = solution.xArray;
 
-        heftSolution.heftFitness();
+        heftSolution.heftFitness();*/
 
         return heftSolution;
     }
