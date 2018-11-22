@@ -1,6 +1,7 @@
 package org.optframework.core.pacsa;
 
 
+import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
@@ -91,10 +92,13 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     public Solution runAlgorithm() {
         Printer.printSAInfo();
 
+        int iteration_counter = 0;
+
         //This generates the random initial solutions for the PACSA algorithm
         generateRandomInitialSolutionList();
 
         while (Config.sa_algorithm.cooling_factor < Config.pacsa_algorithm.equilibrium_point) {
+            iteration_counter++;
             Solution[] antSolutionList = runAnts();
             Solution bestCurrentSolution = antSolutionList[0];
 
@@ -173,8 +177,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
             //Update cooling factor
             Config.sa_algorithm.cooling_factor *= Config.pacsa_algorithm.cf_increase_ratio;
-            //Update initial temperature
+                //Update initial temperature
             Config.sa_algorithm.start_temperature *= Config.pacsa_algorithm.temp_decrease_ratio;
+
 
             //prepares probability matrix for solution generation from pheromone trail
             createProbabilityMatrix();
@@ -183,7 +188,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 initialSolutionList.add(i, generateInitialSolutionFromPheromone());
             }
         }
-
+        Log.logger.info("Pacsa Iterations="+iteration_counter);
         return globalBestSolution;
     }
 

@@ -203,7 +203,7 @@ public class Solution implements Cloneable{
             //    Log.logger.info("Value of the Z Array: "+ zArray);
 
 
-              //  ArrayList<Integer> arrayList = new ArrayList<>();
+             //  ArrayList<Integer> arrayList = new ArrayList<>();
              ///   CollectionUtils.addAll(arrayList, zArray);
              //   arrayList.add(randomNewPosition, zArray[randomOldPosition]);
              //   if (randomOldPosition > randomNewPosition) {
@@ -636,7 +636,7 @@ public class Solution implements Cloneable{
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + beta * (penalty1);
+        fitnessValue = makespan + 100 * beta * (penalty1);
     }
 
     double findMaxInstanceTime(double instanceTimes[]){

@@ -33,6 +33,8 @@ public class RunPACSAAlgorithm {
     private static double originalCoolingFactor_SA;
     private static int originalMNumber;
 
+    public static int Best_Iteration =0;//shows in which iteration of Pacsa the general best solution has been founded
+
     public static void runPACSA(int algorithmId)
     {
         originalCoolingFactor_SA = Config.sa_algorithm.cooling_factor;
@@ -74,12 +76,14 @@ public class RunPACSAAlgorithm {
 
         Loss3Algorithm loss3Algorithm = new Loss3Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
         Solution loss3Solution = loss3Algorithm.runAlgorithm2();
+        Solution loss3Solution2 = loss3Algorithm.runAlgorithm2();
 
         /**
         * Compute the maximum number of used instances
         * */
         //todo:...
         loss3Solution.solutionMapping();
+        loss3Solution2.solutionMapping();
         loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
 
@@ -87,8 +91,8 @@ public class RunPACSAAlgorithm {
             int m_number;
             Config.global.algorithm = "pacsa_plus";
 
-         //   Config.global.m_number = GlobalAccess.maxLevel;
-         //   m_number = GlobalAccess.maxLevel;
+            Config.global.m_number = GlobalAccess.maxLevel;
+            m_number = GlobalAccess.maxLevel;
             if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
                 Config.global.m_number = loss2Solution.numberOfUsedInstances;
                 m_number = loss2Solution.numberOfUsedInstances;
@@ -128,6 +132,7 @@ public class RunPACSAAlgorithm {
 
             loss2Solution.zArray = zArray;
             loss3Solution.zArray = zArray;
+            loss3Solution2.zArray = zArray;
             heftSolution.zArray = zArray;
 
             loss2Solution.maxNumberOfInstances = Config.global.m_number;
@@ -141,11 +146,13 @@ public class RunPACSAAlgorithm {
             heftSolution.origin = "heft";
             loss2Solution.origin = "loss2";
             loss3Solution.origin = "loss3";
+            loss3Solution2.origin = "loss3";
             //costEfficientHeftSolution.origin = "cost-efficient-heft";
 
-         //   initialSolutionList.add(loss2Solution);
-         //   initialSolutionList.add(loss3Solution);
-         //   initialSolutionList.add(heftSolution);
+            initialSolutionList.add(loss2Solution);
+          //  initialSolutionList.add(loss3Solution2);
+
+            initialSolutionList.add(heftSolution);
          //   initialSolutionList.add(costEfficientHeftSolution);
         }
 
@@ -158,9 +165,9 @@ public class RunPACSAAlgorithm {
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
             if (Config.pacsa_algorithm.iteration_number_based){
-                optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, (1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, (1.0/4.0*(double)heftSolution.makespan),workflow, instanceInfo);
             }else {
-                optimizationAlgorithm = new PACSAOptimization(initialSolutionList ,(1/(double)heftSolution.makespan),workflow, instanceInfo);
+                optimizationAlgorithm = new PACSAOptimization(initialSolutionList ,(1.0/4.0*(double)heftSolution.makespan),workflow, instanceInfo);
             }
 
             long start = System.currentTimeMillis();

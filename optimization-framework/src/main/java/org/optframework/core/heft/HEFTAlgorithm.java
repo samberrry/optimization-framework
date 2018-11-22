@@ -303,7 +303,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
     public static int[] getTotalInstancesForHEFT(int numberOfInstances){
         int totalInstances[] = new int[numberOfInstances];
-        for (int i = 0; i < (numberOfInstances - InstanceType.values().length);) {
+        for (int i = 0; i < numberOfInstances;) {
             for (InstanceType type : InstanceType.values()){
                 totalInstances[i] = type.getId();
                 i++;

@@ -1,6 +1,9 @@
 package org.optframework.core.lossandgain;
 
+import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.config.Config;
 import org.optframework.core.*;
+import org.optframework.core.utils.Printer;
 
 public class Loss2Algorithm implements OptimizationAlgorithm {
 
@@ -24,6 +27,42 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
     public Solution runAlgorithm() {
         double matrix[][] = new double[workflow.getJobList().size()][totalInstances.length];
 
+        double sumExeTaks = 0;
+
+        //  for(int k = 0; k < totalInstances.length; k++)
+        // solution.yArray[0] = 0; // set it to the chaepest and the most efficient instance
+        // solution.yArray[1] = 4; // set it to the chaepest and the most efficient instance
+        // solution.yArray[2] = 4; // set it to the chaepest and the most efficient instance
+
+        Solution solutionTemp = null;
+        Solution solution = null;
+        try {
+            solution = heftSolution.clone();
+        } catch (Exception e) {
+            Log.logger.info("Cloning Exception");
+        }
+
+        int best_instances = -1;
+        double best_fintenss_value = 9999999999.99;
+        for(int j=0;j< instanceInfo.length; j++) {
+            for (int i = 0; i < workflow.getJobList().size(); i++) {
+
+                solution.xArray[i] = j;
+
+            }
+            solution.heftFitness();
+            if(solution.fitnessValue < best_fintenss_value)
+            {
+                best_instances = j;
+                best_fintenss_value = solution.fitnessValue;
+            }
+        }
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+
+            solution.xArray[i] = best_instances;
+
+        }
 
          // This part is for calculating matrix elements
 
@@ -85,10 +124,12 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
         }
         int test = 0;
-
+*/
         heftSolution.xArray = solution.xArray;
 
-        heftSolution.heftFitness();*/
+        heftSolution.heftFitness();
+
+        Log.logger.info("Loss2 Solution Fitness is: "+ heftSolution.fitnessValue + ", Cost=" + heftSolution.cost);
 
         return heftSolution;
     }
