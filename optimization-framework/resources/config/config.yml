@@ -24,15 +24,15 @@
 
 
 global:
-  algorithm: "zpso"
+  algorithm: "pacsa-plus"
   workflow_id: 4
   workflow_name: "inspiral_30"
-  budget: 3.5
+  budget: 4.95
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 0
+  m_number: 7
 # id: 1 => normal heft
 # id: 2 => cost efficient heft
 # id: others => none
@@ -43,12 +43,12 @@ global:
   connection_string: "jdbc:mysql://localhost:3306/optdb"
 
 sa_algorithm:
-  start_temperature: 850
-  final_temperature: 0.01
-  cooling_factor: 0.8
+  start_temperature: 850000
+  final_temperature: 1
+  cooling_factor: 0.9995
   force_cooling: yes
-  equilibrium_point: 50
-  number_of_runs: 30
+  equilibrium_point: 10
+  number_of_runs: 16
 
 honeybee_algorithm:
   max_speed: 800
@@ -62,21 +62,21 @@ honeybee_algorithm:
 # the generation number equals to number of iterations
   generation_number: 150
   neighborhood_ratio: 0.0
-  number_of_runs: 1
+  number_of_runs: 5
 # this toggle is used to switch between single mutation or mutation on every brood
   full_mutation: no
 
 pacsa_algorithm:
-  iteration_number: 100
-  iteration_number_based: no
-  number_of_ants: 16
-  number_of_runs: 20
-#  cf: cooling factor
-  cf_increase_ratio: 1.004
-# temp_decrease_ratio: intensification rate
+  iteration_number: 10
+  iteration_number_based: yes
+  number_of_ants: 12
+  number_of_runs: 3
+#  cf: cooling factor (previous value 1.004)
+  cf_increase_ratio: 1.002
+# temp_decrease_ratio: intensification rate (previous value 0.95)
   temp_decrease_ratio: 0.95
-  equilibrium_point: 0.99
-  evaporation_factor: 0.9
+  equilibrium_point: 0.999
+  evaporation_factor: 0.8
   global_based: yes
   insert_heft_initial_solution: yes
 
