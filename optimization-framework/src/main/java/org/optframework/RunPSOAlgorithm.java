@@ -98,27 +98,4 @@ public class RunPSOAlgorithm {
 
         Log.logger.info("Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin);
     }
-
-    public static Particle getInitialSolution(InstanceInfo instanceInfo[], Workflow workflow){
-        Particle particleSolution;
-        switch (Config.global.initial_solution_from_heft_id){
-            case 1:
-                particleSolution = new Particle(workflow, instanceInfo, Config.global.m_number);
-                Solution initialSolution = HEFTService.getHEFT(instanceInfo);
-                particleSolution.xArray = initialSolution.xArray;
-                particleSolution.yArray = initialSolution.yArray;
-                particleSolution.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
-                break;
-            case 2:
-                particleSolution = new Particle(workflow, instanceInfo, Config.global.m_number);
-                initialSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
-                particleSolution.xArray = initialSolution.xArray;
-                particleSolution.yArray = initialSolution.yArray;
-                particleSolution.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
-                break;
-            default:
-                particleSolution = null;
-        }
-        return particleSolution;
-    }
 }
