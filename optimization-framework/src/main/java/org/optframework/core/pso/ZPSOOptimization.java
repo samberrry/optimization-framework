@@ -1,7 +1,9 @@
 package org.optframework.core.pso;
 
 import com.rits.cloning.Cloner;
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.OptimizationAlgorithm;
@@ -14,6 +16,9 @@ import java.util.Random;
 
 public class ZPSOOptimization implements OptimizationAlgorithm {
     Workflow workflow;
+    WorkflowDAG dag;
+    int parentsSum[];
+    int numberOfParentList[];
     InstanceInfo instanceInfo[];
 
     Particle globalBestParticle;
@@ -24,6 +29,7 @@ public class ZPSOOptimization implements OptimizationAlgorithm {
 
     public ZPSOOptimization(Particle initialSolution, Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
+        this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
         this.globalBestParticle = new Particle(workflow, instanceInfo, Config.global.m_number);
         this.globalBestParticle.generateRandomSolution(workflow);
@@ -166,18 +172,79 @@ public class ZPSOOptimization implements OptimizationAlgorithm {
             }
         }
 
-        //TODO:‌ order checks
-        for (int i = 0; i < workflow.getJobList().size(); i++) {
-            particle.zArray[i] = particle.zArray[i] + (int)particle.velocityZ[i];
+        WorkflowDAG dag = workflow.getWfDAG();
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        parentsSum = new int[workflow.getNumberTasks()];
+        numberOfParentList = GlobalAccess.numberOfParentsList;
 
-            if (particle.zArray[i] >= workflow.getJobList().size()){
-                particle.zArray[i] %= workflow.getJobList().size();
-            }else if (particle.zArray[i] <= -workflow.getJobList().size()){
-                particle.zArray[i] %= workflow.getJobList().size();
-                particle.zArray[i] = - particle.zArray[i];
-            }else if (particle.zArray[i] < 0){
-                particle.zArray[i] = - particle.zArray[i];
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            int newZValue = particle.zArray[i] + (int)particle.velocityZ[i];
+
+            if (newZValue >= workflow.getJobList().size()){
+                newZValue %= workflow.getJobList().size();
+
+                MinReturnValues minReturnValues = minDiff(newZValue, readyTasksToOrder);
+                newZValue = minReturnValues.minTaskId;
+                addChildrenToReadyList(readyTasksToOrder, newZValue);
+            }else if (newZValue <= -workflow.getJobList().size()){
+                newZValue %= workflow.getJobList().size();
+                newZValue = - newZValue;
+
+                MinReturnValues minReturnValues = minDiff(newZValue, readyTasksToOrder);
+                newZValue = minReturnValues.minTaskId;
+                addChildrenToReadyList(readyTasksToOrder, newZValue);
+            }else if (newZValue < 0){
+                newZValue = - newZValue;
+                MinReturnValues minReturnValues = minDiff(newZValue, readyTasksToOrder);
+                newZValue = minReturnValues.minTaskId;
+
+                addChildrenToReadyList(readyTasksToOrder, newZValue);
+            }else {
+                MinReturnValues minReturnValues = minDiff(newZValue, readyTasksToOrder);
+                newZValue = minReturnValues.minTaskId;
+                addChildrenToReadyList(readyTasksToOrder, newZValue);
             }
+            particle.zArray[i] = newZValue;
+        }
+    }
+
+    MinReturnValues minDiff(int newZValue, ArrayList<Integer> readyTasksToOrder){
+        int minTemp = 9999999;
+        int minTaskId = -1;
+        int p = 0;
+        int idInReadyList = -1;
+        for (Integer taskId : readyTasksToOrder){
+            int diff = Math.abs(taskId - newZValue);
+            if (diff < minTemp){
+                minTaskId = taskId;
+                minTemp = diff;
+                idInReadyList = p;
+            }
+            p++;
+        }
+        readyTasksToOrder.remove(idInReadyList);
+
+        return new MinReturnValues(idInReadyList, minTaskId);
+    }
+
+    void addChildrenToReadyList(ArrayList<Integer> readyTasksToOrder, int newZValue){
+        ArrayList<Integer> children = dag.getChildren(newZValue);
+        for (int k = 0; k < children.size(); k++) {
+            int childId = children.get(k);
+            parentsSum[childId]++;
+            if (parentsSum[childId] == numberOfParentList[childId]){
+                readyTasksToOrder.add(childId);
+            }
+        }
+    }
+
+    class MinReturnValues{
+        int idInReadyList;
+        int minTaskId;
+
+        public MinReturnValues(int idInReadyList, int minTaskId) {
+            this.idInReadyList = idInReadyList;
+            this.minTaskId = minTaskId;
         }
     }
 }

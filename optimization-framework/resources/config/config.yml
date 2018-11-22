@@ -25,7 +25,7 @@
 
 global:
   algorithm: "zpso"
-  workflow_id: 2
+  workflow_id: 4
   workflow_name: "inspiral_30"
   budget: 0.675
   bandwidth: 39321600
