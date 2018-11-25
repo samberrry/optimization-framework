@@ -14,7 +14,10 @@ import java.util.List;
  * This PACSA versions does the algorithm based on iteration number specified in the config file
  * */
 
+
+
 public class PACSAIterationNumber extends PACSAOptimization{
+   // private static double test_general_best = 999999999.9;
 
     public PACSAIterationNumber(List<Solution> initialSolutionList, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
         super(initialSolutionList, pheromoneInitialSeed, workflow, instanceInfo);
@@ -32,6 +35,8 @@ public class PACSAIterationNumber extends PACSAOptimization{
         //This generates the random initial solutions for the PACSA algorithm
         generateRandomInitialSolutionList();
 
+        int global_best_updated = 2;// this is used to speedup the algorithm in the two next iterations after every general best updating
+
         while (iteration_counter <= Config.pacsa_algorithm.iteration_number) {
             iteration_counter++;
             Solution[] antSolutionList = runAnts();
@@ -44,15 +49,22 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 org.optframework.core.Log.logger.info("Cloning Exception");
             }
 
+            String list_ants_fintess = "";
             //Update the best solution
             for (Solution solution: antSolutionList){
+                list_ants_fintess += Double.toString(solution.fitnessValue) + ", ";
                 if (solution.fitnessValue < bestCurrentSolution.fitnessValue){
                     bestCurrentSolution = solution;
                 }
             }
+            Log.logger.info("List of ants' fitness:"+list_ants_fintess);
+
+            Log.logger.info("BestCurrentFitness:"+bestCurrentSolution.fitnessValue+" found in iter:"+iteration_counter);
             if (globalBestSolution == null){
                 try {
                     globalBestSolution = bestCurrentSolution.clone();
+                    Log.logger.info("GeneralBestFitness:"+globalBestSolution.fitnessValue+" found in iter:"+iteration_counter);
+                    global_best_updated = 2; // means that two next iterations should work with a very low colling factor to speedup the algorithm
                 }
                 catch (Exception e)
                 {
@@ -63,6 +75,8 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 if (bestCurrentSolution.fitnessValue < globalBestSolution.fitnessValue){
                     try {
                         globalBestSolution = bestCurrentSolution.clone();
+                        Log.logger.info("GeneralBestFitness:"+globalBestSolution.fitnessValue+" found in iter:"+iteration_counter);
+                        global_best_updated = 2; // means that two next iterations should work with a very low colling factor to speedup the algorithm
                     }
                     catch (Exception e)
                     {
@@ -70,6 +84,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
                     }
                     RunPACSAAlgorithm.Best_Iteration = iteration_counter;
                 }
+
             }
 
             Solution solutionToUpdate;
@@ -83,6 +98,14 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 if (!instanceVisited[instanceId]){
                     usedInstances.add(instanceId);
                     instanceVisited[instanceId] = true;
+
+                    for (int j = 0; j < workflow.getNumberTasks(); j++) {
+                        pheromoneTrailForX[instanceId][j] = currentBasePheromoneValue;
+                    }
+
+                    for (int i = 0; i < instanceInfo.length; i++) {
+                        pheromoneTrailForY[i][instanceId] = currentBasePheromoneValue;
+                    }
                 }
             }
 
@@ -134,9 +157,37 @@ public class PACSAIterationNumber extends PACSAOptimization{
             //prepares probability matrix for solution generation from pheromone trail
             createProbabilityMatrix();
 
+            String List_new_born_ants = "";
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-                initialSolutionList.add(i, generateInitialSolutionFromPheromone());
+                Solution tempSolution = generateInitialSolutionFromPheromone();
+                initialSolutionList.add(i, tempSolution);
+                List_new_born_ants += Double.toString(tempSolution.fitnessValue) + ", ";
+            //    if(tempSolution.fitnessValue > 2000)
+            //    {
+            //        Log.logger.info("Something may be going wrong!");
+             //   }
+
+                //initialSolutionList.add(i, generateInitialSolutionFromPheromone()); // original version
             }
+            Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
+
+            Log.logger.info("------------------End of iteration "+iteration_counter+" --------------------");
+
+
+            /*
+            Only for test we initialize with a heavy SA and then we use a light version of SA
+             */
+            if(global_best_updated > 0) {
+                Config.sa_algorithm.cooling_factor = 0.9;//*= Config.pacsa_algorithm.cf_increase_ratio;
+                global_best_updated--;
+            }
+            else
+            {
+                Config.sa_algorithm.cooling_factor = 0.999;//*= Config.pacsa_algorithm.cf_increase_ratio;
+            }
+
+            Config.sa_algorithm.start_temperature = 1.0;//*= Config.pacsa_algorithm.temp_decrease_ratio;
+
         }
      //   Log.logger.info("Pacsa Iterations="+iteration_counter);
         Log.logger.info("The best solution in PACSA founded in iteration:"+RunPACSAAlgorithm.Best_Iteration+"\n");

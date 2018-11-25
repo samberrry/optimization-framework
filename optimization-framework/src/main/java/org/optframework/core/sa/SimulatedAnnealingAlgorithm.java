@@ -1,5 +1,6 @@
 package org.optframework.core.sa;
 
+import org.optframework.RunPACSAAlgorithm;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 
@@ -41,6 +42,8 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             initialSolution.generateRandomSolution(workflow);
         }
         initialSolution.fitness();
+
+        double temprature_in_last_update = 0;
 
         temp = Config.sa_algorithm.start_temperature;
         bestCurrent = initialSolution;
@@ -84,6 +87,8 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
                         } catch (Exception e) {
                             System.out.println("cloning exception");
                         }
+                      //  temprature_in_last_update = temp;
+                       // org.cloudbus.cloudsim.Log.logger.info("Updated!");
                     }
                 } else {
                     //Generate a uniform random value x in the range (0,1)
@@ -98,13 +103,14 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             }
             temp = temp * Config.sa_algorithm.cooling_factor;
         }
-       // if(bestCurrent.fitnessValue < globalBest.fitnessValue){
-       //     globalBest = bestCurrent;
 
-            return globalBest;
-       // }else {
-        //    return bestCurrent;
-       // }
+
+      //  org.cloudbus.cloudsim.Log.logger.info("Temp Last Update is:"+ temprature_in_last_update);
+
+     //   Log.logger.info("SA Fitness:"+globalBest.fitnessValue+ "Initial solution fitness was: "+initialSolution.fitnessValue+", "+initialSolution.origin+".");
+
+        return globalBest;
+
     }
 
     public Solution runAlgorithWithRandomSolution(){
