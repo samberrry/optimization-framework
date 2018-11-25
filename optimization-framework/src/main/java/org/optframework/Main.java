@@ -49,7 +49,10 @@ public class Main {
                 RunPACSAAlgorithm.runPACSA(1);
                 break;
             case "pso":
-                RunPSOAlgorithm.runPSO();
+                RunPSOAlgorithm.runPSO(0);
+                break;
+            case "zpso":
+                RunPSOAlgorithm.runPSO(1);
                 break;
         }
     }
