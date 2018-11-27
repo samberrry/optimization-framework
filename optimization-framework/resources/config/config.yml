@@ -81,9 +81,9 @@ pacsa_algorithm:
   insert_heft_initial_solution: yes
 
 pso_algorithm:
-  number_of_runs: 10
-  number_of_particles: 500
-  maximum_iteration: 1000
-  weight: 0.729
-  acceleration_coefficient1: 1.494
-  acceleration_coefficient2: 1.494
+  number_of_runs: 5
+  number_of_particles: 700
+  maximum_iteration: 2000
+  weight: 0.9
+  acceleration_coefficient1: 1.2
+  acceleration_coefficient2: 1.2
