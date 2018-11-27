@@ -10,6 +10,7 @@ import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
 
 import java.util.*;
+import java.text.DecimalFormat;
 
 /**
  * This class is the Solution representation of the problem
@@ -629,6 +630,12 @@ public class Solution implements Cloneable{
     }
 
     void computeFitnessValue(){
+
+        //double test = 0.91238500001;
+        DecimalFormat df = new DecimalFormat ("#.######");
+        cost = Double.parseDouble(df.format(cost));
+       // Log.logger.info("Test is:"+test);
+
         double delta = cost - workflow.getBudget();
         double penalty1 = 0;
 
@@ -636,7 +643,7 @@ public class Solution implements Cloneable{
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + 100 * beta * (penalty1);
+        fitnessValue = makespan + 10 * beta * (penalty1);
     }
 
     double findMaxInstanceTime(double instanceTimes[]){

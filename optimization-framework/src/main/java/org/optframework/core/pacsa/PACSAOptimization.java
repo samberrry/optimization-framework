@@ -6,6 +6,7 @@ import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
+import org.optframework.core.heft.Instance;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
 import org.optframework.core.utils.Printer;
 
@@ -254,8 +255,16 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
             sumOfColumnsForX[i] += ((Config.global.m_number - usedInstances.size()) * currentBasePheromoneValue);
 
-            for (Integer instanceId: usedInstances){
-                xProbability[instanceId][i] = (pheromoneTrailForX[instanceId][i] / sumOfColumnsForX[i]);
+            if(sumOfColumnsForX[i] != 0) {
+                for (Integer instanceId : usedInstances) {
+                    xProbability[instanceId][i] = (pheromoneTrailForX[instanceId][i] / sumOfColumnsForX[i]);
+                }
+            }
+            else
+            {
+                for (Integer instanceId : usedInstances) {
+                    xProbability[instanceId][i] = 0;
+                }
             }
         }
 
@@ -266,8 +275,17 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 sumOfColumnsForY[instanceId] += pheromoneTrailForY[j][instanceId];
             }
 
-            for (int j = 0; j < instanceInfo.length; j++) {
-                yProbability[j][instanceId] = (pheromoneTrailForY[j][instanceId] / sumOfColumnsForY[instanceId]);
+            if(sumOfColumnsForY[instanceId] != 0)
+            {
+                for (int j = 0; j < instanceInfo.length; j++) {
+                    yProbability[j][instanceId] = (pheromoneTrailForY[j][instanceId] / sumOfColumnsForY[instanceId]);
+                }
+            }
+            else
+            {
+                for (int j = 0; j < instanceInfo.length; j++) {
+                    yProbability[j][instanceId] = 0;
+                }
             }
         }
     }
@@ -287,7 +305,13 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 if (instanceVisited[i]){
                     probabilitySumTemp += xProbability[i][k];
                 }else {
-                    probabilitySumTemp += (currentBasePheromoneValue/sumOfColumnsForX[i]);
+                    if(sumOfColumnsForX[i] != 0) {
+                        probabilitySumTemp += (currentBasePheromoneValue / sumOfColumnsForX[i]);
+                    }
+                    else
+                    {
+                        probabilitySumTemp += 0;
+                    }
                 }
                 if (probabilitySumTemp > randomX){
                     selectedInstance = i;
@@ -300,20 +324,23 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
         }
 
-        for (int instanceId: generatedXArray){
+        for (int instanceId=0; instanceId < Config.global.m_number; instanceId++){
             double randomY = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
+            if (instanceVisited[instanceId]){
             for (int i = 0; i < instanceInfo.length; i++) {
-                if (instanceVisited[instanceId]){
-                    probabilitySumTemp += yProbability[i][instanceId];
-                }else {
-                    probabilitySumTemp += (currentBasePheromoneValue/sumOfColumnsForY[instanceId]);
-                }
+
+                probabilitySumTemp += yProbability[i][instanceId];
+
                 if (probabilitySumTemp > randomY){
                     selectedInstance = i;
                     break;
                 }
+            }
+            }else {
+                Random r = new Random();
+                selectedInstance = r.nextInt(instanceInfo.length);
             }
             generatedYArray[instanceId] = selectedInstance;
         }
@@ -331,7 +358,13 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
 
             for (Integer taskIdI: readyTasksToOrder){
-                zProbability[taskIdI] = (pheromoneTrailForZ[taskIdI][k] / sumOfColumnsForZ[k]);
+                if(sumOfColumnsForZ[k] != 0) {
+                    zProbability[taskIdI] = (pheromoneTrailForZ[taskIdI][k] / sumOfColumnsForZ[k]);
+                }
+                else
+                {
+                    zProbability[taskIdI] = 0;
+                }
             }
             int newSelectedTaskToOrder = -1;
             int idInReadyList = -1;
@@ -346,6 +379,19 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     break;
                 }
             }
+
+            if(newSelectedTaskToOrder == -1)
+            {
+                Random r = new Random();
+                int ran = r.nextInt(readyTasksToOrder.size());
+                newSelectedTaskToOrder = readyTasksToOrder.get(ran);
+                idInReadyList = ran;
+            }
+
+           /* if(newSelectedTaskToOrder < 0 || newSelectedTaskToOrder >= workflow.getJobList().size())
+            {
+                Log.logger.info("Something wrong in generating Z of newborn ants");
+            }*/
 
             ArrayList<Integer> children = dag.getChildren(newSelectedTaskToOrder);
             for (int i = 0; i < children.size(); i++) {

@@ -25,9 +25,10 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 4
-  workflow_name: "inspiral_30"
-  budget: 4.95
+  workflow_id: 3
+  #workflow_id: 4
+  #workflow_name: "inspiral_30"
+  budget: 0.855
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -43,9 +44,9 @@ global:
   connection_string: "jdbc:mysql://localhost:3306/optdb"
 
 sa_algorithm:
-  start_temperature: 850000
-  final_temperature: 1
-  cooling_factor: 0.9995
+  start_temperature: 850
+  final_temperature: 0.01
+  cooling_factor: 0.9992
   force_cooling: yes
   equilibrium_point: 10
   number_of_runs: 16
@@ -62,21 +63,21 @@ honeybee_algorithm:
 # the generation number equals to number of iterations
   generation_number: 150
   neighborhood_ratio: 0.0
-  number_of_runs: 5
+  number_of_runs: 1
 # this toggle is used to switch between single mutation or mutation on every brood
   full_mutation: no
 
 pacsa_algorithm:
-  iteration_number: 10
+  iteration_number: 40
   iteration_number_based: yes
-  number_of_ants: 12
-  number_of_runs: 3
+  number_of_ants: 20
+  number_of_runs: 1
 #  cf: cooling factor (previous value 1.004)
   cf_increase_ratio: 1.002
 # temp_decrease_ratio: intensification rate (previous value 0.95)
   temp_decrease_ratio: 0.95
-  equilibrium_point: 0.999
-  evaporation_factor: 0.8
+  equilibrium_point: 0.99
+  evaporation_factor: 0.1
   global_based: yes
   insert_heft_initial_solution: yes
 
