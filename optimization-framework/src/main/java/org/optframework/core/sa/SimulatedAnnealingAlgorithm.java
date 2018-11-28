@@ -54,6 +54,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             System.out.println("cloning exception");
         }
 
+        int negative_move_counter = 0;
         //double test_best_fitness = globalBest.fitnessValue;
 
         //LOOPs at a fixed temperature:
@@ -97,6 +98,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
                     if (random < bolzmanDist(delta, temp)) {
                         bestCurrent = randomNeighbor;
+                        negative_move_counter++;
                     }
                 }
 
@@ -108,7 +110,7 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
       //  org.cloudbus.cloudsim.Log.logger.info("Temp Last Update is:"+ temprature_in_last_update);
 
      //   Log.logger.info("SA Fitness:"+globalBest.fitnessValue+ "Initial solution fitness was: "+initialSolution.fitnessValue+", "+initialSolution.origin+".");
-
+       // Log.logger.info("Total number of iterations is:"+counter+"Number of negative moves is"+negative_move_counter);
         return globalBest;
 
     }

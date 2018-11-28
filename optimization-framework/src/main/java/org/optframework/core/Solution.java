@@ -1,11 +1,13 @@
 package org.optframework.core;
 
+import jdk.nashorn.internal.objects.Global;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
+import org.optframework.config.GlobalConfig;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
 
@@ -603,7 +605,18 @@ public class Solution implements Cloneable{
         this.cost = totalCost;
         this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
 
-        computeFitnessValue();
+
+        if(Config.global.deadline_based)
+        {
+            computeFitnessValue_DeadlineBased();
+        }
+        else
+        {
+            computeFitnessValue();
+        }
+
+
+
     }
 
     int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId){
@@ -645,6 +658,24 @@ public class Solution implements Cloneable{
 
         fitnessValue = makespan + 10 * beta * (penalty1);
     }
+
+
+    void computeFitnessValue_DeadlineBased(){
+
+        DecimalFormat df = new DecimalFormat ("#.######");
+        cost = Double.parseDouble(df.format(cost));
+
+
+        double delta = makespan - Config.global.deadline;
+        double penalty1 = 0;
+
+        if (delta > 0){
+            penalty1 = delta;
+        }
+
+        fitnessValue = cost + (beta/10) * (penalty1);
+    }
+
 
     double findMaxInstanceTime(double instanceTimes[]){
         double max = instanceTimes[0];
@@ -898,7 +929,19 @@ public class Solution implements Cloneable{
         this.cost = totalCost;
         this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
 
-        computeFitnessValue();
+        if(Config.global.deadline_based)
+        {
+            computeFitnessValue_DeadlineBased();
+        }
+        else
+        {
+            computeFitnessValue();
+        }
+
+
+
+
+
     }
 
     public void heftGenerateRandomNeighborSolution(Workflow workflow){

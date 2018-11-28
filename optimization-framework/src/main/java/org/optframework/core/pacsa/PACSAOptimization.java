@@ -39,6 +39,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected InstanceInfo instanceInfo[];
 
     protected double currentBasePheromoneValue;
+    protected double initialSeed;
 //    int numberOfCurrentUsedInstances;
 
     double xProbability[][];
@@ -59,6 +60,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         this.instanceInfo = instanceInfo;
         this.outInitialSolution = outInitialSolution;
         this.currentBasePheromoneValue = pheromoneInitialSeed;
+        this.initialSeed = pheromoneInitialSeed;
         this.usedInstances = new ArrayList<>();
         this.instanceVisited = new boolean[Config.global.m_number];
 
@@ -99,9 +101,26 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         generateRandomInitialSolutionList();
 
         while (Config.sa_algorithm.cooling_factor < Config.pacsa_algorithm.equilibrium_point) {
+
+            Solution[] antSolutionList;
+            if(iteration_counter == 0) {
+                antSolutionList = runAnts(true);
+            }else
+            {
+                antSolutionList = runAnts(false);
+            }
+
+            Solution bestCurrentSolution = null;
+            try {
+                bestCurrentSolution = antSolutionList[0].clone();
+            }
+            catch (Exception e)
+            {
+                org.optframework.core.Log.logger.info("Cloning Exception");
+            }
+
+
             iteration_counter++;
-            Solution[] antSolutionList = runAnts();
-            Solution bestCurrentSolution = antSolutionList[0];
 
             //Update the best solution
             for (Solution solution: antSolutionList){
@@ -193,18 +212,44 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         return globalBestSolution;
     }
 
-    Solution[] runAnts(){
+    Solution[] runAnts(boolean initial_run){
         Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
         Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
 
-        for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
-            int itr = i;
-            threadList[i] = new Thread(() -> {
-                SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(itr), workflow, instanceInfo);
+        if(initial_run) {
 
-                Solution solution = sa.runAlgorithm();
-                solutionList[itr] = solution;
-            });
+            for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
+                int itr = i;
+                threadList[i] = new Thread(() -> {
+                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(itr), workflow, instanceInfo);
+
+                    Solution solution = sa.runAlgorithm();
+                    solutionList[itr] = solution;
+                });
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
+                int itr = i;
+                threadList[i] = new Thread(() -> {
+
+                    String List_new_born_ants;
+            //for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+
+                //initialSolutionList.add(itr, generateInitialSolutionFromPheromone());
+                //List_new_born_ants = Double.toString(initialSolutionList.get(itr).fitnessValue) + ", ";
+
+            //}
+                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(generateInitialSolutionFromPheromone(), workflow, instanceInfo);
+
+                    Solution solution = sa.runAlgorithm();
+                    solutionList[itr] = solution;
+                });
+            }
+
+          //  Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
         }
 
         for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
@@ -236,6 +281,39 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
                 solution.generateFullyRandomSolution();
                 initialSolutionList.add(i , solution);
+            }
+        }
+    }
+
+    protected void revolution(double initialSeed)
+    {
+
+        //reset x pheromone trail
+        for (int i = 0; i < Config.global.m_number; i++) {
+            for (int j = 0; j < workflow.getNumberTasks(); j++) {
+
+                pheromoneTrailForX[i][j] = initialSeed;
+
+            }
+        }
+
+
+        //reset y pheromone trail
+        for (int i = 0; i < instanceInfo.length; i++) {
+            for (int j = 0; j < Config.global.m_number; j++) {
+
+                pheromoneTrailForY[i][j] = initialSeed;
+
+            }
+        }
+
+
+        //reset z pheromone trail
+        for (int k = 0; k < workflow.getJobList().size(); k++) {
+            for (int j = 0; j < workflow.getJobList().size(); j++) {
+
+                pheromoneTrailForZ[j][k] = initialSeed;
+
             }
         }
     }
@@ -288,6 +366,21 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
         }
+
+
+      /*  double sum;
+        for (Integer instanceId: usedInstances){
+            sum = 0;
+            for (int j = 0; j < instanceInfo.length; j++) {
+                sum += yProbability[j][instanceId];
+            }
+            if(sum < 0.99)
+            {
+                sum = -1;
+                break;
+            }
+        }*/
+
     }
 
     protected Solution generateInitialSolutionFromPheromone(){

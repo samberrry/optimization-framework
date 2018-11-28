@@ -14,6 +14,8 @@ public class GlobalConfig {
     public String mysql_username;
     public String mysql_password;
     public String connection_string;
+    public Boolean deadline_based;
+    public Double deadline;
 
     public String getAlgorithm() {
         return algorithm;
@@ -117,5 +119,21 @@ public class GlobalConfig {
 
     public void setRead_m_number_from_config(Boolean read_m_number_from_config) {
         this.read_m_number_from_config = read_m_number_from_config;
+    }
+
+    public Boolean getDeadline_based_from_config() {
+        return this.deadline_based;
+    }
+
+    public void setDeadline_based_from_config(Boolean deadline_based_from_config) {
+        this.deadline_based = deadline_based_from_config;
+    }
+
+    public double getDeadline_from_config() {
+        return this.deadline;
+    }
+
+    public void setRead_m_number_from_config(double deadline_from_config) {
+        this.deadline = deadline_from_config;
     }
 }
