@@ -55,7 +55,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
             queen.chromosome.yArray = initialSolution.yArray;
             queen.chromosome.xArray = initialSolution.xArray;
             queen.chromosome.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
-            queen.chromosome.fitness();
+            queen.chromosome.heftFitness();
         }else {
             queen = new Queen(workflow, instanceInfo, M_NUMBER);
         }
@@ -299,7 +299,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
         chromosome.yArray = newYArray;
         chromosome.solutionMapping();
 
-        chromosome.fitness();
+        chromosome.heftFitness();
 
         return chromosome;
     }
@@ -318,7 +318,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                 newChromosome.xArray = newXArray;
                 newChromosome.yArray = mainChr.yArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     currentBestChr = cloner.deepClone(newChromosome);
@@ -336,7 +336,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     currentBestChr = cloner.deepClone(newChromosome);
@@ -363,7 +363,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                    newChromosome.fitness();
+                    newChromosome.heftFitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                         currentBestChr = cloner.deepClone(newChromosome);
@@ -393,7 +393,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             currentBestChr = cloner.deepClone(newChromosome);
@@ -414,7 +414,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                    newChromosome.fitness();
+                    newChromosome.heftFitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                         currentBestChr = cloner.deepClone(newChromosome);
@@ -433,7 +433,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     currentBestChr = cloner.deepClone(newChromosome);
@@ -460,7 +460,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             currentBestChr = cloner.deepClone(newChromosome);
@@ -483,7 +483,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                    newChromosome.fitness();
+                    newChromosome.heftFitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                         currentBestChr = cloner.deepClone(newChromosome);

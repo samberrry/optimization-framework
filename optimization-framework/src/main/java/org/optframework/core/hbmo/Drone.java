@@ -9,7 +9,7 @@ public class Drone {
     public Drone(Workflow workflow, InstanceInfo[]instanceInfo, int numberOfInstances) {
         chromosome = new Chromosome(workflow, instanceInfo, numberOfInstances);
         chromosome.generateRandomSolution(workflow);
-        chromosome.fitness();
+        chromosome.heftFitness();
     }
 
     public Chromosome getChromosome() {

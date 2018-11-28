@@ -24,7 +24,7 @@
 
 
 global:
-  algorithm: "pacsa-plus"
+  algorithm: "hbmo"
   workflow_id: 1
   #workflow_id: 4
   #workflow_name: "inspiral_30"

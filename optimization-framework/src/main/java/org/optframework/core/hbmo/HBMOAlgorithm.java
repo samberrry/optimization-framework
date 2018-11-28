@@ -1,6 +1,5 @@
 package org.optframework.core.hbmo;
 
-import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -34,8 +33,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     public static final int M_NUMBER = Config.global.m_number;
 
-    Cloner cloner = new Cloner();
-
     boolean hasInitialSolution;
 
    public Solution initialSolution;
@@ -55,7 +52,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             queen.chromosome.yArray = initialSolution.yArray;
             queen.chromosome.xArray = initialSolution.xArray;
             queen.chromosome.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
-            queen.chromosome.fitness();
+            queen.chromosome.heftFitness();
         }else {
             queen = new Queen(workflow, instanceInfo, M_NUMBER);
         }
@@ -92,7 +89,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             threadSpermatheca.add(itr, new Spermatheca());
 
             threadList[i] = new Thread(() -> {
-                Cloner cloner = new Cloner();
                 Random r = new Random();
 
                 //This constructor also generates the random solution
@@ -125,7 +121,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 //                long stop = System.currentTimeMillis();
 //                Log.logger.info("brood local search: "+ (stop - start));
 
-                        threadSpermatheca.get(itr).chromosomeList.add(cloner.deepClone(brood));
+                        try {
+                            threadSpermatheca.get(itr).chromosomeList.add((Chromosome) brood.clone());
+                        }catch (Exception e){
+                            Log.logger.info("Cloning Exception");
+                        }
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
@@ -172,7 +172,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             for (Chromosome brood : spermatheca.chromosomeList){
 
                 if (brood.fitnessValue < queen.chromosome.fitnessValue){
-                    queen.chromosome = cloner.deepClone(brood);
+                    try {
+                        queen.chromosome = (Chromosome) brood.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -303,14 +307,18 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         chromosome.yArray = newYArray;
         chromosome.solutionMapping();
 
-        chromosome.fitness();
+        chromosome.heftFitness();
 
         return chromosome;
     }
 
      Chromosome localSearch(Chromosome mainChr){
-        Cloner cloner = new Cloner();
-        Chromosome currentBestChr = cloner.deepClone(mainChr);
+        Chromosome currentBestChr = null;
+         try {
+             currentBestChr = (Chromosome) mainChr.clone();
+         }catch (Exception e){
+             Log.logger.info("Cloning Exception");
+         }
 
         //all neighbors without new instance with only X array change
         for (int i = 0; i < mainChr.workflow.getJobList().size(); i++) {
@@ -322,10 +330,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = newXArray;
                 newChromosome.yArray = mainChr.yArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome) newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -340,10 +352,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome) newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -367,10 +383,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                    newChromosome.fitness();
+                    newChromosome.heftFitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                        currentBestChr = cloner.deepClone(newChromosome);
+                        try {
+                            currentBestChr = (Chromosome) newChromosome.clone();
+                        }catch (Exception e){
+                            Log.logger.info("Cloning Exception");
+                        }
                     }
                 }
             }
@@ -380,8 +400,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     }
 
     Chromosome lightLocalSearch(Chromosome mainChr, int kRandomTasks){
-        Cloner cloner = new Cloner();
-        Chromosome currentBestChr = cloner.deepClone(mainChr);
+        Chromosome currentBestChr = null;
+        try {
+            currentBestChr = (Chromosome) mainChr.clone();
+        }catch (Exception e){
+            Log.logger.info("Cloning Exception");
+        }
+
 
         //local search on all of the instances with only one assigned task
         for (int i = 0; i < mainChr.xArray.length; i++) {
@@ -397,10 +422,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -419,10 +448,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -439,10 +472,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.fitness();
+                newChromosome.heftFitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome)newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -466,10 +503,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -490,10 +531,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                        newChromosome.fitness();
+                        newChromosome.heftFitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
