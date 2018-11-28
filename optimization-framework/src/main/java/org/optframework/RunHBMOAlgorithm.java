@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -11,6 +12,8 @@ import org.optframework.core.hbmo.HBMOAlgorithmWithFullMutation;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
+
+import java.util.Collections;
 
 /**
  * @author Hessam Modabberi
@@ -25,6 +28,10 @@ public class RunHBMOAlgorithm {
         Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+        Cloner cloner = new Cloner();
+        GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
+        Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
         honeyBeePreProcessing(workflow);
 
