@@ -42,26 +42,29 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
             Log.logger.info("Cloning Exception");
         }
 
-        int best_instances = -1;
-        double best_fintenss_value = 9999999999.99;
-        for(int j=0;j< instanceInfo.length; j++) {
+
+        if(!Config.global.deadline_based) {
+            int best_instances = -1;
+            double best_fintenss_value = 9999999999.99;
+            for (int j = 0; j < instanceInfo.length; j++) {
+                for (int i = 0; i < workflow.getJobList().size(); i++) {
+
+                    solution.xArray[i] = j;
+
+                }
+                solution.heftFitness();
+                if (solution.fitnessValue < best_fintenss_value) {
+                    best_instances = j;
+                    best_fintenss_value = solution.fitnessValue;
+                }
+            }
+
             for (int i = 0; i < workflow.getJobList().size(); i++) {
 
-                solution.xArray[i] = j;
+                solution.xArray[i] = best_instances;
 
             }
-            solution.heftFitness();
-            if(solution.fitnessValue < best_fintenss_value)
-            {
-                best_instances = j;
-                best_fintenss_value = solution.fitnessValue;
-            }
-        }
-
-        for (int i = 0; i < workflow.getJobList().size(); i++) {
-
-            solution.xArray[i] = best_instances;
-
+            heftSolution.xArray = solution.xArray;
         }
 
          // This part is for calculating matrix elements
@@ -125,7 +128,7 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
         }
         int test = 0;
 */
-        heftSolution.xArray = solution.xArray;
+
 
         heftSolution.heftFitness();
 

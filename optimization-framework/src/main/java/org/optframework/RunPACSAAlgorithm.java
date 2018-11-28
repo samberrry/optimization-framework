@@ -149,12 +149,16 @@ public class RunPACSAAlgorithm {
             loss3Solution2.origin = "loss3";
             //costEfficientHeftSolution.origin = "cost-efficient-heft";
 
+
+
             initialSolutionList.add(loss2Solution);
-          //  initialSolutionList.add(loss3Solution2);
+            initialSolutionList.add(loss2Solution);
 
             initialSolutionList.add(heftSolution);
-
             initialSolutionList.add(heftSolution);
+
+
+
          //   initialSolutionList.add(costEfficientHeftSolution);
         }
 
@@ -166,8 +170,8 @@ public class RunPACSAAlgorithm {
 
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
-            if (Config.pacsa_algorithm.iteration_number_based){                                ///////1/100*size of workflow
-                optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, 1.0/(100.0*workflow.getJobList().size()), workflow, instanceInfo);
+            if (Config.pacsa_algorithm.iteration_number_based){                                ///////1.0/(10.0*workflow.getJobList().size())
+                optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, 1.0/(10.0*(double)heftSolution.makespan), workflow, instanceInfo);
             }else {
                 optimizationAlgorithm = new PACSAOptimization(initialSolutionList ,(1.0/4.0*(double)heftSolution.makespan),workflow, instanceInfo);
             }

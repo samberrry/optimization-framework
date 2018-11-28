@@ -15,6 +15,7 @@ public class Config {
 
     public static PSOConfig pso_algorithm;
 
+
     public static void initConfig(){
         ReadConfig readConfig = ReadConfig.readYaml();
 
