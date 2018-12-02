@@ -1,5 +1,6 @@
 package org.optframework.core.hbmo;
 
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -218,9 +219,55 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 forMutation.yArray[randomInstance1] = yVal1;
                 break;
             case 2:
-                //todo
+                int randomOldPosition;
+                int n = workflow.getJobList().size();
+                randomOldPosition = r.nextInt(n);
+                int randomNewPosition;
+
+                WorkflowDAG dag = workflow.getWfDAG();
+                ArrayList<Integer> parentList = dag.getParents(forMutation.zArray[randomOldPosition]);
+                ArrayList<Integer> childList = dag.getChildren(forMutation.zArray[randomOldPosition]);
+                int start = randomOldPosition;
+                int end = randomOldPosition;
+
+                while (start >=0 && !ExistItemInList(parentList, forMutation.zArray[start])) {
+                    start--;
+                }
+
+                while (end < n && !ExistItemInList(childList, forMutation.zArray[end])) {
+                    end++;
+                }
+
+                int diff = (end - 1) - (start + 1);
+                if (diff > 0) {
+                    randomNewPosition = r.nextInt(diff);
+                    randomNewPosition += (start + 1);
+                    if (randomNewPosition != randomOldPosition) {
+                        if (randomNewPosition > randomOldPosition) {
+                            int temp = forMutation.zArray[randomOldPosition];
+                            for (int j = randomOldPosition; j < randomNewPosition; j++)
+                                forMutation.zArray[j] = forMutation.zArray[j + 1];
+                            forMutation.zArray[randomNewPosition] = temp;
+                        }
+                        else {
+                            int temp = forMutation.zArray[randomOldPosition];
+                            for (int j = randomOldPosition -1; j >= randomNewPosition; j--)
+                                forMutation.zArray[j+1] = forMutation.zArray[j];
+                            forMutation.zArray[randomNewPosition] = temp;
+                        }
+                    }
+                }
                 break;
         }
+    }
+
+    public boolean ExistItemInList(ArrayList<Integer> l, int item) {
+        for (Integer i : l) {
+            if (i.equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static Chromosome crossOver(Chromosome queenChr, Chromosome childChr){
