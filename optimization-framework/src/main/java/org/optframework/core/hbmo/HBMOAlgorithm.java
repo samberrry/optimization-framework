@@ -52,7 +52,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             queen.chromosome.yArray = initialSolution.yArray;
             queen.chromosome.xArray = initialSolution.xArray;
             queen.chromosome.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
-            queen.chromosome.heftFitness();
+            queen.chromosome.fitness();
         }else {
             queen = new Queen(workflow, instanceInfo, M_NUMBER);
         }
@@ -184,7 +184,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     void mutation(Chromosome forMutation){
         Random r = new Random();
-        int xOrY = r.nextInt(2);
+        int xOrY = r.nextInt(3);
 
         switch (xOrY){
             case 0:
@@ -216,6 +216,9 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
                 forMutation.yArray[randomInstance2] = forMutation.yArray[randomInstance1];
                 forMutation.yArray[randomInstance1] = yVal1;
+                break;
+            case 2:
+                //todo
                 break;
         }
     }
@@ -301,13 +304,14 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 }
             }
         }
+        //todo: z array crossover
         Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;
         chromosome.solutionMapping();
 
-        chromosome.heftFitness();
+        chromosome.fitness();
 
         return chromosome;
     }
@@ -330,7 +334,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = newXArray;
                 newChromosome.yArray = mainChr.yArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.heftFitness();
+                newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     try {
@@ -352,7 +356,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.heftFitness();
+                newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     try {
@@ -383,7 +387,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                    newChromosome.heftFitness();
+                    newChromosome.fitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                         try {
@@ -422,7 +426,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.heftFitness();
+                        newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             try {
@@ -448,7 +452,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                        newChromosome.heftFitness();
+                        newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             try {
@@ -472,7 +476,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                newChromosome.heftFitness();
+                newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                     try {
@@ -503,7 +507,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
-                        newChromosome.heftFitness();
+                        newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             try {
@@ -531,7 +535,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
-                        newChromosome.heftFitness();
+                        newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
                             try {
