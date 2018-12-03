@@ -389,6 +389,8 @@ public class Solution implements Cloneable{
             zArray[i] = originalJobList.get(taskId).getIntId();
             readyTasksToOrder.remove(randomId);
         }
+
+        this.origin = "Fully random Solution";
     }
 
     public void generateRandomSolution(Workflow workflow){
@@ -656,7 +658,7 @@ public class Solution implements Cloneable{
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + 10 * beta * (penalty1);
+        fitnessValue = makespan + beta/100 * (penalty1);
     }
 
 
@@ -665,7 +667,6 @@ public class Solution implements Cloneable{
         DecimalFormat df = new DecimalFormat ("#.######");
         cost = Double.parseDouble(df.format(cost));
 
-
         double delta = makespan - Config.global.deadline;
         double penalty1 = 0;
 
@@ -673,7 +674,8 @@ public class Solution implements Cloneable{
             penalty1 = delta;
         }
 
-        fitnessValue = cost + (beta/10) * (penalty1);
+        fitnessValue = cost + beta * (penalty1);
+
     }
 
 

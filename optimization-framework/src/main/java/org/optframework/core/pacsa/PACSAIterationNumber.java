@@ -241,7 +241,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
             //prepares probability matrix for solution generation from pheromone trail
             createProbabilityMatrix();
 
-           /* String List_new_born_ants = "";
+            String List_new_born_ants = "";
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
                 Solution tempSolution = generateInitialSolutionFromPheromone();
                 initialSolutionList.add(i, tempSolution);
@@ -250,7 +250,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
 
             }
 
-            Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);*/
+            Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
 
             Log.logger.info("------------------End of iteration "+iteration_counter+" --------------------");
 
@@ -264,7 +264,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
             }
             else
             {
-                Config.sa_algorithm.cooling_factor = 0.995;//*= Config.pacsa_algorithm.cf_increase_ratio;
+                Config.sa_algorithm.cooling_factor = Config.sa_algorithm.cooling_factor; //0.995;//*= Config.pacsa_algorithm.cf_increase_ratio;
             }
 
 

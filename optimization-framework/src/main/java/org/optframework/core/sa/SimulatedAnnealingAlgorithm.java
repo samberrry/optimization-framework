@@ -40,8 +40,12 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
             initialSolution = new Solution(workflow, instanceInfo, Config.global.m_number);
             //Initializes the initial solution with random values
             initialSolution.generateRandomSolution(workflow);
+        //    Log.logger.info("RandomAnt");
         }
         initialSolution.fitness();
+
+      //  Log.logger.info("StartAnt: "+initialSolution.fitnessValue+ " origin: "+initialSolution.origin+".");
+
 
         double temprature_in_last_update = 0;
 
@@ -111,6 +115,8 @@ public class SimulatedAnnealingAlgorithm implements OptimizationAlgorithm {
 
      //   Log.logger.info("SA Fitness:"+globalBest.fitnessValue+ "Initial solution fitness was: "+initialSolution.fitnessValue+", "+initialSolution.origin+".");
        // Log.logger.info("Total number of iterations is:"+counter+"Number of negative moves is"+negative_move_counter);
+     //   Log.logger.info("SA Global BEST is:"+globalBest.fitnessValue);
+
         return globalBest;
 
     }

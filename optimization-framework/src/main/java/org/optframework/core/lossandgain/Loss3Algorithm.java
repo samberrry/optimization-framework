@@ -2,11 +2,15 @@ package org.optframework.core.lossandgain;
 
 import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
+import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.GlobalAccess;
+import org.optframework.RunSAAlgorithm;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
+import org.optframework.core.pacsa.PACSAIterationNumber;
+import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
 import org.optframework.core.utils.Printer;
 
 import java.util.ArrayList;
@@ -118,7 +122,7 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
         double matrix[][] = new double[workflow.getJobList().size()][totalInstances.length];
 
 
-         // This part is for calculating matrix elements
+        // This part is for calculating matrix elements
 
         Solution solutionTemp = null;
         Solution solution = null;
@@ -129,7 +133,102 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
         }
 
 
+      /*   if (Config.global.deadline_based) {
+             Log.logger.info("Loss 3 shouldn't be invoked when the algorithm is executed in the deadline-based mode!!!!!");
+         }
 
+        Config.global.deadline_based = true;
+        //   Config.global.deadline =126.0;//2.0 * heftSolution.makespan;
+
+        heftSolution.solutionMapping();
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
+        Integer zArray[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray[i] = orderedJobList.get(i).getIntId();
+        }
+        heftSolution.zArray = zArray;
+        heftSolution.maxNumberOfInstances = Config.global.m_number;
+
+        List<Solution> initialSolutionList = null;
+        initialSolutionList = new ArrayList<>();
+
+        initialSolutionList.add(heftSolution);
+
+        Config.global.m_number = GlobalAccess.maxLevel;
+
+        Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
+
+        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
+
+        OptimizationAlgorithm optimizationAlgorithm;
+
+        optimizationAlgorithm = new PACSAIterationNumber(initialSolutionList, 1.0/(10.0*(double)heftSolution.makespan), workflow, instanceInfo);
+        solution = optimizationAlgorithm.runAlgorithm();
+        solution.solutionMapping();
+
+        Config.global.deadline_based = false;
+        solution.fitness();*/
+
+
+
+
+
+        /*    Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
+            Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
+
+            for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
+                int itr = i;
+                threadList[i] = new Thread(() -> {
+                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(heftSolution, workflow, instanceInfo);
+
+                    Solution solution_temp = sa.runAlgorithm();
+                    solutionList[itr] = solution_temp;
+                });
+            }
+
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+                threadList[i].start();
+            }
+
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+                try {
+                    threadList[i].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            Config.global.deadline_based = false;
+
+            try {
+                solution = solutionList[0].clone();
+            }
+            catch (Exception e)
+            {
+                org.optframework.core.Log.logger.info("Cloning Exception");
+            }
+            solution.fitness();
+
+            String list_ants_fintess = "";
+
+            for (Solution sol: solutionList){
+                sol.fitness();
+                list_ants_fintess += Double.toString(sol.fitnessValue) +" MS="+sol.makespan+" Cost= "+sol.cost+ ",    ";
+                if (sol.fitnessValue < solution.fitnessValue){
+                    solution = sol;
+                }
+            }
+
+            org.cloudbus.cloudsim.Log.logger.info("List of ants':"+list_ants_fintess);
+*/
+
+          /*  SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(heftSolution, workflow, instanceInfo);
+            solution = sa.runAlgorithm();
+
+            Config.global.deadline_based = false;
+            solution.fitness();*/
+        // }
 
 
 
@@ -344,14 +443,14 @@ public class Loss3Algorithm implements OptimizationAlgorithm {
         }
         int test = 0;*/
 
-        heftSolution.xArray = solution.xArray;
-      //  heftSolution.yArray = solution.yArray;
+        //  heftSolution.xArray = solution.xArray;
+        //  heftSolution.yArray = solution.yArray;
+        solution.origin = "Loss3";
 
-        heftSolution.heftFitness();
-        Log.logger.info("Loss3 Solution Fitness is: "+ heftSolution.fitnessValue + ", Cost=" + heftSolution.cost);
+        Log.logger.info("Loss3 Solution Fitness is: " + solution.fitnessValue + " Makespan: " + solution.makespan + ", Cost=" + solution.cost);
 
 
-        return heftSolution;
+        return solution;
     }
 
     public MatrixElement FindMinPositiveElement(double matrix[][]) {

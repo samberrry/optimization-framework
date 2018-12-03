@@ -25,10 +25,10 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 1
+  workflow_id: 10
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 22.29
+  budget: 19.073
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -43,12 +43,12 @@ global:
   mysql_password: "He$123456789"
   connection_string: "jdbc:mysql://localhost:3306/optdb"
   deadline_based: no
-  deadline: 18
+  deadline: 287.87
 
 sa_algorithm:
-  start_temperature: 8
+  start_temperature: 8500
   final_temperature: 0.01
-  cooling_factor: 0.999
+  cooling_factor: 0.995
   force_cooling: yes
   equilibrium_point: 10
   number_of_runs: 16
@@ -70,16 +70,16 @@ honeybee_algorithm:
   full_mutation: no
 
 pacsa_algorithm:
-  iteration_number: 50
+  iteration_number: 300
   iteration_number_based: yes
-  number_of_ants: 16
-  number_of_runs: 4
+  number_of_ants: 128
+  number_of_runs: 3
 #  cf: cooling factor (previous value 1.004)
   cf_increase_ratio: 1.002
 # temp_decrease_ratio: intensification rate (previous value 0.95)
   temp_decrease_ratio: 0.95
   equilibrium_point: 0.99
-  evaporation_factor: 0.1
+  evaporation_factor: 0.2
   global_based: yes
   insert_heft_initial_solution: yes
 

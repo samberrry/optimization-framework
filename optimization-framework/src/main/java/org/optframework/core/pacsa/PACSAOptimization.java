@@ -25,6 +25,7 @@ import java.util.Random;
 
 public class PACSAOptimization implements OptimizationAlgorithm {
 
+
     protected List<Solution> outInitialSolution;
     protected Solution globalBestSolution;
     protected List<Solution> initialSolutionList = new ArrayList<>();
@@ -216,7 +217,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
         Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
 
-        if(initial_run) {
+    //    if(initial_run) {
 
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
                 int itr = i;
@@ -227,8 +228,8 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     solutionList[itr] = solution;
                 });
             }
-        }
-        else
+    //    }
+    /*    else
         {
 
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
@@ -251,6 +252,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
           //  Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
         }
+*/
 
         for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
             threadList[i].start();
@@ -263,8 +265,44 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 e.printStackTrace();
             }
         }
+
+
+
         return solutionList;
     }
+
+  /*  Solution[] runAnts_NonParallel(boolean initial_run){
+        Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
+        Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
+
+
+        for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
+           // int itr = i;
+          //  threadList[i] = new Thread(() -> {
+                SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(i), workflow, instanceInfo);
+
+                Solution solution = sa.runAlgorithm();
+                solutionList[i] = solution;
+           // });
+        }
+
+
+     //   for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+     //       threadList[i].start();
+     //   }
+
+    //    for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
+    //        try {
+    //            threadList[i].join();
+    //        } catch (InterruptedException e) {
+    //            e.printStackTrace();
+    //        }
+    //    }
+
+
+
+        return solutionList;
+    }*/
 
     protected void generateRandomInitialSolutionList(){
         if (outInitialSolution != null){
@@ -384,6 +422,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected Solution generateInitialSolutionFromPheromone(){
+      //  long CounterForTestMultiThread = 0;
         int generatedXArray[] = new int[workflow.getNumberTasks()];
         int generatedYArray[] = new int[Config.global.m_number];
         Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
@@ -415,7 +454,10 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             if (selectedInstance > maxInstances){
                 maxInstances = selectedInstance;
             }
+           // CounterForTestMultiThread++;
         }
+
+
 
         for (int instanceId=0; instanceId < Config.global.m_number; instanceId++){
             double randomY = rand.nextDouble();
@@ -436,6 +478,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 selectedInstance = r.nextInt(instanceInfo.length);
             }
             generatedYArray[instanceId] = selectedInstance;
+           // CounterForTestMultiThread++;
         }
 
         ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
@@ -497,6 +540,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
             readyTasksToOrder.remove(idInReadyList);
             generatedZArray[k] = newSelectedTaskToOrder;
+           // CounterForTestMultiThread++;
         }
 
         Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
@@ -506,6 +550,8 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         solution.zArray = generatedZArray;
         solution.origin = "pacsa";
         solution.fitness();
+
+       // Log.logger.info("Counter for test multi-thread is: "+CounterForTestMultiThread);
 
         return solution;
     }

@@ -131,7 +131,7 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
 
         heftSolution.heftFitness();
-
+        heftSolution.origin = "Loss2";
         Log.logger.info("Loss2 Solution Fitness is: "+ heftSolution.fitnessValue + ", Cost=" + heftSolution.cost);
 
         return heftSolution;
