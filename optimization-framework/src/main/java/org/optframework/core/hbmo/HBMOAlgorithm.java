@@ -2,6 +2,7 @@ package org.optframework.core.hbmo;
 
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.utils.Printer;
@@ -32,8 +33,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     public List<Spermatheca> spermathecaList = new ArrayList<>();
 
-    public static final int M_NUMBER = Config.global.m_number;
-
     boolean hasInitialSolution;
 
    public Solution initialSolution;
@@ -49,13 +48,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     public Solution runAlgorithm() {
         // Queen generation
         if (hasInitialSolution){
-            queen = new Queen(workflow, instanceInfo, M_NUMBER);
+            queen = new Queen(workflow, instanceInfo, Config.global.m_number);
             queen.chromosome.yArray = initialSolution.yArray;
             queen.chromosome.xArray = initialSolution.xArray;
             queen.chromosome.numberOfUsedInstances = initialSolution.numberOfUsedInstances;
             queen.chromosome.fitness();
         }else {
-            queen = new Queen(workflow, instanceInfo, M_NUMBER);
+            queen = new Queen(workflow, instanceInfo, Config.global.m_number);
         }
 
         long start2 = System.currentTimeMillis();
@@ -93,7 +92,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 Random r = new Random();
 
                 //This constructor also generates the random solution
-                Drone drone = new Drone(workflow, instanceInfo, M_NUMBER);
+                Drone drone = new Drone(workflow, instanceInfo, Config.global.m_number);
 
                 double SMax;
                 double Smin;
@@ -130,7 +129,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
-                    drone = new Drone(workflow, instanceInfo, M_NUMBER);
+                    drone = new Drone(workflow, instanceInfo, Config.global.m_number);
                 }
             });
         }
@@ -274,7 +273,8 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         int mask[] = new int[workflow.getJobList().size()];
         Random r = new Random();
         int newXArray[] = new int[workflow.getJobList().size()];
-        int newYArray[] = new int[M_NUMBER];
+        int newYArray[] = new int[Config.global.m_number];
+        Integer newZArray[] = new Integer[workflow.getJobList().size()];
         int numberOfInstancesUsed;
 
         for (int i = 0; i < mask.length; i++) {
@@ -351,11 +351,56 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 }
             }
         }
-        //todo: z array crossover
-        Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
+
+        //do crossover on z array
+        WorkflowDAG dag = workflow.getWfDAG();
+        List<Job> originalJobList = workflow.getJobList();
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int randomId, taskId;
+
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
+        int parentsSum[] = new int[workflow.getNumberTasks()];
+
+        int cutOffPoint = r.nextInt(workflow.getJobList().size()-1);
+        ArrayList<Integer> cutOffList = new ArrayList<>();
+        for (int i = 0; i < cutOffPoint; i++) {
+            newZArray[i] = childChr.zArray[i];
+            cutOffList.add(newZArray[i]);
+            readyTasksToOrder.remove(new Integer(newZArray[i]));
+        }
+
+        for (int i = 0; i < cutOffPoint; i++) {
+            ArrayList<Integer> children = dag.getChildren(newZArray[i]);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId] && !cutOffList.contains(childId)){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+        }
+
+        for (int i = cutOffPoint; i < workflow.getJobList().size(); i++) {
+            randomId = r.nextInt(readyTasksToOrder.size());
+            taskId = readyTasksToOrder.get(randomId);
+
+            ArrayList<Integer> children = dag.getChildren(taskId);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+            newZArray[i] = originalJobList.get(taskId).getIntId();
+            readyTasksToOrder.remove(randomId);
+        }
+
+        Chromosome chromosome = new Chromosome(workflow, instanceInfo, Config.global.m_number);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
         chromosome.yArray = newYArray;
+        chromosome.zArray = newZArray;
         chromosome.solutionMapping();
 
         chromosome.fitness();
@@ -377,9 +422,10 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
             for (int j = 0; j < mainChr.numberOfUsedInstances; j++) {
                 newXArray[i] =j;
-                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                 newChromosome.xArray = newXArray;
                 newChromosome.yArray = mainChr.yArray;
+                newChromosome.zArray = mainChr.zArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
                 newChromosome.fitness();
 
@@ -396,12 +442,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         //all neighbors without new instance with only Y array change
         for (int i = 0; i < mainChr.numberOfUsedInstances; i++) {
             for (int j = 0; j < InstanceType.values().length; j++) {
-                int []newYArray = new int[M_NUMBER];
+                int []newYArray = new int[Config.global.m_number];
                 System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
                 newYArray[i] = j;
-                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
+                newChromosome.zArray = mainChr.zArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
                 newChromosome.fitness();
 
@@ -416,7 +463,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         }
 
         //all neighbors with new instance selected
-        if (mainChr.numberOfUsedInstances != M_NUMBER){
+        if (mainChr.numberOfUsedInstances != Config.global.m_number){
             for (int i = 0; i < mainChr.xArray.length; i++) {
                 int newXArray [] = new int[mainChr.workflow.getJobList().size()];
                 System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
@@ -425,14 +472,15 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newXArray[i] = newInstanceId;
 
                 for (int j = 0; j < InstanceType.values().length; j++) {
-                    int []newYArray = new int[M_NUMBER];
+                    int []newYArray = new int[Config.global.m_number];
                     System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
 
                     newYArray[newInstanceId] = j;
 
-                    Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                    Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                     newChromosome.xArray = newXArray;
                     newChromosome.yArray = newYArray;
+                    newChromosome.zArray = mainChr.zArray;
                     newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
                     newChromosome.fitness();
 
@@ -469,9 +517,10 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
                         newXArray[taskId] = j;
 
-                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
+                        newChromosome.zArray = mainChr.zArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
                         newChromosome.fitness();
 
@@ -486,18 +535,19 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 }
 
                 //for assigning to new instance
-                if (mainChr.numberOfUsedInstances != M_NUMBER){
+                if (mainChr.numberOfUsedInstances != Config.global.m_number){
                     int newXArray [] = new int[mainChr.workflow.getJobList().size()];
                     System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
                     newXArray[taskId] = mainChr.numberOfUsedInstances;
                     for (InstanceType type : InstanceType.values()){
-                        int []newYArray = new int[M_NUMBER];
+                        int []newYArray = new int[Config.global.m_number];
                         System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
                         newYArray[mainChr.numberOfUsedInstances] = type.getId();
 
-                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
+                        newChromosome.zArray = mainChr.zArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
                         newChromosome.fitness();
 
@@ -516,12 +566,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
         //change only Y array
         for (int i = 0; i < mainChr.numberOfUsedInstances; i++) {
             for (int j = 0; j < InstanceType.values().length; j++) {
-                int []newYArray = new int[M_NUMBER];
+                int []newYArray = new int[Config.global.m_number];
                 System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
                 newYArray[i] = j;
-                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                 newChromosome.xArray = mainChr.xArray;
                 newChromosome.yArray = newYArray;
+                newChromosome.zArray = mainChr.zArray;
                 newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
                 newChromosome.fitness();
 
@@ -550,9 +601,10 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
                         newXArray[randomTask] = j;
 
-                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = mainChr.yArray;
+                        newChromosome.zArray = mainChr.zArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances;
                         newChromosome.fitness();
 
@@ -567,9 +619,9 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 }
 
                 //all neighbors with new instance
-                if (mainChr.numberOfUsedInstances != M_NUMBER){
+                if (mainChr.numberOfUsedInstances != Config.global.m_number){
                     for (int i = 0; i < InstanceType.values().length; i++) {
-                        int []newYArray = new int[M_NUMBER];
+                        int []newYArray = new int[Config.global.m_number];
                         System.arraycopy(mainChr.yArray, 0, newYArray,0, mainChr.yArray.length);
                         int newXArray [] = new int[mainChr.xArray.length];
                         System.arraycopy(mainChr.xArray , 0, newXArray, 0, mainChr.xArray.length);
@@ -578,9 +630,10 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
                         newYArray[mainChr.numberOfUsedInstances] = i;
 
-                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, M_NUMBER);
+                        Chromosome newChromosome = new Chromosome(workflow, mainChr.instanceInfo, Config.global.m_number);
                         newChromosome.xArray = newXArray;
                         newChromosome.yArray = newYArray;
+                        newChromosome.zArray = mainChr.zArray;
                         newChromosome.numberOfUsedInstances = mainChr.numberOfUsedInstances+1;
                         newChromosome.fitness();
 

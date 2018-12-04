@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -12,6 +13,7 @@ import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Hessam Modabberi
@@ -20,16 +22,21 @@ import java.util.ArrayList;
 
 public class RunHBMOAlgorithm {
 
-    public static final int M_NUMBER = Config.global.m_number;
 
     public static void runHBMO(){
         Log.logger.info("<<<<<<<<< HBMO Algorithm is started >>>>>>>>>");
 
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
+        Cloner cloner = new Cloner();
+        GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
+        Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
+
+        Config.global.m_number = GlobalAccess.maxLevel;
+
         honeyBeePreProcessing(workflow);
 
-        Log.logger.info("Maximum number of instances: " + M_NUMBER + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
         Printer.printHoneBeeInfo();
 
         /**
@@ -40,7 +47,7 @@ public class RunHBMOAlgorithm {
          * */
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
+        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
         OptimizationAlgorithm optimizationAlgorithm;
         ArrayList<Solution> solutionList = new ArrayList<>();
