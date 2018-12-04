@@ -1,6 +1,6 @@
 package org.optframework.core.hbmo;
 
-import com.rits.cloning.Cloner;
+import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -33,8 +33,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     public List<Spermatheca> spermathecaList = new ArrayList<>();
 
     public static final int M_NUMBER = Config.global.m_number;
-
-    Cloner cloner = new Cloner();
 
     boolean hasInitialSolution;
 
@@ -92,7 +90,6 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             threadSpermatheca.add(itr, new Spermatheca());
 
             threadList[i] = new Thread(() -> {
-                Cloner cloner = new Cloner();
                 Random r = new Random();
 
                 //This constructor also generates the random solution
@@ -125,7 +122,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 //                long stop = System.currentTimeMillis();
 //                Log.logger.info("brood local search: "+ (stop - start));
 
-                        threadSpermatheca.get(itr).chromosomeList.add(cloner.deepClone(brood));
+                        try {
+                            threadSpermatheca.get(itr).chromosomeList.add((Chromosome) brood.clone());
+                        }catch (Exception e){
+                            Log.logger.info("Cloning Exception");
+                        }
                     }
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
@@ -172,7 +173,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
             for (Chromosome brood : spermatheca.chromosomeList){
 
                 if (brood.fitnessValue < queen.chromosome.fitnessValue){
-                    queen.chromosome = cloner.deepClone(brood);
+                    try {
+                        queen.chromosome = (Chromosome) brood.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -180,7 +185,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
     void mutation(Chromosome forMutation){
         Random r = new Random();
-        int xOrY = r.nextInt(2);
+        int xOrY = r.nextInt(3);
 
         switch (xOrY){
             case 0:
@@ -213,7 +218,56 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 forMutation.yArray[randomInstance2] = forMutation.yArray[randomInstance1];
                 forMutation.yArray[randomInstance1] = yVal1;
                 break;
+            case 2:
+                int randomOldPosition;
+                int n = workflow.getJobList().size();
+                randomOldPosition = r.nextInt(n);
+                int randomNewPosition;
+
+                WorkflowDAG dag = workflow.getWfDAG();
+                ArrayList<Integer> parentList = dag.getParents(forMutation.zArray[randomOldPosition]);
+                ArrayList<Integer> childList = dag.getChildren(forMutation.zArray[randomOldPosition]);
+                int start = randomOldPosition;
+                int end = randomOldPosition;
+
+                while (start >=0 && !ExistItemInList(parentList, forMutation.zArray[start])) {
+                    start--;
+                }
+
+                while (end < n && !ExistItemInList(childList, forMutation.zArray[end])) {
+                    end++;
+                }
+
+                int diff = (end - 1) - (start + 1);
+                if (diff > 0) {
+                    randomNewPosition = r.nextInt(diff);
+                    randomNewPosition += (start + 1);
+                    if (randomNewPosition != randomOldPosition) {
+                        if (randomNewPosition > randomOldPosition) {
+                            int temp = forMutation.zArray[randomOldPosition];
+                            for (int j = randomOldPosition; j < randomNewPosition; j++)
+                                forMutation.zArray[j] = forMutation.zArray[j + 1];
+                            forMutation.zArray[randomNewPosition] = temp;
+                        }
+                        else {
+                            int temp = forMutation.zArray[randomOldPosition];
+                            for (int j = randomOldPosition -1; j >= randomNewPosition; j--)
+                                forMutation.zArray[j+1] = forMutation.zArray[j];
+                            forMutation.zArray[randomNewPosition] = temp;
+                        }
+                    }
+                }
+                break;
         }
+    }
+
+    public boolean ExistItemInList(ArrayList<Integer> l, int item) {
+        for (Integer i : l) {
+            if (i.equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static Chromosome crossOver(Chromosome queenChr, Chromosome childChr){
@@ -297,6 +351,7 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 }
             }
         }
+        //todo: z array crossover
         Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;
@@ -309,8 +364,12 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     }
 
      Chromosome localSearch(Chromosome mainChr){
-        Cloner cloner = new Cloner();
-        Chromosome currentBestChr = cloner.deepClone(mainChr);
+        Chromosome currentBestChr = null;
+         try {
+             currentBestChr = (Chromosome) mainChr.clone();
+         }catch (Exception e){
+             Log.logger.info("Cloning Exception");
+         }
 
         //all neighbors without new instance with only X array change
         for (int i = 0; i < mainChr.workflow.getJobList().size(); i++) {
@@ -325,7 +384,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome) newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -343,7 +406,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome) newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -370,7 +437,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                     newChromosome.fitness();
 
                     if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                        currentBestChr = cloner.deepClone(newChromosome);
+                        try {
+                            currentBestChr = (Chromosome) newChromosome.clone();
+                        }catch (Exception e){
+                            Log.logger.info("Cloning Exception");
+                        }
                     }
                 }
             }
@@ -380,8 +451,13 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
     }
 
     Chromosome lightLocalSearch(Chromosome mainChr, int kRandomTasks){
-        Cloner cloner = new Cloner();
-        Chromosome currentBestChr = cloner.deepClone(mainChr);
+        Chromosome currentBestChr = null;
+        try {
+            currentBestChr = (Chromosome) mainChr.clone();
+        }catch (Exception e){
+            Log.logger.info("Cloning Exception");
+        }
+
 
         //local search on all of the instances with only one assigned task
         for (int i = 0; i < mainChr.xArray.length; i++) {
@@ -400,7 +476,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -422,7 +502,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -442,7 +526,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                 newChromosome.fitness();
 
                 if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                    currentBestChr = cloner.deepClone(newChromosome);
+                    try {
+                        currentBestChr = (Chromosome)newChromosome.clone();
+                    }catch (Exception e){
+                        Log.logger.info("Cloning Exception");
+                    }
                 }
             }
         }
@@ -469,7 +557,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }
@@ -493,7 +585,11 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         newChromosome.fitness();
 
                         if (newChromosome.fitnessValue < currentBestChr.fitnessValue){
-                            currentBestChr = cloner.deepClone(newChromosome);
+                            try {
+                                currentBestChr = (Chromosome)newChromosome.clone();
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
                         }
                     }
                 }

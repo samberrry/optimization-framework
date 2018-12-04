@@ -24,8 +24,10 @@
 
 
 global:
-  algorithm: "pacsa-plus"
-  workflow_id: 10
+  algorithm: "hbmo"
+  workflow_id: 1
+  #algorithm: "hbmo"
+  # 2cfe736aaedcf0aa7059aa93ba4827b7f4e78814
   #workflow_id: 4
   #workflow_name: "inspiral_30"
   budget: 19.073
@@ -34,9 +36,6 @@ global:
   read_m_number_from_config: no
 #  M number: maximum number of instances used during workflow scheduling
   m_number: 7
-# id: 1 => normal heft
-# id: 2 => cost efficient heft
-# id: others => none
   initial_solution_from_heft_id: 0
   use_mysql_to_log: no
   mysql_username: "hessamdb"
@@ -84,9 +83,9 @@ pacsa_algorithm:
   insert_heft_initial_solution: yes
 
 pso_algorithm:
-  number_of_runs: 10
-  number_of_particles: 500
-  maximum_iteration: 1000
-  weight: 0.729
-  acceleration_coefficient1: 1.494
-  acceleration_coefficient2: 1.494
+  number_of_runs: 5
+  number_of_particles: 700
+  maximum_iteration: 2000
+  weight: 0.9
+  acceleration_coefficient1: 1.2
+  acceleration_coefficient2: 1.2

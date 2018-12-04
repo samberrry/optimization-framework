@@ -11,7 +11,7 @@ public class Particle extends Solution {
     public double velocityX[];
     public double velocityY[];
     public double velocityZ[];
-    public double bestFitnessValueSoFar = 9999999999.9;
+    public double bestFitnessValueSoFar = Math.pow(10,100);
     public int bestXArraySoFar[];
     public int bestYArraySoFar[];
     public Integer bestZArraySoFar[];

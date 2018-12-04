@@ -11,6 +11,7 @@ import org.optframework.core.hbmo.HBMOAlgorithmWithFullMutation;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
+import java.util.ArrayList;
 
 /**
  * @author Hessam Modabberi
@@ -42,60 +43,78 @@ public class RunHBMOAlgorithm {
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
         OptimizationAlgorithm optimizationAlgorithm;
-
-        if (Config.honeybee_algorithm.getFull_mutation()){
-            optimizationAlgorithm = new HBMOAlgorithmWithFullMutation(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
-        }else {
-            optimizationAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
-        }
-
-        double fitnessValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
-        double costValueList[] = new double[Config.honeybee_algorithm.getNumber_of_runs()];
+        ArrayList<Solution> solutionList = new ArrayList<>();
+        long runTimeSum = 0;
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
-
+            if (Config.honeybee_algorithm.getFull_mutation()){
+                optimizationAlgorithm = new HBMOAlgorithmWithFullMutation(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+            }else {
+                optimizationAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+            }
             long start = System.currentTimeMillis();
 
             Solution solution = optimizationAlgorithm.runAlgorithm();
-
-            fitnessValueList[i] = solution.fitnessValue;
-            costValueList[i] = solution.cost;
+            solution.solutionMapping();
+            solution.fitness();
+            solutionList.add(solution);
 
             long stop = System.currentTimeMillis();
 
+            runTimeSum += (stop - start);
+
             Printer.lightPrintSolution(solution,stop-start);
+            Printer.printSolutionWithouthTime(solution, instanceInfo);
         }
 
-        double sum = 0.0, costSum = 0.0;
-        double max = 0.0, costMax = 0.0;
-        double min = 999999999999.9, costMin = 99999999.9;
-        for (double value : fitnessValueList){
-            sum += value;
-            if (value > max){
-                max = value;
+        double fitnessSum = 0.0, costSum = 0.0;
+        double fitnessMax = 0.0, costMax = 0.0;
+        double fitnessMin = 999999999999.9, costMin = 9999999999.9;
+        Solution bestSolution = null;
+
+        for (Solution solution: solutionList){
+            fitnessSum += solution.fitnessValue;
+            if (solution.fitnessValue > fitnessMax){
+                fitnessMax = solution.fitnessValue;
             }
-            if (value < min){
-                min = value;
+            if (solution.fitnessValue < fitnessMin){
+                fitnessMin = solution.fitnessValue;
+                bestSolution = solution;
             }
+
+            costSum += solution.cost;
+            if (solution.cost > costMax){
+                costMax = solution.cost;
+            }
+            if (solution.cost < costMin){
+                costMin = solution.cost;
+            }
+        }
+        Printer.printSplitter();
+
+        Printer.printSolutionWithouthTime(bestSolution, instanceInfo);
+
+        //compute resource utilization
+        double resourceUtilization[] = new double[bestSolution.numberOfUsedInstances];
+        double onlyTaskUtilization[] = new double[bestSolution.numberOfUsedInstances];
+        for (Job job : workflow.getJobList()){
+            onlyTaskUtilization[bestSolution.xArray[job.getIntId()]] += job.getExeTime()[bestSolution.yArray[bestSolution.xArray[job.getIntId()]]];
         }
 
-        for (double value : costValueList){
-            costSum += value;
-            if (value > costMax){
-                costMax = value;
-            }
-            if (value < costMin){
-                costMin = value;
-            }
+        for (int i = 0; i < bestSolution.numberOfUsedInstances; i++) {
+            resourceUtilization[i] = onlyTaskUtilization[i] / bestSolution.instanceTimes[i];
         }
+        Printer.printUtilization(resourceUtilization);
 
         Printer.printSplitter();
-        Log.logger.info("Average Fitness value: " + sum / Config.honeybee_algorithm.getNumber_of_runs());
-        Log.logger.info("Average Cost value: " + costSum / Config.honeybee_algorithm.getNumber_of_runs());
 
-        Log.logger.info("Max fitness: " + max + " Min fitness: "+ min);
+        String toPrint = "\n";
+        toPrint += "Average Fitness value: " + fitnessSum / Config.honeybee_algorithm.getNumber_of_runs() + "\n";
+        toPrint += "Average Cost value: " + costSum / Config.honeybee_algorithm.getNumber_of_runs() + "\n";
+        toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n";
+        Log.logger.info(toPrint);
         Printer.printHoneBeeInfo();
     }
 
