@@ -25,10 +25,10 @@
 
 global:
   algorithm: "hbmo"
-  workflow_id: 1
+  workflow_id: 2
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 22.29
+  budget: 9.65
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -57,15 +57,15 @@ honeybee_algorithm:
   max_speed: 800
   min_speed: 0.1
   force_speed: no
-  sMin_division: 100
-  sMax_division: 10
+  sMin_division: 20000
+  sMax_division: 5
   cooling_factor: 0.95
   number_of_threads: 4
-  spermatheca_size: 400
+  spermatheca_size: 2000
 # the generation number equals to number of iterations
-  generation_number: 150
+  generation_number: 1000
   neighborhood_ratio: 0.0
-  number_of_runs: 1
+  number_of_runs: 5
 # this toggle is used to switch between single mutation or mutation on every brood
   full_mutation: no
 
