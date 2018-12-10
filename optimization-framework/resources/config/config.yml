@@ -24,18 +24,18 @@
 
 
 global:
-  algorithm: "hbmo"
+  algorithm: "pacsa-plus"
   workflow_id: 1
   #algorithm: "hbmo"
   # 2cfe736aaedcf0aa7059aa93ba4827b7f4e78814
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 4.5
+  budget: 22.71
   bandwidth: 39321600
   t_extra: -1
-  read_m_number_from_config: no
+  read_m_number_from_config: yes
 #  M number: maximum number of instances used during workflow scheduling
-  m_number: 7
+  m_number: 24
   initial_solution_from_heft_id: 0
   use_mysql_to_log: no
   mysql_username: "hessamdb"
@@ -47,7 +47,7 @@ global:
 sa_algorithm:
   start_temperature: 8500
   final_temperature: 0.01
-  cooling_factor: 0.995
+  cooling_factor: 0.999
   force_cooling: yes
   equilibrium_point: 10
   number_of_runs: 16
@@ -69,9 +69,9 @@ honeybee_algorithm:
   full_mutation: no
 
 pacsa_algorithm:
-  iteration_number: 300
+  iteration_number: 100
   iteration_number_based: yes
-  number_of_ants: 128
+  number_of_ants: 64
   number_of_runs: 3
 #  cf: cooling factor (previous value 1.004)
   cf_increase_ratio: 1.002

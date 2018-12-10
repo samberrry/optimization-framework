@@ -112,9 +112,19 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
 
                 double queenSpeed = SMax;
 
+                Drone bestGlobalDrone = new Drone();
+
+                try {
+                    bestGlobalDrone.chromosome = (Chromosome) queen.chromosome.clone();
+                }catch (Exception e){}
+
                 while (queenSpeed > Smin && threadSpermatheca.get(itr).chromosomeList.size() < threadSpmSize){
-                    if (probability(queen.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
-                        Chromosome brood = HBMOAlgorithm.crossOver(queen.chromosome, drone.chromosome);
+                    if (drone.chromosome.fitnessValue <= bestGlobalDrone.chromosome.fitnessValue){
+                        try {
+                            bestGlobalDrone = drone.clone();
+                        }catch (Exception e){}
+
+                        Chromosome brood = HBMOAlgorithm.crossOver(bestGlobalDrone.chromosome, drone.chromosome);
 
 //                long start = System.currentTimeMillis();
                         brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
@@ -126,7 +136,25 @@ public class HBMOAlgorithm implements OptimizationAlgorithm {
                         }catch (Exception e){
                             Log.logger.info("Cloning Exception");
                         }
+
+
+                    }else {
+                        if (probability(bestGlobalDrone.chromosome.fitnessValue, drone.chromosome.fitnessValue, queenSpeed) > r.nextDouble()){
+                            Chromosome brood = HBMOAlgorithm.crossOver(bestGlobalDrone.chromosome, drone.chromosome);
+
+//                long start = System.currentTimeMillis();
+                            brood = lightLocalSearch(brood,Config.honeybee_algorithm.kRandom);
+//                long stop = System.currentTimeMillis();
+//                Log.logger.info("brood local search: "+ (stop - start));
+
+                            try {
+                                threadSpermatheca.get(itr).chromosomeList.add((Chromosome) brood.clone());
+                            }catch (Exception e){
+                                Log.logger.info("Cloning Exception");
+                            }
+                        }
                     }
+
                     queenSpeed = Config.honeybee_algorithm.getCooling_factor() * queenSpeed;
 
                     drone = new Drone(workflow, instanceInfo, Config.global.m_number);

@@ -264,7 +264,10 @@ public class PACSAIterationNumber extends PACSAOptimization{
             }
             else
             {
-                Config.sa_algorithm.cooling_factor = Config.sa_algorithm.cooling_factor; //0.995;//*= Config.pacsa_algorithm.cf_increase_ratio;
+                if(workflow.getJobList().size() >= 1000)
+                    Config.sa_algorithm.cooling_factor = 0.995;
+                else
+                    Config.sa_algorithm.cooling_factor = 0.999;//*= Config.pacsa_algorithm.cf_increase_ratio;
             }
 
 

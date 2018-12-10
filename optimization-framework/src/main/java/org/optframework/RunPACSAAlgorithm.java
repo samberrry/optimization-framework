@@ -157,14 +157,14 @@ public class RunPACSAAlgorithm {
 
 
 
-    //        initialSolutionList.add(loss2Solution);
+            initialSolutionList.add(loss2Solution);
 
 
 
     //        initialSolutionList.add(loss3Solution);
     //        initialSolutionList.add(loss3Solution2);
 
-            initialSolutionList.add(heftSolution);
+     //       initialSolutionList.add(heftSolution);
          //   initialSolutionList.add(heftSolution);
 
 
