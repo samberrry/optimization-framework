@@ -658,7 +658,7 @@ public class Solution implements Cloneable{
             penalty1 = delta;
         }
 
-        fitnessValue = makespan + beta/100 * (penalty1);
+        fitnessValue = makespan + beta * (penalty1);
     }
 
 

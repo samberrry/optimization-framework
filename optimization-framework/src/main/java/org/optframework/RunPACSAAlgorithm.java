@@ -49,6 +49,7 @@ public class RunPACSAAlgorithm {
          * Availability Zone: A
          * OS type: Linux System
          * */
+        boolean big_budget = false;
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
@@ -93,11 +94,11 @@ public class RunPACSAAlgorithm {
         loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
 
-        if (algorithmId == 1){
+        if (algorithmId == 1) {
             int m_number;
             Config.global.algorithm = "pacsa_plus";
 
-            Config.global.m_number = GlobalAccess.maxLevel;
+          /*  Config.global.m_number = GlobalAccess.maxLevel;
             m_number = GlobalAccess.maxLevel;
             if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
                 Config.global.m_number = loss2Solution.numberOfUsedInstances;
@@ -111,7 +112,48 @@ public class RunPACSAAlgorithm {
             }
         }else {
             Config.global.m_number = workflow.getJobList().size();
+        }*/
+            if (workflow.getJobList().size() >= 1000) {
+                double avg_cost_instances = 0.2;
+                int estimated_number_of_used_instances = 50;
+                int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
+                if (max_number_of_used_instaned > estimated_number_of_used_instances)
+                    Config.global.m_number = estimated_number_of_used_instances;
+                else
+                    Config.global.m_number = max_number_of_used_instaned;
+            } else if (workflow.getJobList().size() >= 100) {
+                double avg_cost_instances = 0.2;
+                int estimated_number_of_used_instances = 18;
+                int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
+                if (max_number_of_used_instaned > estimated_number_of_used_instances)
+                    Config.global.m_number = estimated_number_of_used_instances;
+                else
+                    Config.global.m_number = max_number_of_used_instaned;
+            } else {
+                double avg_cost_instances = 0.2;
+                int estimated_number_of_used_instances = 8;
+                int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
+                if (max_number_of_used_instaned > estimated_number_of_used_instances)
+                    Config.global.m_number = estimated_number_of_used_instances;
+                else
+                    Config.global.m_number = max_number_of_used_instaned;
+            }
+
+            double cost_fastest_instance = 0.9;
+            double min_cost_instances = 0.06;
+
+            if (Config.global.m_number <= 2)//means that the budget is very small
+            {
+
+                Config.global.m_number = (int) (Config.global.budget / min_cost_instances) + 1;
+            }
+         /*   else if (Config.global.budget / Config.global.m_number >= cost_fastest_instance)// means that the budget is very big
+            {
+                big_budget = true;
+                Config.global.m_number = heftSolution.numberOfUsedInstances;
+            }*/
         }
+
 
         if (Config.global.read_m_number_from_config){
             Config.global.m_number = originalMNumber;
@@ -164,7 +206,8 @@ public class RunPACSAAlgorithm {
     //        initialSolutionList.add(loss3Solution);
     //        initialSolutionList.add(loss3Solution2);
 
-     //       initialSolutionList.add(heftSolution);
+            if(big_budget)
+                initialSolutionList.add(heftSolution);
          //   initialSolutionList.add(heftSolution);
 
 
