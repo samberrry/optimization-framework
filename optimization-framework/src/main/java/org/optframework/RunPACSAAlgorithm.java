@@ -213,6 +213,26 @@ public class RunPACSAAlgorithm {
 
 
          //   initialSolutionList.add(costEfficientHeftSolution);
+
+            /**
+             * HEFT algorithm which is limited by m_number
+             * */
+            int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFT(Config.global.m_number);
+            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2);
+            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+            heftSolution2.heftFitness();
+
+            Integer zArray2[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray2[i] = orderedJobList.get(i).getIntId();
+            }
+
+            heftSolution2.zArray = zArray2;
+            initialSolutionList.add(heftSolution2);
         }
 
         long runTimeSum = 0;

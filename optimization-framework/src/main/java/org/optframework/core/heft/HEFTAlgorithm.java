@@ -307,6 +307,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             for (InstanceType type : InstanceType.values()){
                 totalInstances[i] = type.getId();
                 i++;
+                if (i >= numberOfInstances)
+                    break;
             }
         }
 
