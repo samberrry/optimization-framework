@@ -31,6 +31,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     //this array is the y array from the hbmo algorithm with specified size
     int availableInstances[];
 
+    int maxNumberOfUsedInstances;
+
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int availableInstances[]) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
@@ -40,6 +42,13 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
+    }
+
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int[] availableInstances, int maxNumberOfUsedInstances) {
+        this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
+        this.availableInstances = availableInstances;
+        this.maxNumberOfUsedInstances = maxNumberOfUsedInstances;
     }
 
     @Override
@@ -269,12 +278,29 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
         }
 
-        Solution solution = new Solution(workflow, instanceInfo, availableInstances.length);
-        solution.numberOfUsedInstances = availableInstances.length;
-        solution.xArray = xArray;
-        solution.yArray = availableInstances;
-//        solution.solutionMapping();
-        solution.heftFitness();
+        Solution solution;
+
+        if (maxNumberOfUsedInstances > 0){
+            solution = new Solution(workflow, instanceInfo, maxNumberOfUsedInstances);
+            solution.numberOfUsedInstances = availableInstances.length;
+            solution.xArray = xArray;
+
+            int newYArray[] = new int[maxNumberOfUsedInstances];
+            for (int i = 0; i < maxNumberOfUsedInstances; i++) {
+                newYArray[i] = -1;
+            }
+            for (int i = 0; i < availableInstances.length; i++) {
+                newYArray[i] = availableInstances[i];
+            }
+
+            solution.heftFitness();
+        }else {
+            solution = new Solution(workflow, instanceInfo, availableInstances.length);
+            solution.numberOfUsedInstances = availableInstances.length;
+            solution.xArray = xArray;
+            solution.yArray = availableInstances;
+            solution.heftFitness();
+        }
 
         return solution;
     }

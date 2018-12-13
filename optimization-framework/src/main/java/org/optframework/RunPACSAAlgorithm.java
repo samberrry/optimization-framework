@@ -231,7 +231,7 @@ public class RunPACSAAlgorithm {
 
                 heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, number_of_affordable_fastest_instance));
 
-                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2);
+                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
                 Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
                 heftSolution2.heftFitness();
 
@@ -253,7 +253,7 @@ public class RunPACSAAlgorithm {
 
             heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, number_of_affordable_fastest_instance));
 
-            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3);
+            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
             Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
             heftSolution3.heftFitness();
 

@@ -136,7 +136,6 @@ public class Solution implements Cloneable{
                         //if new instance is selected
                         if (randomInstanceId >= numberOfUsedInstances) {
                             int randomType = r.nextInt(InstanceType.values().length);
-                       //     Log.logger.info("randomInstanceId is:"+randomInstanceId+", randomType="+randomType);
                             yArray[randomInstanceId] = randomType;
                             numberOfUsedInstances = randomInstanceId + 1;
                         }
@@ -165,10 +164,7 @@ public class Solution implements Cloneable{
                 int randomOldPosition;
                 int n = workflow.getJobList().size();
                 randomOldPosition = r.nextInt(n);
-                int randomNewPosition = randomOldPosition;
-
-                //boolean repeatIt = true;
-                //   while (repeatIt){
+                int randomNewPosition;
 
                 WorkflowDAG dag = workflow.getWfDAG();
                 ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
@@ -189,9 +185,6 @@ public class Solution implements Cloneable{
                 if (diff > 0) {
                     randomNewPosition = r.nextInt(diff);
                     randomNewPosition += (start + 1);
-                    //  if (randomNewPosition != randomOldPosition) {
-                    //      repeatIt = false;
-                    //  }
                     if (randomNewPosition != randomOldPosition) {
                         if (randomNewPosition > randomOldPosition) {
                             int temp = zArray[randomOldPosition];
@@ -207,79 +200,9 @@ public class Solution implements Cloneable{
                         }
                     }
                 }
-
-            //    Log.logger.info("Value of the Z Array: "+ zArray);
-
-
-             //  ArrayList<Integer> arrayList = new ArrayList<>();
-             ///   CollectionUtils.addAll(arrayList, zArray);
-             //   arrayList.add(randomNewPosition, zArray[randomOldPosition]);
-             //   if (randomOldPosition > randomNewPosition) {
-             //       arrayList.remove(randomOldPosition + 1);
-            //    } else {
-            //        arrayList.remove(randomOldPosition);
-            //    }
-
-                //zArray = arrayList.toArray(new Integer[arrayList.size()]);
-
-
-                /*
-                int randomOldPosition = -1;
-                int randomNewPosition = -1;
-                boolean repeatIt = true;
-                while (repeatIt){
-                    randomOldPosition = r.nextInt(workflow.getJobList().size());
-                    WorkflowDAG dag = workflow.getWfDAG();
-                    ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
-                    ArrayList<Integer> childList = dag.getChildren(zArray[randomOldPosition]);
-                    int startString = 0;
-                    int endString = zArray.length-1;
-
-                    for (int i = randomOldPosition; i >= 0; i--) {
-                        for(Integer parentId: parentList){
-                            if (zArray[i] == parentId){
-                                startString = i;
-                                i = 0;
-                                break;
-                            }
-                        }
-                    }
-
-                    for (int i = randomOldPosition; i < zArray.length; i++) {
-                        for (Integer childId: childList){
-                            if (zArray[i] == childId){
-                                endString = i;
-                                i = zArray.length;
-                                break;
-                            }
-                        }
-                    }
-                    int diff = endString - startString;
-                    if (diff > 2){
-                        randomNewPosition = r.nextInt(diff-1);
-                        randomNewPosition += (startString+1);
-                        if (randomNewPosition != randomOldPosition){
-                            repeatIt = false;
-                        }
-                    }
-                }
-
-                ArrayList<Integer> arrayList = new ArrayList<>();
-                CollectionUtils.addAll(arrayList, zArray);
-                arrayList.add(randomNewPosition, zArray[randomOldPosition]);
-                if (randomOldPosition > randomNewPosition){
-                    arrayList.remove(randomOldPosition+1);
-                }else {
-                    arrayList.remove(randomOldPosition);
-                }
-
-                zArray = arrayList.toArray(new Integer[arrayList.size()]);
-                 */
                 break;
         }
         instanceUsages = new short[numberOfUsedInstances];
-
-//        solutionMapping();
     }
 
     public boolean ExistItemInList(ArrayList<Integer> l, int item)
