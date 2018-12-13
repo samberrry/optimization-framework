@@ -130,63 +130,6 @@ public class RunPACSAAlgorithm {
 
 
 
-            int totalInstances2[] = new int[0];
-            double remainingBudget = Config.global.budget;
-
-
-            while (minPrice <= remainingBudget && totalInstances2.length < Config.global.m_number){
-                double maxValidCost = 0.0;
-                int instanceTypeId = -2;
-
-                Random r = new Random();
-                int randomType;
-
-                randomType = r.nextInt(InstanceType.values().length);
-                while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
-                {
-                    randomType = r.nextInt(InstanceType.values().length);
-                }
-                maxValidCost = instanceInfo[randomType].getSpotPrice();
-                instanceTypeId = randomType;
-
-
-                int newTotalInstance[] = new int[totalInstances2.length + 1];
-                for (int i = 0; i < totalInstances2.length; i++) {
-                    newTotalInstance[i] = totalInstances2[i];
-                }
-
-                newTotalInstance[totalInstances2.length] = instanceTypeId;
-                totalInstances2 = newTotalInstance;
-
-                remainingBudget -= maxValidCost;
-
-
-                DecimalFormat df = new DecimalFormat ("#.#####");
-                remainingBudget = Double.parseDouble(df.format(remainingBudget));
-
-
-            }
-
-            Config.global.m_number = totalInstances2.length;
-
-            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
-
-            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
-
-            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
-            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
-            heftSolution2.heftFitness();
-
-            Integer zArray2[] = new Integer[orderedJobList.size()];
-            for (int i = 0; i < orderedJobList.size(); i++) {
-                zArray2[i] = orderedJobList.get(i).getIntId();
-            }
-
-            heftSolution2.zArray = zArray2;
-
-       //     initialSolutionList.add(heftSolution2);
-            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
-
 
 
           /*  double cost_Fastest_instance = 0.9;
@@ -237,7 +180,6 @@ public class RunPACSAAlgorithm {
 
         computeCoolingFactorForSA(workflow.getJobList().size());
 
-        Log.logger.info("Maximum number of instances (m_number): " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
@@ -274,14 +216,14 @@ public class RunPACSAAlgorithm {
             //costEfficientHeftSolution.origin = "cost-efficient-heft";
 
 
-            initialSolutionList.add(loss2Solution);
+        //    initialSolutionList.add(loss2Solution);
 
 
             //        initialSolutionList.add(loss3Solution);
             //        initialSolutionList.add(loss3Solution2);
 
-            if (big_budget)
-                initialSolutionList.add(heftSolution);
+       //     if (big_budget)
+        //        initialSolutionList.add(heftSolution);
             //   initialSolutionList.add(heftSolution);
 
 
@@ -373,6 +315,9 @@ public class RunPACSAAlgorithm {
         for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
+
+            Config.global.m_number = Calculating_M_number_For_PACSA_Plus(minPrice,instanceInfo);
+            Log.logger.info("Maximum number of instances (m_number): " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
             Config.sa_algorithm.start_temperature = originalStartTemperature_SA;
@@ -481,6 +426,70 @@ public class RunPACSAAlgorithm {
             return b;
         else
             return c;
+    }
+
+    public static int Calculating_M_number_For_PACSA_Plus(double minInstancePrice,InstanceInfo instanceInfo[])
+    {
+
+
+
+        int totalInstances2[] = new int[0];
+        double remainingBudget = Config.global.budget;
+
+
+        while (minInstancePrice <= remainingBudget && totalInstances2.length < Config.global.m_number){
+            double maxValidCost = 0.0;
+            int instanceTypeId = -2;
+
+            Random r = new Random();
+            int randomType;
+
+            randomType = r.nextInt(InstanceType.values().length);
+            while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
+            {
+                randomType = r.nextInt(InstanceType.values().length);
+            }
+            maxValidCost = instanceInfo[randomType].getSpotPrice();
+            instanceTypeId = randomType;
+
+
+            int newTotalInstance[] = new int[totalInstances2.length + 1];
+            for (int i = 0; i < totalInstances2.length; i++) {
+                newTotalInstance[i] = totalInstances2[i];
+            }
+
+            newTotalInstance[totalInstances2.length] = instanceTypeId;
+            totalInstances2 = newTotalInstance;
+
+            remainingBudget -= maxValidCost;
+
+
+            DecimalFormat df = new DecimalFormat ("#.#####");
+            remainingBudget = Double.parseDouble(df.format(remainingBudget));
+
+
+        }
+
+        return totalInstances2.length;
+
+      /*  Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+        heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+        HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+        Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+        heftSolution2.heftFitness();
+
+        Integer zArray2[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray2[i] = orderedJobList.get(i).getIntId();
+        }
+
+        heftSolution2.zArray = zArray2;
+
+        //     initialSolutionList.add(heftSolution2);
+        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
+
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
