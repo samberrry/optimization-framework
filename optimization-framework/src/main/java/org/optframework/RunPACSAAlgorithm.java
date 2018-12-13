@@ -226,22 +226,12 @@ public class RunPACSAAlgorithm {
             int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
             if(number_of_affordable_fastest_instance > 0) {
 
-                int maxECUId = -1;
-                double maxECU = 0.0;
-
-                for (InstanceType type : InstanceType.values()){
-                    if (type.getEcu() > maxECU){
-                        maxECUId = type.getId();
-                        maxECU = type.getEcu();
-                    }
-                }
-
-                int totalInstances2[] = {maxECUId, maxECUId};
+                int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
                 Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
 
-                heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, number_of_affordable_fastest_instance));
+                heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
 
-                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, number_of_affordable_fastest_instance);
+                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
                 Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
                 heftSolution2.heftFitness();
 
@@ -258,22 +248,14 @@ public class RunPACSAAlgorithm {
 
 
             number_of_affordable_fastest_instance++;
-            int maxECUId = -1;
-            double maxECU = 0.0;
 
-            for (InstanceType type : InstanceType.values()){
-                if (type.getEcu() > maxECU){
-                    maxECUId = type.getId();
-                    maxECU = type.getEcu();
-                }
-            }
-            int totalInstances3[] = {maxECUId, maxECUId};
+            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
 
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
 
-            heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, number_of_affordable_fastest_instance));
+            heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, Config.global.m_number));
 
-            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, number_of_affordable_fastest_instance);
+            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
             Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
             heftSolution3.heftFitness();
 

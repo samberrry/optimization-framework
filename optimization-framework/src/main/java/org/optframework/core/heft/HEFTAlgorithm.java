@@ -31,7 +31,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     //this array is the y array from the hbmo algorithm with specified size
     int availableInstances[];
 
-    int maxNumberOfUsedInstances;
+    int maxNumberOfUsedInstancesForIntegrationWithOtherSolutions;
 
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int availableInstances[]) {
         this.workflow = workflow;
@@ -44,11 +44,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         this.instanceInfo = instanceInfo;
     }
 
-    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int[] availableInstances, int maxNumberOfUsedInstances) {
+    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int[] availableInstances, int maxNumberOfUsedInstancesForIntegrationWithOtherSolutions) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         this.availableInstances = availableInstances;
-        this.maxNumberOfUsedInstances = maxNumberOfUsedInstances;
+        this.maxNumberOfUsedInstancesForIntegrationWithOtherSolutions = maxNumberOfUsedInstancesForIntegrationWithOtherSolutions;
     }
 
     @Override
@@ -280,13 +280,13 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         Solution solution;
 
-        if (maxNumberOfUsedInstances > 0){
-            solution = new Solution(workflow, instanceInfo, maxNumberOfUsedInstances);
+        if (maxNumberOfUsedInstancesForIntegrationWithOtherSolutions > 0){
+            solution = new Solution(workflow, instanceInfo, maxNumberOfUsedInstancesForIntegrationWithOtherSolutions);
             solution.numberOfUsedInstances = availableInstances.length;
             solution.xArray = xArray;
 
-            int newYArray[] = new int[maxNumberOfUsedInstances];
-            for (int i = 0; i < maxNumberOfUsedInstances; i++) {
+            int newYArray[] = new int[maxNumberOfUsedInstancesForIntegrationWithOtherSolutions];
+            for (int i = 0; i < maxNumberOfUsedInstancesForIntegrationWithOtherSolutions; i++) {
                 newYArray[i] = -1;
             }
             for (int i = 0; i < availableInstances.length; i++) {
@@ -338,6 +338,25 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 if (i >= numberOfInstances)
                     break;
             }
+        }
+
+        return totalInstances;
+    }
+
+    public static int[] getTotalInstancesForHEFTMostPowerful(int numberOfInstances){
+        int maxECUId = -1;
+        double maxECU = 0.0;
+
+        for (InstanceType type : InstanceType.values()){
+            if (type.getEcu() > maxECU){
+                maxECUId = type.getId();
+                maxECU = type.getEcu();
+            }
+        }
+
+        int totalInstances[] = new int[numberOfInstances];
+        for (int i = 0; i < numberOfInstances;i++) {
+            totalInstances[i] = maxECUId;
         }
 
         return totalInstances;
