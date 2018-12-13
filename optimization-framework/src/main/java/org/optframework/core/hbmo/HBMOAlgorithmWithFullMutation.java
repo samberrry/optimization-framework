@@ -47,6 +47,14 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
         this.generationNumber = generationNumber;
     }
 
+    public HBMOAlgorithmWithFullMutation(boolean hasInitialSolution, Workflow workflow, InstanceInfo[] instanceInfo, int generationNumber, Solution initialSolution) {
+        this.hasInitialSolution = hasInitialSolution;
+        this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
+        this.generationNumber = generationNumber;
+        this.initialSolution = initialSolution;
+    }
+
     @Override
     public Solution runAlgorithm() {
         // Queen generation

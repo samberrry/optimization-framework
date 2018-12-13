@@ -9,11 +9,13 @@ import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.hbmo.HBMOAlgorithm;
 import org.optframework.core.hbmo.HBMOAlgorithmWithFullMutation;
+import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Hessam Modabberi
@@ -53,13 +55,60 @@ public class RunHBMOAlgorithm {
         ArrayList<Solution> solutionList = new ArrayList<>();
         long runTimeSum = 0;
 
+        /**
+         * HEFT algorithm which is limited by m_number
+         * */
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
+
+        double cost_fastest_instance = 0.9;
+        int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
+        if(number_of_affordable_fastest_instance > 0) {
+
+            int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+            heftSolution2.heftFitness();
+
+            Integer zArray2[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray2[i] = orderedJobList.get(i).getIntId();
+            }
+
+            heftSolution2.zArray = zArray2;
+
+            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
+        }
+
+        number_of_affordable_fastest_instance++;
+
+        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+
+        Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
+
+        heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, Config.global.m_number));
+
+        HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
+        Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
+        heftSolution3.heftFitness();
+
+        Integer zArray3[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray3[i] = orderedJobList.get(i).getIntId();
+        }
+
+        heftSolution3.zArray = zArray3;
+
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
             if (Config.honeybee_algorithm.getFull_mutation()){
-                optimizationAlgorithm = new HBMOAlgorithmWithFullMutation(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+                optimizationAlgorithm = new HBMOAlgorithmWithFullMutation(true, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number(), heftSolution3);
             }else {
-                optimizationAlgorithm = new HBMOAlgorithm(false, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number());
+                optimizationAlgorithm = new HBMOAlgorithm(true, workflow, instanceInfo, Config.honeybee_algorithm.getGeneration_number(), heftSolution3);
             }
             long start = System.currentTimeMillis();
 

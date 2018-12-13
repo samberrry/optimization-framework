@@ -8,8 +8,6 @@
 # sa                Simulated annealing algorithm
 # hbmo              HoneyBee mating optimization algorithm with random initial solution
 # heft              Heterogeneous Earliest Finish Time algorithm that uses all best instances with a limited number of instances
-# hbmo-heft         Gets the number of available instances from HBMO algorithm and then runs the HEFT algorithm
-# heft-before-hbmo  At first, it runs the HEFT and gives the initial solution to the HBMO algorithm
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 # pacsa-plus        PACSA algorithm with computed M number
