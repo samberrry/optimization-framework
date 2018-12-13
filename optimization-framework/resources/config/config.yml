@@ -24,13 +24,13 @@
 
 
 global:
-  algorithm: "pacsa-plus"
-  workflow_id: 31
+  algorithm: "hbmo"
+  workflow_id: 2
   #algorithm: "hbmo"
   # 2cfe736aaedcf0aa7059aa93ba4827b7f4e78814
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 31.14
+  budget: 7.6
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -56,13 +56,13 @@ honeybee_algorithm:
   max_speed: 800
   min_speed: 0.1
   force_speed: no
-  sMin_division: 100
-  sMax_division: 10
+  sMin_division: 20000
+  sMax_division: 5
   cooling_factor: 0.95
-  number_of_threads: 12
-  spermatheca_size: 400
+  number_of_threads: 4
+  spermatheca_size: 2000
 # the generation number equals to number of iterations
-  generation_number: 150
+  generation_number: 220
   neighborhood_ratio: 0.0
   number_of_runs: 1
 # this toggle is used to switch between single mutation or mutation on every brood
