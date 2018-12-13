@@ -19,8 +19,8 @@ import java.util.Random;
  * optimization algorithm
  *
  *
- * @author Hessam - hessam.modaberi@gmail.com
- * @since 2018
+ * @coders Hamid and Hessam - hamid.faragardi.2010@gmail.com and hessam.modaberi@gmail.com
+ * @since April 2018
  * */
 
 public class PACSAOptimization implements OptimizationAlgorithm {

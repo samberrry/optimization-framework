@@ -25,12 +25,12 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 31
+  workflow_id: 11
   #algorithm: "hbmo"
   # 2cfe736aaedcf0aa7059aa93ba4827b7f4e78814
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 31.14
+  budget: 1.35
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
