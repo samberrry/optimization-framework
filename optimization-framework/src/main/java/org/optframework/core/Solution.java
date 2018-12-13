@@ -105,37 +105,42 @@ public class Solution implements Cloneable{
         this.workflow = workflow;
 
         Random r = new Random();
-        int xOry = r.nextInt(3);
-       // int xOry = 2;
+        int xOry;
+        if(Config.global.m_number > 1) {
+            xOry = r.nextInt(3);
+        }
+       else {
+            xOry = 1 + r.nextInt(2);
+        }
 
         int sizeofneighborhood = 1;
         switch (xOry) {
             //changes x array
             case 0:
-                for(int i=0;i<sizeofneighborhood;i++) {
-                    int randomTask = r.nextInt(xArray.length);
-                    int currentInstanceId = xArray[randomTask];
+                    for (int i = 0; i < sizeofneighborhood; i++) {
+                        int randomTask = r.nextInt(xArray.length);
+                        int currentInstanceId = xArray[randomTask];
 
-                    boolean isEqual = true;
-                    int randomInstanceId = -1;
+                        boolean isEqual = true;
+                        int randomInstanceId = -1;
 
-                    while (isEqual) {
-                        randomInstanceId = r.nextInt(Config.global.m_number);
-                        if (randomInstanceId != currentInstanceId) {
-                            isEqual = false;
+                        while (isEqual) {
+                            randomInstanceId = r.nextInt(Config.global.m_number);
+                            if (randomInstanceId != currentInstanceId) {
+                                isEqual = false;
+                            }
+                        }
+
+                        xArray[randomTask] = randomInstanceId;
+
+                        //if new instance is selected
+                        if (randomInstanceId >= numberOfUsedInstances) {
+                            int randomType = r.nextInt(InstanceType.values().length);
+                       //     Log.logger.info("randomInstanceId is:"+randomInstanceId+", randomType="+randomType);
+                            yArray[randomInstanceId] = randomType;
+                            numberOfUsedInstances = randomInstanceId + 1;
                         }
                     }
-
-                    xArray[randomTask] = randomInstanceId;
-
-                    //if new instance is selected
-                    if (randomInstanceId >= numberOfUsedInstances) {
-                        int randomType = r.nextInt(InstanceType.values().length);
-                        yArray[randomInstanceId] = randomType;
-                        numberOfUsedInstances = randomInstanceId + 1;
-                    }
-                }
-
                 break;
             // changes y array
             case 1:

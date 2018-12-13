@@ -113,7 +113,8 @@ public class RunPACSAAlgorithm {
         }else {
             Config.global.m_number = workflow.getJobList().size();
         }*/
-            if (workflow.getJobList().size() >= 1000) {
+
+            if (workflow.getJobList().size() >= 900) {
                 double avg_cost_instances = 0.2;
                 int estimated_number_of_used_instances = 50;
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
@@ -121,9 +122,9 @@ public class RunPACSAAlgorithm {
                     Config.global.m_number = estimated_number_of_used_instances;
                 else
                     Config.global.m_number = max_number_of_used_instaned;
-            } else if (workflow.getJobList().size() >= 100) {
+            } else if (workflow.getJobList().size() >= 90) {
                 double avg_cost_instances = 0.2;
-                int estimated_number_of_used_instances = 18;
+                int estimated_number_of_used_instances = 20;
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
                 if (max_number_of_used_instaned > estimated_number_of_used_instances)
                     Config.global.m_number = estimated_number_of_used_instances;
@@ -213,6 +214,58 @@ public class RunPACSAAlgorithm {
 
 
          //   initialSolutionList.add(costEfficientHeftSolution);
+
+
+
+            /**
+             * HEFT algorithm which is limited by m_number
+             * */
+
+
+            double cost_fastest_instance = 0.9;
+            int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
+            if(number_of_affordable_fastest_instance > 0) {
+
+                int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFT(number_of_affordable_fastest_instance);
+                Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+                heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, number_of_affordable_fastest_instance));
+
+                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2);
+                Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+                heftSolution2.heftFitness();
+
+                Integer zArray2[] = new Integer[orderedJobList.size()];
+                for (int i = 0; i < orderedJobList.size(); i++) {
+                    zArray2[i] = orderedJobList.get(i).getIntId();
+                }
+
+                heftSolution2.zArray = zArray2;
+
+                initialSolutionList.add(heftSolution2);
+            }
+
+
+
+            number_of_affordable_fastest_instance++;
+            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFT(number_of_affordable_fastest_instance);
+            Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
+
+            heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, number_of_affordable_fastest_instance));
+
+            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3);
+            Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
+            heftSolution3.heftFitness();
+
+            Integer zArray3[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray3[i] = orderedJobList.get(i).getIntId();
+            }
+
+            heftSolution3.zArray = zArray3;
+
+            initialSolutionList.add(heftSolution3);
+
         }
 
         long runTimeSum = 0;
