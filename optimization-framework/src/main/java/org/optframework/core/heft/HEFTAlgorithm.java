@@ -292,6 +292,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             for (int i = 0; i < availableInstances.length; i++) {
                 newYArray[i] = availableInstances[i];
             }
+            solution.yArray = newYArray;
 
             solution.heftFitness();
         }else {
