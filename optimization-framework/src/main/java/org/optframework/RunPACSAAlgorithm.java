@@ -226,7 +226,17 @@ public class RunPACSAAlgorithm {
             int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
             if(number_of_affordable_fastest_instance > 0) {
 
-                int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFT(number_of_affordable_fastest_instance);
+                int maxECUId = -1;
+                double maxECU = 0.0;
+
+                for (InstanceType type : InstanceType.values()){
+                    if (type.getEcu() > maxECU){
+                        maxECUId = type.getId();
+                        maxECU = type.getEcu();
+                    }
+                }
+
+                int totalInstances2[] = {maxECUId, maxECUId};
                 Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
 
                 heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, number_of_affordable_fastest_instance));
@@ -246,9 +256,18 @@ public class RunPACSAAlgorithm {
             }
 
 
-
             number_of_affordable_fastest_instance++;
-            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFT(number_of_affordable_fastest_instance);
+            int maxECUId = -1;
+            double maxECU = 0.0;
+
+            for (InstanceType type : InstanceType.values()){
+                if (type.getEcu() > maxECU){
+                    maxECUId = type.getId();
+                    maxECU = type.getEcu();
+                }
+            }
+            int totalInstances3[] = {maxECUId, maxECUId};
+
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
 
             heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, number_of_affordable_fastest_instance));

@@ -302,6 +302,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             solution.yArray = availableInstances;
             solution.heftFitness();
         }
+        solution.origin = "heft";
 
         return solution;
     }

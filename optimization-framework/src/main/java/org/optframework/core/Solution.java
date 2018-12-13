@@ -1,13 +1,9 @@
 package org.optframework.core;
 
-import jdk.nashorn.internal.objects.Global;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.list.SetUniqueList;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
-import org.optframework.config.GlobalConfig;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
 
@@ -96,6 +92,10 @@ public class Solution implements Cloneable{
             zArray[i] = new Integer(-1);
         }
         yArray = new int[maxNumberOfInstances];
+        for (int i = 0; i < maxNumberOfInstances; i++) {
+            yArray[i] = -1;
+        }
+
         yPrimeArray = new int[maxNumberOfInstances];
         instanceUsages = new short[maxNumberOfInstances];
         beta = workflow.getBeta();
@@ -525,9 +525,11 @@ public class Solution implements Cloneable{
         double totalCost = 0D;
 //       Now we have exe time for each instance
         for (int i = 0; i < instanceTimes.length; i++) {
-            double theHour = instanceTimes[i]/3600D;
-            theHour = Math.ceil(theHour);
-            totalCost += theHour * instanceInfo[this.yArray[i]].spotPrice;
+            if (yArray[i] != -1){
+                double theHour = instanceTimes[i]/3600D;
+                theHour = Math.ceil(theHour);
+                totalCost += theHour * instanceInfo[this.yArray[i]].spotPrice;
+            }
         }
 
         this.instanceTimelines = instanceTimeLine;
