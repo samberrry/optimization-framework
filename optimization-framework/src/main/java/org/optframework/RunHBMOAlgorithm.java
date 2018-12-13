@@ -133,6 +133,7 @@ public class RunHBMOAlgorithm {
         }
 
         heftSolution3.zArray = zArray3;
+        Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {

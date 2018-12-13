@@ -9,6 +9,7 @@ import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.heft.HEFTService;
+import org.optframework.core.heft.Instance;
 import org.optframework.core.lossandgain.Loss2Algorithm;
 import org.optframework.core.lossandgain.Loss3Algorithm;
 import org.optframework.core.pacsa.PACSAIterationNumber;
@@ -316,7 +317,7 @@ public class RunPACSAAlgorithm {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-            Config.global.m_number = Calculating_M_number_For_PACSA_Plus(minPrice,instanceInfo);
+            Config.global.m_number = Calculating_M_number_For_PACSA_Plus_With_Biase(minPrice,instanceInfo);//Calculating_M_number_For_PACSA_Plus(minPrice,instanceInfo);
             Log.logger.info("Maximum number of instances (m_number): " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
@@ -489,6 +490,105 @@ public class RunPACSAAlgorithm {
 
         //     initialSolutionList.add(heftSolution2);
         Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
+
+    }
+
+    public static double get_price_per_unit(int InstanceId, InstanceInfo instanceInfo[])
+    {
+     //   double test1 = instanceInfo[InstanceId].getType().getEcu();
+     //   double test2 = instanceInfo[InstanceId].getSpotPrice();
+        return instanceInfo[InstanceId].getType().getEcu()/instanceInfo[InstanceId].getSpotPrice() ;
+    }
+
+    public static int get_next_baised_instance_id(InstanceInfo instanceInfo[])
+    {
+        double sum = 0;
+        for (int id=0; id<instanceInfo.length;id++) {
+
+     //       double test = get_price_per_unit(id,instanceInfo);
+            sum += get_price_per_unit(id,instanceInfo)+instanceInfo[id].getType().getEcu(); //= instanceInfo[].getType().getEc2units()/instanceInfo[type.getId()].getSpotPrice() ;
+
+        }
+
+        Random rand = new Random();
+        double randomY = rand.nextDouble();
+        double probabilitySumTemp = 0;
+        int selectedInstance = -1;
+
+        for (int i = 0; i < instanceInfo.length; i++) {
+            probabilitySumTemp += (get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum;
+            if (probabilitySumTemp > randomY) {
+                selectedInstance = i;
+                break;
+            }
+        }
+
+    //    Log.logger.info("selectedInstance:"+selectedInstance);
+        return selectedInstance;
+    }
+
+    public static int Calculating_M_number_For_PACSA_Plus_With_Biase(double minInstancePrice,InstanceInfo instanceInfo[])
+    {
+
+        int totalInstances2[] = new int[0];
+        double remainingBudget = Config.global.budget;
+
+
+        while (minInstancePrice <= remainingBudget && totalInstances2.length < Config.global.m_number){
+            double maxValidCost = 0.0;
+            int instanceTypeId = -2;
+
+            Random r = new Random();
+            int randomType;
+
+            randomType = get_next_baised_instance_id(instanceInfo);//r.nextInt(InstanceType.values().length);
+            while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
+            {
+                randomType = get_next_baised_instance_id(instanceInfo); //r.nextInt(InstanceType.values().length);
+            }
+            maxValidCost = instanceInfo[randomType].getSpotPrice();
+            instanceTypeId = randomType;
+
+
+            int newTotalInstance[] = new int[totalInstances2.length + 1];
+            for (int i = 0; i < totalInstances2.length; i++) {
+                newTotalInstance[i] = totalInstances2[i];
+            }
+
+            newTotalInstance[totalInstances2.length] = instanceTypeId;
+            totalInstances2 = newTotalInstance;
+
+            remainingBudget -= maxValidCost;
+
+
+            DecimalFormat df = new DecimalFormat ("#.#####");
+            remainingBudget = Double.parseDouble(df.format(remainingBudget));
+
+
+        }
+
+
+      /*  Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+        heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+        HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+        Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+        heftSolution2.heftFitness();
+
+
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
+        Integer zArray2[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray2[i] = orderedJobList.get(i).getIntId();
+        }
+
+        heftSolution2.zArray = zArray2;
+
+        //     initialSolutionList.add(heftSolution2);
+        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
+
+        return totalInstances2.length;
 
     }
 
