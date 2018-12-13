@@ -241,7 +241,7 @@ public class RunPACSAAlgorithm {
 
                 heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, number_of_affordable_fastest_instance));
 
-                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+                HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, number_of_affordable_fastest_instance);
                 Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
                 heftSolution2.heftFitness();
 
@@ -253,6 +253,7 @@ public class RunPACSAAlgorithm {
                 heftSolution2.zArray = zArray2;
 
                 initialSolutionList.add(heftSolution2);
+                Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
             }
 
 
@@ -272,7 +273,7 @@ public class RunPACSAAlgorithm {
 
             heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, number_of_affordable_fastest_instance));
 
-            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
+            HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, number_of_affordable_fastest_instance);
             Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
             heftSolution3.heftFitness();
 
@@ -284,6 +285,7 @@ public class RunPACSAAlgorithm {
             heftSolution3.zArray = zArray3;
 
             initialSolutionList.add(heftSolution3);
+            Printer.printSolutionWithouthTime(heftSolution3,instanceInfo);
 
         }
 
