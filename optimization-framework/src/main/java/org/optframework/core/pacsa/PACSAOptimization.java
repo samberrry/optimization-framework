@@ -425,6 +425,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
       //  long CounterForTestMultiThread = 0;
         int generatedXArray[] = new int[workflow.getNumberTasks()];
         int generatedYArray[] = new int[Config.global.m_number];
+        for (int i = 0; i < Config.global.m_number; i++) {
+            generatedYArray[i] = -1;
+        }
         Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
         Random rand = new Random();
         int maxInstances = -1;

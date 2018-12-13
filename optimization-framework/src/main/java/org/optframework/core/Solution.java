@@ -119,24 +119,18 @@ public class Solution implements Cloneable{
             case 0:
                     for (int i = 0; i < sizeofneighborhood; i++) {
                         int randomTask = r.nextInt(xArray.length);
-                        int currentInstanceId = xArray[randomTask];
-
-                        boolean isEqual = true;
-                        int randomInstanceId = -1;
-
-                        while (isEqual) {
-                            randomInstanceId = r.nextInt(Config.global.m_number);
-                            if (randomInstanceId != currentInstanceId) {
-                                isEqual = false;
-                            }
-                        }
+                        int randomInstanceId = r.nextInt(maxNumberOfInstances);
 
                         xArray[randomTask] = randomInstanceId;
 
                         //if new instance is selected
-                        if (randomInstanceId >= numberOfUsedInstances) {
+                        if (this.yArray[randomInstanceId] == -1) {
                             int randomType = r.nextInt(InstanceType.values().length);
                             yArray[randomInstanceId] = randomType;
+                            if (randomInstanceId >= numberOfUsedInstances){
+                                numberOfUsedInstances = randomInstanceId + 1;
+                            }
+                        }else if (randomInstanceId >= numberOfUsedInstances){
                             numberOfUsedInstances = randomInstanceId + 1;
                         }
                     }
