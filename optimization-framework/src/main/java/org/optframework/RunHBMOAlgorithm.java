@@ -62,28 +62,9 @@ public class RunHBMOAlgorithm {
 
         double cost_fastest_instance = 0.9;
         int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
-        if(number_of_affordable_fastest_instance > 0) {
 
-            int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
-            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
 
-            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
-
-            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
-            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
-            heftSolution2.heftFitness();
-
-            Integer zArray2[] = new Integer[orderedJobList.size()];
-            for (int i = 0; i < orderedJobList.size(); i++) {
-                zArray2[i] = orderedJobList.get(i).getIntId();
-            }
-
-            heftSolution2.zArray = zArray2;
-
-            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
-        }
-
-        number_of_affordable_fastest_instance++;
+        /*number_of_affordable_fastest_instance++;
 
         int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
 
@@ -100,7 +81,59 @@ public class RunHBMOAlgorithm {
             zArray3[i] = orderedJobList.get(i).getIntId();
         }
 
+        heftSolution3.zArray = zArray3;*/
+
+        // number_of_affordable_fastest_instance++;
+
+        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+
+        double minPrice = 9999999999.0;
+
+        for (InstanceType type : InstanceType.values()){
+            if (instanceInfo[type.getId()].getSpotPrice() < minPrice){
+                minPrice = instanceInfo[type.getId()].getSpotPrice();
+            }
+        }
+
+        double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+
+        while (minPrice <= remainingBudget){
+            double maxValidCost = 0.0;
+            int instanceTypeId = -2;
+            for (InstanceType type : InstanceType.values()){
+                if (instanceInfo[type.getId()].getSpotPrice() <= remainingBudget && instanceInfo[type.getId()].getSpotPrice() >= maxValidCost){
+                    maxValidCost = instanceInfo[type.getId()].getSpotPrice();
+                    instanceTypeId = type.getId();
+                }
+            }
+
+            int newTotalInstance[] = new int[totalInstances3.length + 1];
+            for (int i = 0; i < totalInstances3.length; i++) {
+                newTotalInstance[i] = totalInstances3[i];
+            }
+
+            newTotalInstance[totalInstances3.length] = instanceTypeId;
+            totalInstances3 = newTotalInstance;
+
+            remainingBudget -= maxValidCost;
+
+        }
+
+        Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
+
+        heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, Config.global.m_number));
+
+        HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
+        Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
+        heftSolution3.heftFitness();
+
+        Integer zArray3[] = new Integer[orderedJobList.size()];
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            zArray3[i] = orderedJobList.get(i).getIntId();
+        }
+
         heftSolution3.zArray = zArray3;
+
 
         for (int i = 0; i < Config.honeybee_algorithm.getNumber_of_runs(); i++) {
             Printer.printSplitter();

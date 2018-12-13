@@ -18,9 +18,11 @@ import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
 import org.optframework.database.MySQLSolutionRepository;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Hessam Modabberi hessam.modaberi@gmail.com
@@ -124,7 +126,7 @@ public class RunPACSAAlgorithm {
                     Config.global.m_number = max_number_of_used_instaned;
             } else if (workflow.getJobList().size() >= 90) {
                 double avg_cost_instances = 0.2;
-                int estimated_number_of_used_instances = 20;
+                int estimated_number_of_used_instances = 50;
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
                 if (max_number_of_used_instaned > estimated_number_of_used_instances)
                     Config.global.m_number = estimated_number_of_used_instances;
@@ -171,7 +173,7 @@ public class RunPACSAAlgorithm {
         List<Solution> solutionList = new ArrayList<>();
         List<Solution> initialSolutionList = null;
 
-        if (Config.pacsa_algorithm.insert_heft_initial_solution){
+        if (Config.pacsa_algorithm.insert_heft_initial_solution) {
             List<Job> orderedJobList = GlobalAccess.orderedJobList;
             Integer zArray[] = new Integer[orderedJobList.size()];
             for (int i = 0; i < orderedJobList.size(); i++) {
@@ -180,41 +182,37 @@ public class RunPACSAAlgorithm {
             initialSolutionList = new ArrayList<>();
 
             loss2Solution.zArray = zArray;
-    //        loss3Solution.zArray = zArray;
-    //        loss3Solution2.zArray = zArray;
+            //        loss3Solution.zArray = zArray;
+            //        loss3Solution2.zArray = zArray;
             heftSolution.zArray = zArray;
 
             loss2Solution.maxNumberOfInstances = Config.global.m_number;
             loss3Solution.maxNumberOfInstances = Config.global.m_number;
             heftSolution.maxNumberOfInstances = Config.global.m_number;
 
-          //  Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
-          //  costEfficientHeftSolution.solutionMapping();
-          //  costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
+            //  Solution costEfficientHeftSolution = HEFTService.getCostEfficientHEFT(instanceInfo, workflow.getNumberTasks());
+            //  costEfficientHeftSolution.solutionMapping();
+            //  costEfficientHeftSolution.maxNumberOfInstances = Config.global.m_number;
 
             heftSolution.origin = "heft";
             loss2Solution.origin = "loss2";
             loss3Solution.origin = "loss3";
-    //        loss3Solution2.origin = "loss3";
+            //        loss3Solution2.origin = "loss3";
             //costEfficientHeftSolution.origin = "cost-efficient-heft";
-
 
 
             initialSolutionList.add(loss2Solution);
 
 
+            //        initialSolutionList.add(loss3Solution);
+            //        initialSolutionList.add(loss3Solution2);
 
-    //        initialSolutionList.add(loss3Solution);
-    //        initialSolutionList.add(loss3Solution2);
-
-            if(big_budget)
+            if (big_budget)
                 initialSolutionList.add(heftSolution);
-         //   initialSolutionList.add(heftSolution);
+            //   initialSolutionList.add(heftSolution);
 
 
-
-         //   initialSolutionList.add(costEfficientHeftSolution);
-
+            //   initialSolutionList.add(costEfficientHeftSolution);
 
 
             /**
@@ -223,8 +221,8 @@ public class RunPACSAAlgorithm {
 
 
             double cost_fastest_instance = 0.9;
-            int number_of_affordable_fastest_instance = (int)(Config.global.budget/cost_fastest_instance);
-            if(number_of_affordable_fastest_instance > 0) {
+            int number_of_affordable_fastest_instance = (int) (Config.global.budget / cost_fastest_instance);
+         /*   if(number_of_affordable_fastest_instance > 0) {
 
                 int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
                 Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
@@ -244,28 +242,88 @@ public class RunPACSAAlgorithm {
 
                 initialSolutionList.add(heftSolution2);
                 Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
-            }
+            }*/
 
-            number_of_affordable_fastest_instance++;
+            // number_of_affordable_fastest_instance++;
 
-            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
 
             double minPrice = 9999999999.0;
 
-            for (InstanceType type : InstanceType.values()){
-                if (instanceInfo[type.getId()].getSpotPrice() < minPrice){
+            for (InstanceType type : InstanceType.values()) {
+                if (instanceInfo[type.getId()].getSpotPrice() < minPrice) {
                     minPrice = instanceInfo[type.getId()].getSpotPrice();
                 }
             }
 
-            double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance-1) * cost_fastest_instance);
 
-            boolean keepGoing = true;
-            while (keepGoing){
+
+            int totalInstances2[] = new int[0];
+            double remainingBudget = Config.global.budget;
+
+
+            while (minPrice <= remainingBudget){
                 double maxValidCost = 0.0;
                 int instanceTypeId = -2;
-                for (InstanceType type : InstanceType.values()){
-                    if (instanceInfo[type.getId()].getSpotPrice() <= remainingBudget && instanceInfo[type.getId()].getSpotPrice() >= maxValidCost){
+
+                Random r = new Random();
+                int randomType;
+
+                randomType = r.nextInt(InstanceType.values().length);
+                while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
+                {
+                    randomType = r.nextInt(InstanceType.values().length);
+                }
+                maxValidCost = instanceInfo[randomType].getSpotPrice();
+                instanceTypeId = randomType;
+
+
+                int newTotalInstance[] = new int[totalInstances2.length + 1];
+                for (int i = 0; i < totalInstances2.length; i++) {
+                    newTotalInstance[i] = totalInstances2[i];
+                }
+
+                newTotalInstance[totalInstances2.length] = instanceTypeId;
+                totalInstances2 = newTotalInstance;
+
+                remainingBudget -= maxValidCost;
+
+
+                DecimalFormat df = new DecimalFormat ("#.#####");
+                remainingBudget = Double.parseDouble(df.format(remainingBudget));
+
+                Log.logger.info("Remaining Budget is:"+remainingBudget);
+
+            }
+
+            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+            heftSolution2.heftFitness();
+
+            Integer zArray2[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray2[i] = orderedJobList.get(i).getIntId();
+            }
+
+            heftSolution2.zArray = zArray2;
+
+            initialSolutionList.add(heftSolution2);
+            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
+
+
+
+            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+
+            double remainingBudg = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+
+            while (minPrice <= remainingBudg) {
+                double maxValidCost = 0.0;
+                int instanceTypeId = -2;
+                for (InstanceType type : InstanceType.values()) {
+                    if (instanceInfo[type.getId()].getSpotPrice() <= remainingBudg && instanceInfo[type.getId()].getSpotPrice() >= maxValidCost) {
                         maxValidCost = instanceInfo[type.getId()].getSpotPrice();
                         instanceTypeId = type.getId();
                     }
@@ -279,11 +337,8 @@ public class RunPACSAAlgorithm {
                 newTotalInstance[totalInstances3.length] = instanceTypeId;
                 totalInstances3 = newTotalInstance;
 
-                remainingBudget -= maxValidCost;
+                remainingBudg -= maxValidCost;
 
-                if (minPrice > remainingBudget){
-                    keepGoing = false;
-                }
             }
 
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
@@ -302,7 +357,7 @@ public class RunPACSAAlgorithm {
             heftSolution3.zArray = zArray3;
 
             initialSolutionList.add(heftSolution3);
-            Printer.printSolutionWithouthTime(heftSolution3,instanceInfo);
+            Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
         }
 
