@@ -246,10 +246,45 @@ public class RunPACSAAlgorithm {
                 Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
             }
 
-
             number_of_affordable_fastest_instance++;
 
             int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+
+            double minPrice = 9999999999.0;
+
+            for (InstanceType type : InstanceType.values()){
+                if (instanceInfo[type.getId()].getSpotPrice() < minPrice){
+                    minPrice = instanceInfo[type.getId()].getSpotPrice();
+                }
+            }
+
+            double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance-1) * cost_fastest_instance);
+
+            boolean keepGoing = true;
+            while (keepGoing){
+                double maxValidCost = 0.0;
+                int instanceTypeId = -2;
+                for (InstanceType type : InstanceType.values()){
+                    if (instanceInfo[type.getId()].getSpotPrice() <= remainingBudget && instanceInfo[type.getId()].getSpotPrice() >= maxValidCost){
+                        maxValidCost = instanceInfo[type.getId()].getSpotPrice();
+                        instanceTypeId = type.getId();
+                    }
+                }
+
+                int newTotalInstance[] = new int[totalInstances3.length + 1];
+                for (int i = 0; i < totalInstances3.length; i++) {
+                    newTotalInstance[i] = totalInstances3[i];
+                }
+
+                newTotalInstance[totalInstances3.length] = instanceTypeId;
+                totalInstances3 = newTotalInstance;
+
+                remainingBudget -= maxValidCost;
+
+                if (minPrice > remainingBudget){
+                    keepGoing = false;
+                }
+            }
 
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
 
