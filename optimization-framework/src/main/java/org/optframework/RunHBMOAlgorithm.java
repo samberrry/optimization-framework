@@ -85,7 +85,7 @@ public class RunHBMOAlgorithm {
 
         // number_of_affordable_fastest_instance++;
 
-        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
 
         double minPrice = 9999999999.0;
 
@@ -97,7 +97,7 @@ public class RunHBMOAlgorithm {
 
         double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
-        while (minPrice <= remainingBudget){
+        while (minPrice <= remainingBudget && totalInstances3.length < Config.global.m_number) {
             double maxValidCost = 0.0;
             int instanceTypeId = -2;
             for (InstanceType type : InstanceType.values()){
@@ -205,6 +205,14 @@ public class RunHBMOAlgorithm {
         toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n";
         Log.logger.info(toPrint);
         Printer.printHoneBeeInfo();
+    }
+
+    public static int Min(int a,int b)
+    {
+        if(a<b)
+            return a;
+        else
+            return b;
     }
 
     static void honeyBeePreProcessing(Workflow workflow){

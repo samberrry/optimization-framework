@@ -96,12 +96,22 @@ public class RunPACSAAlgorithm {
         loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
 
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
+
+        double minPrice = 9999999999.0;
+
+        for (InstanceType type : InstanceType.values()) {
+            if (instanceInfo[type.getId()].getSpotPrice() < minPrice) {
+                minPrice = instanceInfo[type.getId()].getSpotPrice();
+            }
+        }
+
         if (algorithmId == 1) {
             int m_number;
             Config.global.algorithm = "pacsa_plus";
 
-          /*  Config.global.m_number = GlobalAccess.maxLevel;
-            m_number = GlobalAccess.maxLevel;
+            Config.global.m_number = GlobalAccess.maxLevel;
+        /*    m_number = GlobalAccess.maxLevel;
             if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
                 Config.global.m_number = loss2Solution.numberOfUsedInstances;
                 m_number = loss2Solution.numberOfUsedInstances;
@@ -116,9 +126,74 @@ public class RunPACSAAlgorithm {
             Config.global.m_number = workflow.getJobList().size();
         }*/
 
+
+
+
+
+            int totalInstances2[] = new int[0];
+            double remainingBudget = Config.global.budget;
+
+
+            while (minPrice <= remainingBudget && totalInstances2.length < Config.global.m_number){
+                double maxValidCost = 0.0;
+                int instanceTypeId = -2;
+
+                Random r = new Random();
+                int randomType;
+
+                randomType = r.nextInt(InstanceType.values().length);
+                while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
+                {
+                    randomType = r.nextInt(InstanceType.values().length);
+                }
+                maxValidCost = instanceInfo[randomType].getSpotPrice();
+                instanceTypeId = randomType;
+
+
+                int newTotalInstance[] = new int[totalInstances2.length + 1];
+                for (int i = 0; i < totalInstances2.length; i++) {
+                    newTotalInstance[i] = totalInstances2[i];
+                }
+
+                newTotalInstance[totalInstances2.length] = instanceTypeId;
+                totalInstances2 = newTotalInstance;
+
+                remainingBudget -= maxValidCost;
+
+
+                DecimalFormat df = new DecimalFormat ("#.#####");
+                remainingBudget = Double.parseDouble(df.format(remainingBudget));
+
+
+            }
+
+            Config.global.m_number = totalInstances2.length;
+
+            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+
+            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
+
+            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
+            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
+            heftSolution2.heftFitness();
+
+            Integer zArray2[] = new Integer[orderedJobList.size()];
+            for (int i = 0; i < orderedJobList.size(); i++) {
+                zArray2[i] = orderedJobList.get(i).getIntId();
+            }
+
+            heftSolution2.zArray = zArray2;
+
+       //     initialSolutionList.add(heftSolution2);
+            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
+
+
+
+          /*  double cost_Fastest_instance = 0.9;
             if (workflow.getJobList().size() >= 900) {
                 double avg_cost_instances = 0.2;
-                int estimated_number_of_used_instances = 50;
+                int estimated_number_of_used_instances = Max(50,(int)(Config.global.budget/cost_Fastest_instance)+1);
+                estimated_number_of_used_instances = Min(estimated_number_of_used_instances,GlobalAccess.maxLevel);
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
                 if (max_number_of_used_instaned > estimated_number_of_used_instances)
                     Config.global.m_number = estimated_number_of_used_instances;
@@ -126,7 +201,8 @@ public class RunPACSAAlgorithm {
                     Config.global.m_number = max_number_of_used_instaned;
             } else if (workflow.getJobList().size() >= 90) {
                 double avg_cost_instances = 0.2;
-                int estimated_number_of_used_instances = 50;
+                int estimated_number_of_used_instances = Max(20,(int)(Config.global.budget/cost_Fastest_instance)+1);
+                estimated_number_of_used_instances = Min(estimated_number_of_used_instances,GlobalAccess.maxLevel);
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
                 if (max_number_of_used_instaned > estimated_number_of_used_instances)
                     Config.global.m_number = estimated_number_of_used_instances;
@@ -134,7 +210,8 @@ public class RunPACSAAlgorithm {
                     Config.global.m_number = max_number_of_used_instaned;
             } else {
                 double avg_cost_instances = 0.2;
-                int estimated_number_of_used_instances = 8;
+                int estimated_number_of_used_instances = Max(8,(int)(Config.global.budget/cost_Fastest_instance)+1);
+                estimated_number_of_used_instances = Min(estimated_number_of_used_instances,GlobalAccess.maxLevel);
                 int max_number_of_used_instaned = (int) (Config.global.budget / avg_cost_instances) + 1;
                 if (max_number_of_used_instaned > estimated_number_of_used_instances)
                     Config.global.m_number = estimated_number_of_used_instances;
@@ -149,12 +226,8 @@ public class RunPACSAAlgorithm {
             {
 
                 Config.global.m_number = (int) (Config.global.budget / min_cost_instances) + 1;
-            }
-         /*   else if (Config.global.budget / Config.global.m_number >= cost_fastest_instance)// means that the budget is very big
-            {
-                big_budget = true;
-                Config.global.m_number = heftSolution.numberOfUsedInstances;
             }*/
+
         }
 
 
@@ -164,7 +237,7 @@ public class RunPACSAAlgorithm {
 
         computeCoolingFactorForSA(workflow.getJobList().size());
 
-        Log.logger.info("Maximum number of instances: " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
+        Log.logger.info("Maximum number of instances (m_number): " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
@@ -174,7 +247,7 @@ public class RunPACSAAlgorithm {
         List<Solution> initialSolutionList = null;
 
         if (Config.pacsa_algorithm.insert_heft_initial_solution) {
-            List<Job> orderedJobList = GlobalAccess.orderedJobList;
+
             Integer zArray[] = new Integer[orderedJobList.size()];
             for (int i = 0; i < orderedJobList.size(); i++) {
                 zArray[i] = orderedJobList.get(i).getIntId();
@@ -247,79 +320,13 @@ public class RunPACSAAlgorithm {
             // number_of_affordable_fastest_instance++;
 
 
-            double minPrice = 9999999999.0;
 
-            for (InstanceType type : InstanceType.values()) {
-                if (instanceInfo[type.getId()].getSpotPrice() < minPrice) {
-                    minPrice = instanceInfo[type.getId()].getSpotPrice();
-                }
-            }
-
-
-
-            int totalInstances2[] = new int[0];
-            double remainingBudget = Config.global.budget;
-
-
-            while (minPrice <= remainingBudget){
-                double maxValidCost = 0.0;
-                int instanceTypeId = -2;
-
-                Random r = new Random();
-                int randomType;
-
-                randomType = r.nextInt(InstanceType.values().length);
-                while (instanceInfo[randomType].getSpotPrice() > remainingBudget)
-                {
-                    randomType = r.nextInt(InstanceType.values().length);
-                }
-                maxValidCost = instanceInfo[randomType].getSpotPrice();
-                instanceTypeId = randomType;
-
-
-                int newTotalInstance[] = new int[totalInstances2.length + 1];
-                for (int i = 0; i < totalInstances2.length; i++) {
-                    newTotalInstance[i] = totalInstances2[i];
-                }
-
-                newTotalInstance[totalInstances2.length] = instanceTypeId;
-                totalInstances2 = newTotalInstance;
-
-                remainingBudget -= maxValidCost;
-
-
-                DecimalFormat df = new DecimalFormat ("#.#####");
-                remainingBudget = Double.parseDouble(df.format(remainingBudget));
-
-                Log.logger.info("Remaining Budget is:"+remainingBudget);
-
-            }
-
-            Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
-
-            heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
-
-            HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
-            Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
-            heftSolution2.heftFitness();
-
-            Integer zArray2[] = new Integer[orderedJobList.size()];
-            for (int i = 0; i < orderedJobList.size(); i++) {
-                zArray2[i] = orderedJobList.get(i).getIntId();
-            }
-
-            heftSolution2.zArray = zArray2;
-
-            initialSolutionList.add(heftSolution2);
-            Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
-
-
-
-            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
 
             double remainingBudg = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
-            while (minPrice <= remainingBudg) {
+            while (minPrice <= remainingBudg && totalInstances3.length < Config.global.m_number) {
+            //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
                 double maxValidCost = 0.0;
                 int instanceTypeId = -2;
                 for (InstanceType type : InstanceType.values()) {
@@ -448,6 +455,32 @@ public class RunPACSAAlgorithm {
 
             Log.logger.info("Successfully logged to the mysql database!");
         }
+    }
+
+    public static int Max(int a,int b)
+    {
+        if(a>b)
+            return a;
+        else
+            return b;
+    }
+
+    public static int Min(int a,int b)
+    {
+        if(a<b)
+            return a;
+        else
+            return b;
+    }
+
+    public static int Max(int a,int b,int c)
+    {
+        if(a>=b && a>=c)
+            return a;
+        else if (b>=a && b>=c)
+            return b;
+        else
+            return c;
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
