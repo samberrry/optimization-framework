@@ -5,10 +5,10 @@ import org.optframework.core.Job;
 
 public class TaskUtility {
     public static double executionTimeOnType(Job job, InstanceType type){
-        return (job.getLength() * 8D) / type.getEcu();
+        return (Math.abs(job.getLength()) * 8D) / type.getEcu();
     }
 
     public static double executionTimeOnTypeWithCustomJob(Job job, InstanceType type){
-        return (job.getLength() * 8D) / type.getEcu();
+        return (Math.abs(job.getLength()) * 8D) / type.getEcu();
     }
 }
