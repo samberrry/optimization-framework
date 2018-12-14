@@ -32,6 +32,8 @@ public class PACSAIterationNumber extends PACSAOptimization{
 
         int iteration_counter = 0;
 
+        double oroginal_cooling_schedule = Config.sa_algorithm.cooling_factor;
+
         //This generates the random initial solutions for the PACSA algorithm
         generateRandomInitialSolutionList();
 
@@ -264,10 +266,10 @@ public class PACSAIterationNumber extends PACSAOptimization{
             }
             else
             {
-                if(workflow.getJobList().size() >= 1000)
-                    Config.sa_algorithm.cooling_factor = 0.995;
-                else
-                    Config.sa_algorithm.cooling_factor = 0.999;//*= Config.pacsa_algorithm.cf_increase_ratio;
+               // if(workflow.getJobList().size() >= 900)
+                    Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;//
+              //  else
+              //      Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;//*= Config.pacsa_algorithm.cf_increase_ratio;
             }
 
 
@@ -289,6 +291,9 @@ public class PACSAIterationNumber extends PACSAOptimization{
             }
 
         }
+
+        Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;// to make sure that the cooling schedule SA has not been changed
+
      //   Log.logger.info("Pacsa Iterations="+iteration_counter);
         Log.logger.info("The best solution in PACSA founded in iteration:"+RunPACSAAlgorithm.Best_Iteration+"\n");
         return globalBestSolution;

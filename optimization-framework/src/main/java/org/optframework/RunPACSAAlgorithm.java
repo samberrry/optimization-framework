@@ -267,33 +267,40 @@ public class RunPACSAAlgorithm {
             int id_fastest_instance = 7;
             double cost_fastest_instance = instanceInfo[id_fastest_instance].getSpotPrice();
 
-            double cost_of_additional_hours = 0;// when an instance is run for more than one hour
+            int number_of_affordable_fastest_instance = (int)((Config.global.budget)/cost_fastest_instance);
 
 
+         /*   double cost_of_additional_hours = 0;// when an instance is run for more than one hour
+
+            double sum_execution_cost_on_fastest_instance = 0;
             for (int i = 0; i < workflow.getJobList().size(); i++) {
 
-                int j = id_fastest_instance;
-                    double temp1 = workflow.getJobList().get(i).getExeTime()[id_fastest_instance];
-                    int consumed_hours_for_running_task_on_fastest_instance = (int)(temp1/3600);
-
-                    if(consumed_hours_for_running_task_on_fastest_instance >= 1)
-                    {
-                        Log.logger.info("Task"+i+" execution time on the fastest instance is:"+temp1+" needs "+consumed_hours_for_running_task_on_fastest_instance+"hour(s)");
-                    }
-                    //number_of_affordable_fastest_instance -= consumed_hours_for_running_task_on_fastest_instance;
-                    cost_of_additional_hours +=  cost_fastest_instance * consumed_hours_for_running_task_on_fastest_instance;
+                    sum_execution_cost_on_fastest_instance += workflow.getJobList().get(i).getExeTime()[id_fastest_instance];
 
             }
 
-            Log.logger.info("cost_of_additional hours is:"+cost_of_additional_hours);
+            int consumed_hours_for_running_task_on_fastest_instance = (int)(sum_execution_cost_on_fastest_instance/3600) + 1;
 
-            int number_of_affordable_fastest_instance = (int) ((Config.global.budget - cost_of_additional_hours) / cost_fastest_instance);
+            if(consumed_hours_for_running_task_on_fastest_instance*cost_fastest_instance > Config.global.budget)
+            {
+                number_of_affordable_fastest_instance /= 2;
+                Log.logger.info("-------------------Some instances take longer than one hour:"+number_of_affordable_fastest_instance+" needs "+consumed_hours_for_running_task_on_fastest_instance+"hour(s)");
+            }
+
+            //number_of_affordable_fastest_instance -= consumed_hours_for_running_task_on_fastest_instance;
+            //cost_of_additional_hours +=  cost_fastest_instance * consumed_hours_for_running_task_on_fastest_instance;
+
+            //  Log.logger.info("cost_of_additional hours is:"+cost_of_additional_hours);
+
+         //   number_of_affordable_fastest_instance = (int) ((Config.global.budget - cost_of_additional_hours) / cost_fastest_instance);
+
+*/
 
             Log.logger.info("Number of affordable fastest instances is:"+number_of_affordable_fastest_instance);
 
             int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
 
-            double remainingBudg = (Config.global.budget - cost_of_additional_hours) - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+            double remainingBudg = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
             while (minPrice <= remainingBudg && totalInstances3.length < Config.global.m_number) {
             //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
@@ -334,12 +341,12 @@ public class RunPACSAAlgorithm {
 
             heftSolution3.zArray = zArray3;
 
-            initialSolutionList.add(heftSolution3);
+            //initialSolutionList.add(heftSolution3);
             Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
 
-            heftSolution3.fitness();
-            Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
+         //   heftSolution3.fitness();
+         //   Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
         }
 
