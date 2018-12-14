@@ -236,8 +236,7 @@ public class RunPACSAAlgorithm {
              * */
 
 
-            double cost_fastest_instance = 0.9;
-            int number_of_affordable_fastest_instance = (int) (Config.global.budget / cost_fastest_instance);
+
          /*   if(number_of_affordable_fastest_instance > 0) {
 
                 int totalInstances2[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
@@ -263,19 +262,48 @@ public class RunPACSAAlgorithm {
             // number_of_affordable_fastest_instance++;
 
 
+          //  int sorted_instanceTypes_based_on_Cost_per_ComputeUnit[] = {7,6,4,2,5,3,1,0};
+
+            int id_fastest_instance = 7;
+            double cost_fastest_instance = instanceInfo[id_fastest_instance].getSpotPrice();
+
+            double cost_of_additional_hours = 0;// when an instance is run for more than one hour
+
+
+            for (int i = 0; i < workflow.getJobList().size(); i++) {
+
+                int j = id_fastest_instance;
+                    double temp1 = workflow.getJobList().get(i).getExeTime()[id_fastest_instance];
+                    int consumed_hours_for_running_task_on_fastest_instance = (int)(temp1/3600);
+
+                    if(consumed_hours_for_running_task_on_fastest_instance >= 1)
+                    {
+                        Log.logger.info("Task"+i+" execution time on the fastest instance is:"+temp1+" needs "+consumed_hours_for_running_task_on_fastest_instance+"hour(s)");
+                    }
+                    //number_of_affordable_fastest_instance -= consumed_hours_for_running_task_on_fastest_instance;
+                    cost_of_additional_hours +=  cost_fastest_instance * consumed_hours_for_running_task_on_fastest_instance;
+
+            }
+
+            Log.logger.info("cost_of_additional hours is:"+cost_of_additional_hours);
+
+            int number_of_affordable_fastest_instance = (int) ((Config.global.budget - cost_of_additional_hours) / cost_fastest_instance);
+
+            Log.logger.info("Number of affordable fastest instances is:"+number_of_affordable_fastest_instance);
 
             int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
 
-            double remainingBudg = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+            double remainingBudg = (Config.global.budget - cost_of_additional_hours) - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
             while (minPrice <= remainingBudg && totalInstances3.length < Config.global.m_number) {
             //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
                 double maxValidCost = 0.0;
                 int instanceTypeId = -2;
-                for (InstanceType type : InstanceType.values()) {
-                    if (instanceInfo[type.getId()].getSpotPrice() <= remainingBudg && instanceInfo[type.getId()].getSpotPrice() >= maxValidCost) {
-                        maxValidCost = instanceInfo[type.getId()].getSpotPrice();
-                        instanceTypeId = type.getId();
+                for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {//for (int instance_id: sorted_instanceTypes_based_on_Cost_per_ComputeUnit) {
+                    if (instanceInfo[instance_id].getSpotPrice() <= remainingBudg && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
+                        maxValidCost = instanceInfo[instance_id].getSpotPrice();
+                        instanceTypeId = instance_id;
+                        break;
                     }
                 }
 
@@ -515,7 +543,8 @@ public class RunPACSAAlgorithm {
         double probabilitySumTemp = 0;
         int selectedInstance = -1;
 
-        for (int i = 0; i < instanceInfo.length; i++) {
+        for (int i = instanceInfo.length - 1; i >=0 ; i--) {
+         //   Log.logger.info("Probability of selecting "+i+" instanceType is"+(get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum);
             probabilitySumTemp += (get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum;
             if (probabilitySumTemp > randomY) {
                 selectedInstance = i;
@@ -523,7 +552,7 @@ public class RunPACSAAlgorithm {
             }
         }
 
-    //    Log.logger.info("selectedInstance:"+selectedInstance);
+        Log.logger.info("selectedInstance:"+selectedInstance);
         return selectedInstance;
     }
 
@@ -568,7 +597,7 @@ public class RunPACSAAlgorithm {
         }
 
 
-      /*  Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+        Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
 
         heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
 
@@ -586,7 +615,7 @@ public class RunPACSAAlgorithm {
         heftSolution2.zArray = zArray2;
 
         //     initialSolutionList.add(heftSolution2);
-        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
+        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
 
         return totalInstances2.length;
 
