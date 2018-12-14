@@ -136,7 +136,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 //updated by Hamid/////////////
 
                 //updates x pheromone trail
-                for (int i = 0; i < Config.global.m_number; i++) {
+                for (int i = 0; i < maxNumberOfInstances; i++) {
                     for (int j = 0; j < workflow.getNumberTasks(); j++) {
                         pheromoneTrailForX[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                         //       if(global_best_updated % 2 == 0) {
@@ -153,7 +153,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
 
                 //updates y pheromone trail
                 for (int i = 0; i < instanceInfo.length; i++) {
-                    for (int j = 0; j < Config.global.m_number; j++) {
+                    for (int j = 0; j < maxNumberOfInstances; j++) {
                         pheromoneTrailForY[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                         //        if(global_best_updated % 2 == 0) {
                         if (solutionToUpdate.yArray[j] == i) {
@@ -184,7 +184,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
             else //It is normal ACO not MAX-Min ant system
             {
                  if(iteration_counter == 1) {
-                     for (int i = 0; i < Config.global.m_number; i++) {   //To avoid overhead in ACO, we assume all instances are visited
+                     for (int i = 0; i < maxNumberOfInstances; i++) {   //To avoid overhead in ACO, we assume all instances are visited
                          instanceVisited[i] = true;
                          usedInstances.add(i);
                      }
@@ -194,7 +194,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 //updated by Hamid/////////////
 
                 //updates x pheromone trail
-                for (int i = 0; i < Config.global.m_number; i++) {
+                for (int i = 0; i < maxNumberOfInstances; i++) {
                     for (int j = 0; j < workflow.getNumberTasks(); j++) {
                         pheromoneTrailForX[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                         for(Solution solution: antSolutionList) {
@@ -211,7 +211,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
 
                 //updates y pheromone trail
                 for (int i = 0; i < instanceInfo.length; i++) {
-                    for (int j = 0; j < Config.global.m_number; j++) {
+                    for (int j = 0; j < maxNumberOfInstances; j++) {
                         pheromoneTrailForY[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                         for(Solution solution: antSolutionList) {
                             if (solution.yArray[j] == i) {
