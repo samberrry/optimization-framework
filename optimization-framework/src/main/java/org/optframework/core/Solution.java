@@ -461,7 +461,7 @@ public class Solution implements Cloneable{
                          * Time to send data: is the time between instance timeline and the max
                          * finish time of the parent task.
                          * */
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         cij = edge / (double)Config.global.bandwidth;
 
                         double timeToSendData = currentTime - taskFinishTimes[maxParentId];
@@ -487,7 +487,7 @@ public class Solution implements Cloneable{
                     }else {
                         double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
 
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         cij = edge / (double)Config.global.bandwidth;
 
                         if (timeToSendData >= cij){
@@ -551,7 +551,7 @@ public class Solution implements Cloneable{
         int tempId = -1;
 
         for (int parentId : parentJobs){
-            double tempEdge = originalJobList.get(parentId).getEdge(jobId);
+            double tempEdge = Math.abs(originalJobList.get(parentId).getEdge(jobId));
             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
             double maxJobStartTime;
             if (xArray[jobId] == xArray[parentId]){
@@ -690,7 +690,7 @@ public class Solution implements Cloneable{
                 int k =0;
                 for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
                     if (latestParentFinishTime < gap.endTime){
-                        double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double tempEdge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         double tempCIJ = tempEdge / (double)Config.global.bandwidth;
                         double taskExeTime;
 
@@ -766,7 +766,7 @@ public class Solution implements Cloneable{
                          * Time to send data: is the time between instance timeline and the max
                          * finish time of the parent task.
                          * */
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         cij = edge / (double)Config.global.bandwidth;
 
                         double timeToSendData = currentTime - taskFinishTimes[maxParentId];
@@ -795,7 +795,7 @@ public class Solution implements Cloneable{
                     }else {
                         double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
 
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         cij = edge / (double)Config.global.bandwidth;
 
                         if (timeToSendData >= cij){

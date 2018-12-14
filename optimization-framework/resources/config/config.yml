@@ -23,7 +23,7 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 2
+  workflow_id: 30
   #algorithm: "hbmo"
 # 5a24f12e283b028e5834b587a32aa0cc126b5a05
   #algorithm: "hbmo"
@@ -71,7 +71,7 @@ honeybee_algorithm:
 pacsa_algorithm:
   iteration_number: 200
   iteration_number_based: yes
-  number_of_ants: 1
+  number_of_ants: 40
   number_of_runs: 3
 #  cf: cooling factor (previous value 1.004)
   cf_increase_ratio: 1.002

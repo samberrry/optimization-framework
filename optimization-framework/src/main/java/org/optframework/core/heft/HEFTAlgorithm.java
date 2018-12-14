@@ -129,7 +129,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     int k =0;
                     for (Gap gap: instanceList[j].gapList){
                         if (latestParentFinishTime < gap.endTime){
-                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double tempEdge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
                             double taskExeTime;
 
@@ -196,7 +196,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         if (j == xArray[maxParentId]){
                             currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                         }else {
-                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                             cij = edge / (double)Config.global.bandwidth;
                             double timeToSendData = currentTime - taskFinishTimes[maxParentId];
                             if (timeToSendData >= cij){
@@ -214,7 +214,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             gapIsUsed = false;
                         }
                     }else {
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         double cij = edge / (double)Config.global.bandwidth;
                         double currentFinishTime;
 
@@ -314,7 +314,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         int tempId = -1;
 
         for (int parentId : parentJobs){
-            double tempEdge = originalJobList.get(parentId).getEdge(jobId);
+            double tempEdge = Math.abs(originalJobList.get(parentId).getEdge(jobId));
             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
             double maxJobStartTime;
             if (assignedInstanceId == xArray[parentId]){
@@ -445,7 +445,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                     int k =0;
                     for (Gap gap: instanceList[j].gapList){
                         if (latestParentFinishTime < gap.endTime){
-                            double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double tempEdge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                             double tempCIJ = tempEdge / (double)Config.global.bandwidth;
                             double taskExeTime;
 
@@ -512,7 +512,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         if (j == xArray[maxParentId]){
                             currentFinishTime = currentTime + TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[j]].getType());
                         }else {
-                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                            double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                             cij = edge / (double)Config.global.bandwidth;
                             double timeToSendData = currentTime - taskFinishTimes[maxParentId];
                             if (timeToSendData >= cij){
@@ -530,7 +530,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             gapIsUsed = false;
                         }
                     }else {
-                        double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         double cij = edge / (double)Config.global.bandwidth;
                         double currentFinishTime;
 
