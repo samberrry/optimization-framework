@@ -46,7 +46,7 @@ public class RunSAAlgorithm {
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, M_NUMBER));
 
-        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(null, workflow, instanceInfo);
+        SimulatedAnnealingAlgorithm saAlgorithm = new SimulatedAnnealingAlgorithm(null, workflow, instanceInfo, Config.global.m_number);
 
         double fitnessValueList[] = new double[Config.sa_algorithm.getNumber_of_runs()];
 

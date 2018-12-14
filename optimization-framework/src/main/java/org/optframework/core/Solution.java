@@ -106,7 +106,7 @@ public class Solution implements Cloneable{
 
         Random r = new Random();
         int xOry;
-        if(Config.global.m_number > 1) {
+        if(maxNumberOfInstances > 1) {
             xOry = r.nextInt(3);
         }
        else {
@@ -228,7 +228,7 @@ public class Solution implements Cloneable{
         if (realNumberOfInstances != numberOfUsedInstances){
             int mapper[] = new int[numberOfUsedInstances];
 
-            int newYArray[] = new int[Config.global.m_number];
+            int newYArray[] = new int[maxNumberOfInstances];
 
             int instanceCounter = 0;
             for (int i = 0; i < numberOfUsedInstances; i++) {
@@ -267,7 +267,7 @@ public class Solution implements Cloneable{
          * */
         Random r = new Random();
         for (int i = 0; i < jobList.size(); i++) {
-            int random = r.nextInt(Config.global.m_number);
+            int random = r.nextInt(maxNumberOfInstances);
             xArray[i] = random;
             if (random >= numberOfUsedInstances){
                 numberOfUsedInstances = random+1;
@@ -336,9 +336,9 @@ public class Solution implements Cloneable{
 
             xArray[job.getIntId()] = random;
 
-            if (bound == random && used < Config.global.m_number){
+            if (bound == random && used < maxNumberOfInstances){
                 used++;
-                if (bound != Config.global.m_number -1){
+                if (bound != maxNumberOfInstances -1){
                     bound++;
                 }
             }
@@ -887,7 +887,7 @@ public class Solution implements Cloneable{
 
                 while (isEqual){
                     randomInstanceId = r.nextInt(numberOfUsedInstances+1);
-                    if (randomInstanceId != currentInstanceId && randomInstanceId < Config.global.m_number){
+                    if (randomInstanceId != currentInstanceId && randomInstanceId < maxNumberOfInstances){
                         isEqual = false;
                     }
                 }
@@ -947,9 +947,9 @@ public class Solution implements Cloneable{
 
             xArray[job.getIntId()] = random;
 
-            if (bound == random && used < Config.global.m_number){
+            if (bound == random && used < maxNumberOfInstances){
                 used++;
-                if (bound != Config.global.m_number -1){
+                if (bound != maxNumberOfInstances -1){
                     bound++;
                 }
             }

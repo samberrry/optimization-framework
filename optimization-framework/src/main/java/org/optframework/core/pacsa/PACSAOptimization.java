@@ -55,7 +55,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     ArrayList<Integer> usedInstances;
     boolean instanceVisited[];
 
-    public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[]) {
+    int maxNumberOfInstances;
+
+    public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[], int maxNumberOfInstances) {
         this.workflow = workflow;
         this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
@@ -63,23 +65,24 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         this.currentBasePheromoneValue = pheromoneInitialSeed;
         this.initialSeed = pheromoneInitialSeed;
         this.usedInstances = new ArrayList<>();
-        this.instanceVisited = new boolean[Config.global.m_number];
+        this.instanceVisited = new boolean[maxNumberOfInstances];
+        this.maxNumberOfInstances = maxNumberOfInstances;
 
         /**
          * Pheromone trail structure:
          * rows = tasks
          * columns = number of instances + number of different types of instances
          * */
-        pheromoneTrailForX = new double[Config.global.m_number][this.workflow.getNumberTasks()];
-        for (int i = 0; i < Config.global.m_number; i++) {
+        pheromoneTrailForX = new double[maxNumberOfInstances][this.workflow.getNumberTasks()];
+        for (int i = 0; i < maxNumberOfInstances; i++) {
             for (int j = 0; j < workflow.getNumberTasks(); j++) {
                 pheromoneTrailForX[i][j] = pheromoneInitialSeed;
             }
         }
 
-        pheromoneTrailForY = new double[instanceInfo.length][Config.global.m_number];
+        pheromoneTrailForY = new double[instanceInfo.length][maxNumberOfInstances];
         for (int i = 0; i < instanceInfo.length; i++) {
-            for (int j = 0; j < Config.global.m_number; j++) {
+            for (int j = 0; j < maxNumberOfInstances; j++) {
                 pheromoneTrailForY[i][j] = pheromoneInitialSeed;
             }
         }
@@ -154,7 +157,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             //updated by Hamid/////////////
 
             //updates x pheromone trail
-            for (int i = 0; i < Config.global.m_number; i++) {
+            for (int i = 0; i < maxNumberOfInstances; i++) {
                 for (int j = 0; j < workflow.getNumberTasks(); j++) {
                     pheromoneTrailForX[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                     if(solutionToUpdate.xArray[j] == i){
@@ -169,7 +172,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
             //updates y pheromone trail
             for (int i = 0; i < instanceInfo.length; i++) {
-                for (int j = 0; j < Config.global.m_number; j++) {
+                for (int j = 0; j < maxNumberOfInstances; j++) {
                     pheromoneTrailForY[i][j] *= Config.pacsa_algorithm.evaporation_factor;
                     if(solutionToUpdate.yArray[j] == i){
                         pheromoneTrailForY[i][j] += 1 / solutionToUpdate.fitnessValue;
@@ -222,7 +225,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
                 int itr = i;
                 threadList[i] = new Thread(() -> {
-                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(itr), workflow, instanceInfo);
+                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(itr), workflow, instanceInfo, maxNumberOfInstances);
 
                     Solution solution = sa.runAlgorithm();
                     solutionList[itr] = solution;
@@ -310,13 +313,13 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 initialSolutionList.add(solution);
             }
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants - outInitialSolution.size(); i++) {
-                Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+                Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
                 solution.generateFullyRandomSolution();
                 initialSolutionList.add(i , solution);
             }
         }else {
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-                Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+                Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
                 solution.generateFullyRandomSolution();
                 initialSolutionList.add(i , solution);
             }
@@ -327,7 +330,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     {
 
         //reset x pheromone trail
-        for (int i = 0; i < Config.global.m_number; i++) {
+        for (int i = 0; i < maxNumberOfInstances; i++) {
             for (int j = 0; j < workflow.getNumberTasks(); j++) {
 
                 pheromoneTrailForX[i][j] = initialSeed;
@@ -338,7 +341,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
         //reset y pheromone trail
         for (int i = 0; i < instanceInfo.length; i++) {
-            for (int j = 0; j < Config.global.m_number; j++) {
+            for (int j = 0; j < maxNumberOfInstances; j++) {
 
                 pheromoneTrailForY[i][j] = initialSeed;
 
@@ -357,10 +360,10 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected void createProbabilityMatrix(){
-        this.xProbability = new double[Config.global.m_number][workflow.getNumberTasks()];
+        this.xProbability = new double[maxNumberOfInstances][workflow.getNumberTasks()];
         this.sumOfColumnsForX = new double[workflow.getNumberTasks()];
 
-        this.yProbability = new double[instanceInfo.length][Config.global.m_number];
+        this.yProbability = new double[instanceInfo.length][maxNumberOfInstances];
         this.sumOfColumnsForY = new double[workflow.getNumberTasks()];
 
         //probability matrix for x array
@@ -369,7 +372,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             for (Integer instanceId: usedInstances){
                 sumOfColumnsForX[i] += pheromoneTrailForX[instanceId][i];
             }
-            sumOfColumnsForX[i] += ((Config.global.m_number - usedInstances.size()) * currentBasePheromoneValue);
+            sumOfColumnsForX[i] += ((maxNumberOfInstances - usedInstances.size()) * currentBasePheromoneValue);
 
             if(sumOfColumnsForX[i] != 0) {
                 for (Integer instanceId : usedInstances) {
@@ -424,8 +427,8 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     protected Solution generateInitialSolutionFromPheromone(){
       //  long CounterForTestMultiThread = 0;
         int generatedXArray[] = new int[workflow.getNumberTasks()];
-        int generatedYArray[] = new int[Config.global.m_number];
-        for (int i = 0; i < Config.global.m_number; i++) {
+        int generatedYArray[] = new int[maxNumberOfInstances];
+        for (int i = 0; i < maxNumberOfInstances; i++) {
             generatedYArray[i] = -1;
         }
         Integer generatedZArray[] = new Integer[workflow.getNumberTasks()];
@@ -436,7 +439,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             double randomX = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
-            for (int i = 0; i < Config.global.m_number; i++) {
+            for (int i = 0; i < maxNumberOfInstances; i++) {
                 if (instanceVisited[i]){
                     probabilitySumTemp += xProbability[i][k];
                 }else {
@@ -462,7 +465,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
 
 
-        for (int instanceId=0; instanceId < Config.global.m_number; instanceId++){
+        for (int instanceId=0; instanceId < maxNumberOfInstances; instanceId++){
             double randomY = rand.nextDouble();
             double probabilitySumTemp = 0;
             int selectedInstance = -1;
@@ -546,7 +549,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
            // CounterForTestMultiThread++;
         }
 
-        Solution solution = new Solution(workflow, instanceInfo, Config.global.m_number);
+        Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
         solution.numberOfUsedInstances = maxInstances + 1;
         solution.xArray = generatedXArray;
         solution.yArray = generatedYArray;

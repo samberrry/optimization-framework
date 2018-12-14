@@ -19,8 +19,11 @@ import java.util.List;
 public class PACSAIterationNumber extends PACSAOptimization{
    // private static double test_general_best = 999999999.9;
 
-    public PACSAIterationNumber(List<Solution> initialSolutionList, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo) {
-        super(initialSolutionList, pheromoneInitialSeed, workflow, instanceInfo);
+    int maxNumberOfInstances;
+
+    public PACSAIterationNumber(List<Solution> initialSolutionList, double pheromoneInitialSeed, Workflow workflow, InstanceInfo[] instanceInfo, int maxNumberOfInstances) {
+        super(initialSolutionList, pheromoneInitialSeed, workflow, instanceInfo, maxNumberOfInstances);
+        this.maxNumberOfInstances = maxNumberOfInstances;
     }
 
     @Override
