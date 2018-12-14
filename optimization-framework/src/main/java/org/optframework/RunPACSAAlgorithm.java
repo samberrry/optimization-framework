@@ -336,19 +336,19 @@ public class RunPACSAAlgorithm {
             Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
             heftSolution3.heftFitness();
 
-            Integer zArray3[] = new Integer[orderedJobList.size()];
+         /*   Integer zArray3[] = new Integer[orderedJobList.size()];
             for (int i = 0; i < orderedJobList.size(); i++) {
                 zArray3[i] = orderedJobList.get(i).getIntId();
             }
 
-            heftSolution3.zArray = zArray3;
+            heftSolution3.zArray = zArray3;*/
 
-            //initialSolutionList.add(heftSolution3);
+            initialSolutionList.add(heftSolution3);
             Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
 
-         //   heftSolution3.fitness();
-         //   Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
+            heftSolution3.fitness();
+            Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
         }
 

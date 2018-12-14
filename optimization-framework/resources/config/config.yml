@@ -23,14 +23,14 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 1
+  workflow_id: 2
   #algorithm: "hbmo"
 # 5a24f12e283b028e5834b587a32aa0cc126b5a05
   #algorithm: "hbmo"
   # 2cfe736aaedcf0aa7059aa93ba4827b7f4e78814
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 19.338
+  budget: 1.523
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -45,12 +45,12 @@ global:
   deadline: 37.50
 
 sa_algorithm:
-  start_temperature: 1
+  start_temperature: 85
   final_temperature: 0.01
-  cooling_factor: 0.99
+  cooling_factor: 0.999
   force_cooling: yes
   equilibrium_point: 10
-  number_of_runs: 16
+  number_of_runs: 48
 
 honeybee_algorithm:
   max_speed: 800

@@ -42,8 +42,8 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
             Log.logger.info("Cloning Exception");
         }
 
-
-        if(!Config.global.deadline_based) {
+      // This finds the possible solution only using one instance
+      /*  if(!Config.global.deadline_based) {
             int best_instances = -1;
             double best_fintenss_value = 9999999999.99;
             for (int j = 0; j < instanceInfo.length; j++) {
@@ -65,7 +65,11 @@ public class Loss2Algorithm implements OptimizationAlgorithm {
 
             }
             heftSolution.xArray = solution.xArray;
-        }
+        }*/
+
+
+
+
 
          // This part is for calculating matrix elements
 
