@@ -337,6 +337,10 @@ public class RunPACSAAlgorithm {
             initialSolutionList.add(heftSolution3);
             Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
+
+            heftSolution3.fitness();
+            Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
+
         }
 
         long runTimeSum = 0;
@@ -552,7 +556,7 @@ public class RunPACSAAlgorithm {
             }
         }
 
-        Log.logger.info("selectedInstance:"+selectedInstance);
+    //    Log.logger.info("selectedInstance:"+selectedInstance);
         return selectedInstance;
     }
 
@@ -597,7 +601,7 @@ public class RunPACSAAlgorithm {
         }
 
 
-        Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
+     /*   Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
 
         heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
 
@@ -615,7 +619,7 @@ public class RunPACSAAlgorithm {
         heftSolution2.zArray = zArray2;
 
         //     initialSolutionList.add(heftSolution2);
-        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);
+        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
 
         return totalInstances2.length;
 
