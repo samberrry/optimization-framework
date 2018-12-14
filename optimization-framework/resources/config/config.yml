@@ -23,7 +23,7 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 30
+  workflow_id: 2
   #algorithm: "hbmo"
 # 5a24f12e283b028e5834b587a32aa0cc126b5a05
   #algorithm: "hbmo"

@@ -57,6 +57,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         originalJobList = workflow.getJobList();
         orderedJobList = GlobalAccess.orderedJobList;
+
+        ArrayList<Integer> newZArray = new ArrayList<>();
+        for (int i = 0; i < orderedJobList.size(); i++) {
+            newZArray.add(i,orderedJobList.get(i).getIntId());
+        }
+
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[availableInstances.length];
@@ -241,22 +247,58 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
             if (gapOccurred && instanceUsed[tempInstanceId]){
                 instanceList[tempInstanceId].hasGap = true;
+                instanceList[tempInstanceId].lastGapId--;
                 Gap gap = new Gap(instanceTimeLine[tempInstanceId], endOfInstanceWaitTime);
+                gap.gapId = instanceList[tempInstanceId].lastGapId;
                 instanceList[tempInstanceId].gapList.add(gap);
+                instanceList[tempInstanceId].taskGapList.add(instanceList[tempInstanceId].lastGapId);
             }
             instanceUsed[tempInstanceId] = true;
 
             if (gapIsUsed){
                 Gap gap = instanceList[instanceGapId].getGapList().get(gapId);
+                int gapIndex = -1;
+                for (int j = 0; j < instanceList[instanceGapId].taskGapList.size(); j++) {
+                    if (gap.gapId == instanceList[instanceGapId].taskGapList.get(j)){
+                        gapIndex = j;
+                        break;
+                    }
+                }
+                int beforeTaskId = instanceList[instanceGapId].taskGapList.get(gapIndex-1);
+
+                int taskToRemoveId = -1;
+                for (int j = 0; j < newZArray.size(); j++) {
+                    if (newZArray.get(j) == job.getIntId()){
+                        taskToRemoveId = j;
+                        break;
+                    }
+                }
+                newZArray.remove(taskToRemoveId);
+
+                int taskToAddId = -1;
+                for (int j = 0; j < newZArray.size(); j++) {
+                    if (newZArray.get(j) == beforeTaskId){
+                        taskToAddId = j;
+                        break;
+                    }
+                }
+
+                newZArray.add(taskToAddId+1, job.getIntId());
+
+                //adds the new job in the gap
+                instanceList[instanceGapId].taskGapList.add(gapIndex, job.getIntId());
+
                 gap.startTime = tempTaskFinishTime;
                 if (gap.startTime >= gap.endTime){
                     instanceList[instanceGapId].gapList.remove(gapId);
+                    instanceList[instanceGapId].taskGapList.remove(gapIndex);
                     Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
                 }else {
                     gap.duration = gap.endTime - gap.startTime;
                 }
             }else {
                 instanceTimeLine[tempInstanceId] = tempTaskFinishTime;
+                instanceList[tempInstanceId].taskGapList.add(job.getIntId());
             }
             taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
             xArray[job.getIntId()] = tempInstanceId;
@@ -294,15 +336,22 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
             }
             solution.yArray = newYArray;
 
-            solution.heftFitness();
         }else {
             solution = new Solution(workflow, instanceInfo, availableInstances.length);
             solution.numberOfUsedInstances = availableInstances.length;
             solution.xArray = xArray;
             solution.yArray = availableInstances;
-            solution.heftFitness();
         }
+        Integer convertedZArray[] = new Integer[workflow.getJobList().size()];
+        for (int i = 0; i < newZArray.size(); i++) {
+            convertedZArray[i] = newZArray.get(i);
+        }
+
+        solution.zArray = convertedZArray;
         solution.origin = "heft";
+        solution.heftFitness();
+
+        solution.fitness();
 
         return solution;
     }

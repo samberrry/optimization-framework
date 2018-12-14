@@ -64,7 +64,7 @@ public class RunPACSAAlgorithm {
         Config.global.m_number = workflow.getJobList().size();
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
-        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(workflow.getJobList().size() * instanceInfo.length);
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(3);
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
@@ -73,6 +73,8 @@ public class RunPACSAAlgorithm {
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances);
         Solution heftSolution = heftAlgorithm.runAlgorithm();
         heftSolution.heftFitness();
+
+        heftSolution.fitness();
         Printer.lightPrintSolution(heftSolution , 0);
 
         Loss2Algorithm loss2Algorithm = new Loss2Algorithm(heftSolution, totalInstances, workflow, instanceInfo);
