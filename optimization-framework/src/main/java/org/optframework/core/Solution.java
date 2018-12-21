@@ -619,7 +619,7 @@ public class Solution implements Cloneable{
      * These methods are HEFT version of the solution methods
      * */
 
-    //TODO: change all the heft fitness to heftFitness function
+    //TODO: change all the refrences to the heft fitness to heftFitness function
     /**
      * To use heft fitness you MUST first set the public static orderedJobList in GlobalAccess class
      * */
@@ -713,9 +713,9 @@ public class Solution implements Cloneable{
                             if (remainingTimeToStartGap >= 0){
                                 double timeToSendData = gap.startTime - latestParentFinishTime;
                                 if (timeToSendData >= tempCIJ){
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - tempCIJ);
+                                    gapTaskFinishTime = gap.startTime + taskExeTime;
                                 }else {
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - timeToSendData);
+                                    gapTaskFinishTime = gap.startTime + taskExeTime +( tempCIJ - timeToSendData);
                                 }
                             }else {
                                 gapTaskFinishTime = latestParentFinishTime + taskExeTime;
