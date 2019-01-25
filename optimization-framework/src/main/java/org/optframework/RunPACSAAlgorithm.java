@@ -333,8 +333,10 @@ public class RunPACSAAlgorithm {
             heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, Config.global.m_number));
 
             HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
-            Solution heftSolution3 = heftAlgorithm3.runAlgorithm();
+            Solution heftSolution3 = heftAlgorithm3.modified_heft_runAlgorithm();
+            heftSolution3.solutionMapping();
             heftSolution3.heftFitness();
+            //todo: here you can test the modified heft algorithm
 
          /*   Integer zArray3[] = new Integer[orderedJobList.size()];
             for (int i = 0; i < orderedJobList.size(); i++) {

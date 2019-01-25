@@ -378,6 +378,9 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         boolean instanceUsed[] = new boolean[availableInstances.length];
 
         xArray = new int[orderedJobList.size()];
+        for (int i = 0; i < xArray.length; i++) {
+            xArray[i] = -1;
+        }
         int yArray[] = new int[availableInstances.length];
         for (int i = 0; i < availableInstances.length; i++) {
             yArray[i] = -1;
@@ -594,22 +597,21 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
             //inside this condition we should change the tempInstanceId otherwise the Imin (the ordinary tempInstanceId) is used
             if (tempInstanceId != tempInstanceIdStar){
-                // remove all instance types equal to Imin
+                // remove the unused insatance from taken instance set
                 int instanceTypeId = availableInstances[tempInstanceId];
-                boolean thisTypeIsNeverUsed = false;
+                boolean thereIsAnyUnusedInstance = false;
+                int unusedInstanceId = -1;
 
                 for (int j = 0; j < availableInstances.length; j++) {
-                    if (availableInstances[j] == instanceTypeId && instanceIsUsed[j]){
-                        thisTypeIsNeverUsed = true;
+                    if (availableInstances[j] == instanceTypeId && !instanceIsUsed[j] && tempInstanceId != j){
+                        unusedInstanceId = j;
+                        thereIsAnyUnusedInstance = true;
                         break;
                     }
                 }
-                if (!thisTypeIsNeverUsed){
-                    for (int j = 0; j < availableInstances.length; j++) {
-                        if (availableInstances[j] == instanceTypeId){
-                            availableInstances[j] = -1;
-                        }
-                    }
+
+                if (thereIsAnyUnusedInstance){
+                    availableInstances[unusedInstanceId] = -1;
                 }else {
                     if (tempInstanceIdStar != -1){
                         tempInstanceId = tempInstanceIdStar;
@@ -617,8 +619,12 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 }
             }
 
-            if (!instanceIsUsed[xArray[job.getIntId()]]){
-                instanceIsUsed[xArray[job.getIntId()]] = true;
+            if (tempInstanceId == 2){
+                int a  =2;
+            }
+
+            if (!instanceIsUsed[tempInstanceId]){
+                instanceIsUsed[tempInstanceId] = true;
             }
 
             if (gapOccurred && instanceUsed[tempInstanceId]){
@@ -680,7 +686,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 instanceList[tempInstanceId].taskGapList.add(job.getIntId());
 
                 //this computes the instance time usage and the total cost for the used instance
-                instanceTimeUsage[tempInstanceId] += TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[tempInstanceId]].getType());
+                try {
+                    instanceTimeUsage[tempInstanceId] += TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[tempInstanceId]].getType());
+                }catch (Exception e){
+                    int a = 2;
+                }
             }
 
             taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
@@ -732,6 +742,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         solution.zArray = convertedZArray;
         solution.origin = "heft";
+        solution.solutionMapping();
         solution.heftFitness();
 
         solution.fitness();
