@@ -190,6 +190,7 @@ public class RunPACSAAlgorithm {
 
         List<Solution> solutionList = new ArrayList<>();
         List<Solution> initialSolutionList = null;
+        int modifiedHeftMNumber = -1;
 
         if (Config.pacsa_algorithm.insert_heft_initial_solution) {
 
@@ -302,14 +303,14 @@ public class RunPACSAAlgorithm {
 
             int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
 
-            double remainingBudg = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+            double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
-            while (minPrice <= remainingBudg && totalInstances3.length < Config.global.m_number) {
+            while (minPrice <= remainingBudget && totalInstances3.length < Config.global.m_number) {
             //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
                 double maxValidCost = 0.0;
                 int instanceTypeId = -2;
                 for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {//for (int instance_id: sorted_instanceTypes_based_on_Cost_per_ComputeUnit) {
-                    if (instanceInfo[instance_id].getSpotPrice() <= remainingBudg && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
+                    if (instanceInfo[instance_id].getSpotPrice() <= remainingBudget && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
                         maxValidCost = instanceInfo[instance_id].getSpotPrice();
                         instanceTypeId = instance_id;
                         break;
@@ -324,8 +325,7 @@ public class RunPACSAAlgorithm {
                 newTotalInstance[totalInstances3.length] = instanceTypeId;
                 totalInstances3 = newTotalInstance;
 
-                remainingBudg -= maxValidCost;
-
+                remainingBudget -= maxValidCost;
             }
 
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
@@ -334,22 +334,10 @@ public class RunPACSAAlgorithm {
 
             HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
             Solution heftSolution3 = heftAlgorithm3.modified_heft_runAlgorithm();
-            heftSolution3.solutionMapping();
-            heftSolution3.heftFitness();
             //todo: here you can test the modified heft algorithm
-
-         /*   Integer zArray3[] = new Integer[orderedJobList.size()];
-            for (int i = 0; i < orderedJobList.size(); i++) {
-                zArray3[i] = orderedJobList.get(i).getIntId();
-            }
-
-            heftSolution3.zArray = zArray3;*/
+            modifiedHeftMNumber = heftSolution3.maxNumberOfInstances;
 
             initialSolutionList.add(heftSolution3);
-            Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
-
-
-            heftSolution3.fitness();
             Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
 
         }
@@ -360,7 +348,18 @@ public class RunPACSAAlgorithm {
             Printer.printSplitter();
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
-            Config.global.m_number = Calculating_M_number_For_PACSA_Plus_With_Biase(minPrice,instanceInfo);//Calculating_M_number_For_PACSA_Plus(minPrice,instanceInfo);
+            int computedMNumberBiased = Calculating_M_number_For_PACSA_Plus_With_Biase(minPrice,instanceInfo);
+
+            if (modifiedHeftMNumber != -1){
+                if (computedMNumberBiased < modifiedHeftMNumber){
+                    Config.global.m_number = computedMNumberBiased;
+                }else {
+                    Config.global.m_number = modifiedHeftMNumber;
+                }
+            }else {
+                Config.global.m_number = Calculating_M_number_For_PACSA_Plus_With_Biase(minPrice,instanceInfo);//Calculating_M_number_For_PACSA_Plus(minPrice,instanceInfo);
+            }
+
             Log.logger.info("Maximum number of instances (m_number): " + Config.global.m_number + " Number of different types of instances: " + InstanceType.values().length + " Number of tasks: "+ workflow.getJobList().size());
 
             Config.sa_algorithm.cooling_factor = originalCoolingFactor_SA;
