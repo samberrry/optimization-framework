@@ -686,11 +686,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 instanceList[tempInstanceId].taskGapList.add(job.getIntId());
 
                 //this computes the instance time usage and the total cost for the used instance
-                try {
-                    instanceTimeUsage[tempInstanceId] += TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[tempInstanceId]].getType());
-                }catch (Exception e){
-                    int a = 2;
-                }
+                instanceTimeUsage[tempInstanceId] += TaskUtility.executionTimeOnTypeWithCustomJob(job, instanceInfo[availableInstances[tempInstanceId]].getType());
+
             }
 
             taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
@@ -810,9 +807,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         return totalInstances;
     }
-
-
-
 
     public Solution runAlgorithm_With_Hour_limitation() {
         taskFinishTimes = new double[workflow.getJobList().size()];

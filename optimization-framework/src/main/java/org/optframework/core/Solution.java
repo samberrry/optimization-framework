@@ -619,7 +619,6 @@ public class Solution implements Cloneable{
      * These methods are HEFT version of the solution methods
      * */
 
-    //TODO: change all the refrences to the heft fitness to heftFitness function
     /**
      * To use heft fitness you MUST first set the public static orderedJobList in GlobalAccess class
      * */
@@ -863,11 +862,6 @@ public class Solution implements Cloneable{
         {
             computeFitnessValue();
         }
-
-
-
-
-
     }
 
     public void heftGenerateRandomNeighborSolution(Workflow workflow){
