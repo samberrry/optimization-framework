@@ -1,6 +1,5 @@
 package org.optframework.core.heft;
 
-import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.GlobalAccess;
@@ -21,8 +20,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
     List<Job> orderedJobList;
 
     List<Job> originalJobList;
-
-    Cloner cloner = new Cloner();
 
     int xArray[];
 
