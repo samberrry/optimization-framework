@@ -700,13 +700,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
         Log.logger.info("Makespan from HEFT: "+ (int)maxTime);
 
-        int numberOfUsedInstances =0;
-        for (int i = 0; i < yArray.length; i++) {
-            if (yArray[i] != -1){
-                numberOfUsedInstances++;
-            }
-        }
-
         Solution solution;
 
         if (maxNumberOfUsedInstancesForIntegrationWithOtherSolutions > 0){
