@@ -730,7 +730,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         }
 
         solution.zArray = convertedZArray;
-        solution.origin = "heft";
+        solution.origin = "modified_heft";
         solution.solutionMapping();
         solution.heftFitness();
 
