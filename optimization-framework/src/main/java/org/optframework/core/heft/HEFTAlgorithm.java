@@ -617,6 +617,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 }else {
                     if (tempInstanceIdStar != -1){
                         tempInstanceId = tempInstanceIdStar;
+                        tempTaskFinishTime = tempTaskFinishTimeStar;
                     }
                 }
             }
