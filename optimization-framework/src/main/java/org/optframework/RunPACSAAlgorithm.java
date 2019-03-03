@@ -301,32 +301,7 @@ public class RunPACSAAlgorithm {
 
             Log.logger.info("Number of affordable fastest instances is:"+number_of_affordable_fastest_instance);
 
-            int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
-
-            double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
-
-            while (minPrice <= remainingBudget && totalInstances3.length < Config.global.m_number) {
-            //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
-                double maxValidCost = 0.0;
-                int instanceTypeId = -2;
-                for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {//for (int instance_id: sorted_instanceTypes_based_on_Cost_per_ComputeUnit) {
-                    if (instanceInfo[instance_id].getSpotPrice() <= remainingBudget && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
-                        maxValidCost = instanceInfo[instance_id].getSpotPrice();
-                        instanceTypeId = instance_id;
-                        break;
-                    }
-                }
-
-                int newTotalInstance[] = new int[totalInstances3.length + 1];
-                for (int i = 0; i < totalInstances3.length; i++) {
-                    newTotalInstance[i] = totalInstances3[i];
-                }
-
-                newTotalInstance[totalInstances3.length] = instanceTypeId;
-                totalInstances3 = newTotalInstance;
-
-                remainingBudget -= maxValidCost;
-            }
+            int totalInstances3[] = greedyResourceProvisioning(instanceInfo, number_of_affordable_fastest_instance, minPrice, cost_fastest_instance);
 
             Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
 
@@ -537,8 +512,8 @@ public class RunPACSAAlgorithm {
 
     public static double get_price_per_unit(int InstanceId, InstanceInfo instanceInfo[])
     {
-     //   double test1 = instanceInfo[InstanceId].getType().getEcu();
-     //   double test2 = instanceInfo[InstanceId].getSpotPrice();
+        //   double test1 = instanceInfo[InstanceId].getType().getEcu();
+        //   double test2 = instanceInfo[InstanceId].getSpotPrice();
         return instanceInfo[InstanceId].getType().getEcu()/instanceInfo[InstanceId].getSpotPrice() ;
     }
 
@@ -547,7 +522,7 @@ public class RunPACSAAlgorithm {
         double sum = 0;
         for (int id=0; id<instanceInfo.length;id++) {
 
-     //       double test = get_price_per_unit(id,instanceInfo);
+            //       double test = get_price_per_unit(id,instanceInfo);
             sum += get_price_per_unit(id,instanceInfo)+instanceInfo[id].getType().getEcu(); //= instanceInfo[].getType().getEc2units()/instanceInfo[type.getId()].getSpotPrice() ;
 
         }
@@ -558,7 +533,7 @@ public class RunPACSAAlgorithm {
         int selectedInstance = -1;
 
         for (int i = instanceInfo.length - 1; i >=0 ; i--) {
-         //   Log.logger.info("Probability of selecting "+i+" instanceType is"+(get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum);
+            //   Log.logger.info("Probability of selecting "+i+" instanceType is"+(get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum);
             probabilitySumTemp += (get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum;
             if (probabilitySumTemp > randomY) {
                 selectedInstance = i;
@@ -566,7 +541,7 @@ public class RunPACSAAlgorithm {
             }
         }
 
-    //    Log.logger.info("selectedInstance:"+selectedInstance);
+        //    Log.logger.info("selectedInstance:"+selectedInstance);
         return selectedInstance;
     }
 
@@ -643,5 +618,39 @@ public class RunPACSAAlgorithm {
                 Config.sa_algorithm.cooling_factor = 0.9;
             }
         }
+    }
+
+    /**
+     * Greedy Resource Provisioning Algorithm (GRP)
+     * */
+    static int[] greedyResourceProvisioning(InstanceInfo instanceInfo[], int number_of_affordable_fastest_instance, double minPrice, double cost_fastest_instance){
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+
+        double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
+
+        while (minPrice <= remainingBudget && totalInstances.length < Config.global.m_number) {
+            //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
+            double maxValidCost = 0.0;
+            int instanceTypeId = -2;
+            for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {//for (int instance_id: sorted_instanceTypes_based_on_Cost_per_ComputeUnit) {
+                if (instanceInfo[instance_id].getSpotPrice() <= remainingBudget && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
+                    maxValidCost = instanceInfo[instance_id].getSpotPrice();
+                    instanceTypeId = instance_id;
+                    break;
+                }
+            }
+
+            int newTotalInstance[] = new int[totalInstances.length + 1];
+            for (int i = 0; i < totalInstances.length; i++) {
+                newTotalInstance[i] = totalInstances[i];
+            }
+
+            newTotalInstance[totalInstances.length] = instanceTypeId;
+            totalInstances = newTotalInstance;
+
+            remainingBudget -= maxValidCost;
+        }
+
+        return totalInstances;
     }
 }
