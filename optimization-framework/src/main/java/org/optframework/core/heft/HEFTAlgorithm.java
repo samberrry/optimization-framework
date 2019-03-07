@@ -504,14 +504,17 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                         //Modified HEFT Logic START
                         double beforeTime = instanceTimeUsage[tempInstanceId];
-                        double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
+                        if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                            double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
 
-                        double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
-                        double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
+                            double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
+                            double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
 
-                        if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar){
-                            tempTaskFinishTimeStar = currentFinishTime;
-                            tempInstanceIdStar = j;
+                            if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar)
+                            {
+                                tempTaskFinishTimeStar = currentFinishTime;
+                                tempInstanceIdStar = j;
+                            }
                         }
                         //Modified HEFT Logic END
                     }else {
@@ -545,14 +548,17 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             }
                             //Modified HEFT Logic START
                             double beforeTime = instanceTimeUsage[tempInstanceId];
-                            double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime + waitingTime;
+                            if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                                double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime + waitingTime;
 
-                            double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
-                            double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
+                                double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
+                                double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
 
-                            if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar){
-                                tempTaskFinishTimeStar = currentFinishTime;
-                                tempInstanceIdStar = j;
+                                if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar)
+                                {
+                                    tempTaskFinishTimeStar = currentFinishTime;
+                                    tempInstanceIdStar = j;
+                                }
                             }
                             //Modified HEFT Logic END
                         }else {
@@ -580,14 +586,17 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             }
                             //Modified HEFT Logic START
                             double beforeTime = instanceTimeUsage[tempInstanceId];
-                            double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
+                            if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                                double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
 
-                            double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
-                            double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
+                                double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
+                                double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
 
-                            if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar){
-                                tempTaskFinishTimeStar = currentFinishTime;
-                                tempInstanceIdStar = j;
+                                if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar)
+                                {
+                                    tempTaskFinishTimeStar = currentFinishTime;
+                                    tempInstanceIdStar = j;
+                                }
                             }
                             //Modified HEFT Logic END
                         }
@@ -744,6 +753,25 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         double theHour = time/3600D;
         theHour = Math.ceil(theHour);
         return theHour * instanceInfo[typeId].getSpotPrice();
+    }
+
+    double computeHourFromSec(double time, int typeId){
+        double theHour = time/3600D;
+        theHour = Math.ceil(theHour);
+        return theHour;
+    }
+
+    /**
+     * This method gets time in seconds and returns true if the time is larger than one hour
+     * otherwise returns false
+     * */
+    boolean timeIsLargerThanOneHourFromSeconds(double time, int typeId){
+        double hour = computeHourFromSec(time, typeId);
+        if (hour >= 1){
+            return  true;
+        }else {
+            return false;
+        }
     }
 
     int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId, int assignedInstanceId){
