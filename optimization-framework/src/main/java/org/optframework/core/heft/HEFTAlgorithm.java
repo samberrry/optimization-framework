@@ -512,6 +512,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         if (!instanceIsUsed[j] && currentFinishTime < tempTaskFinishTimeStar){
                             tempTaskFinishTimeStar = currentFinishTime;
                             tempInstanceIdStar = j;
+                            //very specific case
+                        }else if (i == 1 && currentFinishTime < tempTaskFinishTimeStar){
+                            tempTaskFinishTimeStar = currentFinishTime;
+                            tempInstanceIdStar = j;
                         }else {
                             if (beforeCost == afterCost && currentFinishTime < tempTaskFinishTimeStar)
                             {
@@ -550,7 +554,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                                 gapIsUsed = false;
                             }
                             //Modified HEFT Logic START
-                            //Modified HEFT Logic START
                             double beforeTime = instanceTimeUsage[tempInstanceId];
                             double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
 
@@ -558,6 +561,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
 
                             if (!instanceIsUsed[j] && currentFinishTime < tempTaskFinishTimeStar){
+                                tempTaskFinishTimeStar = currentFinishTime;
+                                tempInstanceIdStar = j;
+                                //very specific case
+                            }else if (i == 1 && currentFinishTime < tempTaskFinishTimeStar){
                                 tempTaskFinishTimeStar = currentFinishTime;
                                 tempInstanceIdStar = j;
                             }else {
@@ -599,6 +606,10 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             double afterCost = computeCostPerHour(afterTime, availableInstances[tempInstanceId]);
 
                             if (!instanceIsUsed[j] && currentFinishTime < tempTaskFinishTimeStar){
+                                tempTaskFinishTimeStar = currentFinishTime;
+                                tempInstanceIdStar = j;
+                                //very specific case
+                            }else if (i == 1 && currentFinishTime < tempTaskFinishTimeStar){
                                 tempTaskFinishTimeStar = currentFinishTime;
                                 tempInstanceIdStar = j;
                             }else {
