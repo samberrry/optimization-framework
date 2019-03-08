@@ -504,7 +504,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
                         //Modified HEFT Logic START
                         double beforeTime = instanceTimeUsage[tempInstanceId];
-                        if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                        if (timeIsLargerThanOneHourFromSeconds(beforeTime)){
                             double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
 
                             double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
@@ -548,7 +548,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             }
                             //Modified HEFT Logic START
                             double beforeTime = instanceTimeUsage[tempInstanceId];
-                            if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                            if (timeIsLargerThanOneHourFromSeconds(beforeTime)){
                                 double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime + waitingTime;
 
                                 double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
@@ -586,7 +586,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                             }
                             //Modified HEFT Logic START
                             double beforeTime = instanceTimeUsage[tempInstanceId];
-                            if (timeIsLargerThanOneHourFromSeconds(beforeTime, availableInstances[tempInstanceId])){
+                            if (timeIsLargerThanOneHourFromSeconds(beforeTime)){
                                 double afterTime = instanceTimeUsage[tempInstanceId] + tempTaskFinishTime;
 
                                 double beforeCost = computeCostPerHour(beforeTime, availableInstances[tempInstanceId]);
@@ -755,7 +755,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         return theHour * instanceInfo[typeId].getSpotPrice();
     }
 
-    double computeHourFromSec(double time, int typeId){
+    double computeHourFromSec(double time){
         double theHour = time/3600D;
         theHour = Math.ceil(theHour);
         return theHour;
@@ -765,8 +765,8 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
      * This method gets time in seconds and returns true if the time is larger than one hour
      * otherwise returns false
      * */
-    boolean timeIsLargerThanOneHourFromSeconds(double time, int typeId){
-        double hour = computeHourFromSec(time, typeId);
+    boolean timeIsLargerThanOneHourFromSeconds(double time){
+        double hour = computeHourFromSec(time);
         if (hour >= 1){
             return  true;
         }else {
