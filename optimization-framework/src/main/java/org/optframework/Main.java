@@ -51,6 +51,9 @@ public class Main {
             case "zpso":
                 RunPSOAlgorithm.runPSO(1);
                 break;
+            case "grp-heft":
+                RunGRPHEFTAlgorithm.runGRPHEFT();
+                break;
         }
     }
 }

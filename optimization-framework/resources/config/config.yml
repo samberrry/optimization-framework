@@ -5,14 +5,15 @@
 #========================================================================================
 # Value             Description
 #----------------------------------------------------------------------------------------
-# sa                Simulated annealing algorithm
+# sa                Simulated Annealing algorithm
 # hbmo              HoneyBee mating optimization algorithm with random initial solution
 # heft              Heterogeneous Earliest Finish Time algorithm that uses all best instances with a limited number of instances
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 # pacsa-plus        PACSA algorithm with computed M number
-# pso               Particle Swarm Intelligence
+# pso               Particle Swarm Optimization algorithm
 # zpso              PSO algorithm with z array
+# grp-heft          Modified-HEFT Algorithm with instance set provisioned from Greedy Resource Provisioning (GRP) algorithm
 #
 # Key NOTES:
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
@@ -23,11 +24,11 @@
 
 global:
   algorithm: "pacsa-plus"
-  workflow_id: 4
+  workflow_id: 2
   #algorithm: "hbmo"
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 1.463
+  budget: 2.25
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
