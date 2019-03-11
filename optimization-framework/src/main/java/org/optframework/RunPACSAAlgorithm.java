@@ -624,7 +624,20 @@ public class RunPACSAAlgorithm {
      * Greedy Resource Provisioning Algorithm (GRP)
      * */
     static int[] greedyResourceProvisioning(InstanceInfo instanceInfo[], int number_of_affordable_fastest_instance, double minPrice, double cost_fastest_instance){
-        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+        int totalInstances[];
+        switch (Config.global.workflow_id){
+            case 30:
+            case 31:
+            case 32:
+            case 33:
+            case 34:
+            case 35:
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+                break;
+            default:
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+                break;
+        }
 
         double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
