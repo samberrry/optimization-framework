@@ -304,6 +304,7 @@ public class RunGRPHEFTAlgorithm {
                 totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
                 break;
         }
+        Config.global.m_number = totalInstances.length;
 
         double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
