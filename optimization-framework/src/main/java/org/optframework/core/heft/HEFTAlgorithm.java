@@ -628,7 +628,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
             //Modified HEFT Logic START
             //inside this condition we should change the tempInstanceId otherwise the Imin (the ordinary tempInstanceId) is used
-            if (tempInstanceId != tempInstanceIdStar){
+            if (!gapIsUsed && tempInstanceId != tempInstanceIdStar){
                 // remove the unused insatance from taken instance set
                 int instanceTypeId = availableInstances[tempInstanceId];
                 boolean thereIsAnyUnusedInstance = false;
