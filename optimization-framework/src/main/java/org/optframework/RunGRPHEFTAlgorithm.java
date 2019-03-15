@@ -10,34 +10,24 @@ import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.lossandgain.Loss2Algorithm;
 import org.optframework.core.lossandgain.Loss3Algorithm;
-import org.optframework.core.pacsa.PACSAIterationNumber;
-import org.optframework.core.pacsa.PACSAOptimization;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
-import org.optframework.database.MySQLSolutionRepository;
-
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class RunGRPHEFTAlgorithm {
 
-    private static double originalStartTemperature_SA;
-    private static double originalCoolingFactor_SA;
     private static int originalMNumber;
 
-    public static int Best_Iteration =0;//shows in which iteration of Pacsa the general best solution has been founded
 
     public static void runGRPHEFT()
     {
-        originalCoolingFactor_SA = Config.sa_algorithm.cooling_factor;
-        originalStartTemperature_SA = Config.sa_algorithm.start_temperature;
         originalMNumber = Config.global.m_number;
 
-        Log.logger.info("<<<<<<<<< PACSA Algorithm is started >>>>>>>>>");
+        Log.logger.info("<<<<<<<<< GRP-HEFT Algorithm is started >>>>>>>>>");
 
         /**
          * Assumptions:
@@ -80,15 +70,10 @@ public class RunGRPHEFTAlgorithm {
             loss3Solution = loss3Algorithm.runAlgorithm2();
         }
 
-
-        //  Solution loss3Solution2 = loss3Algorithm.runAlgorithm2();
-
         /**
          * Compute the maximum number of used instances
          * */
-        //todo:...
         loss3Solution.solutionMapping();
-        //    loss3Solution2.solutionMapping();
         loss2Solution.solutionMapping();
         heftSolution.solutionMapping();
 
@@ -114,11 +99,6 @@ public class RunGRPHEFTAlgorithm {
 
         workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
-        OptimizationAlgorithm optimizationAlgorithm;
-
-        List<Solution> solutionList = new ArrayList<>();
-        List<Solution> initialSolutionList = null;
-        int modifiedHeftMNumber = -1;
 
         if (Config.pacsa_algorithm.insert_heft_initial_solution) {
 
@@ -126,11 +106,8 @@ public class RunGRPHEFTAlgorithm {
             for (int i = 0; i < orderedJobList.size(); i++) {
                 zArray[i] = orderedJobList.get(i).getIntId();
             }
-            initialSolutionList = new ArrayList<>();
 
             loss2Solution.zArray = zArray;
-            //        loss3Solution.zArray = zArray;
-            //        loss3Solution2.zArray = zArray;
             heftSolution.zArray = zArray;
 
             loss2Solution.maxNumberOfInstances = Config.global.m_number;
@@ -162,7 +139,6 @@ public class RunGRPHEFTAlgorithm {
             HEFTAlgorithm heftAlgorithm3 = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
             Solution heftSolution3 = heftAlgorithm3.modified_heft_runAlgorithm();
 
-            initialSolutionList.add(heftSolution3);
             Printer.printSolutionWithouthTime(heftSolution3, instanceInfo);
         }
 
