@@ -110,9 +110,6 @@ public class RunPACSAAlgorithm {
         }
 
         if (algorithmId == 1) {
-            int m_number;
-            Config.global.algorithm = "pacsa_plus";
-
             Config.global.m_number = GlobalAccess.maxLevel;
         /*    m_number = GlobalAccess.maxLevel;
             if (loss2Solution.numberOfUsedInstances > loss3Solution.numberOfUsedInstances){
