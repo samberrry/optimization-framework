@@ -1,10 +1,7 @@
 package org.optframework.core.grpheft;
 
 import com.rits.cloning.Cloner;
-import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
-import org.cloudbus.spotsim.enums.OS;
-import org.cloudbus.spotsim.enums.Region;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -22,22 +19,17 @@ import java.util.Random;
 public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
     private static int originalMNumber;
+    private InstanceInfo instanceInfo[];
+
+    public GRPHEFTAlgorithm(InstanceInfo[] instanceInfo) {
+        this.instanceInfo = instanceInfo;
+    }
 
     @Override
     public Solution runAlgorithm()
     {
         originalMNumber = Config.global.m_number;
 
-        Log.logger.info("<<<<<<<<< GRP-HEFT Algorithm is started >>>>>>>>>");
-
-        /**
-         * Assumptions:
-         * Region: europe
-         * Availability Zone: A
-         * OS type: Linux System
-         * */
-        boolean big_budget = false;
-        InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
         Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
         Cloner cloner = new Cloner();
@@ -48,7 +40,7 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         Config.global.m_number = workflow.getJobList().size();
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
-        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(3);
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(3, instanceInfo);
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
@@ -82,9 +74,9 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         double minPrice = 9999999999.0;
 
-        for (InstanceType type : InstanceType.values()) {
-            if (instanceInfo[type.getId()].getSpotPrice() < minPrice) {
-                minPrice = instanceInfo[type.getId()].getSpotPrice();
+        for (InstanceInfo info: instanceInfo){
+            if (instanceInfo[info.getType().getId()].getSpotPrice() < minPrice){
+                minPrice = instanceInfo[info.getType().getId()].getSpotPrice();
             }
         }
 
@@ -120,7 +112,7 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
          * HEFT algorithm which is limited by m_number
          * */
 
-        int id_fastest_instance = 7;
+        int id_fastest_instance = findFastestInstanceId(instanceInfo);
         double cost_fastest_instance = instanceInfo[id_fastest_instance].getSpotPrice();
 
         int number_of_affordable_fastest_instance = (int)((Config.global.budget)/cost_fastest_instance);
@@ -136,7 +128,7 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
         Solution grpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
 
-        Printer.printSolutionWithouthTime(grpHeftSolution, instanceInfo);
+//        Printer.printSolutionWithouthTime(grpHeftSolution, instanceInfo);
 
         return grpHeftSolution;
     }
@@ -271,10 +263,10 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
             case 33:
             case 34:
             case 35:
-                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance, instanceInfo);
                 break;
             default:
-                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number), instanceInfo);
                 break;
         }
         Config.global.m_number = totalInstances.length;
@@ -307,4 +299,13 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         return totalInstances;
     }
 
+    public static int findFastestInstanceId(InstanceInfo instanceInfo[]){
+        InstanceInfo temp = instanceInfo[0];
+        for (InstanceInfo info: instanceInfo){
+            if (info.getType().getEcu() > temp.getType().getEcu()){
+                temp = info;
+            }
+        }
+        return  temp.getType().getId();
+    }
 }

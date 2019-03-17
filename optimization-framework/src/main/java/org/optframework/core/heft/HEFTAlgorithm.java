@@ -817,11 +817,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         return tempId;
     }
 
-    public static int[] getTotalInstancesForHEFT(int numberOfInstances){
+    public static int[] getTotalInstancesForHEFT(int numberOfInstances, InstanceInfo instanceInfo[]){
         int totalInstances[] = new int[numberOfInstances];
         for (int i = 0; i < numberOfInstances;) {
-            for (InstanceType type : InstanceType.values()){
-                totalInstances[i] = type.getId();
+            for (InstanceInfo info : instanceInfo){
+                totalInstances[i] = info.getType().getId();
                 i++;
                 if (i >= numberOfInstances)
                     break;
@@ -831,14 +831,14 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         return totalInstances;
     }
 
-    public static int[] getTotalInstancesForHEFTMostPowerful(int numberOfInstances){
+    public static int[] getTotalInstancesForHEFTMostPowerful(int numberOfInstances, InstanceInfo instanceInfo[]){
         int maxECUId = -1;
         double maxECU = 0.0;
 
-        for (InstanceType type : InstanceType.values()){
-            if (type.getEcu() > maxECU){
-                maxECUId = type.getId();
-                maxECU = type.getEcu();
+        for (InstanceInfo info: instanceInfo){
+            if (info.getType().getEcu() > maxECU){
+                maxECUId = info.getType().getId();
+                maxECU = info.getType().getEcu();
             }
         }
 

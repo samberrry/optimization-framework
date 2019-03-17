@@ -85,7 +85,7 @@ public class RunHBMOAlgorithm {
 
         // number_of_affordable_fastest_instance++;
 
-        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+        int totalInstances3[] = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number), instanceInfo);
 
         double minPrice = 9999999999.0;
 

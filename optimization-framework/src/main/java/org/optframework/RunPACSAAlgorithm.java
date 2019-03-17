@@ -64,7 +64,7 @@ public class RunPACSAAlgorithm {
         Config.global.m_number = workflow.getJobList().size();
 
         Log.logger.info("<<<<<<<<<<  HEFT Algorithm is started  >>>>>>>>>>>");
-        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(3);
+        int totalInstances[] = HEFTAlgorithm.getTotalInstancesForHEFT(3, instanceInfo);
 
         Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
@@ -629,10 +629,10 @@ public class RunPACSAAlgorithm {
             case 33:
             case 34:
             case 35:
-                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance);
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance, instanceInfo);
                 break;
             default:
-                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number));
+                totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number), instanceInfo);
                 break;
         }
         Config.global.m_number = totalInstances.length;
