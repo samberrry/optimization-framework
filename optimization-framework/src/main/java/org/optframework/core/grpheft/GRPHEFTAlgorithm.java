@@ -1,7 +1,6 @@
 package org.optframework.core.grpheft;
 
 import com.rits.cloning.Cloner;
-import org.cloudbus.spotsim.enums.InstanceType;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -128,8 +127,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
         Solution grpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
 
-//        Printer.printSolutionWithouthTime(grpHeftSolution, instanceInfo);
-
         return grpHeftSolution;
     }
 
@@ -143,8 +140,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
     public static double get_price_per_unit(int InstanceId, InstanceInfo instanceInfo[])
     {
-        //   double test1 = instanceInfo[InstanceId].getType().getEcu();
-        //   double test2 = instanceInfo[InstanceId].getSpotPrice();
         return instanceInfo[InstanceId].getType().getEcu()/instanceInfo[InstanceId].getSpotPrice() ;
     }
 
@@ -152,10 +147,7 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
     {
         double sum = 0;
         for (int id=0; id<instanceInfo.length;id++) {
-
-            //       double test = get_price_per_unit(id,instanceInfo);
-            sum += get_price_per_unit(id,instanceInfo)+instanceInfo[id].getType().getEcu(); //= instanceInfo[].getType().getEc2units()/instanceInfo[type.getId()].getSpotPrice() ;
-
+            sum += get_price_per_unit(id,instanceInfo)+instanceInfo[id].getType().getEcu();
         }
 
         Random rand = new Random();
@@ -164,7 +156,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         int selectedInstance = -1;
 
         for (int i = instanceInfo.length - 1; i >=0 ; i--) {
-            //   Log.logger.info("Probability of selecting "+i+" instanceType is"+(get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum);
             probabilitySumTemp += (get_price_per_unit(i, instanceInfo)+instanceInfo[i].getType().getEcu())/ sum;
             if (probabilitySumTemp > randomY) {
                 selectedInstance = i;
@@ -172,7 +163,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
             }
         }
 
-        //    Log.logger.info("selectedInstance:"+selectedInstance);
         return selectedInstance;
     }
 
@@ -216,29 +206,7 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         }
 
-
-     /*   Workflow heftWorkflow2 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances2, instanceInfo);
-
-        heftWorkflow2.setBeta(Beta.computeBetaValue(heftWorkflow2, instanceInfo, Config.global.m_number));
-
-        HEFTAlgorithm heftAlgorithm2 = new HEFTAlgorithm(heftWorkflow2, instanceInfo, totalInstances2, Config.global.m_number);
-        Solution heftSolution2 = heftAlgorithm2.runAlgorithm();
-        heftSolution2.heftFitness();
-
-
-        List<Job> orderedJobList = GlobalAccess.orderedJobList;
-        Integer zArray2[] = new Integer[orderedJobList.size()];
-        for (int i = 0; i < orderedJobList.size(); i++) {
-            zArray2[i] = orderedJobList.get(i).getIntId();
-        }
-
-        heftSolution2.zArray = zArray2;
-
-        //     initialSolutionList.add(heftSolution2);
-        Printer.printSolutionWithouthTime(heftSolution2,instanceInfo);*/
-
         return totalInstances2.length;
-
     }
 
     static void computeCoolingFactorForSA(int numberOfTasks){
@@ -274,10 +242,9 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         double remainingBudget = Config.global.budget - ((number_of_affordable_fastest_instance) * cost_fastest_instance);
 
         while (minPrice <= remainingBudget && totalInstances.length < Config.global.m_number) {
-            //    Log.logger.info("TotalInstances Length is:"+totalInstances3.length);
             double maxValidCost = 0.0;
             int instanceTypeId = -2;
-            for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {//for (int instance_id: sorted_instanceTypes_based_on_Cost_per_ComputeUnit) {
+            for (int instance_id = instanceInfo.length-1; instance_id >=0; instance_id--) {
                 if (instanceInfo[instance_id].getSpotPrice() <= remainingBudget && instanceInfo[instance_id].getSpotPrice() >= maxValidCost) {
                     maxValidCost = instanceInfo[instance_id].getSpotPrice();
                     instanceTypeId = instance_id;
