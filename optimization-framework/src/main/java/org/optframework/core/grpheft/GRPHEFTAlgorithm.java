@@ -87,11 +87,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
             return b;
     }
 
-    public static double get_price_per_unit(int InstanceId, InstanceInfo instanceInfo[])
-    {
-        return instanceInfo[InstanceId].getType().getEcu()/instanceInfo[InstanceId].getSpotPrice() ;
-    }
-
     /**
      * Greedy Resource Provisioning Algorithm (GRP)
      * */
