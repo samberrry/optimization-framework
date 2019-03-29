@@ -30,9 +30,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
         Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
-        //Initializes M_Number with number of tasks
-        Config.global.m_number = workflow.getJobList().size();
-
         List<Job> orderedJobList = GlobalAccess.orderedJobList;
 
         double minPrice = 9999999999.0;
@@ -67,13 +64,13 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         Log.logger.info("Number of affordable fastest instances is:"+number_of_affordable_fastest_instance);
 
-        int totalInstances3[] = greedyResourceProvisioning(instanceInfo, number_of_affordable_fastest_instance, minPrice, cost_fastest_instance);
+        int totalInstances[] = greedyResourceProvisioning(instanceInfo, number_of_affordable_fastest_instance, minPrice, cost_fastest_instance);
 
-        Workflow heftWorkflow3 = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances3, instanceInfo);
+        Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
 
-        heftWorkflow3.setBeta(Beta.computeBetaValue(heftWorkflow3, instanceInfo, Config.global.m_number));
+        heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, Config.global.m_number));
 
-        HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow3, instanceInfo, totalInstances3, Config.global.m_number);
+        HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances, Config.global.m_number);
         Solution grpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
 
         return grpHeftSolution;
