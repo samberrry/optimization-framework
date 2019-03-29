@@ -5,15 +5,10 @@ import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
-import org.optframework.core.lossandgain.Loss2Algorithm;
-import org.optframework.core.lossandgain.Loss3Algorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
-import org.optframework.core.utils.Printer;
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
