@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -13,6 +14,7 @@ import org.optframework.core.utils.Printer;
 import java.util.ArrayList;
 
 public class RunGRPHEFTAlgorithm {
+    public static boolean thisTypeIsUsedAsMaxEfficient[];
 
     public static void runGRPHEFT(){
         Log.logger.info("<<<<<<<<< GRP-HEFT Algorithm is started >>>>>>>>>");
@@ -26,20 +28,27 @@ public class RunGRPHEFTAlgorithm {
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         ArrayList<Solution> solutionArrayList = new ArrayList<>();
+        Cloner cloner = new Cloner();
+        InstanceInfo originalInstanceInfo[] = cloner.deepClone(instanceInfo);
         InstanceInfo tempInstanceInfo[] = instanceInfo;
+        RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient = new boolean[instanceInfo.length];
 
 
         for (int i = 0; i < InstanceType.values().length; i++) {
             Log.logger.info("Run " + i);
-            System.out.println(i);
-
             GRPHEFTAlgorithm grpheftAlgorithm = new GRPHEFTAlgorithm(tempInstanceInfo);
             Solution solution = grpheftAlgorithm.runAlgorithm();
             solutionArrayList.add(solution);
 
+            int maxInstanceId = findFastestInstanceId(instanceInfo);
+
+            int k =0;
             tempInstanceInfo = new InstanceInfo[instanceInfo.length-1];
-            for (int j = 0; j < instanceInfo.length - 1; j++) {
-                tempInstanceInfo[j] = instanceInfo[j];
+            for (int j = 0; j < instanceInfo.length; j++) {
+                if (maxInstanceId != instanceInfo[j].getType().getId()){
+                    tempInstanceInfo[k] = instanceInfo[j];
+                    k++;
+                }
             }
             instanceInfo = tempInstanceInfo;
         }
@@ -54,9 +63,16 @@ public class RunGRPHEFTAlgorithm {
         }
 
         Log.logger.info("<<<<<<<<< Final Result >>>>>>>>>");
-
-        Printer.printSolutionWithouthTime(finalSolution, instanceInfo);
-
+        Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
     }
 
+    public static int findFastestInstanceId(InstanceInfo instanceInfo[]){
+        InstanceInfo temp = instanceInfo[0];
+        for (InstanceInfo info: instanceInfo){
+            if (info.getType().getEcu() > temp.getType().getEcu()){
+                temp = info;
+            }
+        }
+        return  temp.getType().getId();
+    }
 }

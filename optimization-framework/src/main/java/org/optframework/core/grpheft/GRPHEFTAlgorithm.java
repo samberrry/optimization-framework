@@ -2,6 +2,7 @@ package org.optframework.core.grpheft;
 
 import com.rits.cloning.Cloner;
 import org.optframework.GlobalAccess;
+import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.heft.HEFTAlgorithm;
@@ -34,9 +35,9 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         double minPrice = 9999999999.0;
 
-        for (InstanceInfo info: instanceInfo){
-            if (instanceInfo[info.getType().getId()].getSpotPrice() < minPrice){
-                minPrice = instanceInfo[info.getType().getId()].getSpotPrice();
+        for (InstanceInfo item : instanceInfo){
+            if (item.getSpotPrice() < minPrice){
+                minPrice = item.getSpotPrice();
             }
         }
 
@@ -58,7 +59,18 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
          * */
 
         int id_fastest_instance = findFastestInstanceId(instanceInfo);
-        double cost_fastest_instance = instanceInfo[id_fastest_instance].getSpotPrice();
+        //next time the same instance type MUST not be chosen
+        if (id_fastest_instance == 5){
+            id_fastest_instance = 6;
+        }
+        RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+        double cost_fastest_instance = -11111111111111111111.0;
+        for (InstanceInfo item : instanceInfo){
+            if (item.getType().getId() == id_fastest_instance){
+                cost_fastest_instance = item.getSpotPrice();
+                break;
+            }
+        }
 
         int number_of_affordable_fastest_instance = (int)((Config.global.budget)/cost_fastest_instance);
 

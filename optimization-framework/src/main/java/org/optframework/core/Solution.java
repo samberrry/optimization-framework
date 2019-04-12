@@ -84,7 +84,6 @@ public class Solution implements Cloneable{
 
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int maxNumberOfInstances) {
         this.workflow = workflow;
-        this.instanceInfo = instanceInfo;
         this.maxNumberOfInstances = maxNumberOfInstances;
         xArray = new int[workflow.getJobList().size()];
         zArray = new Integer[workflow.getJobList().size()];
@@ -99,6 +98,14 @@ public class Solution implements Cloneable{
         yPrimeArray = new int[maxNumberOfInstances];
         instanceUsages = new short[maxNumberOfInstances];
         beta = workflow.getBeta();
+
+        this.instanceInfo = new InstanceInfo[InstanceType.values().length];
+        //projects instance info into new array list so that we can access each item based on the instance type id
+        for (InstanceInfo item : instanceInfo){
+            if (item!= null){
+                this.instanceInfo[item.getType().getId()] = item;
+            }
+        }
     }
 
     public void generateRandomNeighborSolution(Workflow workflow){

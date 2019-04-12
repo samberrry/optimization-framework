@@ -146,6 +146,12 @@ public class PreProcessor {
     }
 
     public static Workflow doPreProcessingForHEFT(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw, int totalInstances[], InstanceInfo instanceInfo[]){
+        InstanceInfo newInstanceInfo[] = new InstanceInfo[InstanceType.values().length];
+        for (InstanceInfo item : instanceInfo){
+            newInstanceInfo[item.getType().getId()] = item;
+        }
+        instanceInfo = newInstanceInfo;
+
         jobList = new ArrayList<>();
         List<Job> jobListWithDoubleTaskLength = PopulateWorkflow.jobListWithDoubleTaskLength;
 
