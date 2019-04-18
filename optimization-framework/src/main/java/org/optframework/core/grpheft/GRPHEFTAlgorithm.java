@@ -60,9 +60,6 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         int id_fastest_instance = findFastestInstanceId(instanceInfo);
         //next time the same instance type MUST not be chosen
-        if (id_fastest_instance == 5){
-            id_fastest_instance = 6;
-        }
         RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
         double cost_fastest_instance = -11111111111111111111.0;
         for (InstanceInfo item : instanceInfo){
