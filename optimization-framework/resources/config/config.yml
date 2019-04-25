@@ -23,7 +23,7 @@
 
 
 global:
-  algorithm: "grp-heft"
+  algorithm: "pacsa"
   workflow_id: 2
   #algorithm: "hbmo"
   #workflow_id: 4
