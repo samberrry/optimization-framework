@@ -14,10 +14,7 @@ import java.util.List;
  * This PACSA versions does the algorithm based on iteration number specified in the config file
  * */
 
-
-
 public class PACSAIterationNumber extends PACSAOptimization{
-   // private static double test_general_best = 999999999.9;
 
     int maxNumberOfInstances;
 
@@ -103,20 +100,11 @@ public class PACSAIterationNumber extends PACSAOptimization{
                     }
                     RunPACSAAlgorithm.Best_Iteration = iteration_counter;
                 }
-
             }
-
-
-
-
-
 
             Solution solutionToUpdate;
             if (Config.pacsa_algorithm.global_based) {
                 solutionToUpdate = globalBestSolution;
-                // }else {
-                //     solutionToUpdate = bestCurrentSolution;
-                // }
 
                 for (int instanceId : solutionToUpdate.xArray){
                     if (!instanceVisited[instanceId]){
@@ -139,18 +127,11 @@ public class PACSAIterationNumber extends PACSAOptimization{
                 for (int i = 0; i < maxNumberOfInstances; i++) {
                     for (int j = 0; j < workflow.getNumberTasks(); j++) {
                         pheromoneTrailForX[i][j] *= Config.pacsa_algorithm.evaporation_factor;
-                        //       if(global_best_updated % 2 == 0) {
                         if (solutionToUpdate.xArray[j] == i) {
                             pheromoneTrailForX[i][j] += 1 / solutionToUpdate.fitnessValue;
                         }
-                        //       }
                     }
                 }
-                // for (int i = 0; i < workflow.getNumberTasks(); i++) {
-
-                //pheromoneTrailForX[solutionToUpdate.xArray[i]][i] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                //}
-
                 //updates y pheromone trail
                 for (int i = 0; i < instanceInfo.length; i++) {
                     for (int j = 0; j < maxNumberOfInstances; j++) {
@@ -163,21 +144,13 @@ public class PACSAIterationNumber extends PACSAOptimization{
                     }
                 }
 
-                //   for (Integer instanceId: usedInstances){
-                //       pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                //   }
-
                 //updates z pheromone trail
                 for (int k = 0; k < workflow.getJobList().size(); k++) {
                     for (int j = 0; j < workflow.getJobList().size(); j++) {
                         pheromoneTrailForZ[j][k] *= Config.pacsa_algorithm.evaporation_factor;
-                    //    if(global_best_updated % 2 == 0) {
                         if (j == solutionToUpdate.zArray[k]) {
                             pheromoneTrailForZ[j][k] += 1 / solutionToUpdate.fitnessValue;
                         }
-                    //    }
-
-
                     }
                 }
             }
@@ -191,7 +164,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
                  }
 
 
-                //updated by Hamid/////////////
+                //updated by Hamid
 
                 //updates x pheromone trail
                 for (int i = 0; i < maxNumberOfInstances; i++) {
@@ -204,10 +177,6 @@ public class PACSAIterationNumber extends PACSAOptimization{
                         }
                     }
                 }
-                // for (int i = 0; i < workflow.getNumberTasks(); i++) {
-
-                //pheromoneTrailForX[solutionToUpdate.xArray[i]][i] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                //}
 
                 //updates y pheromone trail
                 for (int i = 0; i < instanceInfo.length; i++) {
@@ -221,10 +190,6 @@ public class PACSAIterationNumber extends PACSAOptimization{
                     }
                 }
 
-                //   for (Integer instanceId: usedInstances){
-                //       pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-                //   }
-
                 //updates z pheromone trail
                 for (int k = 0; k < workflow.getJobList().size(); k++) {
                     for (int j = 0; j < workflow.getJobList().size(); j++) {
@@ -234,8 +199,6 @@ public class PACSAIterationNumber extends PACSAOptimization{
                                 pheromoneTrailForZ[j][k] += 1 / solution.fitnessValue;
                             }
                         }
-
-
                     }
                 }
             }
@@ -264,44 +227,24 @@ public class PACSAIterationNumber extends PACSAOptimization{
             Only for test we initialize with a heavy SA and then we use a light version of SA
              */
             if(global_best_updated > 0) {
-                Config.sa_algorithm.cooling_factor = 0.9;//*= Config.pacsa_algorithm.cf_increase_ratio;
+                Config.sa_algorithm.cooling_factor = 0.9;
                 global_best_updated--;
             }
             else
             {
-               // if(workflow.getJobList().size() >= 900)
-                    Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;//
-              //  else
-              //      Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;//*= Config.pacsa_algorithm.cf_increase_ratio;
+                Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;//
             }
 
-
-            Config.sa_algorithm.start_temperature = 1.0;//*= Config.pacsa_algorithm.temp_decrease_ratio;
+            Config.sa_algorithm.start_temperature = 1.0;
 
             if (converge_flag) {
-
-             //   revolution(initialSeed);
-             //   currentBasePheromoneValue = initialSeed;
-             //   converge_flag = false;
-
-              //  Log.logger.info("_________________________-Revolution!_______________________________");
-
-
                   break;
-
-                //   Config.sa_algorithm.cooling_factor = 0.999;
-                //   Config.sa_algorithm.start_temperature = 85000.0;
             }
-
         }
 
         Config.sa_algorithm.cooling_factor = oroginal_cooling_schedule;// to make sure that the cooling schedule SA has not been changed
 
-     //   Log.logger.info("Pacsa Iterations="+iteration_counter);
         Log.logger.info("The best solution in PACSA founded in iteration:"+RunPACSAAlgorithm.Best_Iteration+"\n");
         return globalBestSolution;
-
-
-
     }
 }

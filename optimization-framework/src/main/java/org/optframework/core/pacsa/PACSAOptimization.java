@@ -19,7 +19,7 @@ import java.util.Random;
  * optimization algorithm
  *
  *
- * @coders Hamid and Hessam - hamid.faragardi.2010@gmail.com and hessam.modaberi@gmail.com
+ * @author Hamid and Hessam - hamid.faragardi.2010@gmail.com and hessam.modaberi@gmail.com
  * @since April 2018
  * */
 
@@ -41,7 +41,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
     protected double currentBasePheromoneValue;
     protected double initialSeed;
-//    int numberOfCurrentUsedInstances;
 
     double xProbability[][];
     double sumOfColumnsForX [];
@@ -123,7 +122,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 org.optframework.core.Log.logger.info("Cloning Exception");
             }
 
-
             iteration_counter++;
 
             //Update the best solution
@@ -154,7 +152,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
 
-            //updated by Hamid/////////////
+            //updated by Hamid
 
             //updates x pheromone trail
             for (int i = 0; i < maxNumberOfInstances; i++) {
@@ -165,10 +163,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     }
                 }
             }
-           // for (int i = 0; i < workflow.getNumberTasks(); i++) {
-
-                //pheromoneTrailForX[solutionToUpdate.xArray[i]][i] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForX[solutionToUpdate.xArray[i]][i] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-            //}
 
             //updates y pheromone trail
             for (int i = 0; i < instanceInfo.length; i++) {
@@ -180,10 +174,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
 
-         //   for (Integer instanceId: usedInstances){
-         //       pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] += 1 / solutionToUpdate.fitnessValue;//(pheromoneTrailForY[solutionToUpdate.yArray[instanceId]][instanceId] * Config.pacsa_algorithm.evaporation_factor) + 1 / solutionToUpdate.fitnessValue;
-         //   }
-
             //updates z pheromone trail
             for (int k = 0; k < workflow.getJobList().size(); k++) {
                 for (int j = 0; j < workflow.getJobList().size(); j++) {
@@ -191,8 +181,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     if (j == solutionToUpdate.zArray[k]) {
                         pheromoneTrailForZ[j][k] += 1 / solutionToUpdate.fitnessValue;
                     }
-
-
                 }
             }
 
@@ -220,8 +208,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
         Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
 
-    //    if(initial_run) {
-
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
                 int itr = i;
                 threadList[i] = new Thread(() -> {
@@ -231,31 +217,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     solutionList[itr] = solution;
                 });
             }
-    //    }
-    /*    else
-        {
-
-            for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
-                int itr = i;
-                threadList[i] = new Thread(() -> {
-
-                    String List_new_born_ants;
-            //for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-
-                //initialSolutionList.add(itr, generateInitialSolutionFromPheromone());
-                //List_new_born_ants = Double.toString(initialSolutionList.get(itr).fitnessValue) + ", ";
-
-            //}
-                    SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(generateInitialSolutionFromPheromone(), workflow, instanceInfo);
-
-                    Solution solution = sa.runAlgorithm();
-                    solutionList[itr] = solution;
-                });
-            }
-
-          //  Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
-        }
-*/
 
         for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
             threadList[i].start();
@@ -269,43 +230,8 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
         }
 
-
-
         return solutionList;
     }
-
-  /*  Solution[] runAnts_NonParallel(boolean initial_run){
-        Thread threadList[] = new Thread[Config.pacsa_algorithm.getNumber_of_ants()];
-        Solution[] solutionList = new Solution[Config.pacsa_algorithm.getNumber_of_ants()];
-
-
-        for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_ants(); i++) {
-           // int itr = i;
-          //  threadList[i] = new Thread(() -> {
-                SimulatedAnnealingAlgorithm sa = new SimulatedAnnealingAlgorithm(initialSolutionList.get(i), workflow, instanceInfo);
-
-                Solution solution = sa.runAlgorithm();
-                solutionList[i] = solution;
-           // });
-        }
-
-
-     //   for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-     //       threadList[i].start();
-     //   }
-
-    //    for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
-    //        try {
-    //            threadList[i].join();
-    //        } catch (InterruptedException e) {
-    //            e.printStackTrace();
-    //        }
-    //    }
-
-
-
-        return solutionList;
-    }*/
 
     protected void generateRandomInitialSolutionList(){
         if (outInitialSolution != null){
@@ -338,7 +264,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             }
         }
 
-
         //reset y pheromone trail
         for (int i = 0; i < instanceInfo.length; i++) {
             for (int j = 0; j < maxNumberOfInstances; j++) {
@@ -347,7 +272,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
             }
         }
-
 
         //reset z pheromone trail
         for (int k = 0; k < workflow.getJobList().size(); k++) {
@@ -367,7 +291,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         this.sumOfColumnsForY = new double[workflow.getNumberTasks()];
 
         //probability matrix for x array
-
         for (int i = 0; i < workflow.getNumberTasks(); i++) {
             for (Integer instanceId: usedInstances){
                 sumOfColumnsForX[i] += pheromoneTrailForX[instanceId][i];
@@ -407,21 +330,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 }
             }
         }
-
-
-      /*  double sum;
-        for (Integer instanceId: usedInstances){
-            sum = 0;
-            for (int j = 0; j < instanceInfo.length; j++) {
-                sum += yProbability[j][instanceId];
-            }
-            if(sum < 0.99)
-            {
-                sum = -1;
-                break;
-            }
-        }*/
-
     }
 
     protected Solution generateInitialSolutionFromPheromone(){
@@ -460,10 +368,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             if (selectedInstance > maxInstances){
                 maxInstances = selectedInstance;
             }
-           // CounterForTestMultiThread++;
         }
-
-
 
         for (int instanceId=0; instanceId < maxNumberOfInstances; instanceId++){
             double randomY = rand.nextDouble();
@@ -484,7 +389,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 selectedInstance = r.nextInt(instanceInfo.length);
             }
             generatedYArray[instanceId] = selectedInstance;
-           // CounterForTestMultiThread++;
         }
 
         ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
@@ -530,11 +434,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 idInReadyList = ran;
             }
 
-           /* if(newSelectedTaskToOrder < 0 || newSelectedTaskToOrder >= workflow.getJobList().size())
-            {
-                Log.logger.info("Something wrong in generating Z of newborn ants");
-            }*/
-
             ArrayList<Integer> children = dag.getChildren(newSelectedTaskToOrder);
             for (int i = 0; i < children.size(); i++) {
                 int childId = children.get(i);
@@ -546,7 +445,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
             readyTasksToOrder.remove(idInReadyList);
             generatedZArray[k] = newSelectedTaskToOrder;
-           // CounterForTestMultiThread++;
         }
 
         Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
@@ -556,8 +454,6 @@ public class PACSAOptimization implements OptimizationAlgorithm {
         solution.zArray = generatedZArray;
         solution.origin = "pacsa";
         solution.fitness();
-
-       // Log.logger.info("Counter for test multi-thread is: "+CounterForTestMultiThread);
 
         return solution;
     }
