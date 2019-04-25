@@ -106,6 +106,8 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
             case 34:
             case 35:
                 totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(number_of_affordable_fastest_instance, instanceInfo);
+
+                Config.global.m_number = number_of_affordable_fastest_instance;
                 break;
             default:
                 totalInstances = HEFTAlgorithm.getTotalInstancesForHEFTMostPowerful(Min(number_of_affordable_fastest_instance,Config.global.m_number), instanceInfo);
