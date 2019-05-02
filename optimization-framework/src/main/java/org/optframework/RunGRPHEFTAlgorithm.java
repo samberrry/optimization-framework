@@ -5,6 +5,7 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
+import org.optframework.automator.CostAutomator;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -12,6 +13,11 @@ import org.optframework.core.grpheft.GRPHEFTAlgorithm;
 import org.optframework.core.utils.Printer;
 
 import java.util.ArrayList;
+
+/**
+ * Iterative version of the Modified-HEFT GRP Algorithm
+ * @author Hessam hessam.mdoaberi@gmail.com
+ * */
 
 public class RunGRPHEFTAlgorithm {
     public static boolean thisTypeIsUsedAsMaxEfficient[];
@@ -26,6 +32,8 @@ public class RunGRPHEFTAlgorithm {
          * OS type: Linux System
          * */
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+
+        long start = System.currentTimeMillis();
 
         ArrayList<Solution> solutionArrayList = new ArrayList<>();
         Cloner cloner = new Cloner();
@@ -62,8 +70,12 @@ public class RunGRPHEFTAlgorithm {
             }
         }
 
+        long end = System.currentTimeMillis();
+
         Log.logger.info("<<<<<<<<< Final Result >>>>>>>>>");
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
+        CostAutomator.solution = finalSolution;
+        CostAutomator.timeInMilliSec = end - start;
     }
 
     public static int findFastestInstanceId(InstanceInfo instanceInfo[]){
