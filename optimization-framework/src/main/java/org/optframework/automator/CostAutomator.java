@@ -26,7 +26,24 @@ public class CostAutomator {
 
     public static double[] budgetList = {
             1.463,
-            2.025
+            2.025,
+            2.25,
+            2.7,
+            3.375,
+            3.6,
+            4.05,
+            4.5,
+            4.98,
+            5.85,
+            6.33,
+            6.75,
+            7.2,
+            7.65,
+            8.1,
+            8.55,
+            9,
+            9.9,
+            11.7
     };
 
     public static void main(String[] args) throws Exception{
