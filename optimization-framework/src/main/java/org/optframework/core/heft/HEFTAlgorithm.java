@@ -263,7 +263,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         break;
                     }
                 }
-                int beforeTaskId = instanceList[instanceGapId].taskGapList.get(gapIndex-1);
+                int beforeTaskId = instanceList[instanceGapId].taskGapList.get(gapIndex);
 
                 int taskToRemoveId = -1;
                 for (int j = 0; j < newZArray.size(); j++) {
@@ -290,7 +290,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 gap.startTime = tempTaskFinishTime;
                 if (gap.startTime >= gap.endTime){
                     instanceList[instanceGapId].gapList.remove(gapId);
-                    instanceList[instanceGapId].taskGapList.remove(gapIndex);
+                    instanceList[instanceGapId].taskGapList.remove(gapIndex+1);
                     Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
                 }else {
                     gap.duration = gap.endTime - gap.startTime;
@@ -684,7 +684,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                         break;
                     }
                 }
-                int beforeTaskId = instanceList[instanceGapId].taskGapList.get(gapIndex-1);
+                int beforeTaskId = instanceList[instanceGapId].taskGapList.get(gapIndex);
 
                 int taskToRemoveId = -1;
                 for (int j = 0; j < newZArray.size(); j++) {
@@ -711,7 +711,7 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
                 gap.startTime = tempTaskFinishTime;
                 if (gap.startTime >= gap.endTime){
                     instanceList[instanceGapId].gapList.remove(gapId);
-                    instanceList[instanceGapId].taskGapList.remove(gapIndex);
+                    instanceList[instanceGapId].taskGapList.remove(gapIndex+1);
                     Collections.sort(instanceList[instanceGapId].gapList , Gap.gapComparator);
                 }else {
                     gap.duration = gap.endTime - gap.startTime;

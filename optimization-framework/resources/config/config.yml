@@ -24,11 +24,11 @@
 
 global:
   algorithm: "grp-heft"
-  workflow_id: 2
+  workflow_id: 41
   #algorithm: "hbmo"
   #workflow_id: 4
   #workflow_name: "inspiral_30"
-  budget: 1.463
+  budget: 0.225
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
