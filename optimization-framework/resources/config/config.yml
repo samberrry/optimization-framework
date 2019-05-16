@@ -11,6 +11,7 @@
 # heft-example      The customized HEFT algorithm for the example in the HEFT paper
 # pacsa             Parallel Ant Colony leveraged by Simulated Annealing
 # pacsa-plus        PACSA algorithm with computed M number
+# grp-pacsa         Gets an initial solution from GRP-HEFT to start PACSA
 # pso               Particle Swarm Optimization algorithm
 # zpso              PSO algorithm with z array
 # grp-heft          Modified-HEFT Algorithm with instance set provisioned from Greedy Resource Provisioning (GRP) algorithm

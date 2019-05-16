@@ -54,6 +54,9 @@ public class Main {
             case "grp-heft":
                 RunGRPHEFTAlgorithm.runGRPHEFT();
                 break;
+            case "grp-pacsa":
+                RunGRPPACSAAlgorithm.runGRPPACSA();
+                break;
         }
     }
 }
