@@ -4,6 +4,8 @@ import org.optframework.config.Config;
 import org.optframework.core.Log;
 import org.optframework.core.utils.Printer;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) throws Exception{
         Log.init();
@@ -22,6 +24,8 @@ public class Main {
         Config.initConfig();
 
         Printer.printSplitter();
+
+        GlobalAccess.solutionRepository = new ArrayList<>();
 
         switch (Config.global.algorithm){
             case "sa":

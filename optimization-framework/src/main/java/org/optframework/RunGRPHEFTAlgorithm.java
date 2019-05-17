@@ -34,13 +34,11 @@ public class RunGRPHEFTAlgorithm {
         InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
         long start = System.currentTimeMillis();
-
         ArrayList<Solution> solutionArrayList = new ArrayList<>();
         Cloner cloner = new Cloner();
         InstanceInfo originalInstanceInfo[] = cloner.deepClone(instanceInfo);
         InstanceInfo tempInstanceInfo[] = instanceInfo;
         RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient = new boolean[instanceInfo.length];
-
 
         for (int i = 0; i < InstanceType.values().length; i++) {
             Log.logger.info("Run " + i);
@@ -70,12 +68,16 @@ public class RunGRPHEFTAlgorithm {
             }
         }
 
-        long end = System.currentTimeMillis();
+        finalSolution.origin = "grp-heft";
 
-        Log.logger.info("<<<<<<<<< Final Result >>>>>>>>>");
+        long end = System.currentTimeMillis();
+        Log.logger.info("<<<<<<<<< GRP Final Result >>>>>>>>>");
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
         CostAutomator.solution = finalSolution;
         CostAutomator.timeInMilliSec = end - start;
+
+        GlobalAccess.solutionRepository.add(finalSolution);
+        GlobalAccess.latestSolution = finalSolution;
     }
 
     public static int findFastestInstanceId(InstanceInfo instanceInfo[]){

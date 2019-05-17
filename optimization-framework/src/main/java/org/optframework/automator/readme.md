@@ -1,2 +1,2 @@
 #### About this package
-This package contains automator for computing results
+This package contains automator to facilitate getting results
