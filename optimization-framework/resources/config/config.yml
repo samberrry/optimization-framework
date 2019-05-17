@@ -25,8 +25,8 @@
 
 global:
   algorithm: "grp-pacsa"
-  workflow_id: 41
-  budget: 0.225
+  workflow_id: 2
+  budget: 2.025
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
@@ -67,7 +67,7 @@ honeybee_algorithm:
 pacsa_algorithm:
   iteration_number: 20
   iteration_number_based: yes
-  number_of_ants: 16
+  number_of_ants: 4
   number_of_runs: 1
 #  cf: cooling factor (previous value 1.004)
   cf_increase_ratio: 1.002

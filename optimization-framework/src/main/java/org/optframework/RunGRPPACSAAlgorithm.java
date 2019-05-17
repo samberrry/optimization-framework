@@ -5,6 +5,7 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
+import org.optframework.automator.CostAutomator;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.pacsa.PACSAIterationNumber;
@@ -38,6 +39,7 @@ public class RunGRPPACSAAlgorithm {
             GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
             Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
+            //use GRP's number of used instances as the maximum number of instances for pacsa
             Config.global.m_number = grpHEFTSolution.numberOfUsedInstances;
 
             computeCoolingFactorForSA(workflow.getJobList().size());
@@ -49,6 +51,7 @@ public class RunGRPPACSAAlgorithm {
             List<Solution> initialSolutionList = new ArrayList<>();
 
             long runTimeSum = 0;
+            //insets an initial solution from GRP-HEFT algorithm
             initialSolutionList.add(grpHEFTSolution);
 
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
@@ -119,12 +122,18 @@ public class RunGRPPACSAAlgorithm {
 
             Printer.printSplitter();
 
+            CostAutomator.solution = bestSolution;
+            CostAutomator.timeInMilliSec = (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
+
             String toPrint = "\n";
             toPrint += "Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
             toPrint += "Average Cost value: " + costSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
-            toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n";
+            toPrint += "Max fitness: " + fitnessMax + " Min fitness: "+ fitnessMin + "\n\n";
+            toPrint += "Average runtime (sec): " + (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs())/1000 + "\n";
+            toPrint += "Average runtime (milisec): " + (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs()) + "\n";
             Log.logger.info(toPrint);
 
+            //Use MySQL to store results
             if (Config.global.use_mysql_to_log){
                 MySQLSolutionRepository sqlSolutionRepository = new MySQLSolutionRepository();
                 sqlSolutionRepository.updateRecord(

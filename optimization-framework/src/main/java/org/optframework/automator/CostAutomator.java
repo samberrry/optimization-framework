@@ -251,6 +251,9 @@ public class CostAutomator {
                 case "grp-heft":
                     RunGRPHEFTAlgorithm.runGRPHEFT();
                     break;
+                case "grp-pacsa":
+                    RunGRPPACSAAlgorithm.runGRPPACSA();
+                    break;
             }
             timeInMilliSecArrayList.add(timeInMilliSec);
             solutionArrayList.add(solution);
@@ -268,6 +271,8 @@ public class CostAutomator {
             sb.append("Fitness");
             sb.append(',');
             sb.append("MilliSec");
+            sb.append(',');
+            sb.append("Sec");
             sb.append('\n');
 
             for (int i = 0; i < solutionArrayList.size(); i++) {
@@ -280,6 +285,8 @@ public class CostAutomator {
                 sb.append(solutionArrayList.get(i).fitnessValue);
                 sb.append(',');
                 sb.append(timeInMilliSecArrayList.get(i));
+                sb.append(',');
+                sb.append(timeInMilliSecArrayList.get(i)/1000);
                 sb.append('\n');
             }
 
