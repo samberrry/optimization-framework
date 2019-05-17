@@ -201,6 +201,7 @@ public class CostAutomator {
     public static void main(String[] args) throws Exception{
         solutionArrayList = new ArrayList<>();
         timeInMilliSecArrayList = new ArrayList<>();
+        GlobalAccess.solutionRepository = new ArrayList<>();
 
         Log.init();
         Log.logger.info("+++++++++ CostAutomator is started +++++++++");
