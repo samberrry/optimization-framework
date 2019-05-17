@@ -33,6 +33,8 @@ public class RunGRPPACSAAlgorithm {
              * OS type: Linux System
              * */
             InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
+
+            grpHEFTSolution.instanceInfo = instanceInfo;
             Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
             Cloner cloner = new Cloner();
