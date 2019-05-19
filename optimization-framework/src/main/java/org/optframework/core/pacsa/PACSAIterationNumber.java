@@ -26,10 +26,6 @@ public class PACSAIterationNumber extends PACSAOptimization{
     @Override
     public Solution runAlgorithm() {
         Printer.printSAInfo();
-
-
-        Printer.printSAInfo();
-
         int iteration_counter = 0;
 
         double oroginal_cooling_schedule = Config.sa_algorithm.cooling_factor;
@@ -64,7 +60,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
             String list_ants_fintess = "";
             //Update the best solution
             for (Solution solution: antSolutionList){
-                list_ants_fintess += Double.toString(solution.fitnessValue) + ", ";
+                list_ants_fintess += solution.fitnessValue + ", ";
                 if (solution.fitnessValue < bestCurrentSolution.fitnessValue){
                     bestCurrentSolution = solution;
                 }
