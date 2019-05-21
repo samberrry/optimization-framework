@@ -23,7 +23,7 @@ public class RunGRPPACSAAlgorithm {
     public static void runGRPPACSA(){
         {
             RunGRPHEFTAlgorithm.runGRPHEFT();
-            Solution grpHEFTSolution = GlobalAccess.latestSolution;
+            Solution pureSolution = GlobalAccess.latestSolution;
 
             Log.logger.info("<<<<<<<<< GRP-PACSA Algorithm is started >>>>>>>>>");
             /**
@@ -34,8 +34,19 @@ public class RunGRPPACSAAlgorithm {
              * */
             InstanceInfo instanceInfo[] = InstanceInfo.populateInstancePrices(Region.EUROPE , AZ.A, OS.LINUX);
 
-            grpHEFTSolution.instanceInfo = instanceInfo;
             Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
+
+            Config.global.m_number = pureSolution.numberOfUsedInstances;
+
+            //preparing GRP-HEFT Solution
+            Solution grpHEFTSolution = new Solution(workflow, instanceInfo, pureSolution.numberOfUsedInstances);
+            grpHEFTSolution.xArray = pureSolution.xArray;
+            grpHEFTSolution.yArray = pureSolution.yArray;
+            grpHEFTSolution.zArray = pureSolution.zArray;
+            grpHEFTSolution.numberOfUsedInstances = pureSolution.numberOfUsedInstances;
+            grpHEFTSolution.origin = pureSolution.origin;
+
+            grpHEFTSolution.fitness();
 
             Cloner cloner = new Cloner();
             GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
