@@ -36,6 +36,11 @@ public class RunGRPPACSAAlgorithm {
 
             Workflow workflow = PreProcessor.doPreProcessing(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id));
 
+            //use GRP's number of used instances as the maximum number of instances for pacsa
+            Config.global.m_number = pureSolution.numberOfUsedInstances;
+
+            workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
+
             Config.global.m_number = pureSolution.numberOfUsedInstances;
 
             //preparing GRP-HEFT Solution
@@ -52,11 +57,7 @@ public class RunGRPPACSAAlgorithm {
             GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
             Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
 
-            //use GRP's number of used instances as the maximum number of instances for pacsa
-            Config.global.m_number = grpHEFTSolution.numberOfUsedInstances;
-
             computeCoolingFactorForSA(workflow.getJobList().size());
-            workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
             OptimizationAlgorithm optimizationAlgorithm;
 

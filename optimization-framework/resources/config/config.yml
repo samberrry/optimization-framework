@@ -26,7 +26,7 @@
 global:
   algorithm: "grp-pacsa"
   workflow_id: 1
-  budget: 18.709
+  budget: 17.78
   bandwidth: 39321600
   t_extra: -1
   read_m_number_from_config: no
