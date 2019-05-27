@@ -129,12 +129,9 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                     bestCurrentSolution = solution;
                 }
             }
-            if (globalBestSolution == null){
+
+            if (bestCurrentSolution.fitnessValue < globalBestSolution.fitnessValue){
                 globalBestSolution = bestCurrentSolution;
-            }else {
-                if (bestCurrentSolution.fitnessValue < globalBestSolution.fitnessValue){
-                    globalBestSolution = bestCurrentSolution;
-                }
             }
 
             Solution solutionToUpdate;
@@ -249,7 +246,18 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 initialSolutionList.add(i , solution);
             }
         }
-        //todo: find the best
+        Solution tempSolution = initialSolutionList.get(0);
+        for (Solution solution : initialSolutionList){
+            if (solution.fitnessValue < tempSolution.fitnessValue){
+                tempSolution = solution;
+            }
+        }
+
+        try {
+            globalBestSolution = tempSolution.clone();
+        }catch (Exception e){
+            //
+        }
     }
 
     protected void revolution(double initialSeed)
