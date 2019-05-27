@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * Implementation for the Honey Bee Mating Optimization Algorithm
+ * A version of HBMO algorithm which uses full mutation
  *
  * @author Hessam hessam.modaberi@gmail.com
  * @since 2018

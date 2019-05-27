@@ -6,6 +6,13 @@ import org.optframework.core.utils.Printer;
 
 import java.util.ArrayList;
 
+/**
+ * Entry point for this simulation
+ *
+ * @author Hessam hessam.modaberi@gmail.com
+ * @since April 2018
+ * */
+
 public class Main {
     public static void main(String[] args) throws Exception{
         Log.init();

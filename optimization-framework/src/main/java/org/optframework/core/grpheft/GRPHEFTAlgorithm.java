@@ -11,6 +11,13 @@ import org.optframework.core.utils.PreProcessor;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Implementation for Greedy Resource Provisioning algorithm (A deterministic algorithm)
+ *
+ * @author Hessam hessam.modaberi@gmail.com
+ * @since April 2018
+ * */
+
 public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
     private static int originalMNumber;

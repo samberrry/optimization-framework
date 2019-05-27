@@ -6,7 +6,6 @@ import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.*;
-import org.optframework.core.heft.Instance;
 import org.optframework.core.sa.SimulatedAnnealingAlgorithm;
 import org.optframework.core.utils.Printer;
 
@@ -26,7 +25,7 @@ import java.util.Random;
 public class PACSAOptimization implements OptimizationAlgorithm {
 
 
-    protected List<Solution> outInitialSolution;
+    protected List<Solution> outInitialSolutionList;
     protected Solution globalBestSolution;
     protected List<Solution> initialSolutionList = new ArrayList<>();
 
@@ -56,11 +55,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
 
     int maxNumberOfInstances;
 
-    public PACSAOptimization(List<Solution> outInitialSolution, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[], int maxNumberOfInstances) {
+    public PACSAOptimization(List<Solution> outInitialSolutionList, double pheromoneInitialSeed, Workflow workflow, InstanceInfo instanceInfo[], int maxNumberOfInstances) {
         this.workflow = workflow;
         this.dag = workflow.getWfDAG();
         this.instanceInfo = instanceInfo;
-        this.outInitialSolution = outInitialSolution;
+        this.outInitialSolutionList = outInitialSolutionList;
         this.currentBasePheromoneValue = pheromoneInitialSeed;
         this.initialSeed = pheromoneInitialSeed;
         this.usedInstances = new ArrayList<>();
@@ -234,11 +233,11 @@ public class PACSAOptimization implements OptimizationAlgorithm {
     }
 
     protected void generateRandomInitialSolutionList(){
-        if (outInitialSolution != null){
-            for (Solution solution: outInitialSolution){
+        if (outInitialSolutionList != null){
+            for (Solution solution: outInitialSolutionList){
                 initialSolutionList.add(solution);
             }
-            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants - outInitialSolution.size(); i++) {
+            for (int i = 0; i < Config.pacsa_algorithm.number_of_ants - outInitialSolutionList.size(); i++) {
                 Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
                 solution.generateFullyRandomSolution();
                 initialSolutionList.add(i , solution);
@@ -250,6 +249,7 @@ public class PACSAOptimization implements OptimizationAlgorithm {
                 initialSolutionList.add(i , solution);
             }
         }
+        //todo: find the best
     }
 
     protected void revolution(double initialSeed)

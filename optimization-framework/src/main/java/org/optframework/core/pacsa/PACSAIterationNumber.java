@@ -11,7 +11,10 @@ import org.optframework.core.utils.Printer;
 import java.util.List;
 
 /**
- * This PACSA versions does the algorithm based on iteration number specified in the config file
+ * This PACSA version runs the algorithm based on iteration number specified in the config file
+ *
+ * @author Hessam - hessam.modaberi@gmail.com
+ * @since April 2018
  * */
 
 public class PACSAIterationNumber extends PACSAOptimization{
@@ -209,9 +212,7 @@ public class PACSAIterationNumber extends PACSAOptimization{
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
                 Solution tempSolution = generateInitialSolutionFromPheromone();
                 initialSolutionList.add(i, tempSolution);
-                List_new_born_ants += Double.toString(tempSolution.fitnessValue) + ", ";
-
-
+                List_new_born_ants += (tempSolution.fitnessValue + ", ");
             }
 
             Log.logger.info("List of newborn ants' fitness:"+List_new_born_ants);
