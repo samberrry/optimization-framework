@@ -75,7 +75,8 @@ public class PACSAIterationNumber extends PACSAOptimization{
             Log.logger.info("List of ants' fitness:"+list_ants_fintess);
 
             Log.logger.info("BestCurrentFitness:"+bestCurrentSolution.fitnessValue+" found in iter:"+iteration_counter);
-            if (globalBestSolution == null){
+
+            if (bestCurrentSolution.fitnessValue < globalBestSolution.fitnessValue){
                 try {
                     globalBestSolution = bestCurrentSolution.clone();
                     Log.logger.info("GeneralBestFitness:"+globalBestSolution.fitnessValue+" found in iter:"+iteration_counter);
@@ -86,19 +87,6 @@ public class PACSAIterationNumber extends PACSAOptimization{
                     org.optframework.core.Log.logger.info("Cloning Exception");
                 }
                 RunPACSAAlgorithm.Best_Iteration = iteration_counter;
-            }else {
-                if (bestCurrentSolution.fitnessValue < globalBestSolution.fitnessValue){
-                    try {
-                        globalBestSolution = bestCurrentSolution.clone();
-                        Log.logger.info("GeneralBestFitness:"+globalBestSolution.fitnessValue+" found in iter:"+iteration_counter);
-                        global_best_updated = 2; // means that two next iterations should work with a very low colling factor to speedup the algorithm
-                    }
-                    catch (Exception e)
-                    {
-                        org.optframework.core.Log.logger.info("Cloning Exception");
-                    }
-                    RunPACSAAlgorithm.Best_Iteration = iteration_counter;
-                }
             }
 
             Solution solutionToUpdate;
