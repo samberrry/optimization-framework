@@ -66,7 +66,9 @@ public class RunGRPPACSAAlgorithm {
 
             long runTimeSum = 0;
             //insets an initial solution from GRP-HEFT algorithm
-            initialSolutionList.add(grpHEFTSolution);
+            if (Config.pacsa_algorithm.insert_heft_initial_solution){
+                initialSolutionList.add(grpHEFTSolution);
+            }
 
             for (int i = 0; i < Config.pacsa_algorithm.getNumber_of_runs(); i++) {
                 Printer.printSplitter();
