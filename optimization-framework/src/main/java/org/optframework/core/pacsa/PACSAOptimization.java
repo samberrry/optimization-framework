@@ -237,12 +237,14 @@ public class PACSAOptimization implements OptimizationAlgorithm {
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants - outInitialSolutionList.size(); i++) {
                 Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
                 solution.generateFullyRandomSolution();
+                solution.fitness();
                 initialSolutionList.add(i , solution);
             }
         }else {
             for (int i = 0; i < Config.pacsa_algorithm.number_of_ants; i++) {
                 Solution solution = new Solution(workflow, instanceInfo, maxNumberOfInstances);
                 solution.generateFullyRandomSolution();
+                solution.fitness();
                 initialSolutionList.add(i , solution);
             }
         }
