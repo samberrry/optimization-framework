@@ -62,6 +62,9 @@ public class Main {
             case "zpso":
                 RunPSOAlgorithm.runPSO(1);
                 break;
+            case "iterative-grp-heft":
+                RunIterativeGRPHEFTAlgorithm.runGRPHEFT();
+                break;
             case "grp-heft":
                 RunGRPHEFTAlgorithm.runGRPHEFT();
                 break;
