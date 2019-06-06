@@ -2,6 +2,7 @@ package org.optframework.core.grpheft;
 
 import com.rits.cloning.Cloner;
 import org.optframework.GlobalAccess;
+import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.RunIterativeGRPHEFTAlgorithm;
 import org.optframework.config.Config;
 import org.optframework.core.*;
@@ -67,7 +68,17 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         int id_fastest_instance = findFastestInstanceId(instanceInfo);
         //next time the same instance type MUST not be chosen
-        RunIterativeGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+        switch (Config.global.algorithm){
+            case "grp-heft":
+                RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+                break;
+            case "iterative-grp-heft":
+                RunIterativeGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+                break;
+            default:
+                RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+                break;
+        }
         double cost_fastest_instance = -11111111111111111111.0;
         for (InstanceInfo item : instanceInfo){
             if (item.getType().getId() == id_fastest_instance){

@@ -15,6 +15,7 @@
 # pso               Particle Swarm Optimization algorithm
 # zpso              PSO algorithm with z array
 # grp-heft          Modified-HEFT Algorithm with instance set provisioned from Greedy Resource Provisioning (GRP) algorithm
+# iterative-grp-heft Iterative version of GRP-HEFT algorithm
 #
 # Key NOTES:
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
