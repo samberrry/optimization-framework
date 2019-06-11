@@ -24,6 +24,7 @@ public class PreProcessor {
     static org.cloudbus.cloudsim.util.workload.Workflow workflow;
 
     public static Workflow doPreProcessing(org.cloudbus.cloudsim.util.workload.Workflow workflow){
+        PreProcessor.workflow = workflow;
         WorkflowDAG dag = workflow.getWfDAG();
 
         int parents[] = new int[workflow.getJobList().size()];
@@ -146,6 +147,7 @@ public class PreProcessor {
     }
 
     public static Workflow doPreProcessingForHEFT(org.cloudbus.cloudsim.util.workload.Workflow workflow, double bw, int totalInstances[], InstanceInfo instanceInfo[]){
+        PreProcessor.workflow = workflow;
         InstanceInfo newInstanceInfo[] = new InstanceInfo[InstanceType.values().length];
         for (InstanceInfo item : instanceInfo){
             newInstanceInfo[item.getType().getId()] = item;

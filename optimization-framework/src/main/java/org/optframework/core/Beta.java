@@ -1,7 +1,5 @@
 package org.optframework.core;
 
-import org.cloudbus.spotsim.enums.InstanceType;
-
 public class Beta {
     public static double computeBetaValue(Workflow workflow, InstanceInfo instanceInfo[], int numberOfInstances){
         //solution with best makespan

@@ -1,5 +1,6 @@
 package org.optframework;
 
+import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
@@ -10,6 +11,8 @@ import org.optframework.core.heft.HEFTAlgorithm;
 import org.optframework.core.utils.PopulateWorkflow;
 import org.optframework.core.utils.PreProcessor;
 import org.optframework.core.utils.Printer;
+
+import java.util.Collections;
 
 public class RunHEFTAlgorithm {
 
@@ -52,6 +55,12 @@ public class RunHEFTAlgorithm {
 //        }
 
         Workflow workflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
+
+        Cloner cloner = new Cloner();
+        GlobalAccess.orderedJobList = cloner.deepClone(workflow.getJobList());
+        Collections.sort(GlobalAccess.orderedJobList, Job.rankComparator);
+
+        workflow.setBeta(Beta.computeBetaValue(workflow, instanceInfo, Config.global.m_number));
 
         HEFTAlgorithm heftAlgorithm = new HEFTAlgorithm(workflow, instanceInfo, totalInstances);
 
