@@ -98,9 +98,18 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
         heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, Config.global.m_number));
 
         HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances, Config.global.m_number);
-        Solution grpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
 
-        return grpHeftSolution;
+        Solution modifiedGrpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
+        Solution grpHeftSolution = grpHeftAlgorithm.runAlgorithm();
+        Solution result;
+
+        if (modifiedGrpHeftSolution.makespan > grpHeftSolution.makespan){
+            result = grpHeftSolution;
+        }else {
+            result = modifiedGrpHeftSolution;
+        }
+
+        return result;
     }
 
     public static int Min(int a,int b)
