@@ -5,7 +5,7 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.optframework.automator.CostAutomator;
+import org.optframework.automator.BudgetAutomator;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -73,8 +73,8 @@ public class RunIterativeGRPHEFTAlgorithm {
         long end = System.currentTimeMillis();
         Log.logger.info("<<<<<<<<< GRP Final Result >>>>>>>>>");
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
-        CostAutomator.solution = finalSolution;
-        CostAutomator.timeInMilliSec = end - start;
+        BudgetAutomator.solution = finalSolution;
+        BudgetAutomator.timeInMilliSec = end - start;
 
         GlobalAccess.solutionRepository.add(finalSolution);
         GlobalAccess.latestSolution = finalSolution;

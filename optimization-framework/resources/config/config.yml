@@ -21,6 +21,7 @@
 # - The type of the workflow that the selected algorithm uses to run, is specified through the workflow ID (e.g workflow_id: 3 is the Inspiral 50)
 # - All of the algorithm's fitness are based on the HEFT algorithm
 # - Number of runs for the heft-before-hbmo algorithm is specified in hbmo section of the config
+# - Budget Automator: You can also get results in csv file with BudgetAutomator class. The algorithm and workflow id is determined through the global section in this config file
 #
 
 

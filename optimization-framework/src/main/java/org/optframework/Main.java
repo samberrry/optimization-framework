@@ -1,5 +1,6 @@
 package org.optframework;
 
+import org.optframework.automator.BudgetAutomator;
 import org.optframework.config.Config;
 import org.optframework.core.Log;
 import org.optframework.core.utils.Printer;
@@ -70,6 +71,9 @@ public class Main {
                 break;
             case "grp-pacsa":
                 RunGRPPACSAAlgorithm.runGRPPACSA();
+                break;
+            case "budget-automator":
+                BudgetAutomator.runAutomator();
                 break;
         }
     }

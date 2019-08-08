@@ -5,7 +5,7 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.optframework.automator.CostAutomator;
+import org.optframework.automator.BudgetAutomator;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.pacsa.PACSAIterationNumber;
@@ -138,8 +138,8 @@ public class RunGRPPACSAAlgorithm {
 
             Printer.printSplitter();
 
-            CostAutomator.solution = bestSolution;
-            CostAutomator.timeInMilliSec = (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
+            BudgetAutomator.solution = bestSolution;
+            BudgetAutomator.timeInMilliSec = (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
 
             String toPrint = "\n";
             toPrint += "Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";
