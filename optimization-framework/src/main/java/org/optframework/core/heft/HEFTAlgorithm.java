@@ -38,11 +38,6 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
         this.availableInstances = availableInstances;
     }
 
-    public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo) {
-        this.workflow = workflow;
-        this.instanceInfo = instanceInfo;
-    }
-
     public HEFTAlgorithm(Workflow workflow, InstanceInfo[] instanceInfo, int[] availableInstances, int maxNumberOfUsedInstancesForIntegrationWithOtherSolutions) {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;

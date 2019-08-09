@@ -91,16 +91,24 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
 
         Log.logger.info("Number of affordable fastest instances is:"+number_of_affordable_fastest_instance);
 
-        int totalInstances[] = greedyResourceProvisioning(instanceInfo, number_of_affordable_fastest_instance, minPrice, cost_fastest_instance);
+        int totalInstancesForModifiedHEFT[] = greedyResourceProvisioning(instanceInfo, number_of_affordable_fastest_instance, minPrice, cost_fastest_instance);
+        int totalInstancesForGRPHEFT[] = new int[totalInstancesForModifiedHEFT.length];
 
-        Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstances, instanceInfo);
+        System.arraycopy(
+                totalInstancesForModifiedHEFT, 0,
+                totalInstancesForGRPHEFT, 0,
+                totalInstancesForModifiedHEFT.length
+                );
+
+        Workflow heftWorkflow = PreProcessor.doPreProcessingForHEFT(PopulateWorkflow.populateWorkflowWithId(Config.global.budget, 0, Config.global.workflow_id), Config.global.bandwidth, totalInstancesForModifiedHEFT, instanceInfo);
 
         heftWorkflow.setBeta(Beta.computeBetaValue(heftWorkflow, instanceInfo, Config.global.m_number));
 
-        HEFTAlgorithm grpHeftAlgorithm = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstances, Config.global.m_number);
+        HEFTAlgorithm grpHeftAlgorithmForModifiedHEFT = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstancesForModifiedHEFT, Config.global.m_number);
+        HEFTAlgorithm grpHeftAlgorithmForGRPHEFT = new HEFTAlgorithm(heftWorkflow, instanceInfo, totalInstancesForGRPHEFT, Config.global.m_number);
 
-        Solution modifiedGrpHeftSolution = grpHeftAlgorithm.modified_heft_runAlgorithm();
-        Solution grpHeftSolution = grpHeftAlgorithm.runAlgorithm();
+        Solution modifiedGrpHeftSolution = grpHeftAlgorithmForModifiedHEFT.modified_heft_runAlgorithm();
+        Solution grpHeftSolution = grpHeftAlgorithmForGRPHEFT.runAlgorithm();
         Solution result;
 
         if (modifiedGrpHeftSolution.makespan > grpHeftSolution.makespan){
