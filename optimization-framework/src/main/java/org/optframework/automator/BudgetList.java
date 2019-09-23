@@ -193,7 +193,19 @@ public class BudgetList {
             35.19
     };
 
-    //*
-    public static double epigenomics997[] = {};
-
+    public static double epigenomics997[] = {
+            259.666,
+            261.631,
+            271.925,
+            272.54,
+            274.581,
+            275.706,
+            276.156,
+            276.381,
+            277.731,
+            290.604,
+            291.054,
+            291.669,
+            293.019
+    };
 }
