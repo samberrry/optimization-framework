@@ -4,7 +4,7 @@ import com.rits.cloning.Cloner;
 import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.optframework.automator.BudgetAutomator;
+import org.optframework.automator.GRPBudgetAutomator;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -46,6 +46,9 @@ public class RunGRPHEFTAlgorithm {
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
 //        BudgetAutomator.solution = finalSolution;
 //        BudgetAutomator.timeInMilliSec = end - start;
+
+        GRPBudgetAutomator.solutionArrayListToCSV.add(finalSolution);
+        GRPBudgetAutomator.timeInMilliSecArrayList.add(end - start);
 
         GlobalAccess.solutionRepository.add(finalSolution);
         GlobalAccess.latestSolution = finalSolution;

@@ -1,42 +1,40 @@
 package org.optframework.automator;
 
-import org.optframework.*;
+import org.optframework.GlobalAccess;
+import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.config.Config;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
 import org.optframework.core.utils.Printer;
-import static org.optframework.automator.BudgetList.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import static org.optframework.automator.BudgetList.*;
+import static org.optframework.automator.BudgetList.cybershake100;
 
 /**
  * Budget Automator (Automates budget setup)
  * This Utility class facilitates getting the result process
  * Automates budget based on Evolutionary Multi-Objective Workflow Scheduling in Cloud paper
  *
- * todo: remove main method and make it configurable through the config file
- * todo: if you want to have multiple automators use global access class to store solutions
+ * This will ignore the algorithm specified in config file
+ * Specially designed for GRP Algorithm
  * */
 
-public class BudgetAutomator {
-
+public class GRPBudgetAutomator {
     //array of solutions which should be printed to csv file
     public static ArrayList<Solution> solutionArrayListToCSV;
-    public static ArrayList<Solution> grpSolutionArrayListToCSV;
     public static ArrayList<Long> timeInMilliSecArrayList;
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args)throws Exception{
         double budgetList[] = null;
         solutionArrayListToCSV = new ArrayList<>();
-        grpSolutionArrayListToCSV = new ArrayList<>();
         timeInMilliSecArrayList = new ArrayList<>();
         GlobalAccess.solutionRepository = new ArrayList<>();
 
         Log.init();
-        Log.logger.info("+++++++++ BudgetAutomator is started +++++++++");
+        Log.logger.info("+++++++++ GRPBudgetAutomator is started +++++++++");
 
         /**
          * Initializes Cloudsim Logger
@@ -66,22 +64,8 @@ public class BudgetAutomator {
 
         for (double budget: budgetList){
             Config.global.budget = budget;
-//            switch (Config.global.algorithm){
-//                case "sa": RunSAAlgorithm.runSA(); break;
-//                case "hbmo": RunHBMOAlgorithm.runHBMO(); break;
-//                case "heft": RunHEFTAlgorithm.runSingleHEFT(); break;
-//                case "hbmo-heft": RunHEFTWithHBMO.runHEFTWithHBMO();break;
-//                case "heft-example": RunHEFTExample.runHEFTExample();break;
-//                case "pacsa": RunPACSAAlgorithm.runPACSA(0);break;
-//                case "pacsa-plus": RunPACSAAlgorithm.runPACSA(1);break;
-//                case "pso": RunPSOAlgorithm.runPSO(0);break;
-//                case "zpso": RunPSOAlgorithm.runPSO(1);break;
-//                case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
-//                case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
-//                case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
-//            }
-            //at the end of runGRPPACSA the appropriate methods will be updated
-            RunGRPPACSAAlgorithm.runGRPPACSA();
+            //at the end of runGRPHEFT the appropriate methods will be updated
+            RunGRPHEFTAlgorithm.runGRPHEFT();
         }
 
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
