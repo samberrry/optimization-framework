@@ -33,4 +33,11 @@ public class GlobalAccess {
      * Contains the latest generated solution from the latest running algorithm
      * */
     public static Solution latestSolution;
+
+    /**
+     * These variables are used in budget automator
+     * Array of solutions which should be printed to csv file
+     */
+    public static ArrayList<Solution> solutionArrayListToCSV;
+    public static ArrayList<Long> timeInMilliSecArrayList;
 }

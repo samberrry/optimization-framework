@@ -18,22 +18,19 @@ import java.util.ArrayList;
  * Automates budget based on Evolutionary Multi-Objective Workflow Scheduling in Cloud paper
  *
  * todo: remove main method and make it configurable through the config file
- * todo: if you want to have multiple automators use global access class to store solutions
  * */
 
 public class BudgetAutomator {
 
-    //array of solutions which should be printed to csv file
-    public static ArrayList<Solution> solutionArrayListToCSV;
-    public static ArrayList<Solution> grpSolutionArrayListToCSV;
-    public static ArrayList<Long> timeInMilliSecArrayList;
-
     public static void main(String[] args) throws Exception{
         double budgetList[] = null;
-        solutionArrayListToCSV = new ArrayList<>();
-        grpSolutionArrayListToCSV = new ArrayList<>();
-        timeInMilliSecArrayList = new ArrayList<>();
+        GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+        GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
         GlobalAccess.solutionRepository = new ArrayList<>();
+
+        //array of solutions which should be printed to csv file
+        ArrayList<Solution> solutionArrayListToCSV;
+        ArrayList<Long> timeInMilliSecArrayList;
 
         Log.init();
         Log.logger.info("+++++++++ BudgetAutomator is started +++++++++");
@@ -85,6 +82,8 @@ public class BudgetAutomator {
         }
 
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
+            solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
+            timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
 
             StringBuilder sb = new StringBuilder();
             sb.append("Budget Automator\n");

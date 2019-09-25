@@ -23,15 +23,16 @@ import static org.optframework.automator.BudgetList.cybershake100;
  * */
 
 public class GRPBudgetAutomator {
-    //array of solutions which should be printed to csv file
-    public static ArrayList<Solution> solutionArrayListToCSV;
-    public static ArrayList<Long> timeInMilliSecArrayList;
 
     public static void main(String[] args)throws Exception{
         double budgetList[] = null;
-        solutionArrayListToCSV = new ArrayList<>();
-        timeInMilliSecArrayList = new ArrayList<>();
+        GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+        GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
         GlobalAccess.solutionRepository = new ArrayList<>();
+
+        //array of solutions which should be printed to csv file
+        ArrayList<Solution> solutionArrayListToCSV;
+        ArrayList<Long> timeInMilliSecArrayList;
 
         Log.init();
         Log.logger.info("+++++++++ GRPBudgetAutomator is started +++++++++");
@@ -69,6 +70,8 @@ public class GRPBudgetAutomator {
         }
 
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
+            solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
+            timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
 
             StringBuilder sb = new StringBuilder();
             sb.append("GRP Budget Automator\n");
