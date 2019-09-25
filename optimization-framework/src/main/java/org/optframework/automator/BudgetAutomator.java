@@ -87,6 +87,7 @@ public class BudgetAutomator {
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
 
             StringBuilder sb = new StringBuilder();
+            sb.append("Budget Automator\n");
             sb.append("Budget");
             sb.append(',');
             sb.append("Cost");

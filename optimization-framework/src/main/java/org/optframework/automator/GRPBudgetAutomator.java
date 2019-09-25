@@ -71,6 +71,7 @@ public class GRPBudgetAutomator {
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
 
             StringBuilder sb = new StringBuilder();
+            sb.append("GRP Budget Automator\n");
             sb.append("Budget");
             sb.append(',');
             sb.append("Cost");
