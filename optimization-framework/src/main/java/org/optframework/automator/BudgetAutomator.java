@@ -22,8 +22,14 @@ import java.util.ArrayList;
 
 public class BudgetAutomator {
 
+    //array of solutions which should be printed to csv file
+    public static ArrayList<Solution> solutionArrayListToCSV;
+    public static ArrayList<Long> timeInMilliSecArrayList;
+
     public static void main(String[] args) throws Exception{
         double budgetList[] = null;
+        solutionArrayListToCSV = new ArrayList<>();
+        timeInMilliSecArrayList = new ArrayList<>();
         GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
         GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
         GlobalAccess.solutionRepository = new ArrayList<>();
