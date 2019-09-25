@@ -135,11 +135,11 @@ public class RunGRPPACSAAlgorithm {
                 resourceUtilization[i] = onlyTaskUtilization[i] / bestSolution.instanceTimes[i];
             }
             Printer.printUtilization(resourceUtilization);
-
             Printer.printSplitter();
 
-            BudgetAutomator.solution = bestSolution;
-            BudgetAutomator.timeInMilliSec = (runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
+            BudgetAutomator.grpSolutionArrayListToCSV.add(grpHEFTSolution);
+            BudgetAutomator.solutionArrayListToCSV.add(bestSolution);
+            BudgetAutomator.timeInMilliSecArrayList.add(runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
 
             String toPrint = "\n";
             toPrint += "Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";

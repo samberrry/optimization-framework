@@ -22,10 +22,9 @@ import java.util.ArrayList;
 
 public class BudgetAutomator {
 
-    public static Solution solution;
-    public static long timeInMilliSec;
     //array of solutions which should be printed to csv file
     public static ArrayList<Solution> solutionArrayListToCSV;
+    public static ArrayList<Solution> grpSolutionArrayListToCSV;
     public static ArrayList<Long> timeInMilliSecArrayList;
 
     public static void main(String[] args) throws Exception{
@@ -79,9 +78,8 @@ public class BudgetAutomator {
 //                case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
 //                case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
 //            }
+            //at the end of runGRPPACSA the appropriate methods will be updated
             RunGRPPACSAAlgorithm.runGRPPACSA();
-            timeInMilliSecArrayList.add(timeInMilliSec);
-            solutionArrayListToCSV.add(solution);
         }
 
         try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
