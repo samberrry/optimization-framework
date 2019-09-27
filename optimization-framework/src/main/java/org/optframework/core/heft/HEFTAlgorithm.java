@@ -75,6 +75,11 @@ public class HEFTAlgorithm implements OptimizationAlgorithm {
 
         Job firstJob = orderedJobList.get(0);
         Job originalVersion = originalJobList.get(firstJob.getIntId());
+        InstanceInfo newInstanceInfo[] = new InstanceInfo[InstanceType.values().length];
+        for (InstanceInfo item : instanceInfo){
+            newInstanceInfo[item.getType().getId()] = item;
+        }
+        instanceInfo = newInstanceInfo;
         double temp = TaskUtility.executionTimeOnTypeWithCustomJob(firstJob, instanceInfo[availableInstances[0]].getType());
         int tempInstance = 0;
 

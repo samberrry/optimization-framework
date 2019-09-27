@@ -22,17 +22,17 @@ public class Main {
          * Initializes Cloudsim Logger
          * */
         org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
         org.cloudbus.spotsim.main.config.Config.load(null);
 
         /**
          * Loads configs from YAML file
          * */
         Config.initConfig();
-
         Printer.printSplitter();
 
         GlobalAccess.solutionRepository = new ArrayList<>();
+        GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+        GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
 
         switch (Config.global.algorithm){
             case "sa":
