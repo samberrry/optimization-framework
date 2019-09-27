@@ -8,7 +8,6 @@ import org.optframework.core.utils.Printer;
 import static org.optframework.automator.BudgetList.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -67,29 +66,36 @@ public class BudgetAutomator {
             case 41: budgetList = cybershake100; break;
         }
 
-        for (double budget: budgetList){
-            Config.global.budget = budget;
-//            switch (Config.global.algorithm){
-//                case "sa": RunSAAlgorithm.runSA(); break;
-//                case "hbmo": RunHBMOAlgorithm.runHBMO(); break;
-//                case "heft": RunHEFTAlgorithm.runSingleHEFT(); break;
-//                case "hbmo-heft": RunHEFTWithHBMO.runHEFTWithHBMO();break;
-//                case "heft-example": RunHEFTExample.runHEFTExample();break;
-//                case "pacsa": RunPACSAAlgorithm.runPACSA(0);break;
-//                case "pacsa-plus": RunPACSAAlgorithm.runPACSA(1);break;
-//                case "pso": RunPSOAlgorithm.runPSO(0);break;
-//                case "zpso": RunPSOAlgorithm.runPSO(1);break;
-//                case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
-//                case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
-//                case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
-//            }
-            //at the end of runGRPPACSA the appropriate methods will be updated
-            RunGRPPACSAAlgorithm.runGRPPACSA();
+        if (budgetList == null){
+            throw new RuntimeException("This type of workflow is not supported to be automated");
         }
 
-        try (PrintWriter writer = new PrintWriter(new File("cost-automator.csv"))) {
+        for (double budget: budgetList){
+            Config.global.budget = budget;
+            //at the end of run** method the automator-specific static variables will be filled
+            switch (Config.global.algorithm){
+                case "sa": RunSAAlgorithm.runSA(); break;
+                case "hbmo": RunHBMOAlgorithm.runHBMO(); break;
+                case "heft": RunHEFTAlgorithm.runSingleHEFT(); break;
+                case "hbmo-heft": RunHEFTWithHBMO.runHEFTWithHBMO();break;
+                case "heft-example": RunHEFTExample.runHEFTExample();break;
+                case "pacsa": RunPACSAAlgorithm.runPACSA(0);break;
+                case "pacsa-plus": RunPACSAAlgorithm.runPACSA(1);break;
+                case "pso": RunPSOAlgorithm.runPSO(0);break;
+                case "zpso": RunPSOAlgorithm.runPSO(1);break;
+                case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
+                case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
+                case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
+            }
+        }
+
+        try (PrintWriter writer = new PrintWriter(new File("automator-"+ Config.global.algorithm + ".csv"))) {
             solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
             timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
+
+            if(solutionArrayListToCSV.size() == 0 || timeInMilliSecArrayList.size() == 0){
+                throw new RuntimeException("This Algorithm does not support Automator");
+            }
 
             StringBuilder sb = new StringBuilder();
             sb.append("Budget Automator\n");
@@ -122,10 +128,9 @@ public class BudgetAutomator {
             }
 
             writer.write(sb.toString());
-
             System.out.println("done!");
 
-        } catch (FileNotFoundException e) {
+        }catch (RuntimeException e){
             System.out.println(e.getMessage());
         }
     }

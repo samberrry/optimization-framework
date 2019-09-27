@@ -5,7 +5,6 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.optframework.automator.BudgetAutomator;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -15,7 +14,7 @@ import org.optframework.core.utils.Printer;
 import java.util.ArrayList;
 
 /**
- * Iterative version of the Modified-HEFT GRP Algorithm
+ * Iterative version of the GRP Modified-HEFT Algorithm
  * @author Hessam hessam.mdoaberi@gmail.com
  * */
 
