@@ -72,9 +72,9 @@ public class RunIterativeGRPHEFTAlgorithm {
         long end = System.currentTimeMillis();
         Log.logger.info("<<<<<<<<< GRP Final Result >>>>>>>>>");
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
-//        BudgetAutomator.solution = finalSolution;
-//        BudgetAutomator.timeInMilliSec = end - start;
 
+        GlobalAccess.solutionArrayListToCSV.add(finalSolution);
+        GlobalAccess.timeInMilliSecArrayList.add(end - start);
         GlobalAccess.solutionRepository.add(finalSolution);
         GlobalAccess.latestSolution = finalSolution;
     }
