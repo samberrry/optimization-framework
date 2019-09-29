@@ -74,15 +74,25 @@ public class BudgetAutomator {
             Config.global.budget = budget;
             //at the end of run** method the automator-specific static variables will be filled
             switch (Config.global.algorithm){
-                case "sa": RunSAAlgorithm.runSA(); break;
-                case "hbmo": RunHBMOAlgorithm.runHBMO(); break;
-                case "heft": RunHEFTAlgorithm.runSingleHEFT(); break;
-                case "hbmo-heft": RunHEFTWithHBMO.runHEFTWithHBMO();break;
-                case "heft-example": RunHEFTExample.runHEFTExample();break;
-                case "pacsa": RunPACSAAlgorithm.runPACSA(0);break;
-                case "pacsa-plus": RunPACSAAlgorithm.runPACSA(1);break;
-                case "pso": RunPSOAlgorithm.runPSO(0);break;
-                case "zpso": RunPSOAlgorithm.runPSO(1);break;
+                case "sa":
+//                    RunSAAlgorithm.runSA();
+                case "hbmo":
+//                    RunHBMOAlgorithm.runHBMO();
+                case "heft":
+//                    RunHEFTAlgorithm.runSingleHEFT();
+                case "hbmo-heft":
+//                    RunHEFTWithHBMO.runHEFTWithHBMO();
+                case "heft-example":
+//                    RunHEFTExample.runHEFTExample();
+                case "pacsa":
+//                    RunPACSAAlgorithm.runPACSA(0);
+                case "pacsa-plus":
+//                    RunPACSAAlgorithm.runPACSA(1);
+                case "pso":
+//                    RunPSOAlgorithm.runPSO(0);
+                case "zpso":
+//                    RunPSOAlgorithm.runPSO(1);
+                    throw new RuntimeException("This Algorithm does not support Automator");
                 case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
                 case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
                 case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
