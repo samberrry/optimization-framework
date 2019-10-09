@@ -11,6 +11,7 @@ public class PACSAConfig {
     public double evaporation_factor;
     public boolean global_based;
     public boolean insert_heft_initial_solution;
+    public boolean use_igrp_initial_solution;
 
     public int getNumber_of_ants() {
         return number_of_ants;
@@ -90,5 +91,13 @@ public class PACSAConfig {
 
     public void setInsert_heft_initial_solution(boolean insert_heft_initial_solution) {
         this.insert_heft_initial_solution = insert_heft_initial_solution;
+    }
+
+    public boolean isUse_igrp_initial_solution() {
+        return use_igrp_initial_solution;
+    }
+
+    public void setUse_igrp_initial_solution(boolean use_igrp_initial_solution) {
+        this.use_igrp_initial_solution = use_igrp_initial_solution;
     }
 }

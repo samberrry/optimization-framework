@@ -18,11 +18,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Hessam Modabberi hessam.modaberi@gmail.com
+ * @version 1.0.0
+ */
+
 public class RunGRPPACSAAlgorithm {
 
     public static void runGRPPACSA(){
         {
-            RunGRPHEFTAlgorithm.runGRPHEFT();
+            if (Config.pacsa_algorithm.use_igrp_initial_solution){
+                RunIterativeGRPHEFTAlgorithm.runGRPHEFT();
+            }else {
+                RunGRPHEFTAlgorithm.runGRPHEFT();
+            }
             Solution pureSolution = GlobalAccess.latestSolution;
 
             Log.logger.info("<<<<<<<<< GRP-PACSA Algorithm is started >>>>>>>>>");
@@ -60,7 +69,6 @@ public class RunGRPPACSAAlgorithm {
             computeCoolingFactorForSA(workflow.getJobList().size());
 
             OptimizationAlgorithm optimizationAlgorithm;
-
             List<Solution> solutionList = new ArrayList<>();
             List<Solution> initialSolutionList = new ArrayList<>();
 

@@ -79,6 +79,8 @@ pacsa_algorithm:
   evaporation_factor: 0.2
   global_based: yes
   insert_heft_initial_solution: yes
+#  igrp = Iterative GRP-HEFT
+  use_igrp_initial_solution: yes
 
 pso_algorithm:
   number_of_runs: 5
