@@ -5,7 +5,6 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
-import org.optframework.automator.BudgetAutomator;
 import org.optframework.config.Config;
 import org.optframework.core.*;
 import org.optframework.core.pacsa.PACSAIterationNumber;
@@ -145,9 +144,8 @@ public class RunGRPPACSAAlgorithm {
             Printer.printUtilization(resourceUtilization);
             Printer.printSplitter();
 
-//            BudgetAutomator.grpSolutionArrayListToCSV.add(grpHEFTSolution);
-            BudgetAutomator.solutionArrayListToCSV.add(bestSolution);
-            BudgetAutomator.timeInMilliSecArrayList.add(runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
+            GlobalAccess.solutionArrayListToCSV.add(bestSolution);
+            GlobalAccess.timeInMilliSecArrayList.add(runTimeSum / Config.pacsa_algorithm.getNumber_of_runs());
 
             String toPrint = "\n";
             toPrint += "Average Fitness value: " + fitnessSum / Config.pacsa_algorithm.getNumber_of_runs() + "\n";

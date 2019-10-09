@@ -5,6 +5,7 @@ import org.cloudbus.spotsim.enums.AZ;
 import org.cloudbus.spotsim.enums.InstanceType;
 import org.cloudbus.spotsim.enums.OS;
 import org.cloudbus.spotsim.enums.Region;
+import org.optframework.config.Config;
 import org.optframework.core.InstanceInfo;
 import org.optframework.core.Log;
 import org.optframework.core.Solution;
@@ -73,9 +74,11 @@ public class RunIterativeGRPHEFTAlgorithm {
         Log.logger.info("<<<<<<<<< GRP Final Result >>>>>>>>>");
         Printer.printSolutionWithouthTime(finalSolution, originalInstanceInfo);
 
-        GlobalAccess.solutionArrayListToCSV.add(finalSolution);
-        GlobalAccess.timeInMilliSecArrayList.add(end - start);
-        GlobalAccess.solutionRepository.add(finalSolution);
+        if (Config.global.algorithm.equals("iterative-grp-heft")){
+            GlobalAccess.solutionArrayListToCSV.add(finalSolution);
+            GlobalAccess.timeInMilliSecArrayList.add(end - start);
+            GlobalAccess.solutionRepository.add(finalSolution);
+        }
         GlobalAccess.latestSolution = finalSolution;
     }
 
