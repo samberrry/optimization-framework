@@ -75,6 +75,13 @@ public class GRPHEFTAlgorithm implements OptimizationAlgorithm{
             case "iterative-grp-heft":
                 RunIterativeGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
                 break;
+            case "grp-pacsa":
+                if (Config.pacsa_algorithm.use_igrp_initial_solution){
+                    RunIterativeGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+                }else{
+                    RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
+                }
+                break;
             default:
                 RunGRPHEFTAlgorithm.thisTypeIsUsedAsMaxEfficient[id_fastest_instance] = true;
                 break;
