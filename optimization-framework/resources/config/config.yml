@@ -42,13 +42,17 @@ global:
   deadline_based: no
   deadline: 37.50
 
+#prv config:
+#  start_temperature: 85
+#  equilibrium_point: 10
+#  final_temperature: 0.01
 sa_algorithm:
-  start_temperature: 85
-  final_temperature: 0.01
+  start_temperature: 150
+  final_temperature: 0.001
   cooling_factor: 0.999
   force_cooling: yes
-  equilibrium_point: 10
-  number_of_runs: 48
+  equilibrium_point: 11
+  number_of_runs: 1
 
 honeybee_algorithm:
   max_speed: 800
