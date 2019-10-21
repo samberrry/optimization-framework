@@ -40,4 +40,6 @@ public class GlobalAccess {
      */
     public static ArrayList<Solution> solutionArrayListToCSV;
     public static ArrayList<Long> timeInMilliSecArrayList;
+
+    public static String workflowName;
 }

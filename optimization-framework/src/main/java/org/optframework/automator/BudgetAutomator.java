@@ -113,7 +113,7 @@ public class BudgetAutomator {
             }
         }
 
-        try (PrintWriter writer = new PrintWriter(new File("automator-"+ Config.global.algorithm + ".csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("automator-"+ Config.global.algorithm + "-"+ GlobalAccess.workflowName + ".csv"))) {
             solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
             timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
 
