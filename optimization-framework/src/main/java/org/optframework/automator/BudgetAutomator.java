@@ -122,7 +122,7 @@ public class BudgetAutomator {
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.append("Budget Automator\n");
+            sb.append("Budget Automator     " + Config.global.algorithm + "-"+ GlobalAccess.workflowName + "\n");
             sb.append("Budget");
             sb.append(',');
             sb.append("Cost");

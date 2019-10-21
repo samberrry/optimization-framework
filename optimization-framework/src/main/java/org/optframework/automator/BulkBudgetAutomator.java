@@ -58,6 +58,12 @@ public class BulkBudgetAutomator {
 
         org.cloudbus.spotsim.main.config.Config.load(null);
 
+        /**
+         * Loads configs from YAML file
+         * */
+        Config.initConfig();
+        Printer.printSplitter();
+
         //iterates through workflows
         for (Integer workflowId: workflowIdList){
             Config.global.workflow_id = workflowId;
@@ -72,12 +78,6 @@ public class BulkBudgetAutomator {
             //array of solutions which should be printed to csv file
             ArrayList<Solution> solutionArrayListToCSV;
             ArrayList<Long> timeInMilliSecArrayList;
-
-            /**
-             * Loads configs from YAML file
-             * */
-            Config.initConfig();
-            Printer.printSplitter();
 
             switch (Config.global.workflow_id){
                 case 1: budgetList = inspiral1000; break;
@@ -148,7 +148,7 @@ public class BulkBudgetAutomator {
                 }
 
                 StringBuilder sb = new StringBuilder();
-                sb.append("Budget Automator" + Config.global.algorithm + "-"+ GlobalAccess.workflowName + "\n");
+                sb.append("Budget Automator     " + Config.global.algorithm + "-"+ GlobalAccess.workflowName + "\n");
                 sb.append("Budget");
                 sb.append(',');
                 sb.append("Cost");
