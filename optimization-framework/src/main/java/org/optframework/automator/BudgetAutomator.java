@@ -56,14 +56,28 @@ public class BudgetAutomator {
         switch (Config.global.workflow_id){
             case 1: budgetList = inspiral1000; break;
             case 2: budgetList = inspiral100; break;
+            case 3: budgetList = inspiral50; break;
+            case 4: budgetList = inspiral30; break;
+            //
             case 10: budgetList = montage1000; break;
             case 11: budgetList = montage100; break;
+            case 12: budgetList = montage50; break;
+            case 13: budgetList = montage25; break;
+            //
             case 20: budgetList = sipht1000; break;
             case 21: budgetList = sipht100; break;
+            case 22: budgetList = sipht60; break;
+            case 23: budgetList = sipht30; break;
+            //
             case 30: budgetList = epigenomics997; break;
             case 31: budgetList = epigenomics100; break;
+            case 32: budgetList = epigenomics46; break;
+            case 33: budgetList = epigenomics24; break;
+            //
             case 40: budgetList = cybershake1000; break;
             case 41: budgetList = cybershake100; break;
+            case 42: budgetList = cybershake50; break;
+            case 43: budgetList = cybershake30; break;
         }
 
         if (budgetList == null){
