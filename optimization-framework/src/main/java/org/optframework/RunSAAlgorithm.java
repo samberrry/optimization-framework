@@ -57,10 +57,9 @@ public class RunSAAlgorithm {
             Log.logger.info("<<<<<<<<<<<    NEW RUN "+ i +"     >>>>>>>>>>>\n");
 
             long start = System.currentTimeMillis();
-
             Solution solution = saAlgorithm.runAlgorithm();
             fitnessValueList[i] = solution.fitnessValue;
-
+            solution.fitness();
             long stop = System.currentTimeMillis();
 
             Printer.printSolution(solution, instanceInfo,stop-start);
