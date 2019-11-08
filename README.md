@@ -7,7 +7,7 @@ The **Dependencies** directory contains all of the dependencies (Jar files) whic
 
 The **Optimization-framwork** directory is the project root for the developed optimization framework.
 
-#### How ro run..
+#### How to use this framework..
 1. With **Intellj Idea** (recommended):
     - Open up the project with Intellij Idea from  **optimization-framework** directory (This directory contains .iml file)
     - Next, you should configure your JDK settings (make sure to do this step correctly)
