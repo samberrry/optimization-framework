@@ -77,11 +77,6 @@ public class Solution implements Cloneable{
 
     double taskFinishTimes[];
 
-    /**
-     * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
-     */
-    public int makespanPrime;
-
     public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int maxNumberOfInstances) {
         this.workflow = workflow;
         this.maxNumberOfInstances = maxNumberOfInstances;
@@ -538,7 +533,6 @@ public class Solution implements Cloneable{
         this.cost = totalCost;
         this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
 
-
         if(Config.global.deadline_based)
         {
             computeFitnessValue_DeadlineBased();
@@ -547,9 +541,6 @@ public class Solution implements Cloneable{
         {
             computeFitnessValue();
         }
-
-
-
     }
 
     int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId){
