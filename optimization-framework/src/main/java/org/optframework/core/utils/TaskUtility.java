@@ -1,15 +1,14 @@
 package org.optframework.core.utils;
 
-import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.spotsim.enums.InstanceType;
-import org.optframework.config.Config;
+import org.optframework.core.Job;
 
 public class TaskUtility {
     public static double executionTimeOnType(Job job, InstanceType type){
-        return (double) job.getLength() * Config.global.task_length_coefficient / type.getEc2units();
+        return (Math.abs(job.getLength()) * 8D) / type.getEcu();
     }
 
-    public static double executionTimeOnTypeWithCustomJob(org.optframework.core.Job job, InstanceType type){
-        return job.getLength() * Config.global.task_length_coefficient / type.getEc2units();
+    public static double executionTimeOnTypeWithCustomJob(Job job, InstanceType type){
+        return (Math.abs(job.getLength()) * 8D) / type.getEcu();
     }
 }

@@ -29,41 +29,43 @@ public abstract class HistoryPriceManagement {
         List<SpotPriceWithAZ> spotPriceWithAZList = new ArrayList<>();
 
         String fileName = null;
-        switch (type){
-            case M1SMALL:
-                fileName = "m1_small";
-                break;
-            case M24XLARGE:
-                fileName = "m2_4xlarge";
-                break;
-//            case C1MEDIUM:
-//                fileName = "c_medium";
+        //mowsc
+
+//        switch (type){
+//            case M1SMALL:
+//                fileName = "m1_small";
 //                break;
-//            case C1XLARGE:
-//                fileName = "c1_xlarge";
+//            case M24XLARGE:
+//                fileName = "m2_4xlarge";
 //                break;
-            case M1LARGE:
-                fileName = "m1_large";
-                break;
-            case M1MEDIUM:
-                fileName = "m1_medium";
-                break;
-            case M1XLARGE:
-                fileName = "m1_xlarge";
-                break;
-            case M2XLARGE:
-                fileName = "m2_xlarge";
-                break;
-            case M3XLARGE:
-                fileName = "m3_xlarge";
-                break;
-            case M22XLARGE:
-                fileName = "m2_2xlarge";
-                break;
-            case M32XLARGE:
-                fileName = "m3_2xlarge";
-                break;
-        }
+////            case C1MEDIUM:
+////                fileName = "c_medium";
+////                break;
+////            case C1XLARGE:
+////                fileName = "c1_xlarge";
+////                break;
+//            case M1LARGE:
+//                fileName = "m1_large";
+//                break;
+//            case M1MEDIUM:
+//                fileName = "m1_medium";
+//                break;
+//            case M1XLARGE:
+//                fileName = "m1_xlarge";
+//                break;
+//            case M2XLARGE:
+//                fileName = "m2_xlarge";
+//                break;
+//            case M3XLARGE:
+//                fileName = "m3_xlarge";
+//                break;
+//            case M22XLARGE:
+//                fileName = "m2_2xlarge";
+//                break;
+//            case M32XLARGE:
+//                fileName = "m3_2xlarge";
+//                break;
+//        }
 
         try {
             priceHistory = new ObjectMapper().readValue(new File(SimProperties.PRICING_HISTORY_MAP_DIR.getValue() + fileName +".json"),SpotPriceHistory.class);

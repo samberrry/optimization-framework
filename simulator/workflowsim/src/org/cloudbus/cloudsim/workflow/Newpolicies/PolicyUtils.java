@@ -533,14 +533,7 @@ public class PolicyUtils {
 		}
 		return instanceDetails;
 	}
-	
-	/**
-     * Choose all instances with a runtime suitable enough to finish the critical path
-     * @param estimates
-     * @param timeRatio
-     * @param longestEstimatedRunTime
-     * @return
-     */
+
 	public static ArrayList<InstanceType> chooseLiberalInstanceTypes(Map<InstanceType, Long> estimates, WorkflowUtilis wfUtil) {
 		
 		ArrayList<InstanceType> instanceTypes = new ArrayList<>();
@@ -619,19 +612,21 @@ public class PolicyUtils {
 	public static Map<InstanceType, Long> computeRunTimes(final Task task) {
 		
 		EnumMap<InstanceType, Long> estimates = new EnumMap<InstanceType, Long>(InstanceType.class);
-		
+
+		//mowsc
+
 		// pre-compute task running times on all instance types
-		InstanceType[] values = {InstanceType.M1SMALL, InstanceType.M1MEDIUM, InstanceType.M1LARGE, InstanceType.M1XLARGE, InstanceType.M3XLARGE, InstanceType.M32XLARGE, InstanceType.M22XLARGE, InstanceType.M24XLARGE, InstanceType.M2XLARGE};
-		//InstanceType[] values = {InstanceType.M1SMALL};
-		//InstanceType[] values = InstanceType.values();
-		for (final InstanceType instanceType : values) {
-		    final long execTimeParallel = ModelParameters.execTimeParallel(task.getJob().getA(),
-			task.getJob().getSigma(), instanceType.getEc2units(), task.getJob().getLength());
-		    if (execTimeParallel <= 0) {
-			throw new IllegalStateException("Task runtime estimate must be greater than 0");
-		    }
-		    estimates.put(instanceType, execTimeParallel);
-		}
+//		InstanceType[] values = {InstanceType.M1SMALL, InstanceType.M1MEDIUM, InstanceType.M1LARGE, InstanceType.M1XLARGE, InstanceType.M3XLARGE, InstanceType.M32XLARGE, InstanceType.M22XLARGE, InstanceType.M24XLARGE, InstanceType.M2XLARGE};
+//		//InstanceType[] values = {InstanceType.M1SMALL};
+//		//InstanceType[] values = InstanceType.values();
+//		for (final InstanceType instanceType : values) {
+//		    final long execTimeParallel = ModelParameters.execTimeParallel(task.getJob().getA(),
+//			task.getJob().getSigma(), instanceType.getEc2units(), task.getJob().getLength());
+//		    if (execTimeParallel <= 0) {
+//			throw new IllegalStateException("Task runtime estimate must be greater than 0");
+//		    }
+//		    estimates.put(instanceType, execTimeParallel);
+//		}
 		
 		return estimates;
 	}

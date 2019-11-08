@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * Implementation for the Honey Bee Mating Optimization Algorithm
+ * A version of HBMO algorithm which uses full mutation
  *
  * @author Hessam hessam.modaberi@gmail.com
  * @since 2018
@@ -45,6 +45,14 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
         this.workflow = workflow;
         this.instanceInfo = instanceInfo;
         this.generationNumber = generationNumber;
+    }
+
+    public HBMOAlgorithmWithFullMutation(boolean hasInitialSolution, Workflow workflow, InstanceInfo[] instanceInfo, int generationNumber, Solution initialSolution) {
+        this.hasInitialSolution = hasInitialSolution;
+        this.workflow = workflow;
+        this.instanceInfo = instanceInfo;
+        this.generationNumber = generationNumber;
+        this.initialSolution = initialSolution;
     }
 
     @Override
@@ -176,7 +184,7 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
 
     void mutation(Chromosome forMutation){
         Random r = new Random();
-        int xOrY = r.nextInt(2);
+        int xOrY = r.nextInt(3);
 
         switch (xOrY){
             case 0:
@@ -208,6 +216,9 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
 
                 forMutation.yArray[randomInstance2] = forMutation.yArray[randomInstance1];
                 forMutation.yArray[randomInstance1] = yVal1;
+                break;
+            case 2:
+                //todo: z array
                 break;
         }
     }
@@ -293,6 +304,8 @@ public class HBMOAlgorithmWithFullMutation implements OptimizationAlgorithm {
                 }
             }
         }
+        //todo: z array crossover
+
         Chromosome chromosome = new Chromosome(workflow, instanceInfo, M_NUMBER);
         chromosome.numberOfUsedInstances = numberOfInstancesUsed;
         chromosome.xArray = newXArray;

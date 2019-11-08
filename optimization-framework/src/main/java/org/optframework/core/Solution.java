@@ -1,13 +1,14 @@
 package org.optframework.core;
 
-import com.rits.cloning.Cloner;
 import org.cloudbus.cloudsim.util.workload.WorkflowDAG;
 import org.cloudbus.spotsim.enums.InstanceType;
+import org.optframework.GlobalAccess;
 import org.optframework.config.Config;
 import org.optframework.core.heft.Gap;
 import org.optframework.core.heft.Instance;
 
 import java.util.*;
+import java.text.DecimalFormat;
 
 /**
  * This class is the Solution representation of the problem
@@ -16,7 +17,7 @@ import java.util.*;
  * @since 2018
  *
  * */
-public class Solution {
+public class Solution implements Cloneable{
     int id;
     /**
      * Cost of the solution
@@ -35,6 +36,11 @@ public class Solution {
     public int yArray[];
 
     /**
+     * Z array is the magic array and is used to specify job order
+     * */
+    public Integer zArray[];
+
+    /**
      * Y prime represents the type of instances used in assignment X where only on-demand instances are utilized to run the workflow
      */
     public int yPrimeArray[];
@@ -42,7 +48,12 @@ public class Solution {
     /**
      * M, is the total elapsed time required to execute the entire workflow when only SIs are employed
      */
-    public double makespan;
+    public int makespan;
+
+    /**
+     * The Origin denotes the algorithm which generated the solution
+     * */
+    public String origin;
 
     public short instanceUsages[];
 
@@ -54,8 +65,6 @@ public class Solution {
 
     public int maxNumberOfInstances;
 
-    public int visited;
-
     public double instanceTimes[];
 
     public double instanceStartTime[];
@@ -64,85 +73,147 @@ public class Solution {
 
     public Workflow workflow;
 
-    List<Job> orderedJobList;
-
-    List<Job> originalJobList;
-
-    List<Job> jobList;
-
     public InstanceInfo instanceInfo[];
+
+    double taskFinishTimes[];
 
     /**
      * M prime, is the worst case makespan of the given workflow happening when all the spot-instances fail and we switch all of them to the on-demand instances
      */
     public int makespanPrime;
 
-    public static final int M_NUMBER = Config.global.m_number;
-
-    public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int numberOfInstances) {
+    public Solution(Workflow workflow, InstanceInfo[] instanceInfo, int maxNumberOfInstances) {
         this.workflow = workflow;
-        this.instanceInfo = instanceInfo;
+        this.maxNumberOfInstances = maxNumberOfInstances;
         xArray = new int[workflow.getJobList().size()];
-        yArray = new int[numberOfInstances];
-        yPrimeArray = new int[numberOfInstances];
-        instanceUsages = new short[numberOfInstances];
-        maxNumberOfInstances = numberOfInstances;
+        zArray = new Integer[workflow.getJobList().size()];
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            zArray[i] = new Integer(-1);
+        }
+        yArray = new int[maxNumberOfInstances];
+        for (int i = 0; i < maxNumberOfInstances; i++) {
+            yArray[i] = -1;
+        }
+
+        yPrimeArray = new int[maxNumberOfInstances];
+        instanceUsages = new short[maxNumberOfInstances];
         beta = workflow.getBeta();
+
+        this.instanceInfo = new InstanceInfo[InstanceType.values().length];
+        //projects instance info into new array list so that we can access each item based on the instance type id
+        for (InstanceInfo item : instanceInfo){
+            if (item!= null){
+                this.instanceInfo[item.getType().getId()] = item;
+            }
+        }
     }
 
     public void generateRandomNeighborSolution(Workflow workflow){
         this.workflow = workflow;
 
         Random r = new Random();
-        int xOry = r.nextInt(2);
+        int xOry;
+        if(maxNumberOfInstances > 1) {
+            xOry = r.nextInt(3);
+        }
+       else {
+            xOry = 1 + r.nextInt(2);
+        }
 
-        switch (xOry){
-                //changes x array
+        int sizeofneighborhood = 1;
+        switch (xOry) {
+            //changes x array
             case 0:
-                int randomTask = r.nextInt(xArray.length);
-                int currentInstanceId = xArray[randomTask];
+                    for (int i = 0; i < sizeofneighborhood; i++) {
+                        int randomTask = r.nextInt(xArray.length);
+                        int randomInstanceId = r.nextInt(maxNumberOfInstances);
 
-                boolean isEqual = true;
-                int randomInstanceId = -1;
+                        xArray[randomTask] = randomInstanceId;
 
-                while (isEqual){
-                    randomInstanceId = r.nextInt(numberOfUsedInstances+1);
-                    if (randomInstanceId != currentInstanceId && randomInstanceId < M_NUMBER){
-                        isEqual = false;
+                        //if new instance is selected
+                        if (this.yArray[randomInstanceId] == -1) {
+                            int randomType = r.nextInt(InstanceType.values().length);
+                            yArray[randomInstanceId] = randomType;
+                            if (randomInstanceId >= numberOfUsedInstances){
+                                numberOfUsedInstances = randomInstanceId + 1;
+                            }
+                        }else if (randomInstanceId >= numberOfUsedInstances){
+                            numberOfUsedInstances = randomInstanceId + 1;
+                        }
                     }
-                }
-
-                xArray[randomTask] = randomInstanceId;
-
-                //if new instance is selected
-                if (randomInstanceId == numberOfUsedInstances){
-                    int randomType = r.nextInt(InstanceType.values().length);
-                    yArray[randomInstanceId] = randomType;
-                    numberOfUsedInstances++;
-                }
-
                 break;
-                // changes y array
+            // changes y array
             case 1:
                 int randomInstanceIdY = r.nextInt(numberOfUsedInstances);
                 boolean isEqualY = true;
 
                 int randomType = -1;
 
-                while (isEqualY){
+                while (isEqualY) {
                     int instanceType = yArray[randomInstanceIdY];
                     randomType = r.nextInt(InstanceType.values().length);
 
-                    if (randomType != instanceType){
+                    if (randomType != instanceType) {
                         isEqualY = false;
                     }
                 }
                 yArray[randomInstanceIdY] = randomType;
 
                 break;
-        }
+            //change z array
+            case 2:
+                int randomOldPosition;
+                int n = workflow.getJobList().size();
+                randomOldPosition = r.nextInt(n);
+                int randomNewPosition;
 
-        solutionMapping();
+                WorkflowDAG dag = workflow.getWfDAG();
+                ArrayList<Integer> parentList = dag.getParents(zArray[randomOldPosition]);
+                ArrayList<Integer> childList = dag.getChildren(zArray[randomOldPosition]);
+                int start = randomOldPosition;
+                int end = randomOldPosition;
+
+                while (start >=0 && !ExistItemInList(parentList,zArray[start])) {
+                    start--;
+                }
+
+                while (end < n && !ExistItemInList(childList,zArray[end])) {
+                    end++;
+                }
+
+
+                int diff = (end - 1) - (start + 1);
+                if (diff > 0) {
+                    randomNewPosition = r.nextInt(diff);
+                    randomNewPosition += (start + 1);
+                    if (randomNewPosition != randomOldPosition) {
+                        if (randomNewPosition > randomOldPosition) {
+                            int temp = zArray[randomOldPosition];
+                            for (int j = randomOldPosition; j < randomNewPosition; j++)
+                                zArray[j] = zArray[j + 1];
+                            zArray[randomNewPosition] = temp;
+                        }
+                        else {
+                            int temp = zArray[randomOldPosition];
+                            for (int j = randomOldPosition -1; j >= randomNewPosition; j--)
+                                zArray[j+1] = zArray[j];
+                            zArray[randomNewPosition] = temp;
+                        }
+                    }
+                }
+                break;
+        }
+        instanceUsages = new short[numberOfUsedInstances];
+    }
+
+    public boolean ExistItemInList(ArrayList<Integer> l, int item)
+    {
+        for (Integer i : l) {
+            if (i == item) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -164,7 +235,7 @@ public class Solution {
         if (realNumberOfInstances != numberOfUsedInstances){
             int mapper[] = new int[numberOfUsedInstances];
 
-            int newYArray[] = new int[M_NUMBER];
+            int newYArray[] = new int[maxNumberOfInstances];
 
             int instanceCounter = 0;
             for (int i = 0; i < numberOfUsedInstances; i++) {
@@ -194,6 +265,63 @@ public class Solution {
         }
     }
 
+    public void generateFullyRandomSolution(){
+        numberOfUsedInstances = -1;
+        List<Job> jobList = workflow.getJobList();
+
+        /**
+         * Generates random xArray
+         * */
+        Random r = new Random();
+        for (int i = 0; i < jobList.size(); i++) {
+            int random = r.nextInt(maxNumberOfInstances);
+            xArray[i] = random;
+            if (random >= numberOfUsedInstances){
+                numberOfUsedInstances = random+1;
+            }
+        }
+
+        /**
+         * Generate random yArray
+         * */
+
+        for (int i = 0; i < numberOfUsedInstances; i++) {
+            int random = r.nextInt(InstanceType.values().length);
+            yArray[i] = random;
+        }
+
+        /**
+         * Generate random zArray
+         * */
+        WorkflowDAG dag = workflow.getWfDAG();
+        List<Job> originalJobList = workflow.getJobList();
+        Random random = new Random();
+
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int randomId, taskId;
+
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
+        int parentsSum[] = new int[workflow.getNumberTasks()];
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            randomId = random.nextInt(readyTasksToOrder.size());
+            taskId = readyTasksToOrder.get(randomId);
+
+            ArrayList<Integer> children = dag.getChildren(taskId);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+            zArray[i] = originalJobList.get(taskId).getIntId();
+            readyTasksToOrder.remove(randomId);
+        }
+
+        this.origin = "Fully random Solution";
+    }
+
     public void generateRandomSolution(Workflow workflow){
         List<Job> jobList = workflow.getJobList();
 
@@ -202,54 +330,320 @@ public class Solution {
          * */
         Random r = new Random();
         int bound = 0;
+        int used = 0;
 
 //        It always assigns task 0 (first task) to instance 0 (first instance)
         xArray[jobList.get(0).getIntId()] = bound;
 
         bound++;
+        used++;
         for (int i = 1; i < jobList.size(); i++) {
             Job job = jobList.get(i);
             int random = r.nextInt(bound + 1);
 
             xArray[job.getIntId()] = random;
 
-            if (bound == random && bound < M_NUMBER){
-                bound++;
+            if (bound == random && used < maxNumberOfInstances){
+                used++;
+                if (bound != maxNumberOfInstances -1){
+                    bound++;
+                }
             }
         }
 
         /**
          * Generate random yArray
          * */
-        numberOfUsedInstances = bound;
+        numberOfUsedInstances = used;
 
         for (int i = 0; i < numberOfUsedInstances; i++) {
             int random = r.nextInt(InstanceType.values().length);
             yArray[i] = random;
         }
+
+        /**
+         * Generate random zArray
+         * */
+        WorkflowDAG dag = workflow.getWfDAG();
+        List<Job> originalJobList = workflow.getJobList();
+        Random random = new Random();
+
+        ArrayList<Integer> readyTasksToOrder = dag.getFirstLevel();
+        int randomId, taskId;
+
+        int numberOfParentList[] = GlobalAccess.numberOfParentsList;
+        int parentsSum[] = new int[workflow.getNumberTasks()];
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            randomId = random.nextInt(readyTasksToOrder.size());
+            taskId = readyTasksToOrder.get(randomId);
+
+            ArrayList<Integer> children = dag.getChildren(taskId);
+            for (int k = 0; k < children.size(); k++) {
+                int childId = children.get(k);
+                parentsSum[childId]++;
+                if (parentsSum[childId] == numberOfParentList[childId]){
+                    readyTasksToOrder.add(childId);
+                }
+            }
+            zArray[i] = originalJobList.get(taskId).getIntId();
+            readyTasksToOrder.remove(randomId);
+        }
     }
 
     /**
-     * The fitness function for this problem computes the makespan of the workflow with a fixed number of instances
+     * The fitness function for this problem computes the makespan and the fitness value of the
+     *  scheduled tasks of the workflow with a fixed number of instances
      * */
     public void fitness(){
         if (workflow == null || instanceInfo == null){
             Log.logger.warning("Problem with fitness function properties");
             return;
         }
-        Cloner cloner = new Cloner();
-
-        originalJobList = workflow.getJobList();
-
-        orderedJobList = cloner.deepClone(originalJobList);
-
-        Collections.sort(orderedJobList, Job.rankComparator);
+        List<Job> originalJobList = workflow.getJobList();
         WorkflowDAG dag = workflow.getWfDAG();
 
         double instanceTimeLine[] = new double[numberOfUsedInstances];
         double instanceStartTime[] = new double[numberOfUsedInstances];
         boolean instanceIsUsed[] = new boolean[numberOfUsedInstances];
 
+        taskFinishTimes = new double[workflow.getJobList().size()];
+
+        instanceTimes = new double[numberOfUsedInstances];
+
+        Instance instanceList[] = new Instance[numberOfUsedInstances];
+        for (int i = 0; i < numberOfUsedInstances; i++) {
+            instanceList[i] = new Instance();
+        }
+
+        Job firstJob = originalJobList.get(zArray[0]);
+
+        double exeTime = firstJob.getExeTime()[yArray[xArray[firstJob.getIntId()]]];
+
+        instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
+        instanceIsUsed[xArray[firstJob.getIntId()]] = true;
+        instanceStartTime[xArray[firstJob.getIntId()]] = 0;
+
+        taskFinishTimes[firstJob.getIntId()] = instanceTimeLine[xArray[firstJob.getIntId()]];
+
+        //for the rest of tasks
+        for (int i = 1; i < zArray.length; i++) {
+            Job job = originalJobList.get(zArray[i]);
+            /**
+             * TempTaskFinishTime: is used to choose, benefit from the gap or not. If the temp task
+             * finish time for the gap is smaller than regular scheduling, the gap is used!
+             * */
+            double tempTaskFinishTime = 999999999999999999.0;
+            double tempTaskExeTime = -99999999999999999.9;
+
+            ArrayList<Integer> parentJobs = dag.getParents(job.getIntId());
+
+            //it is possible to have multiple start tasks without dependencies
+            int maxParentId = -1;
+
+            if (parentJobs.size() == 0){
+                double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
+                double currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
+
+                if (currentFinishTime < tempTaskFinishTime){
+                    tempTaskExeTime = taskExeTime;
+                    tempTaskFinishTime = currentFinishTime;
+                }
+            }else {
+                //check maximum task finish time for all of the current instances
+                maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
+
+                double waitingTime = taskFinishTimes[maxParentId] - instanceTimeLine[xArray[job.getIntId()]];
+
+                if (waitingTime > 0 ){
+                    double currentTime = instanceTimeLine[xArray[job.getIntId()]] + waitingTime;
+                    double cij = 0D;
+                    double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
+                    double currentFinishTime;
+
+                    if (xArray[job.getIntId()] == xArray[maxParentId]){
+                        currentFinishTime = currentTime + taskExeTime;
+                    }else {
+                        /**
+                         * Time to send data: is the time between instance timeline and the max
+                         * finish time of the parent task.
+                         * */
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
+                        cij = edge / (double)Config.global.bandwidth;
+
+                        double timeToSendData = currentTime - taskFinishTimes[maxParentId];
+
+                        if (timeToSendData >= cij){
+                            currentFinishTime = currentTime + taskExeTime;
+                        }else {
+                            currentFinishTime = currentTime + (cij - timeToSendData) + taskExeTime;
+                        }
+                    }
+
+                    if (currentFinishTime < tempTaskFinishTime){
+                        tempTaskExeTime = taskExeTime + cij;
+                        tempTaskFinishTime = currentFinishTime;
+                    }
+                }else {
+                    double cij = 0D;
+                    double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
+                    double currentFinishTime;
+
+                    if (xArray[job.getIntId()] == xArray[maxParentId]){
+                        currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
+                    }else {
+                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
+
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
+                        cij = edge / (double)Config.global.bandwidth;
+
+                        if (timeToSendData >= cij){
+                            currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
+                        }else {
+                            currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + (cij - timeToSendData) + taskExeTime;
+                        }
+                    }
+
+                    if (currentFinishTime < tempTaskFinishTime){
+                        tempTaskExeTime = taskExeTime + cij;
+                        tempTaskFinishTime = currentFinishTime;
+                    }
+                }
+            }
+            instanceTimeLine[xArray[job.getIntId()]] = tempTaskFinishTime;
+
+            if (!instanceIsUsed[xArray[job.getIntId()]]){
+                instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
+                instanceIsUsed[xArray[job.getIntId()]] = true;
+            }
+            taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
+        }
+
+        for (int i = 0; i < instanceTimes.length; i++) {
+            instanceTimes[i] = instanceTimeLine[i] - instanceStartTime[i];
+        }
+
+        double totalCost = 0D;
+//       Now we have exe time for each instance
+        for (int i = 0; i < instanceTimes.length; i++) {
+            if (yArray[i] != -1){
+                double theHour = instanceTimes[i]/3600D;
+                theHour = Math.ceil(theHour);
+                totalCost += theHour * instanceInfo[this.yArray[i]].spotPrice;
+            }
+        }
+
+        this.instanceTimelines = instanceTimeLine;
+        this.instanceStartTime = instanceStartTime;
+        this.cost = totalCost;
+        this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
+
+
+        if(Config.global.deadline_based)
+        {
+            computeFitnessValue_DeadlineBased();
+        }
+        else
+        {
+            computeFitnessValue();
+        }
+
+
+
+    }
+
+    int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId){
+        List<Job> originalJobList = workflow.getJobList();
+        double tempValue = -1;
+        int tempId = -1;
+
+        for (int parentId : parentJobs){
+            double tempEdge = Math.abs(originalJobList.get(parentId).getEdge(jobId));
+            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
+            double maxJobStartTime;
+            if (xArray[jobId] == xArray[parentId]){
+                maxJobStartTime = taskFinishTimes[parentId];
+            }else {
+                maxJobStartTime = taskFinishTimes[parentId] + tempCIJ;
+            }
+
+            if (tempValue < maxJobStartTime){
+                tempValue = maxJobStartTime;
+                tempId = originalJobList.get(parentId).getIntId();
+            }
+        }
+        return tempId;
+    }
+
+    void computeFitnessValue(){
+
+        //double test = 0.91238500001;
+        DecimalFormat df = new DecimalFormat ("#.######");
+        cost = Double.parseDouble(df.format(cost));
+       // Log.logger.info("Test is:"+test);
+
+        double delta = cost - workflow.getBudget();
+        double penalty1 = 0;
+
+        if (delta > 0){
+            penalty1 = delta;
+        }
+
+        fitnessValue = makespan + beta * (penalty1);
+    }
+
+
+    void computeFitnessValue_DeadlineBased(){
+
+        DecimalFormat df = new DecimalFormat ("#.######");
+        cost = Double.parseDouble(df.format(cost));
+
+        double delta = makespan - Config.global.deadline;
+        double penalty1 = 0;
+
+        if (delta > 0){
+            penalty1 = delta;
+        }
+
+        fitnessValue = cost + beta * (penalty1);
+
+    }
+
+
+    double findMaxInstanceTime(double instanceTimes[]){
+        double max = instanceTimes[0];
+
+        for (double temp : instanceTimes){
+            if (temp > max)
+                max = temp;
+        }
+        return max;
+    }
+
+    /**
+     * ================================================================================================
+     * ================================================================================================
+     * These methods are HEFT version of the solution methods
+     * */
+
+    /**
+     * To use heft fitness you MUST first set the public static orderedJobList in GlobalAccess class
+     * */
+    public void heftFitness(){
+        if (workflow == null || instanceInfo == null){
+            Log.logger.warning("Problem with fitness function properties");
+            return;
+        }
+        List<Job> originalJobList = workflow.getJobList();
+        List<Job> orderedJobList = GlobalAccess.orderedJobList;
+
+        WorkflowDAG dag = workflow.getWfDAG();
+
+        double instanceTimeLine[] = new double[numberOfUsedInstances];
+        double instanceStartTime[] = new double[numberOfUsedInstances];
+        boolean instanceIsUsed[] = new boolean[numberOfUsedInstances];
+
+        taskFinishTimes = new double[workflow.getJobList().size()];
         instanceTimes = new double[numberOfUsedInstances];
 
         Instance instanceList[] = new Instance[numberOfUsedInstances];
@@ -265,11 +659,15 @@ public class Solution {
         instanceTimeLine[xArray[firstJob.getIntId()]] = exeTime;
         instanceIsUsed[xArray[firstJob.getIntId()]] = true;
         instanceStartTime[xArray[firstJob.getIntId()]] = 0;
-        originalVersion.setFinishTime(instanceTimeLine[xArray[firstJob.getIntId()]]);
+        taskFinishTimes[originalVersion.getIntId()] = instanceTimeLine[xArray[firstJob.getIntId()]];
 
         //for the rest of tasks
         for (int i = 1; i < orderedJobList.size(); i++) {
             Job job = orderedJobList.get(i);
+            /**
+             * TempTaskFinishTime: is used to choose, benefit from the gap or not. If the temp task
+             * finish time for the gap is smaller than regular scheduling, the gap is used!
+             * */
             double tempTaskFinishTime = 999999999999999999.0;
             double tempTaskExeTime = -99999999999999999.9;
             boolean gapOccurred = false;
@@ -287,18 +685,18 @@ public class Solution {
             int maxParentId = -1;
             Job maxParentJob;
             double latestParentFinishTime = 0.0;
-            
+
             //this if for gap usage
             if (instanceList[xArray[job.getIntId()]].gapList.size() >= 1 && parentJobs.size() != 0){
                 Collections.sort(instanceList[xArray[job.getIntId()]].gapList , Gap.gapComparator);
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
                 maxParentJob = originalJobList.get(maxParentId);
-                latestParentFinishTime = maxParentJob.getFinishTime();
+                latestParentFinishTime = taskFinishTimes[maxParentJob.getIntId()];
 
                 int k =0;
                 for (Gap gap: instanceList[xArray[job.getIntId()]].gapList){
                     if (latestParentFinishTime < gap.endTime){
-                        double tempEdge = originalJobList.get(maxParentId).getEdge(job.getIntId());
+                        double tempEdge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
                         double tempCIJ = tempEdge / (double)Config.global.bandwidth;
                         double taskExeTime;
 
@@ -309,17 +707,21 @@ public class Solution {
                         }
 
                         double availableGapTime = gap.endTime - latestParentFinishTime;
+                        double gapTest = availableGapTime;
+                        if (availableGapTime > gap.duration){
+                            gapTest = gap.duration;
+                        }
 
-                        if (availableGapTime >= taskExeTime){
+                        if (gapTest >= taskExeTime){
                             double remainingTimeToStartGap = gap.startTime - latestParentFinishTime;
                             double gapTaskFinishTime;
 
                             if (remainingTimeToStartGap >= 0){
                                 double timeToSendData = gap.startTime - latestParentFinishTime;
                                 if (timeToSendData >= tempCIJ){
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - tempCIJ);
+                                    gapTaskFinishTime = gap.startTime + taskExeTime;
                                 }else {
-                                    gapTaskFinishTime = gap.startTime + (taskExeTime - timeToSendData);
+                                    gapTaskFinishTime = gap.startTime + taskExeTime +( tempCIJ - timeToSendData);
                                 }
                             }else {
                                 gapTaskFinishTime = latestParentFinishTime + taskExeTime;
@@ -352,22 +754,28 @@ public class Solution {
                     gapIsUsed = false;
                 }
             }else {
-                //check maximum task finish time for all of the parent tasks
+                //check maximum task finish time for all of the current instances
                 maxParentId = getJobWithMaxParentFinishTimeWithCij(parentJobs, job.getIntId());
 
-                double waitingTime = originalJobList.get(maxParentId).getFinishTime() - instanceTimeLine[xArray[job.getIntId()]];
+                double waitingTime = taskFinishTimes[maxParentId] - instanceTimeLine[xArray[job.getIntId()]];
 
                 if (waitingTime > 0 ){
                     double currentTime = instanceTimeLine[xArray[job.getIntId()]] + waitingTime;
-                    double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                    double cij = edge / (double)Config.global.bandwidth;
+                    double cij = 0D;
                     double taskExeTime = job.getExeTime()[yArray[xArray[job.getIntId()]]];
                     double currentFinishTime;
 
                     if (xArray[job.getIntId()] == xArray[maxParentId]){
                         currentFinishTime = currentTime + taskExeTime;
                     }else {
-                        double timeToSendData = currentTime - originalJobList.get(maxParentId).getFinishTime();
+                        /**
+                         * Time to send data: is the time between instance timeline and the max
+                         * finish time of the parent task.
+                         * */
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
+                        cij = edge / (double)Config.global.bandwidth;
+
+                        double timeToSendData = currentTime - taskFinishTimes[maxParentId];
 
                         if (timeToSendData >= cij){
                             currentFinishTime = currentTime + taskExeTime;
@@ -391,13 +799,14 @@ public class Solution {
                     if (xArray[job.getIntId()] == xArray[maxParentId]){
                         currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
                     }else {
-                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - originalJobList.get(maxParentId).getFinishTime();
+                        double timeToSendData = instanceTimeLine[xArray[job.getIntId()]] - taskFinishTimes[maxParentId];
+
+                        double edge = Math.abs(originalJobList.get(maxParentId).getEdge(job.getIntId()));
+                        cij = edge / (double)Config.global.bandwidth;
 
                         if (timeToSendData >= cij){
                             currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + taskExeTime;
                         }else {
-                            double edge = originalJobList.get(maxParentId).getEdge(job.getIntId());
-                            cij = edge / (double)Config.global.bandwidth;
                             currentFinishTime = instanceTimeLine[xArray[job.getIntId()]] + (cij - timeToSendData) + taskExeTime;
                         }
                     }
@@ -410,7 +819,7 @@ public class Solution {
                     }
                 }
             }
-/////////////////////////**********************************************************
+
             if (gapOccurred && instanceIsUsed[xArray[job.getIntId()]]){
                 instanceList[xArray[job.getIntId()]].hasGap = true;
                 Gap gap = new Gap(instanceTimeLine[xArray[job.getIntId()]], endOfInstanceWaitTime);
@@ -428,15 +837,13 @@ public class Solution {
             }else {
                 instanceTimeLine[xArray[job.getIntId()]] = tempTaskFinishTime;
             }
-            ///////////////////***********************************************************
             if (!instanceIsUsed[xArray[job.getIntId()]]){
                 instanceStartTime[xArray[job.getIntId()]] = tempTaskFinishTime - tempTaskExeTime;
                 instanceIsUsed[xArray[job.getIntId()]] = true;
             }
-            originalJobList.get(job.getIntId()).setFinishTime(tempTaskFinishTime);
+            taskFinishTimes[job.getIntId()] = tempTaskFinishTime;
         }
 
-/////////////////////////////////////////////////////////////////////////
         for (int i = 0; i < instanceTimes.length; i++) {
             instanceTimes[i] = instanceTimeLine[i] - instanceStartTime[i];
         }
@@ -444,67 +851,120 @@ public class Solution {
         double totalCost = 0D;
 //       Now we have exe time for each instance
         for (int i = 0; i < instanceTimes.length; i++) {
-            totalCost += (instanceTimes[i]/3600D) * instanceInfo[this.yArray[i]].spotPrice;
+            double theHour = instanceTimes[i]/3600D;
+            theHour = Math.ceil(theHour);
+            totalCost += theHour * instanceInfo[this.yArray[i]].spotPrice;
         }
 
         this.instanceTimelines = instanceTimeLine;
         this.instanceStartTime = instanceStartTime;
         this.cost = totalCost;
-        this.makespan = findMaxInstanceTime(instanceTimeLine);
+        this.makespan = (int)findMaxInstanceTime(instanceTimeLine);
 
-        computeFitnessValue();
+        if(Config.global.deadline_based)
+        {
+            computeFitnessValue_DeadlineBased();
+        }
+        else
+        {
+            computeFitnessValue();
+        }
     }
 
-    int getJobWithMaxParentFinishTimeWithCij(ArrayList<Integer> parentJobs, int jobId){
-        double tempValue = -1;
-        int tempId = -1;
+    public void heftGenerateRandomNeighborSolution(Workflow workflow){
+        this.workflow = workflow;
 
-        for (int parentId : parentJobs){
-            double tempEdge = originalJobList.get(parentId).getEdge(jobId);
-            double tempCIJ = tempEdge / (double)Config.global.bandwidth;
-            double maxJobStartTime;
-            if (xArray[jobId] == xArray[parentId]){
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime();
-            }else {
-                maxJobStartTime = originalJobList.get(parentId).getFinishTime() + tempCIJ;
+        Random r = new Random();
+        int xOry = r.nextInt(2);
+
+        switch (xOry){
+            //changes x array
+            case 0:
+                int randomTask = r.nextInt(xArray.length);
+                int currentInstanceId = xArray[randomTask];
+
+                boolean isEqual = true;
+                int randomInstanceId = -1;
+
+                while (isEqual){
+                    randomInstanceId = r.nextInt(numberOfUsedInstances+1);
+                    if (randomInstanceId != currentInstanceId && randomInstanceId < maxNumberOfInstances){
+                        isEqual = false;
+                    }
+                }
+
+                xArray[randomTask] = randomInstanceId;
+
+                //if new instance is selected
+                if (randomInstanceId == numberOfUsedInstances){
+                    int randomType = r.nextInt(InstanceType.values().length);
+                    yArray[randomInstanceId] = randomType;
+                    numberOfUsedInstances++;
+                }
+
+                break;
+            // changes y array
+            case 1:
+                int randomInstanceIdY = r.nextInt(numberOfUsedInstances);
+                boolean isEqualY = true;
+
+                int randomType = -1;
+
+                while (isEqualY){
+                    int instanceType = yArray[randomInstanceIdY];
+                    randomType = r.nextInt(InstanceType.values().length);
+
+                    if (randomType != instanceType){
+                        isEqualY = false;
+                    }
+                }
+                yArray[randomInstanceIdY] = randomType;
+
+                break;
+        }
+        instanceUsages = new short[numberOfUsedInstances];
+
+        solutionMapping();
+    }
+
+    public void heftGenerateRandomSolution(Workflow workflow){
+        List<Job> jobList = workflow.getJobList();
+
+        /**
+         * Generates random xArray
+         * */
+        Random r = new Random();
+        int bound = 0;
+        int used = 0;
+
+//        It always assigns task 0 (first task) to instance 0 (first instance)
+        xArray[jobList.get(0).getIntId()] = bound;
+
+        bound++;
+        used++;
+        for (int i = 1; i < jobList.size(); i++) {
+            Job job = jobList.get(i);
+            int random = r.nextInt(bound + 1);
+
+            xArray[job.getIntId()] = random;
+
+            if (bound == random && used < maxNumberOfInstances){
+                used++;
+                if (bound != maxNumberOfInstances -1){
+                    bound++;
+                }
             }
-
-            if (tempValue < maxJobStartTime){
-                tempValue = maxJobStartTime;
-                tempId = originalJobList.get(parentId).getIntId();
-            }
-        }
-        return tempId;
-    }
-
-    void computeFitnessValue(){
-        double delta = cost - workflow.getBudget();
-        double penalty1 = 0;
-
-        if (delta > 0){
-            penalty1 = delta;
         }
 
-        fitnessValue = makespan + beta * (penalty1) - saving();
-    }
+        /**
+         * Generate random yArray
+         * */
+        numberOfUsedInstances = used;
 
-    double saving(){
-        double e = 1 / workflow.getBudget();
-        if (cost < workflow.getBudget()){
-            return e * (workflow.getBudget() - cost);
-        }else {
-            return 0.0;
+        for (int i = 0; i < numberOfUsedInstances; i++) {
+            int random = r.nextInt(InstanceType.values().length);
+            yArray[i] = random;
         }
-    }
-
-    double findMaxInstanceTime(double instanceTimes[]){
-        double max = instanceTimes[0];
-
-        for (double temp : instanceTimes){
-            if (temp > max)
-                max = temp;
-        }
-        return max;
     }
 
     public int getId() {
@@ -527,5 +987,38 @@ public class Solution {
     public int hashCode() {
 
         return Objects.hash(fitnessValue);
+    }
+
+    @Override
+    public Solution clone() throws CloneNotSupportedException {
+        Solution solution = (Solution)super.clone();
+
+        int newX[] = new int[workflow.getJobList().size()];
+        int newY[] = new int[maxNumberOfInstances];
+        Integer newZ[] = new Integer[workflow.getJobList().size()];
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            newX[i] = xArray[i];
+        }
+
+        for (int i = 0; i < maxNumberOfInstances; i++) {
+            newY[i] = yArray[i];
+        }
+
+        for (int i = 0; i < workflow.getJobList().size(); i++) {
+            newZ[i] = new Integer(zArray[i]);
+        }
+
+        solution.xArray = newX;
+        solution.yArray = newY;
+        solution.zArray = newZ;
+
+        solution.instanceUsages = new short[maxNumberOfInstances];
+        solution.taskFinishTimes = new double[workflow.getJobList().size()];
+        solution.instanceTimelines = new double[maxNumberOfInstances];
+        solution.instanceStartTime = new double[maxNumberOfInstances];
+        solution.instanceTimes = new double[numberOfUsedInstances];
+
+        return solution;
     }
 }

@@ -4,9 +4,13 @@ import org.cloudbus.cloudsim.util.workload.Job;
 import org.cloudbus.cloudsim.util.workload.Workflow;
 import org.cloudbus.cloudsim.workflow.Models.DAX.Dax2Workflow;
 import org.cloudbus.spotsim.main.config.SimProperties;
+import org.optframework.GlobalAccess;
 import org.optframework.core.Log;
 
+import java.util.List;
+
 public class PopulateWorkflow {
+    public static List<org.optframework.core.Job> jobListWithDoubleTaskLength;
     public static Workflow populateWorkflowFromDax(double budget, long deadline) {
         Log.logger.info("Populates the workflow from Dax file");
 
@@ -24,107 +28,147 @@ public class PopulateWorkflow {
     public static Workflow populateWorkflowWithId(double budget, long deadline, int workflow_id) {
         Log.logger.info("Populates the workflow from Dax file");
 
-        String workflowPath = "";
-        String name = "";
+        String workflowPath = "", workflowName = null;
         Workflow workflow = null;
 
         if (workflow_id < 100){
             switch (workflow_id){
                 case 1:
+                    workflowName = "Inspiral-1000";
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_1000.xml";
-                    name = "Inspiral 1000";
                     break;
                 case 2:
+                    workflowName = "Inspiral-100";
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_100.xml";
-                    name = "Inspiral 100";
                     break;
                 case 3:
+                    workflowName = "Inspiral-50";
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_50.xml";
-                    name = "Inspiral 50";
                     break;
                 case 4:
+                    workflowName = "Inspiral-30";
                     workflowPath = "resources/input/inputDAGfiles/Inspiral_30.xml";
-                    name = "Inspiral 30";
+                    break;
+                case 5:
+                    workflowName = "Inspiral-200";
+                    workflowPath = "resources/input/inputDAGfiles/inspiral200.xml";
+                    break;
+                case 6:
+                    workflowName = "Inspiral-300";
+                    workflowPath = "resources/input/inputDAGfiles/inspiral300.xml";
                     break;
                 case 10:
+                    workflowName = "Montage-1000";
                     workflowPath = "resources/input/inputDAGfiles/Montage_1000.xml";
-                    name = "Montage 1000";
                     break;
                 case 11:
+                    workflowName = "Montage-100";
                     workflowPath = "resources/input/inputDAGfiles/Montage_100.xml";
-                    name = "Montage 100";
                     break;
                 case 12:
+                    workflowName = "Montage-50";
                     workflowPath = "resources/input/inputDAGfiles/Montage_50.xml";
-                    name = "Montage 50";
                     break;
                 case 13:
+                    workflowName = "Montage-25";
                     workflowPath = "resources/input/inputDAGfiles/Montage_25.xml";
-                    name = "Montage 25";
+                    break;
+                case 14:
+                    workflowName = "Montage-200";
+                    workflowPath = "resources/input/inputDAGfiles/montage200.xml";
+                    break;
+                case 15:
+                    workflowName = "Montage-300";
+                    workflowPath = "resources/input/inputDAGfiles/montage300.xml";
                     break;
                 case 20:
+                    workflowName = "Sipht-1000";
                     workflowPath = "resources/input/inputDAGfiles/Sipht_1000.xml";
-                    name = "Sipht 1000";
                     break;
                 case 21:
+                    workflowName = "Sipht-100";
                     workflowPath = "resources/input/inputDAGfiles/Sipht_100.xml";
-                    name = "Sipht 100";
                     break;
                 case 22:
+                    workflowName = "Sipht-60";
                     workflowPath = "resources/input/inputDAGfiles/Sipht_60.xml";
-                    name = "Sipht 60";
                     break;
                 case 23:
+                    workflowName = "Sipht-30";
                     workflowPath = "resources/input/inputDAGfiles/Sipht_30.xml";
-                    name = "Sipht 30";
+                    break;
+                case 24:
+                    workflowName = "Sipht-200";
+                    workflowPath = "resources/input/inputDAGfiles/sipht200.xml";
+                    break;
+                case 25:
+                    workflowName = "Sipht-300";
+                    workflowPath = "resources/input/inputDAGfiles/sipht300.xml";
                     break;
                 case 30:
+                    workflowName = "Epigenomics-997";
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_997.xml";
-                    name = "Epigenomics 997";
                     break;
                 case 31:
+                    workflowName = "Epigenomics-100";
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_100.xml";
-                    name = "Epigenomics 100";
                     break;
                 case 32:
+                    workflowName = "Epigenomics-46";
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_46.xml";
-                    name = "Epigenomics 46";
                     break;
                 case 33:
+                    workflowName = "Epigenomics-24";
                     workflowPath = "resources/input/inputDAGfiles/Epigenomics_24.xml";
-                    name = "Epigenomics 24";
+                    break;
+                case 34:
+                    workflowName = "Epigenomics-200";
+                    workflowPath = "resources/input/inputDAGfiles/epigenomics200.xml";
+                    break;
+                case 35:
+                    workflowName = "Epigenomics-300";
+                    workflowPath = "resources/input/inputDAGfiles/epigenomics300.xml";
                     break;
                 case 40:
+                    workflowName = "CyberShake-1000";
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_1000.xml";
-                    name = "CyberShake 1000";
                     break;
                 case 41:
+                    workflowName = "CyberShake-100";
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_100.xml";
-                    name = "CyberShake 100";
                     break;
                 case 42:
+                    workflowName = "CyberShake-50";
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_50.xml";
-                    name = "CyberShake 50";
                     break;
                 case 43:
+                    workflowName = "CyberShake-30";
                     workflowPath = "resources/input/inputDAGfiles/CyberShake_30.xml";
-                    name = "CyberShake 30";
+                    break;
+                case 44:
+                    workflowName = "CyberShake-200";
+                    workflowPath = "resources/input/inputDAGfiles/cyberShake200.xml";
+                    break;
+                case 45:
+                    workflowName = "CyberShake-300";
+                    workflowPath = "resources/input/inputDAGfiles/cyberShake300.xml";
                     break;
             }
+            GlobalAccess.workflowName = workflowName;
 
             if (workflowPath == ""){
                 throw new RuntimeException("Invalid workflow Id. Possible values: 1 for 1000 nodes, 2 for 100 nodes , 3 for 30 nodes");
             }
+            Log.logger.info("Workflow: " + workflowName);
 
-            Dax2Workflow dax = new Dax2Workflow();
+            OptDax2Workflow dax = new OptDax2Workflow();
             dax.processDagFile(workflowPath
                     , 1, 100,0);
 
+            jobListWithDoubleTaskLength = dax.jobListWithDoubleTaskLength;
             workflow = dax.workflow;
             workflow.initBudget(budget);
             workflow.setDeadline(deadline);
-
-            Printer.printWorkflowName(name);
         }else {
             switch (workflow_id){
                 case 101:
@@ -368,15 +412,15 @@ public class PopulateWorkflow {
         long submitTime = 0 ;
         int numProc = 1;
 
-        Job wfA = new Job(taskID, submitTime, 3000 , userID, groupID, 3000, numProc);
+        Job wfA = new Job(taskID, submitTime, 100 , userID, groupID, 100, numProc);
         simpleWorkflow.createTask(wfA);
         taskID++;
 
-        Job wfB = new Job(taskID, submitTime, 10000 , userID, groupID, 10000, numProc);
+        Job wfB = new Job(taskID, submitTime, 30 , userID, groupID, 30, numProc);
         simpleWorkflow.createTask(wfB);
         taskID++;
 
-        Job wfC = new Job(taskID, submitTime, 50000 , userID, groupID, 50000, numProc);
+        Job wfC = new Job(taskID, submitTime, 50 , userID, groupID, 50, numProc);
         simpleWorkflow.createTask(wfC);
         taskID++;
 

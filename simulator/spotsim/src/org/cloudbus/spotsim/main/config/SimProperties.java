@@ -161,11 +161,12 @@ public enum SimProperties implements SimProp {
 
 	WORKFLOW_BUDGET("spotsim.workflow.budget", 55000.9),
 
-	// HESSAM CHANGED 60 to 1
+	//mowsc HESSAM
 	WORKFLOW_LENGTH_MULT("spotsim.workflow.lengthMult", 1),
 
+	//mowsc
 	LIBERAL_POLICY_REF_INSTANCE("spotsim.workflow.liberalpolicy.refInstance",
-			InstanceType.M24XLARGE),
+			InstanceType.M32XLARGE),
 
 	WF_INPUT_FILE_MODE("spotsim.workflow.inputFileMode", true),
 

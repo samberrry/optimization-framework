@@ -3,6 +3,7 @@ package org.optframework.core.heft;
 import java.util.Comparator;
 
 public class Gap {
+    int gapId;
     public double startTime;
     public double endTime;
     public double duration;

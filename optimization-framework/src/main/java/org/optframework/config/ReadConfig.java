@@ -16,7 +16,9 @@ public class ReadConfig {
 
     HoneyBeeConfig honeybee_algorithm;
 
-    AntColonyConfig antcolony_algorithm;
+    PACSAConfig pacsa_algorithm;
+
+    PSOConfig pso_algorithm;
 
     public static ReadConfig readYaml(){
         Yaml yaml = new Yaml();
@@ -62,11 +64,19 @@ public class ReadConfig {
         this.honeybee_algorithm = honeybee_algorithm;
     }
 
-    public AntColonyConfig getAntcolony_algorithm() {
-        return antcolony_algorithm;
+    public PACSAConfig getPacsa_algorithm() {
+        return pacsa_algorithm;
     }
 
-    public void setAntcolony_algorithm(AntColonyConfig antcolony_algorithm) {
-        this.antcolony_algorithm = antcolony_algorithm;
+    public void setPacsa_algorithm(PACSAConfig pacsa_algorithm) {
+        this.pacsa_algorithm = pacsa_algorithm;
+    }
+
+    public PSOConfig getPso_algorithm() {
+        return pso_algorithm;
+    }
+
+    public void setPso_algorithm(PSOConfig pso_algorithm) {
+        this.pso_algorithm = pso_algorithm;
     }
 }
