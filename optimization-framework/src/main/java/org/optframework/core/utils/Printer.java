@@ -179,4 +179,8 @@ public class Printer {
 
         Log.logger.info(str);
     }
+
+    public static void printWorkflowName(String name){
+        Log.logger.info("Workflow "+ name + " imported!");
+    }
 }
