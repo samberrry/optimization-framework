@@ -20,6 +20,8 @@ public class ReadConfig {
 
     PSOConfig pso_algorithm;
 
+    Automator automator;
+
     public static ReadConfig readYaml(){
         Yaml yaml = new Yaml();
 
@@ -78,5 +80,13 @@ public class ReadConfig {
 
     public void setPso_algorithm(PSOConfig pso_algorithm) {
         this.pso_algorithm = pso_algorithm;
+    }
+
+    public Automator getAutomator() {
+        return automator;
+    }
+
+    public void setAutomator(Automator automator) {
+        this.automator = automator;
     }
 }

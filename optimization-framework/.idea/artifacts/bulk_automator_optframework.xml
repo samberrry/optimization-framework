@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="automator-optframework">
-    <output-path>$PROJECT_DIR$/out/artifacts/automator_optframework</output-path>
+  <artifact type="jar" build-on-make="true" name="bulk-automator-optframework">
+    <output-path>$PROJECT_DIR$/out/artifacts/bulk_automator_optframework</output-path>
     <root id="archive" name="optframework.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$APPLICATION_HOME_DIR$/bin/META-INF/MANIFEST.MF" />

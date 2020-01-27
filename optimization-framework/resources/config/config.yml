@@ -93,3 +93,10 @@ pso_algorithm:
   weight: 0.9
   acceleration_coefficient1: 1.2
   acceleration_coefficient2: 1.2
+
+# types:
+# bulk-automator
+# single-automator
+automator:
+  type: "single-automator"
+  number_of_runs: 3

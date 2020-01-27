@@ -2,9 +2,7 @@ package org.optframework.automator;
 
 import org.optframework.*;
 import org.optframework.config.Config;
-import org.optframework.core.Log;
 import org.optframework.core.Solution;
-import org.optframework.core.utils.Printer;
 import static org.optframework.automator.BudgetList.*;
 
 import java.io.File;
@@ -19,13 +17,13 @@ import java.util.ArrayList;
  * todo: remove main method and make it configurable through the config file
  * */
 
-public class BudgetAutomator {
+public class BudgetAutomator implements GenericAutomator{
 
     //array of solutions which should be printed to csv file
     public static ArrayList<Solution> solutionArrayListToCSV;
     public static ArrayList<Long> timeInMilliSecArrayList;
 
-    public static void main(String[] args) throws Exception{
+    public void run() throws Exception{
         double budgetList[] = null;
         solutionArrayListToCSV = new ArrayList<>();
         timeInMilliSecArrayList = new ArrayList<>();
@@ -36,22 +34,6 @@ public class BudgetAutomator {
         //array of solutions which should be printed to csv file
         ArrayList<Solution> solutionArrayListToCSV;
         ArrayList<Long> timeInMilliSecArrayList;
-
-        Log.init();
-        Log.logger.info("+++++++++ BudgetAutomator is started +++++++++");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        org.cloudbus.spotsim.main.config.Config.load(null);
-
-        /**
-         * Loads configs from YAML file
-         * */
-        Config.initConfig();
-        Printer.printSplitter();
 
         switch (Config.global.workflow_id){
             case 1: budgetList = inspiral1000; break;

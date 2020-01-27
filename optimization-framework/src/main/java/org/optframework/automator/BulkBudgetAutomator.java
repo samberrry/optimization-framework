@@ -5,9 +5,7 @@ import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.RunGRPPACSAAlgorithm;
 import org.optframework.RunIterativeGRPHEFTAlgorithm;
 import org.optframework.config.Config;
-import org.optframework.core.Log;
 import org.optframework.core.Solution;
-import org.optframework.core.utils.Printer;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -23,12 +21,12 @@ import static org.optframework.automator.BudgetList.cybershake30;
  *
  * */
 
-public class BulkBudgetAutomator {
+public class BulkBudgetAutomator implements GenericAutomator{
     //array of solutions which should be printed to csv file
     public static ArrayList<Solution> solutionArrayListToCSV;
     public static ArrayList<Long> timeInMilliSecArrayList;
 
-    public static void main(String[] args) throws Exception{
+    public void run() throws Exception{
 
         Integer workflowIdList[] = {
                 2,
@@ -47,22 +45,6 @@ public class BulkBudgetAutomator {
                 33,
                 43
         };
-
-        Log.init();
-        Log.logger.info("+++++++++ BulkBudgetAutomator is started +++++++++");
-
-        /**
-         * Initializes Cloudsim Logger
-         * */
-        org.cloudbus.cloudsim.Log.init("cloudsim.log");
-
-        org.cloudbus.spotsim.main.config.Config.load(null);
-
-        /**
-         * Loads configs from YAML file
-         * */
-        Config.initConfig();
-        Printer.printSplitter();
 
         //iterates through workflows
         for (Integer workflowId: workflowIdList){

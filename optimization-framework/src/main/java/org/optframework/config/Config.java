@@ -15,6 +15,7 @@ public class Config {
 
     public static PSOConfig pso_algorithm;
 
+    public static Automator automator;
 
     public static void initConfig(){
         ReadConfig readConfig = ReadConfig.readYaml();
@@ -24,6 +25,7 @@ public class Config {
         Config.honeybee_algorithm = readConfig.honeybee_algorithm;
         Config.pacsa_algorithm = readConfig.pacsa_algorithm;
         Config.pso_algorithm = readConfig.pso_algorithm;
+        Config.automator = readConfig.automator;
         Log.logger.info("config file is read");
     }
 }
