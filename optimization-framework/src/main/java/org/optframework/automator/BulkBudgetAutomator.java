@@ -5,6 +5,7 @@ import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.RunGRPPACSAAlgorithm;
 import org.optframework.RunIterativeGRPHEFTAlgorithm;
 import org.optframework.config.Config;
+import org.optframework.core.Log;
 import org.optframework.core.utils.CSVWriter;
 import java.util.ArrayList;
 import static org.optframework.automator.BudgetList.*;
@@ -106,21 +107,23 @@ public class BulkBudgetAutomator implements GenericAutomator{
                     case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
                     case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
                     case "grp-pacsa":
-                        for (int i = 0; i < Config.automator.number_of_runs; i++) {
-                            RunGRPPACSAAlgorithm.runGRPPACSA();
-                            runResultArrayList.add(
-                                    new RunResult(GlobalAccess.solutionArrayListToCSV,
-                                    GlobalAccess.timeInMilliSecArrayList));
-                            //reset global objects for new iteration
-                            GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
-                            GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
-                            GlobalAccess.solutionRepository = new ArrayList<>();
-                        }
+                        //todo
+//                        for (int i = 0; i < Config.automator.number_of_runs; i++) {
+//                            RunGRPPACSAAlgorithm.runGRPPACSA();
+//                            runResultArrayList.add(
+//                                    new RunResult(GlobalAccess.solutionArrayListToCSV,
+//                                    GlobalAccess.timeInMilliSecArrayList));
+//                            //reset global objects for new iteration
+//                            GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+//                            GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
+//                            GlobalAccess.solutionRepository = new ArrayList<>();
+//                        }
                         break;
                 }
             }
             CSVWriter.processResults(runResultArrayList, budgetList.length);
             runResultArrayList = new ArrayList<>();
         }
+        Log.logger.info("Results Successfully Generated");
     }
 }

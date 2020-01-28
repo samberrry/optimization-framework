@@ -2,6 +2,7 @@ package org.optframework.automator;
 
 import org.optframework.*;
 import org.optframework.config.Config;
+import org.optframework.core.Log;
 import org.optframework.core.utils.CSVWriter;
 import static org.optframework.automator.BudgetList.*;
 import java.util.ArrayList;
@@ -55,44 +56,49 @@ public class BudgetAutomator implements GenericAutomator{
             throw new RuntimeException("This type of workflow is not supported to be automated");
         }
 
-        for (double budget: budgetList){
-            Config.global.budget = budget;
-            //at the end of run** method the automator-specific static variables will be filled
-            switch (Config.global.algorithm){
-                case "sa":
+        for (int i = 0; i < Config.automator.number_of_runs; i++) {
+            RunResult runResult = new RunResult();
+
+            for (double budget: budgetList){
+                Config.global.budget = budget;
+                //at the end of run** method the automator-specific static variables will be filled
+                switch (Config.global.algorithm){
+                    case "sa":
 //                    RunSAAlgorithm.runSA();
-                case "hbmo":
+                    case "hbmo":
 //                    RunHBMOAlgorithm.runHBMO();
-                case "heft":
+                    case "heft":
 //                    RunHEFTAlgorithm.runSingleHEFT();
-                case "hbmo-heft":
+                    case "hbmo-heft":
 //                    RunHEFTWithHBMO.runHEFTWithHBMO();
-                case "heft-example":
+                    case "heft-example":
 //                    RunHEFTExample.runHEFTExample();
-                case "pacsa":
+                    case "pacsa":
 //                    RunPACSAAlgorithm.runPACSA(0);
-                case "pacsa-plus":
+                    case "pacsa-plus":
 //                    RunPACSAAlgorithm.runPACSA(1);
-                case "pso":
+                    case "pso":
 //                    RunPSOAlgorithm.runPSO(0);
-                case "zpso":
+                    case "zpso":
 //                    RunPSOAlgorithm.runPSO(1);
-                    throw new RuntimeException("This Algorithm does not support Automator");
-                case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
-                case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
-                case "grp-pacsa":
-                    for (int i = 0; i < Config.automator.number_of_runs; i++) {
-                        RunGRPPACSAAlgorithm.runGRPPACSA();
-                        runResultArrayList.add(
-                                new RunResult(GlobalAccess.solutionArrayListToCSV,
-                                GlobalAccess.timeInMilliSecArrayList));
-                        //reset global objects for new iteration
-                        GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
-                        GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
-                        GlobalAccess.solutionRepository = new ArrayList<>();
-                    }
-                    break;
+                        throw new RuntimeException("This Algorithm does not support Automator");
+                    case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
+                    case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
+                    case "grp-pacsa":
+                        for (int j = 0; j < Config.automator.number_of_runs; j++) {
+                            RunGRPPACSAAlgorithm.runGRPPACSA();
+                        }
+                        Log.logger.info("Results Successfully Generated");
+                        break;
+                }
             }
+            runResult.solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
+            runResult.timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
+
+            GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+            GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
+            GlobalAccess.solutionRepository = new ArrayList<>();
+            runResultArrayList.add(runResult);
         }
         CSVWriter.processResults(runResultArrayList, budgetList.length);
     }

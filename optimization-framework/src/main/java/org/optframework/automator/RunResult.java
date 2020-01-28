@@ -8,11 +8,6 @@ import java.util.ArrayList;
  * */
 
 public class RunResult {
-    public ArrayList<Solution> solutionArrayListToCSV;
-    public ArrayList<Long> timeInMilliSecArrayList;
-
-    public RunResult(ArrayList<Solution> solutionArrayListToCSV, ArrayList<Long> timeInMilliSecArrayList) {
-        this.solutionArrayListToCSV = solutionArrayListToCSV;
-        this.timeInMilliSecArrayList = timeInMilliSecArrayList;
-    }
+    public ArrayList<Solution> solutionArrayListToCSV = new ArrayList<>();
+    public ArrayList<Long> timeInMilliSecArrayList = new ArrayList<>();
 }
