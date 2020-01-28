@@ -85,20 +85,18 @@ public class BudgetAutomator implements GenericAutomator{
                     case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
                     case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
                     case "grp-pacsa":
-                        for (int j = 0; j < Config.automator.number_of_runs; j++) {
-                            RunGRPPACSAAlgorithm.runGRPPACSA();
-                        }
+                        RunGRPPACSAAlgorithm.runGRPPACSA();
                         Log.logger.info("Results Successfully Generated");
                         break;
                 }
             }
             runResult.solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
             runResult.timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
+            runResultArrayList.add(runResult);
 
             GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
             GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
             GlobalAccess.solutionRepository = new ArrayList<>();
-            runResultArrayList.add(runResult);
         }
         CSVWriter.processResults(runResultArrayList, budgetList);
     }

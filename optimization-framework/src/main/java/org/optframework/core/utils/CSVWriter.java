@@ -40,14 +40,16 @@ public class CSVWriter {
                sec = runResults.get(j).timeInMilliSecArrayList.get(i);
 
                if (fMax < runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue){
+                   fMax = runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue;
                    maxResult = new SimpleResult(budgeList[i],runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue, sec);
                }
                if (fMin > runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue){
+                   fMin = runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue;
                    minResult = new SimpleResult(budgeList[i],runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).makespan, sec);
                }
             }
-            bestResults.add(maxResult);
-            worstResults.add(minResult);
+            bestResults.add(minResult);
+            worstResults.add(maxResult);
 
             costAvg = cSum / runResults.size();
             makespanAvg = (int)(mSum / runResults.size());
