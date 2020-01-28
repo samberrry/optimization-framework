@@ -5,12 +5,8 @@ import org.optframework.RunGRPHEFTAlgorithm;
 import org.optframework.RunGRPPACSAAlgorithm;
 import org.optframework.RunIterativeGRPHEFTAlgorithm;
 import org.optframework.config.Config;
-import org.optframework.core.Solution;
-
-import java.io.File;
-import java.io.PrintWriter;
+import org.optframework.core.utils.CSVWriter;
 import java.util.ArrayList;
-
 import static org.optframework.automator.BudgetList.*;
 import static org.optframework.automator.BudgetList.cybershake30;
 
@@ -22,11 +18,9 @@ import static org.optframework.automator.BudgetList.cybershake30;
  * */
 
 public class BulkBudgetAutomator implements GenericAutomator{
-    //array of solutions which should be printed to csv file
-    public static ArrayList<Solution> solutionArrayListToCSV;
-    public static ArrayList<Long> timeInMilliSecArrayList;
 
-    public void run() throws Exception{
+    public void run(){
+        ArrayList<RunResult> runResultArrayList = new ArrayList<>(Config.automator.number_of_runs);
 
         Integer workflowIdList[] = {
                 2,
@@ -51,15 +45,9 @@ public class BulkBudgetAutomator implements GenericAutomator{
             Config.global.workflow_id = workflowId;
 
             double budgetList[] = null;
-            solutionArrayListToCSV = new ArrayList<>();
-            timeInMilliSecArrayList = new ArrayList<>();
             GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
             GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
             GlobalAccess.solutionRepository = new ArrayList<>();
-
-            //array of solutions which should be printed to csv file
-            ArrayList<Solution> solutionArrayListToCSV;
-            ArrayList<Long> timeInMilliSecArrayList;
 
             switch (Config.global.workflow_id){
                 case 1: budgetList = inspiral1000; break;
@@ -117,54 +105,22 @@ public class BulkBudgetAutomator implements GenericAutomator{
                         throw new RuntimeException("This Algorithm does not support Automator");
                     case "iterative-grp-heft": RunIterativeGRPHEFTAlgorithm.runGRPHEFT();break;
                     case "grp-heft": RunGRPHEFTAlgorithm.runGRPHEFT();break;
-                    case "grp-pacsa": RunGRPPACSAAlgorithm.runGRPPACSA();break;
+                    case "grp-pacsa":
+                        for (int i = 0; i < Config.automator.number_of_runs; i++) {
+                            RunGRPPACSAAlgorithm.runGRPPACSA();
+                            runResultArrayList.add(
+                                    new RunResult(GlobalAccess.solutionArrayListToCSV,
+                                    GlobalAccess.timeInMilliSecArrayList));
+                            //reset global objects for new iteration
+                            GlobalAccess.solutionArrayListToCSV = new ArrayList<>();
+                            GlobalAccess.timeInMilliSecArrayList = new ArrayList<>();
+                            GlobalAccess.solutionRepository = new ArrayList<>();
+                        }
+                        break;
                 }
             }
-
-            try (PrintWriter writer = new PrintWriter(new File("automator-"+ Config.global.algorithm + "-"+ GlobalAccess.workflowName +  ".csv"))) {
-                solutionArrayListToCSV = GlobalAccess.solutionArrayListToCSV;
-                timeInMilliSecArrayList = GlobalAccess.timeInMilliSecArrayList;
-
-                if(solutionArrayListToCSV.size() == 0 || timeInMilliSecArrayList.size() == 0){
-                    throw new RuntimeException("This Algorithm does not support Automator");
-                }
-
-                StringBuilder sb = new StringBuilder();
-                sb.append("Budget Automator     " + Config.global.algorithm + "-"+ GlobalAccess.workflowName + "\n");
-                sb.append("Budget");
-                sb.append(',');
-                sb.append("Cost");
-                sb.append(',');
-                sb.append("Makespan");
-                sb.append(',');
-                sb.append("Fitness");
-                sb.append(',');
-                sb.append("MilliSec");
-                sb.append(',');
-                sb.append("Sec");
-                sb.append('\n');
-
-                for (int i = 0; i < solutionArrayListToCSV.size(); i++) {
-                    sb.append(budgetList[i]);
-                    sb.append(',');
-                    sb.append(solutionArrayListToCSV.get(i).cost);
-                    sb.append(',');
-                    sb.append(solutionArrayListToCSV.get(i).makespan);
-                    sb.append(',');
-                    sb.append(solutionArrayListToCSV.get(i).fitnessValue);
-                    sb.append(',');
-                    sb.append(timeInMilliSecArrayList.get(i));
-                    sb.append(',');
-                    sb.append(timeInMilliSecArrayList.get(i)/1000);
-                    sb.append('\n');
-                }
-
-                writer.write(sb.toString());
-                System.out.println("done!");
-
-            }catch (RuntimeException e){
-                System.out.println(e.getMessage());
-            }
+            CSVWriter.processResults(runResultArrayList, budgetList.length);
+            runResultArrayList = new ArrayList<>();
         }
     }
 }
