@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class CSVWriter {
     //gets array of RunResults which are different runs of an algorithm
-    public static void processResults(ArrayList<RunResult> runResults, int budgeListSize){
+    public static void processResults(ArrayList<RunResult> runResults, double[] budgeList){
         Log.logger.info("Starts Processing Results to generate CSV files");
 
         //best
@@ -27,7 +27,7 @@ public class CSVWriter {
         //avg
         ArrayList<SimpleResult> avgResults = new ArrayList<>();
 
-        for (int i = 0; i < budgeListSize; i++) {
+        for (int i = 0; i < budgeList.length; i++) {
             int makespanAvg;
             double costAvg, fitnessAvg,
             cSum = 0 , mSum = 0 , fSum = 0, fMax = 0, fMin = 999999999999999.9;
@@ -40,10 +40,10 @@ public class CSVWriter {
                sec = runResults.get(j).timeInMilliSecArrayList.get(i);
 
                if (fMax < runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue){
-                   maxResult = new SimpleResult(Config.global.budget,runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue, sec);
+                   maxResult = new SimpleResult(budgeList[i],runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue, sec);
                }
                if (fMin > runResults.get(j).solutionArrayListToCSV.get(i).fitnessValue){
-                   minResult = new SimpleResult(Config.global.budget,runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).makespan, sec);
+                   minResult = new SimpleResult(budgeList[i],runResults.get(j).solutionArrayListToCSV.get(i).cost, runResults.get(j).solutionArrayListToCSV.get(i).makespan, runResults.get(j).solutionArrayListToCSV.get(i).makespan, sec);
                }
             }
             bestResults.add(maxResult);
@@ -53,7 +53,7 @@ public class CSVWriter {
             makespanAvg = (int)(mSum / runResults.size());
             fitnessAvg = fSum / runResults.size();
 
-            avgResults.add(new SimpleResult(Config.global.budget, costAvg, makespanAvg, fitnessAvg, sec));
+            avgResults.add(new SimpleResult(budgeList[i], costAvg, makespanAvg, fitnessAvg, sec));
         }
         CSVWriter.write(bestResults, "automator-" + Config.global.algorithm + "-" + GlobalAccess.workflowName + "-best.csv", "Worst");
         CSVWriter.write(worstResults, "automator-" + Config.global.algorithm + "-" + GlobalAccess.workflowName + "-worst.csv", "Best");
@@ -86,7 +86,7 @@ public class CSVWriter {
 
             for (int i = 0; i < theArray.size(); i++) {
                 SimpleResult result = theArray.get(i);
-                sb.append(Config.global.budget);
+                sb.append(result.budget);
                 sb.append(',');
                 sb.append(result.cost);
                 sb.append(',');

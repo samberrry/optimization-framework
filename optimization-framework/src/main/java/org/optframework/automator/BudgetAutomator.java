@@ -100,6 +100,6 @@ public class BudgetAutomator implements GenericAutomator{
             GlobalAccess.solutionRepository = new ArrayList<>();
             runResultArrayList.add(runResult);
         }
-        CSVWriter.processResults(runResultArrayList, budgetList.length);
+        CSVWriter.processResults(runResultArrayList, budgetList);
     }
 }
